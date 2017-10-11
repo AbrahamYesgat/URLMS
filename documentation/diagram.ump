@@ -1,0 +1,85 @@
+class Laboratory
+{
+  name;
+  fieldOfStudy;
+  Date startDate;
+  Date deadline;
+  Boolean active;
+  
+1 -- * Equipment;
+}
+
+class ExpenseReport
+{
+  autounique iD;
+  expensePeriod;
+  * -- 1 Laboratory;
+}
+
+class Director
+{
+  lazy Integer labManaged;
+  singleton;
+  isA UserRole;
+}
+
+class Equipment
+{
+  name;
+  type;
+  Integer quantity;
+}
+
+class Supplies
+{
+  name;
+  type;
+  Integer quantity;
+  * -- 1 Laboratory;
+}
+
+class Staff
+{
+  isA UserRole;
+}
+
+class ProgressUpdate
+{
+  autounique iD;
+  title;
+  reportingPeriod;
+  * -- 1 Laboratory;
+  * -- 1 Staff;
+}
+
+class FundingAccount
+{
+  Double currentBalance;
+  Integer accountNumber;
+  
+  * -- 1 Laboratory;
+}
+
+class UserRole{
+  unique email;
+  unique userName;
+  password;
+  name;
+  defaulted Boolean currentlyAssigned = true;
+  
+  * -- * Laboratory;
+}
+
+class StaffRole{
+  1--*Staff;
+}
+
+class ResearchAssociate
+{
+  isA StaffRole;
+}
+
+class ResearchAssistant
+{
+  isA StaffRole;
+}
