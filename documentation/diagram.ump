@@ -62,7 +62,6 @@ class FundingAccount
 
 class UserRole{
   unique email;
-  unique userName;
   password;
   name;
   defaulted Boolean currentlyAssigned = true;
