@@ -5,7 +5,6 @@ tmp/
 *.bak
 *.swp
 *~.nib
-local.properties
 .settings/
 .loadpath
 
@@ -46,9 +45,6 @@ local.properties
 
 # Files for the ART/Dalvik VM
 *.dex
-
-# Java class files
-*.class
 
 # Generated files
 bin/
