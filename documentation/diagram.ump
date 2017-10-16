@@ -41,6 +41,7 @@ class Supplies
 class Staff
 {
   isA UserRole;
+  enum staffRole;
 }
 
 class ProgressUpdate
@@ -62,23 +63,10 @@ class FundingAccount
 
 class UserRole{
   unique email;
+  unique userName;
   password;
   name;
   defaulted Boolean currentlyAssigned = true;
   
   * -- * Laboratory;
-}
-
-class StaffRole{
-  1--*Staff;
-}
-
-class ResearchAssociate
-{
-  isA StaffRole;
-}
-
-class ResearchAssistant
-{
-  isA StaffRole;
 }
