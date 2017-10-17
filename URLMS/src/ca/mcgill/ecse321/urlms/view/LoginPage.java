@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
@@ -41,7 +42,7 @@ public class LoginPage extends JFrame{
 	    // elements for login page
 	    emailLoginTextField = new JTextField();
 	    emailLoginLabel = new JLabel();
-	    passwordLoginTextField = new JTextField();
+	    passwordLoginTextField = new JPasswordField();
 	    passwordLoginLabel = new JLabel();
 	    loginButton = new JButton();
 
@@ -63,11 +64,11 @@ public class LoginPage extends JFrame{
 		        layout.createSequentialGroup()
 		        .addGroup(layout.createParallelGroup()
 		    	        .addComponent(emailLoginLabel)
-		    	        .addComponent(emailLoginTextField, 200, 200, 400))
+		    	        .addComponent(emailLoginTextField, 30, 30, 100))
 		    	.addGroup(layout.createParallelGroup()
 		    	    	.addComponent(passwordLoginLabel)
 		    	    	.addGroup(layout.createSequentialGroup()
-		    	    			.addComponent(passwordLoginTextField, 200, 200, 400)
+		    	    			.addComponent(passwordLoginTextField, 30,30, 100)
 		    	    			.addComponent(loginButton)))
 		        );
 		    
