@@ -34,6 +34,7 @@ public class TestPersistence {
 	@After
 	public void tearDown() throws Exception {
 		urlms.delete();
+		new File("output"+File.separator+"data.xml").delete();
 	}
 
 	@Test
@@ -41,8 +42,8 @@ public class TestPersistence {
 
 	    // clear the model in memory
 	    urlms.delete();
-	    assertEquals(false, urlms.hasDir());
-	    assertEquals(false, urlms.hasLaboratory());
+	    assertEquals(false, urlms.hasDirectors());
+	    assertEquals(false, urlms.hasLaboratories());
 
 	    // load model
 	    urlms = (URLMS) PersistenceXStream.loadFromXMLwithXStream();
@@ -50,11 +51,11 @@ public class TestPersistence {
 	        fail("Could not load file.");
 
 	    // check participants
-	    assertEquals(true, urlms.hasDir());
-	    assertEquals(false, urlms.hasLaboratory());
-	    assertEquals(testEmail, urlms.getDir(0).getEmail());
-	    assertEquals(testPassword, urlms.getDir(0).getPassword());
-	    assertEquals(testName, urlms.getDir(0).getName());
+	    assertEquals(true, urlms.hasDirectors());
+	    assertEquals(false, urlms.hasLaboratories());
+	    assertEquals(testEmail, urlms.getDirector(0).getEmail());
+	    assertEquals(testPassword, urlms.getDirector(0).getPassword());
+	    assertEquals(testName, urlms.getDirector(0).getName());
 	}
 
 }

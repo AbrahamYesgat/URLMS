@@ -18,9 +18,9 @@ class Laboratory
 
   //Laboratory Associations
   private $equipment;
-  private $urlms;
+  private $uRLMS;
   private $expenseReports;
-  private $d;
+  private $director;
   private $supplies;
   private $staffs;
   private $progressUpdates;
@@ -30,7 +30,7 @@ class Laboratory
   // CONSTRUCTOR
   //------------------------
 
-  public function __construct($aName, $aFieldOfStudy, $aStartDate, $aDeadline, $aActive, $aUrlms, $aD)
+  public function __construct($aName, $aFieldOfStudy, $aStartDate, $aDeadline, $aActive, $aURLMS, $aDirector)
   {
     $this->name = $aName;
     $this->fieldOfStudy = $aFieldOfStudy;
@@ -38,16 +38,16 @@ class Laboratory
     $this->deadline = $aDeadline;
     $this->active = $aActive;
     $this->equipment = array();
-    $didAddUrlms = $this->setUrlms($aUrlms);
-    if (!$didAddUrlms)
+    $didAddURLMS = $this->setURLMS($aURLMS);
+    if (!$didAddURLMS)
     {
-      throw new Exception("Unable to create laboratory due to urlms");
+      throw new Exception("Unable to create laboratory due to uRLMS");
     }
     $this->expenseReports = array();
-    $didAddD = $this->setD($aD);
-    if (!$didAddD)
+    $didAddDirector = $this->setDirector($aDirector);
+    if (!$didAddDirector)
     {
-      throw new Exception("Unable to create laboratory due to d");
+      throw new Exception("Unable to create laboratory due to director");
     }
     $this->supplies = array();
     $this->staffs = array();
@@ -170,9 +170,9 @@ class Laboratory
     return $index;
   }
 
-  public function getUrlms()
+  public function getURLMS()
   {
-    return $this->urlms;
+    return $this->uRLMS;
   }
 
   public function getExpenseReport_index($index)
@@ -216,9 +216,9 @@ class Laboratory
     return $index;
   }
 
-  public function getD()
+  public function getDirector()
   {
-    return $this->d;
+    return $this->director;
   }
 
   public function getSupply_index($index)
@@ -458,21 +458,21 @@ class Laboratory
     return $wasAdded;
   }
 
-  public function setUrlms($aUrlms)
+  public function setURLMS($aURLMS)
   {
     $wasSet = false;
-    if ($aUrlms == null)
+    if ($aURLMS == null)
     {
       return $wasSet;
     }
     
-    $existingUrlms = $this->urlms;
-    $this->urlms = $aUrlms;
-    if ($existingUrlms != null && $existingUrlms != $aUrlms)
+    $existingURLMS = $this->uRLMS;
+    $this->uRLMS = $aURLMS;
+    if ($existingURLMS != null && $existingURLMS != $aURLMS)
     {
-      $existingUrlms->removeLaboratory($this);
+      $existingURLMS->removeLaboratory($this);
     }
-    $this->urlms->addLaboratory($this);
+    $this->uRLMS->addLaboratory($this);
     $wasSet = true;
     return $wasSet;
   }
@@ -550,21 +550,21 @@ class Laboratory
     return $wasAdded;
   }
 
-  public function setD($aD)
+  public function setDirector($aDirector)
   {
     $wasSet = false;
-    if ($aD == null)
+    if ($aDirector == null)
     {
       return $wasSet;
     }
     
-    $existingD = $this->d;
-    $this->d = $aD;
-    if ($existingD != null && $existingD != $aD)
+    $existingDirector = $this->director;
+    $this->director = $aDirector;
+    if ($existingDirector != null && $existingDirector != $aDirector)
     {
-      $existingD->removeLaboratory($this);
+      $existingDirector->removeLaboratory($this);
     }
-    $this->d->addLaboratory($this);
+    $this->director->addLaboratory($this);
     $wasSet = true;
     return $wasSet;
   }
@@ -883,16 +883,16 @@ class Laboratory
     {
       $aEquipment->delete();
     }
-    $placeholderUrlms = $this->urlms;
-    $this->urlms = null;
-    $placeholderUrlms->removeLaboratory($this);
+    $placeholderURLMS = $this->uRLMS;
+    $this->uRLMS = null;
+    $placeholderURLMS->removeLaboratory($this);
     foreach ($this->expenseReports as $aExpenseReport)
     {
       $aExpenseReport->delete();
     }
-    $placeholderD = $this->d;
-    $this->d = null;
-    $placeholderD->removeLaboratory($this);
+    $placeholderDirector = $this->director;
+    $this->director = null;
+    $placeholderDirector->removeLaboratory($this);
     foreach ($this->supplies as $aSupply)
     {
       $aSupply->delete();

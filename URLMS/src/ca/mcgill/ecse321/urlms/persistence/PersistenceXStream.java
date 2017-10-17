@@ -43,7 +43,6 @@ public abstract class PersistenceXStream {
             saveToXMLwithXStream(system);
         }
         return system;
-
     }
 
     public static boolean saveToXMLwithXStream(Object obj) {

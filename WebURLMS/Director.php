@@ -13,22 +13,22 @@ class Director extends UserRole
   private $labManaged;
 
   //Director Associations
-  private $laboratory;
-  private $urlms;
+  private $laboratories;
+  private $uRLMS;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public function __construct($aEmail, $aPassword, $aName, $aUrlms)
+  public function __construct($aEmail, $aPassword, $aName, $aURLMS)
   {
     parent::__construct($aEmail, $aPassword, $aName);
     $this->labManaged = 0;
-    $this->laboratory = array();
-    $didAddUrlms = $this->setUrlms($aUrlms);
-    if (!$didAddUrlms)
+    $this->laboratories = array();
+    $didAddURLMS = $this->setURLMS($aURLMS);
+    if (!$didAddURLMS)
     {
-      throw new Exception("Unable to create dir due to urlms");
+      throw new Exception("Unable to create director due to uRLMS");
     }
   }
 
@@ -51,25 +51,25 @@ class Director extends UserRole
 
   public function getLaboratory_index($index)
   {
-    $aLaboratory = $this->laboratory[$index];
+    $aLaboratory = $this->laboratories[$index];
     return $aLaboratory;
   }
 
-  public function getLaboratory()
+  public function getLaboratories()
   {
-    $newLaboratory = $this->laboratory;
-    return $newLaboratory;
+    $newLaboratories = $this->laboratories;
+    return $newLaboratories;
   }
 
-  public function numberOfLaboratory()
+  public function numberOfLaboratories()
   {
-    $number = count($this->laboratory);
+    $number = count($this->laboratories);
     return $number;
   }
 
-  public function hasLaboratory()
+  public function hasLaboratories()
   {
-    $has = $this->numberOfLaboratory() > 0;
+    $has = $this->numberOfLaboratories() > 0;
     return $has;
   }
 
@@ -77,7 +77,7 @@ class Director extends UserRole
   {
     $wasFound = false;
     $index = 0;
-    foreach($this->laboratory as $laboratory)
+    foreach($this->laboratories as $laboratory)
     {
       if ($laboratory->equals($aLaboratory))
       {
@@ -90,34 +90,34 @@ class Director extends UserRole
     return $index;
   }
 
-  public function getUrlms()
+  public function getURLMS()
   {
-    return $this->urlms;
+    return $this->uRLMS;
   }
 
-  public static function minimumNumberOfLaboratory()
+  public static function minimumNumberOfLaboratories()
   {
     return 0;
   }
 
-  public function addLaboratoryVia($aName, $aFieldOfStudy, $aStartDate, $aDeadline, $aActive, $aUrlms)
+  public function addLaboratoryVia($aName, $aFieldOfStudy, $aStartDate, $aDeadline, $aActive, $aURLMS)
   {
-    return new Laboratory($aName, $aFieldOfStudy, $aStartDate, $aDeadline, $aActive, $aUrlms, $this);
+    return new Laboratory($aName, $aFieldOfStudy, $aStartDate, $aDeadline, $aActive, $aURLMS, $this);
   }
 
   public function addLaboratory($aLaboratory)
   {
     $wasAdded = false;
     if ($this->indexOfLaboratory($aLaboratory) !== -1) { return false; }
-    $existingD = $aLaboratory->getD();
-    $isNewD = $existingD != null && $this !== $existingD;
-    if ($isNewD)
+    $existingDirector = $aLaboratory->getDirector();
+    $isNewDirector = $existingDirector != null && $this !== $existingDirector;
+    if ($isNewDirector)
     {
-      $aLaboratory->setD($this);
+      $aLaboratory->setDirector($this);
     }
     else
     {
-      $this->laboratory[] = $aLaboratory;
+      $this->laboratories[] = $aLaboratory;
     }
     $wasAdded = true;
     return $wasAdded;
@@ -126,11 +126,11 @@ class Director extends UserRole
   public function removeLaboratory($aLaboratory)
   {
     $wasRemoved = false;
-    //Unable to remove aLaboratory, as it must always have a d
-    if ($this !== $aLaboratory->getD())
+    //Unable to remove aLaboratory, as it must always have a director
+    if ($this !== $aLaboratory->getDirector())
     {
-      unset($this->laboratory[$this->indexOfLaboratory($aLaboratory)]);
-      $this->laboratory = array_values($this->laboratory);
+      unset($this->laboratories[$this->indexOfLaboratory($aLaboratory)]);
+      $this->laboratories = array_values($this->laboratories);
       $wasRemoved = true;
     }
     return $wasRemoved;
@@ -142,9 +142,9 @@ class Director extends UserRole
     if($this->addLaboratory($aLaboratory))
     {
       if($index < 0 ) { $index = 0; }
-      if($index > $this->numberOfLaboratory()) { $index = $this->numberOfLaboratory() - 1; }
-      array_splice($this->laboratory, $this->indexOfLaboratory($aLaboratory), 1);
-      array_splice($this->laboratory, $index, 0, array($aLaboratory));
+      if($index > $this->numberOfLaboratories()) { $index = $this->numberOfLaboratories() - 1; }
+      array_splice($this->laboratories, $this->indexOfLaboratory($aLaboratory), 1);
+      array_splice($this->laboratories, $index, 0, array($aLaboratory));
       $wasAdded = true;
     }
     return $wasAdded;
@@ -156,9 +156,9 @@ class Director extends UserRole
     if($this->indexOfLaboratory($aLaboratory) !== -1)
     {
       if($index < 0 ) { $index = 0; }
-      if($index > $this->numberOfLaboratory()) { $index = $this->numberOfLaboratory() - 1; }
-      array_splice($this->laboratory, $this->indexOfLaboratory($aLaboratory), 1);
-      array_splice($this->laboratory, $index, 0, array($aLaboratory));
+      if($index > $this->numberOfLaboratories()) { $index = $this->numberOfLaboratories() - 1; }
+      array_splice($this->laboratories, $this->indexOfLaboratory($aLaboratory), 1);
+      array_splice($this->laboratories, $index, 0, array($aLaboratory));
       $wasAdded = true;
     } 
     else 
@@ -168,21 +168,21 @@ class Director extends UserRole
     return $wasAdded;
   }
 
-  public function setUrlms($aUrlms)
+  public function setURLMS($aURLMS)
   {
     $wasSet = false;
-    if ($aUrlms == null)
+    if ($aURLMS == null)
     {
       return $wasSet;
     }
     
-    $existingUrlms = $this->urlms;
-    $this->urlms = $aUrlms;
-    if ($existingUrlms != null && $existingUrlms != $aUrlms)
+    $existingURLMS = $this->uRLMS;
+    $this->uRLMS = $aURLMS;
+    if ($existingURLMS != null && $existingURLMS != $aURLMS)
     {
-      $existingUrlms->removeDir($this);
+      $existingURLMS->removeDirector($this);
     }
-    $this->urlms->addDir($this);
+    $this->uRLMS->addDirector($this);
     $wasSet = true;
     return $wasSet;
   }
@@ -194,17 +194,17 @@ class Director extends UserRole
 
   public function delete()
   {
-    while (count($this->laboratory) > 0)
+    while (count($this->laboratories) > 0)
     {
-      $aLaboratory = $this->laboratory[count($this->laboratory) - 1];
+      $aLaboratory = $this->laboratories[count($this->laboratories) - 1];
       $aLaboratory->delete();
-      unset($this->laboratory[$this->indexOfLaboratory($aLaboratory)]);
-      $this->laboratory = array_values($this->laboratory);
+      unset($this->laboratories[$this->indexOfLaboratory($aLaboratory)]);
+      $this->laboratories = array_values($this->laboratories);
     }
     
-    $placeholderUrlms = $this->urlms;
-    $this->urlms = null;
-    $placeholderUrlms->removeDir($this);
+    $placeholderURLMS = $this->uRLMS;
+    $this->uRLMS = null;
+    $placeholderURLMS->removeDirector($this);
     parent::delete();
   }
 

@@ -14,8 +14,8 @@ public class URLMS
   //------------------------
 
   //URLMS Associations
-  private List<Laboratory> laboratory;
-  private List<Director> dir;
+  private List<Laboratory> laboratories;
+  private List<Director> directors;
 
   //------------------------
   // CONSTRUCTOR
@@ -23,8 +23,8 @@ public class URLMS
 
   public URLMS()
   {
-    laboratory = new ArrayList<Laboratory>();
-    dir = new ArrayList<Director>();
+    laboratories = new ArrayList<Laboratory>();
+    directors = new ArrayList<Director>();
   }
 
   //------------------------
@@ -33,87 +33,87 @@ public class URLMS
 
   public Laboratory getLaboratory(int index)
   {
-    Laboratory aLaboratory = laboratory.get(index);
+    Laboratory aLaboratory = laboratories.get(index);
     return aLaboratory;
   }
 
-  public List<Laboratory> getLaboratory()
+  public List<Laboratory> getLaboratories()
   {
-    List<Laboratory> newLaboratory = Collections.unmodifiableList(laboratory);
-    return newLaboratory;
+    List<Laboratory> newLaboratories = Collections.unmodifiableList(laboratories);
+    return newLaboratories;
   }
 
-  public int numberOfLaboratory()
+  public int numberOfLaboratories()
   {
-    int number = laboratory.size();
+    int number = laboratories.size();
     return number;
   }
 
-  public boolean hasLaboratory()
+  public boolean hasLaboratories()
   {
-    boolean has = laboratory.size() > 0;
+    boolean has = laboratories.size() > 0;
     return has;
   }
 
   public int indexOfLaboratory(Laboratory aLaboratory)
   {
-    int index = laboratory.indexOf(aLaboratory);
+    int index = laboratories.indexOf(aLaboratory);
     return index;
   }
 
-  public Director getDir(int index)
+  public Director getDirector(int index)
   {
-    Director aDir = dir.get(index);
-    return aDir;
+    Director aDirector = directors.get(index);
+    return aDirector;
   }
 
-  public List<Director> getDir()
+  public List<Director> getDirectors()
   {
-    List<Director> newDir = Collections.unmodifiableList(dir);
-    return newDir;
+    List<Director> newDirectors = Collections.unmodifiableList(directors);
+    return newDirectors;
   }
 
-  public int numberOfDir()
+  public int numberOfDirectors()
   {
-    int number = dir.size();
+    int number = directors.size();
     return number;
   }
 
-  public boolean hasDir()
+  public boolean hasDirectors()
   {
-    boolean has = dir.size() > 0;
+    boolean has = directors.size() > 0;
     return has;
   }
 
-  public int indexOfDir(Director aDir)
+  public int indexOfDirector(Director aDirector)
   {
-    int index = dir.indexOf(aDir);
+    int index = directors.indexOf(aDirector);
     return index;
   }
 
-  public static int minimumNumberOfLaboratory()
+  public static int minimumNumberOfLaboratories()
   {
     return 0;
   }
 
-  public Laboratory addLaboratory(String aName, String aFieldOfStudy, Date aStartDate, Date aDeadline, boolean aActive, Director aD)
+  public Laboratory addLaboratory(String aName, String aFieldOfStudy, Date aStartDate, Date aDeadline, boolean aActive, Director aDirector)
   {
-    return new Laboratory(aName, aFieldOfStudy, aStartDate, aDeadline, aActive, this, aD);
+    return new Laboratory(aName, aFieldOfStudy, aStartDate, aDeadline, aActive, this, aDirector);
   }
 
   public boolean addLaboratory(Laboratory aLaboratory)
   {
     boolean wasAdded = false;
-    if (laboratory.contains(aLaboratory)) { return false; }
-    URLMS existingUrlms = aLaboratory.getUrlms();
-    boolean isNewUrlms = existingUrlms != null && !this.equals(existingUrlms);
-    if (isNewUrlms)
+    if (laboratories.contains(aLaboratory)) { return false; }
+    URLMS existingURLMS = aLaboratory.getURLMS();
+    boolean isNewURLMS = existingURLMS != null && !this.equals(existingURLMS);
+    if (isNewURLMS)
     {
-      aLaboratory.setUrlms(this);
+      aLaboratory.setURLMS(this);
     }
     else
     {
-      laboratory.add(aLaboratory);
+      laboratories.add(aLaboratory);
     }
     wasAdded = true;
     return wasAdded;
@@ -122,10 +122,10 @@ public class URLMS
   public boolean removeLaboratory(Laboratory aLaboratory)
   {
     boolean wasRemoved = false;
-    //Unable to remove aLaboratory, as it must always have a urlms
-    if (!this.equals(aLaboratory.getUrlms()))
+    //Unable to remove aLaboratory, as it must always have a uRLMS
+    if (!this.equals(aLaboratory.getURLMS()))
     {
-      laboratory.remove(aLaboratory);
+      laboratories.remove(aLaboratory);
       wasRemoved = true;
     }
     return wasRemoved;
@@ -137,9 +137,9 @@ public class URLMS
     if(addLaboratory(aLaboratory))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfLaboratory()) { index = numberOfLaboratory() - 1; }
-      laboratory.remove(aLaboratory);
-      laboratory.add(index, aLaboratory);
+      if(index > numberOfLaboratories()) { index = numberOfLaboratories() - 1; }
+      laboratories.remove(aLaboratory);
+      laboratories.add(index, aLaboratory);
       wasAdded = true;
     }
     return wasAdded;
@@ -148,12 +148,12 @@ public class URLMS
   public boolean addOrMoveLaboratoryAt(Laboratory aLaboratory, int index)
   {
     boolean wasAdded = false;
-    if(laboratory.contains(aLaboratory))
+    if(laboratories.contains(aLaboratory))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfLaboratory()) { index = numberOfLaboratory() - 1; }
-      laboratory.remove(aLaboratory);
-      laboratory.add(index, aLaboratory);
+      if(index > numberOfLaboratories()) { index = numberOfLaboratories() - 1; }
+      laboratories.remove(aLaboratory);
+      laboratories.add(index, aLaboratory);
       wasAdded = true;
     } 
     else 
@@ -163,92 +163,92 @@ public class URLMS
     return wasAdded;
   }
 
-  public static int minimumNumberOfDir()
+  public static int minimumNumberOfDirectors()
   {
     return 0;
   }
 
-  public Director addDir(String aEmail, String aPassword, String aName)
+  public Director addDirector(String aEmail, String aPassword, String aName)
   {
     return new Director(aEmail, aPassword, aName, this);
   }
 
-  public boolean addDir(Director aDir)
+  public boolean addDirector(Director aDirector)
   {
     boolean wasAdded = false;
-    if (dir.contains(aDir)) { return false; }
-    URLMS existingUrlms = aDir.getUrlms();
-    boolean isNewUrlms = existingUrlms != null && !this.equals(existingUrlms);
-    if (isNewUrlms)
+    if (directors.contains(aDirector)) { return false; }
+    URLMS existingURLMS = aDirector.getURLMS();
+    boolean isNewURLMS = existingURLMS != null && !this.equals(existingURLMS);
+    if (isNewURLMS)
     {
-      aDir.setUrlms(this);
+      aDirector.setURLMS(this);
     }
     else
     {
-      dir.add(aDir);
+      directors.add(aDirector);
     }
     wasAdded = true;
     return wasAdded;
   }
 
-  public boolean removeDir(Director aDir)
+  public boolean removeDirector(Director aDirector)
   {
     boolean wasRemoved = false;
-    //Unable to remove aDir, as it must always have a urlms
-    if (!this.equals(aDir.getUrlms()))
+    //Unable to remove aDirector, as it must always have a uRLMS
+    if (!this.equals(aDirector.getURLMS()))
     {
-      dir.remove(aDir);
+      directors.remove(aDirector);
       wasRemoved = true;
     }
     return wasRemoved;
   }
 
-  public boolean addDirAt(Director aDir, int index)
+  public boolean addDirectorAt(Director aDirector, int index)
   {  
     boolean wasAdded = false;
-    if(addDir(aDir))
+    if(addDirector(aDirector))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfDir()) { index = numberOfDir() - 1; }
-      dir.remove(aDir);
-      dir.add(index, aDir);
+      if(index > numberOfDirectors()) { index = numberOfDirectors() - 1; }
+      directors.remove(aDirector);
+      directors.add(index, aDirector);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveDirAt(Director aDir, int index)
+  public boolean addOrMoveDirectorAt(Director aDirector, int index)
   {
     boolean wasAdded = false;
-    if(dir.contains(aDir))
+    if(directors.contains(aDirector))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfDir()) { index = numberOfDir() - 1; }
-      dir.remove(aDir);
-      dir.add(index, aDir);
+      if(index > numberOfDirectors()) { index = numberOfDirectors() - 1; }
+      directors.remove(aDirector);
+      directors.add(index, aDirector);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addDirAt(aDir, index);
+      wasAdded = addDirectorAt(aDirector, index);
     }
     return wasAdded;
   }
 
   public void delete()
   {
-    while (laboratory.size() > 0)
+    while (laboratories.size() > 0)
     {
-      Laboratory aLaboratory = laboratory.get(laboratory.size() - 1);
+      Laboratory aLaboratory = laboratories.get(laboratories.size() - 1);
       aLaboratory.delete();
-      laboratory.remove(aLaboratory);
+      laboratories.remove(aLaboratory);
     }
     
-    while (dir.size() > 0)
+    while (directors.size() > 0)
     {
-      Director aDir = dir.get(dir.size() - 1);
-      aDir.delete();
-      dir.remove(aDir);
+      Director aDirector = directors.get(directors.size() - 1);
+      aDirector.delete();
+      directors.remove(aDirector);
     }
     
   }

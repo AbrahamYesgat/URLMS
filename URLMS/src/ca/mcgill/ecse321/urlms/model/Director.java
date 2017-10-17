@@ -17,22 +17,22 @@ public class Director extends UserRole
   private int labManaged;
 
   //Director Associations
-  private List<Laboratory> laboratory;
-  private URLMS urlms;
+  private List<Laboratory> laboratories;
+  private URLMS uRLMS;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Director(String aEmail, String aPassword, String aName, URLMS aUrlms)
+  public Director(String aEmail, String aPassword, String aName, URLMS aURLMS)
   {
     super(aEmail, aPassword, aName);
     labManaged = 0;
-    laboratory = new ArrayList<Laboratory>();
-    boolean didAddUrlms = setUrlms(aUrlms);
-    if (!didAddUrlms)
+    laboratories = new ArrayList<Laboratory>();
+    boolean didAddURLMS = setURLMS(aURLMS);
+    if (!didAddURLMS)
     {
-      throw new RuntimeException("Unable to create dir due to urlms");
+      throw new RuntimeException("Unable to create director due to uRLMS");
     }
   }
 
@@ -55,62 +55,62 @@ public class Director extends UserRole
 
   public Laboratory getLaboratory(int index)
   {
-    Laboratory aLaboratory = laboratory.get(index);
+    Laboratory aLaboratory = laboratories.get(index);
     return aLaboratory;
   }
 
-  public List<Laboratory> getLaboratory()
+  public List<Laboratory> getLaboratories()
   {
-    List<Laboratory> newLaboratory = Collections.unmodifiableList(laboratory);
-    return newLaboratory;
+    List<Laboratory> newLaboratories = Collections.unmodifiableList(laboratories);
+    return newLaboratories;
   }
 
-  public int numberOfLaboratory()
+  public int numberOfLaboratories()
   {
-    int number = laboratory.size();
+    int number = laboratories.size();
     return number;
   }
 
-  public boolean hasLaboratory()
+  public boolean hasLaboratories()
   {
-    boolean has = laboratory.size() > 0;
+    boolean has = laboratories.size() > 0;
     return has;
   }
 
   public int indexOfLaboratory(Laboratory aLaboratory)
   {
-    int index = laboratory.indexOf(aLaboratory);
+    int index = laboratories.indexOf(aLaboratory);
     return index;
   }
 
-  public URLMS getUrlms()
+  public URLMS getURLMS()
   {
-    return urlms;
+    return uRLMS;
   }
 
-  public static int minimumNumberOfLaboratory()
+  public static int minimumNumberOfLaboratories()
   {
     return 0;
   }
 
-  public Laboratory addLaboratory(String aName, String aFieldOfStudy, Date aStartDate, Date aDeadline, boolean aActive, URLMS aUrlms)
+  public Laboratory addLaboratory(String aName, String aFieldOfStudy, Date aStartDate, Date aDeadline, boolean aActive, URLMS aURLMS)
   {
-    return new Laboratory(aName, aFieldOfStudy, aStartDate, aDeadline, aActive, aUrlms, this);
+    return new Laboratory(aName, aFieldOfStudy, aStartDate, aDeadline, aActive, aURLMS, this);
   }
 
   public boolean addLaboratory(Laboratory aLaboratory)
   {
     boolean wasAdded = false;
-    if (laboratory.contains(aLaboratory)) { return false; }
-    Director existingD = aLaboratory.getD();
-    boolean isNewD = existingD != null && !this.equals(existingD);
-    if (isNewD)
+    if (laboratories.contains(aLaboratory)) { return false; }
+    Director existingDirector = aLaboratory.getDirector();
+    boolean isNewDirector = existingDirector != null && !this.equals(existingDirector);
+    if (isNewDirector)
     {
-      aLaboratory.setD(this);
+      aLaboratory.setDirector(this);
     }
     else
     {
-      laboratory.add(aLaboratory);
+      laboratories.add(aLaboratory);
     }
     wasAdded = true;
     return wasAdded;
@@ -119,10 +119,10 @@ public class Director extends UserRole
   public boolean removeLaboratory(Laboratory aLaboratory)
   {
     boolean wasRemoved = false;
-    //Unable to remove aLaboratory, as it must always have a d
-    if (!this.equals(aLaboratory.getD()))
+    //Unable to remove aLaboratory, as it must always have a director
+    if (!this.equals(aLaboratory.getDirector()))
     {
-      laboratory.remove(aLaboratory);
+      laboratories.remove(aLaboratory);
       wasRemoved = true;
     }
     return wasRemoved;
@@ -134,9 +134,9 @@ public class Director extends UserRole
     if(addLaboratory(aLaboratory))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfLaboratory()) { index = numberOfLaboratory() - 1; }
-      laboratory.remove(aLaboratory);
-      laboratory.add(index, aLaboratory);
+      if(index > numberOfLaboratories()) { index = numberOfLaboratories() - 1; }
+      laboratories.remove(aLaboratory);
+      laboratories.add(index, aLaboratory);
       wasAdded = true;
     }
     return wasAdded;
@@ -145,12 +145,12 @@ public class Director extends UserRole
   public boolean addOrMoveLaboratoryAt(Laboratory aLaboratory, int index)
   {
     boolean wasAdded = false;
-    if(laboratory.contains(aLaboratory))
+    if(laboratories.contains(aLaboratory))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfLaboratory()) { index = numberOfLaboratory() - 1; }
-      laboratory.remove(aLaboratory);
-      laboratory.add(index, aLaboratory);
+      if(index > numberOfLaboratories()) { index = numberOfLaboratories() - 1; }
+      laboratories.remove(aLaboratory);
+      laboratories.add(index, aLaboratory);
       wasAdded = true;
     } 
     else 
@@ -160,37 +160,37 @@ public class Director extends UserRole
     return wasAdded;
   }
 
-  public boolean setUrlms(URLMS aUrlms)
+  public boolean setURLMS(URLMS aURLMS)
   {
     boolean wasSet = false;
-    if (aUrlms == null)
+    if (aURLMS == null)
     {
       return wasSet;
     }
 
-    URLMS existingUrlms = urlms;
-    urlms = aUrlms;
-    if (existingUrlms != null && !existingUrlms.equals(aUrlms))
+    URLMS existingURLMS = uRLMS;
+    uRLMS = aURLMS;
+    if (existingURLMS != null && !existingURLMS.equals(aURLMS))
     {
-      existingUrlms.removeDir(this);
+      existingURLMS.removeDirector(this);
     }
-    urlms.addDir(this);
+    uRLMS.addDirector(this);
     wasSet = true;
     return wasSet;
   }
 
   public void delete()
   {
-    while (laboratory.size() > 0)
+    while (laboratories.size() > 0)
     {
-      Laboratory aLaboratory = laboratory.get(laboratory.size() - 1);
+      Laboratory aLaboratory = laboratories.get(laboratories.size() - 1);
       aLaboratory.delete();
-      laboratory.remove(aLaboratory);
+      laboratories.remove(aLaboratory);
     }
     
-    URLMS placeholderUrlms = urlms;
-    this.urlms = null;
-    placeholderUrlms.removeDir(this);
+    URLMS placeholderURLMS = uRLMS;
+    this.uRLMS = null;
+    placeholderURLMS.removeDirector(this);
     super.delete();
   }
 
@@ -199,6 +199,6 @@ public class Director extends UserRole
   {
     return super.toString() + "["+
             "labManaged" + ":" + getLabManaged()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "urlms = "+(getUrlms()!=null?Integer.toHexString(System.identityHashCode(getUrlms())):"null");
+            "  " + "uRLMS = "+(getURLMS()!=null?Integer.toHexString(System.identityHashCode(getURLMS())):"null");
   }
 }

@@ -22,9 +22,9 @@ public class Laboratory
 
   //Laboratory Associations
   private List<Equipment> equipment;
-  private URLMS urlms;
+  private URLMS uRLMS;
   private List<ExpenseReport> expenseReports;
-  private Director d;
+  private Director director;
   private List<Supplies> supplies;
   private List<Staff> staffs;
   private List<ProgressUpdate> progressUpdates;
@@ -34,7 +34,7 @@ public class Laboratory
   // CONSTRUCTOR
   //------------------------
 
-  public Laboratory(String aName, String aFieldOfStudy, Date aStartDate, Date aDeadline, boolean aActive, URLMS aUrlms, Director aD)
+  public Laboratory(String aName, String aFieldOfStudy, Date aStartDate, Date aDeadline, boolean aActive, URLMS aURLMS, Director aDirector)
   {
     name = aName;
     fieldOfStudy = aFieldOfStudy;
@@ -42,16 +42,16 @@ public class Laboratory
     deadline = aDeadline;
     active = aActive;
     equipment = new ArrayList<Equipment>();
-    boolean didAddUrlms = setUrlms(aUrlms);
-    if (!didAddUrlms)
+    boolean didAddURLMS = setURLMS(aURLMS);
+    if (!didAddURLMS)
     {
-      throw new RuntimeException("Unable to create laboratory due to urlms");
+      throw new RuntimeException("Unable to create laboratory due to uRLMS");
     }
     expenseReports = new ArrayList<ExpenseReport>();
-    boolean didAddD = setD(aD);
-    if (!didAddD)
+    boolean didAddDirector = setDirector(aDirector);
+    if (!didAddDirector)
     {
-      throw new RuntimeException("Unable to create laboratory due to d");
+      throw new RuntimeException("Unable to create laboratory due to director");
     }
     supplies = new ArrayList<Supplies>();
     staffs = new ArrayList<Staff>();
@@ -163,9 +163,9 @@ public class Laboratory
     return index;
   }
 
-  public URLMS getUrlms()
+  public URLMS getURLMS()
   {
-    return urlms;
+    return uRLMS;
   }
 
   public ExpenseReport getExpenseReport(int index)
@@ -198,9 +198,9 @@ public class Laboratory
     return index;
   }
 
-  public Director getD()
+  public Director getDirector()
   {
-    return d;
+    return director;
   }
 
   public Supplies getSupply(int index)
@@ -395,21 +395,21 @@ public class Laboratory
     return wasAdded;
   }
 
-  public boolean setUrlms(URLMS aUrlms)
+  public boolean setURLMS(URLMS aURLMS)
   {
     boolean wasSet = false;
-    if (aUrlms == null)
+    if (aURLMS == null)
     {
       return wasSet;
     }
 
-    URLMS existingUrlms = urlms;
-    urlms = aUrlms;
-    if (existingUrlms != null && !existingUrlms.equals(aUrlms))
+    URLMS existingURLMS = uRLMS;
+    uRLMS = aURLMS;
+    if (existingURLMS != null && !existingURLMS.equals(aURLMS))
     {
-      existingUrlms.removeLaboratory(this);
+      existingURLMS.removeLaboratory(this);
     }
-    urlms.addLaboratory(this);
+    uRLMS.addLaboratory(this);
     wasSet = true;
     return wasSet;
   }
@@ -486,21 +486,21 @@ public class Laboratory
     return wasAdded;
   }
 
-  public boolean setD(Director aD)
+  public boolean setDirector(Director aDirector)
   {
     boolean wasSet = false;
-    if (aD == null)
+    if (aDirector == null)
     {
       return wasSet;
     }
 
-    Director existingD = d;
-    d = aD;
-    if (existingD != null && !existingD.equals(aD))
+    Director existingDirector = director;
+    director = aDirector;
+    if (existingDirector != null && !existingDirector.equals(aDirector))
     {
-      existingD.removeLaboratory(this);
+      existingDirector.removeLaboratory(this);
     }
-    d.addLaboratory(this);
+    director.addLaboratory(this);
     wasSet = true;
     return wasSet;
   }
@@ -810,17 +810,17 @@ public class Laboratory
       Equipment aEquipment = equipment.get(i - 1);
       aEquipment.delete();
     }
-    URLMS placeholderUrlms = urlms;
-    this.urlms = null;
-    placeholderUrlms.removeLaboratory(this);
+    URLMS placeholderURLMS = uRLMS;
+    this.uRLMS = null;
+    placeholderURLMS.removeLaboratory(this);
     for(int i=expenseReports.size(); i > 0; i--)
     {
       ExpenseReport aExpenseReport = expenseReports.get(i - 1);
       aExpenseReport.delete();
     }
-    Director placeholderD = d;
-    this.d = null;
-    placeholderD.removeLaboratory(this);
+    Director placeholderDirector = director;
+    this.director = null;
+    placeholderDirector.removeLaboratory(this);
     for(int i=supplies.size(); i > 0; i--)
     {
       Supplies aSupply = supplies.get(i - 1);
@@ -853,7 +853,7 @@ public class Laboratory
             "active" + ":" + getActive()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "startDate" + "=" + (getStartDate() != null ? !getStartDate().equals(this)  ? getStartDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "deadline" + "=" + (getDeadline() != null ? !getDeadline().equals(this)  ? getDeadline().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "urlms = "+(getUrlms()!=null?Integer.toHexString(System.identityHashCode(getUrlms())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "d = "+(getD()!=null?Integer.toHexString(System.identityHashCode(getD())):"null");
+            "  " + "uRLMS = "+(getURLMS()!=null?Integer.toHexString(System.identityHashCode(getURLMS())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "director = "+(getDirector()!=null?Integer.toHexString(System.identityHashCode(getDirector())):"null");
   }
 }

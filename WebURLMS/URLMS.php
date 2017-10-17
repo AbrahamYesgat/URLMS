@@ -10,8 +10,8 @@ class URLMS
   //------------------------
 
   //URLMS Associations
-  private $laboratory;
-  private $dir;
+  private $laboratories;
+  private $directors;
 
   //------------------------
   // CONSTRUCTOR
@@ -19,8 +19,8 @@ class URLMS
 
   public function __construct()
   {
-    $this->laboratory = array();
-    $this->dir = array();
+    $this->laboratories = array();
+    $this->directors = array();
   }
 
   //------------------------
@@ -29,25 +29,25 @@ class URLMS
 
   public function getLaboratory_index($index)
   {
-    $aLaboratory = $this->laboratory[$index];
+    $aLaboratory = $this->laboratories[$index];
     return $aLaboratory;
   }
 
-  public function getLaboratory()
+  public function getLaboratories()
   {
-    $newLaboratory = $this->laboratory;
-    return $newLaboratory;
+    $newLaboratories = $this->laboratories;
+    return $newLaboratories;
   }
 
-  public function numberOfLaboratory()
+  public function numberOfLaboratories()
   {
-    $number = count($this->laboratory);
+    $number = count($this->laboratories);
     return $number;
   }
 
-  public function hasLaboratory()
+  public function hasLaboratories()
   {
-    $has = $this->numberOfLaboratory() > 0;
+    $has = $this->numberOfLaboratories() > 0;
     return $has;
   }
 
@@ -55,7 +55,7 @@ class URLMS
   {
     $wasFound = false;
     $index = 0;
-    foreach($this->laboratory as $laboratory)
+    foreach($this->laboratories as $laboratory)
     {
       if ($laboratory->equals($aLaboratory))
       {
@@ -68,37 +68,37 @@ class URLMS
     return $index;
   }
 
-  public function getDir_index($index)
+  public function getDirector_index($index)
   {
-    $aDir = $this->dir[$index];
-    return $aDir;
+    $aDirector = $this->directors[$index];
+    return $aDirector;
   }
 
-  public function getDir()
+  public function getDirectors()
   {
-    $newDir = $this->dir;
-    return $newDir;
+    $newDirectors = $this->directors;
+    return $newDirectors;
   }
 
-  public function numberOfDir()
+  public function numberOfDirectors()
   {
-    $number = count($this->dir);
+    $number = count($this->directors);
     return $number;
   }
 
-  public function hasDir()
+  public function hasDirectors()
   {
-    $has = $this->numberOfDir() > 0;
+    $has = $this->numberOfDirectors() > 0;
     return $has;
   }
 
-  public function indexOfDir($aDir)
+  public function indexOfDirector($aDirector)
   {
     $wasFound = false;
     $index = 0;
-    foreach($this->dir as $dir)
+    foreach($this->directors as $director)
     {
-      if ($dir->equals($aDir))
+      if ($director->equals($aDirector))
       {
         $wasFound = true;
         break;
@@ -109,29 +109,29 @@ class URLMS
     return $index;
   }
 
-  public static function minimumNumberOfLaboratory()
+  public static function minimumNumberOfLaboratories()
   {
     return 0;
   }
 
-  public function addLaboratoryVia($aName, $aFieldOfStudy, $aStartDate, $aDeadline, $aActive, $aD)
+  public function addLaboratoryVia($aName, $aFieldOfStudy, $aStartDate, $aDeadline, $aActive, $aDirector)
   {
-    return new Laboratory($aName, $aFieldOfStudy, $aStartDate, $aDeadline, $aActive, $this, $aD);
+    return new Laboratory($aName, $aFieldOfStudy, $aStartDate, $aDeadline, $aActive, $this, $aDirector);
   }
 
   public function addLaboratory($aLaboratory)
   {
     $wasAdded = false;
     if ($this->indexOfLaboratory($aLaboratory) !== -1) { return false; }
-    $existingUrlms = $aLaboratory->getUrlms();
-    $isNewUrlms = $existingUrlms != null && $this !== $existingUrlms;
-    if ($isNewUrlms)
+    $existingURLMS = $aLaboratory->getURLMS();
+    $isNewURLMS = $existingURLMS != null && $this !== $existingURLMS;
+    if ($isNewURLMS)
     {
-      $aLaboratory->setUrlms($this);
+      $aLaboratory->setURLMS($this);
     }
     else
     {
-      $this->laboratory[] = $aLaboratory;
+      $this->laboratories[] = $aLaboratory;
     }
     $wasAdded = true;
     return $wasAdded;
@@ -140,11 +140,11 @@ class URLMS
   public function removeLaboratory($aLaboratory)
   {
     $wasRemoved = false;
-    //Unable to remove aLaboratory, as it must always have a urlms
-    if ($this !== $aLaboratory->getUrlms())
+    //Unable to remove aLaboratory, as it must always have a uRLMS
+    if ($this !== $aLaboratory->getURLMS())
     {
-      unset($this->laboratory[$this->indexOfLaboratory($aLaboratory)]);
-      $this->laboratory = array_values($this->laboratory);
+      unset($this->laboratories[$this->indexOfLaboratory($aLaboratory)]);
+      $this->laboratories = array_values($this->laboratories);
       $wasRemoved = true;
     }
     return $wasRemoved;
@@ -156,9 +156,9 @@ class URLMS
     if($this->addLaboratory($aLaboratory))
     {
       if($index < 0 ) { $index = 0; }
-      if($index > $this->numberOfLaboratory()) { $index = $this->numberOfLaboratory() - 1; }
-      array_splice($this->laboratory, $this->indexOfLaboratory($aLaboratory), 1);
-      array_splice($this->laboratory, $index, 0, array($aLaboratory));
+      if($index > $this->numberOfLaboratories()) { $index = $this->numberOfLaboratories() - 1; }
+      array_splice($this->laboratories, $this->indexOfLaboratory($aLaboratory), 1);
+      array_splice($this->laboratories, $index, 0, array($aLaboratory));
       $wasAdded = true;
     }
     return $wasAdded;
@@ -170,9 +170,9 @@ class URLMS
     if($this->indexOfLaboratory($aLaboratory) !== -1)
     {
       if($index < 0 ) { $index = 0; }
-      if($index > $this->numberOfLaboratory()) { $index = $this->numberOfLaboratory() - 1; }
-      array_splice($this->laboratory, $this->indexOfLaboratory($aLaboratory), 1);
-      array_splice($this->laboratory, $index, 0, array($aLaboratory));
+      if($index > $this->numberOfLaboratories()) { $index = $this->numberOfLaboratories() - 1; }
+      array_splice($this->laboratories, $this->indexOfLaboratory($aLaboratory), 1);
+      array_splice($this->laboratories, $index, 0, array($aLaboratory));
       $wasAdded = true;
     } 
     else 
@@ -182,75 +182,75 @@ class URLMS
     return $wasAdded;
   }
 
-  public static function minimumNumberOfDir()
+  public static function minimumNumberOfDirectors()
   {
     return 0;
   }
 
-  public function addDirVia($aEmail, $aPassword, $aName)
+  public function addDirectorVia($aEmail, $aPassword, $aName)
   {
     return new Director($aEmail, $aPassword, $aName, $this);
   }
 
-  public function addDir($aDir)
+  public function addDirector($aDirector)
   {
     $wasAdded = false;
-    if ($this->indexOfDir($aDir) !== -1) { return false; }
-    $existingUrlms = $aDir->getUrlms();
-    $isNewUrlms = $existingUrlms != null && $this !== $existingUrlms;
-    if ($isNewUrlms)
+    if ($this->indexOfDirector($aDirector) !== -1) { return false; }
+    $existingURLMS = $aDirector->getURLMS();
+    $isNewURLMS = $existingURLMS != null && $this !== $existingURLMS;
+    if ($isNewURLMS)
     {
-      $aDir->setUrlms($this);
+      $aDirector->setURLMS($this);
     }
     else
     {
-      $this->dir[] = $aDir;
+      $this->directors[] = $aDirector;
     }
     $wasAdded = true;
     return $wasAdded;
   }
 
-  public function removeDir($aDir)
+  public function removeDirector($aDirector)
   {
     $wasRemoved = false;
-    //Unable to remove aDir, as it must always have a urlms
-    if ($this !== $aDir->getUrlms())
+    //Unable to remove aDirector, as it must always have a uRLMS
+    if ($this !== $aDirector->getURLMS())
     {
-      unset($this->dir[$this->indexOfDir($aDir)]);
-      $this->dir = array_values($this->dir);
+      unset($this->directors[$this->indexOfDirector($aDirector)]);
+      $this->directors = array_values($this->directors);
       $wasRemoved = true;
     }
     return $wasRemoved;
   }
 
-  public function addDirAt($aDir, $index)
+  public function addDirectorAt($aDirector, $index)
   {  
     $wasAdded = false;
-    if($this->addDir($aDir))
+    if($this->addDirector($aDirector))
     {
       if($index < 0 ) { $index = 0; }
-      if($index > $this->numberOfDir()) { $index = $this->numberOfDir() - 1; }
-      array_splice($this->dir, $this->indexOfDir($aDir), 1);
-      array_splice($this->dir, $index, 0, array($aDir));
+      if($index > $this->numberOfDirectors()) { $index = $this->numberOfDirectors() - 1; }
+      array_splice($this->directors, $this->indexOfDirector($aDirector), 1);
+      array_splice($this->directors, $index, 0, array($aDirector));
       $wasAdded = true;
     }
     return $wasAdded;
   }
 
-  public function addOrMoveDirAt($aDir, $index)
+  public function addOrMoveDirectorAt($aDirector, $index)
   {
     $wasAdded = false;
-    if($this->indexOfDir($aDir) !== -1)
+    if($this->indexOfDirector($aDirector) !== -1)
     {
       if($index < 0 ) { $index = 0; }
-      if($index > $this->numberOfDir()) { $index = $this->numberOfDir() - 1; }
-      array_splice($this->dir, $this->indexOfDir($aDir), 1);
-      array_splice($this->dir, $index, 0, array($aDir));
+      if($index > $this->numberOfDirectors()) { $index = $this->numberOfDirectors() - 1; }
+      array_splice($this->directors, $this->indexOfDirector($aDirector), 1);
+      array_splice($this->directors, $index, 0, array($aDirector));
       $wasAdded = true;
     } 
     else 
     {
-      $wasAdded = $this->addDirAt($aDir, $index);
+      $wasAdded = $this->addDirectorAt($aDirector, $index);
     }
     return $wasAdded;
   }
@@ -262,20 +262,20 @@ class URLMS
 
   public function delete()
   {
-    while (count($this->laboratory) > 0)
+    while (count($this->laboratories) > 0)
     {
-      $aLaboratory = $this->laboratory[count($this->laboratory) - 1];
+      $aLaboratory = $this->laboratories[count($this->laboratories) - 1];
       $aLaboratory->delete();
-      unset($this->laboratory[$this->indexOfLaboratory($aLaboratory)]);
-      $this->laboratory = array_values($this->laboratory);
+      unset($this->laboratories[$this->indexOfLaboratory($aLaboratory)]);
+      $this->laboratories = array_values($this->laboratories);
     }
     
-    while (count($this->dir) > 0)
+    while (count($this->directors) > 0)
     {
-      $aDir = $this->dir[count($this->dir) - 1];
-      $aDir->delete();
-      unset($this->dir[$this->indexOfDir($aDir)]);
-      $this->dir = array_values($this->dir);
+      $aDirector = $this->directors[count($this->directors) - 1];
+      $aDirector->delete();
+      unset($this->directors[$this->indexOfDirector($aDirector)]);
+      $this->directors = array_values($this->directors);
     }
     
   }

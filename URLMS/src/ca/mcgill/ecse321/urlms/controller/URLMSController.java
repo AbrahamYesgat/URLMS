@@ -12,9 +12,9 @@ public class URLMSController {
 		this.urlms = urlms;
 	}
 	public boolean login(String email, String password) {
-		ArrayList<Laboratory> labs = (ArrayList<Laboratory>)urlms.getLaboratory();
-		if(urlms.numberOfLaboratory() == 0) {
-			ArrayList<Director> dirs = (ArrayList<Director>)urlms.getDir();
+		ArrayList<Laboratory> labs = (ArrayList<Laboratory>)urlms.getLaboratories();
+		if(urlms.numberOfLaboratories() == 0) {
+			ArrayList<Director> dirs = (ArrayList<Director>)urlms.getDirectors();
 			for (Director dir : dirs) {
 				if(dir.getEmail() == email && dir.getPassword() == password)
 					return true;
