@@ -14,9 +14,13 @@ import ca.mcgill.ecse321.urlms.model.*;
 
 public class TestURLMSController {
 	
-	private static String testEmail ="thing@urlms.ca";
+	private static String testEmail ="director@urlms.ca";
 	private static String testPassword ="password";
-	private static String testName ="Shane Mac";
+	private static String testName ="Director";
+	
+	private static String testStaffEmail ="staff@urlms.ca";
+	private static String testStaffPassword ="password1";
+	private static String testStaffName ="Member";
 	
 	private URLMS urlms;
 	
@@ -44,11 +48,11 @@ public class TestURLMSController {
 	  	assertEquals(false, sysC.login("random", "random"));
 	  	
 	  	Laboratory lab = new Laboratory("name", "study", new Date(2017, 10, 10), new Date(2017, 11, 11) , true, urlms, dr);
-	  	Staff member = new Staff("username","password1","Sahil");
+	  	Staff member = new Staff(testStaffEmail,testStaffPassword,testStaffName);
 	  	lab.addStaff(member);
 	  	
 	  	assertEquals(true, sysC.login(testEmail, testPassword));
-	  	assertEquals(true, sysC.login("username", "password1"));
+	  	assertEquals(true, sysC.login(testStaffEmail, testStaffPassword));
 	  	assertEquals(false, sysC.login("not", "right"));
 	}
 }
