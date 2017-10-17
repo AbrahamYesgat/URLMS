@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.urlms.persistence;
+package ca.mcgill.ecse321.urlms.login;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ca.mcgill.ecse321.urlms.model.*;
+import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 
 public class TestPersistence {
 
