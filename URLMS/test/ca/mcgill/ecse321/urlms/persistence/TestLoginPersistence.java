@@ -14,10 +14,11 @@ import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 
 public class TestLoginPersistence {
 
-	private static String testEmail ="thing@urlms.ca";
-	private static String testStaffEmail ="Staff@urlms.ca";
+	private static String testEmail ="director@urlms.ca";
+	private static String testStaffEmail ="staff@urlms.ca";
 	private static String testPassword ="password";
-	private static String testName ="Shane Mac";
+	private static String testDirName ="Director";
+	private static String testStaffName ="Staff";
 	
 	private URLMS urlms;
 	
@@ -26,8 +27,8 @@ public class TestLoginPersistence {
 		urlms = new URLMS();
 		
 		//Create participants
-		Director dr = new Director(testEmail, testPassword, testName, urlms);
-		Staff staffMember = new Staff(testStaffEmail, testPassword, testName); 
+		Director dr = new Director(testEmail, testPassword, testDirName, urlms);
+		Staff staffMember = new Staff(testStaffEmail, testPassword, testStaffName); 
 		urlms.addLaboratory("LabOne", "Test", new Date(2017, 10, 10), new Date(2017, 10, 10), true, dr);
 		urlms.getLaboratory(0).addStaff(staffMember);
 		
@@ -60,10 +61,10 @@ public class TestLoginPersistence {
 	    assertEquals(true, urlms.getLaboratory(0).hasStaffs());
 	    assertEquals(testEmail, urlms.getDirector(0).getEmail());
 	    assertEquals(testPassword, urlms.getDirector(0).getPassword());
-	    assertEquals(testName, urlms.getDirector(0).getName());
+	    assertEquals(testDirName, urlms.getDirector(0).getName());
 	    assertEquals(testStaffEmail, urlms.getLaboratory(0).getStaff(0).getEmail());
 	    assertEquals(testPassword, urlms.getLaboratory(0).getStaff(0).getPassword());
-	    assertEquals(testName, urlms.getLaboratory(0).getStaff(0).getName());
+	    assertEquals(testStaffName, urlms.getLaboratory(0).getStaff(0).getName());
 	}
 
 }
