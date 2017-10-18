@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.urlms.login;
+package ca.mcgill.ecse321.urlms.persistence;
 
 import static org.junit.Assert.*;
 
@@ -12,9 +12,10 @@ import org.junit.Test;
 import ca.mcgill.ecse321.urlms.model.*;
 import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 
-public class TestPersistence {
+public class TestLoginPersistence {
 
 	private static String testEmail ="thing@urlms.ca";
+	private static String testStaffEmail ="Staff@urlms.ca";
 	private static String testPassword ="password";
 	private static String testName ="Shane Mac";
 	
@@ -26,6 +27,9 @@ public class TestPersistence {
 		
 		//Create participants
 		Director dr = new Director(testEmail, testPassword, testName, urlms);
+		Staff staffMember = new Staff(testStaffEmail, testPassword, testName); 
+		urlms.addLaboratory("LabOne", "Test", new Date(2017, 10, 10), new Date(2017, 10, 10), true, dr);
+		urlms.getLaboratory(0).addStaff(staffMember);
 		
 		PersistenceXStream.initializeURLMS("output"+File.separator+"data.xml");
 		PersistenceXStream.saveToXMLwithXStream(urlms);
@@ -38,7 +42,7 @@ public class TestPersistence {
 	}
 
 	@Test
-	public void test() {
+	public void test() { // will test if both a director and staff member can log in successfully.
 
 	    // clear the model in memory
 	    urlms.delete();
@@ -52,10 +56,14 @@ public class TestPersistence {
 
 	    // check participants
 	    assertEquals(true, urlms.hasDirectors());
-	    assertEquals(false, urlms.hasLaboratories());
+	    assertEquals(true, urlms.hasLaboratories());
+	    assertEquals(true, urlms.getLaboratory(0).hasStaffs());
 	    assertEquals(testEmail, urlms.getDirector(0).getEmail());
 	    assertEquals(testPassword, urlms.getDirector(0).getPassword());
 	    assertEquals(testName, urlms.getDirector(0).getName());
+	    assertEquals(testStaffEmail, urlms.getLaboratory(0).getStaff(0).getEmail());
+	    assertEquals(testPassword, urlms.getLaboratory(0).getStaff(0).getPassword());
+	    assertEquals(testName, urlms.getLaboratory(0).getStaff(0).getName());
 	}
 
 }
