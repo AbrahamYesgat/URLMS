@@ -7,12 +7,14 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import ca.mcgill.ecse321.urlms.controller.URLMSController;
 import ca.mcgill.ecse321.urlms.model.URLMS;
 
 public class LoginPage extends JFrame{
@@ -36,6 +38,16 @@ public class LoginPage extends JFrame{
 	    passwordLoginTextField.setText("");
 	    pack();
 	}
+	
+	private void loginButtonActionPerformed() {
+		// create and call the controller
+		URLMSController urlmsController = new URLMSController(urlms);
+		boolean isValidUser = urlmsController.login(emailLoginTextField.getText(), passwordLoginTextField.getText());
+		if(!isValidUser){
+			JOptionPane.showMessageDialog(this, "Invalid email address or password!", "Incorrect credentials", JOptionPane.WARNING_MESSAGE);
+		}
+		refreshData();
+		}
 	
 	//Initializes the display
 	private void initComponents() {
@@ -88,6 +100,13 @@ public class LoginPage extends JFrame{
 	    layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {loginButton, emailLoginTextField, passwordLoginTextField});
 
 	    pack();
+	    
+	    //Action listener for login button
+	    loginButton.addActionListener(new java.awt.event.ActionListener() {
+	        public void actionPerformed(java.awt.event.ActionEvent evt) {
+	            loginButtonActionPerformed();
+	        }
+	    });
 	}
 
 }
