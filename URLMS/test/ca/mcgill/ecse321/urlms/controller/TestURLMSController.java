@@ -14,11 +14,11 @@ import ca.mcgill.ecse321.urlms.model.*;
 
 public class TestURLMSController {
 	
-	private static String testEmail ="Director@urlms.ca";
+	private static String testEmail ="director@urlms.ca";
 	private static String testPassword ="password";
 	private static String testName ="Director";
 	
-	private static String testStaffEmail ="Staff@urlms.ca";
+	private static String testStaffEmail ="staff@urlms.ca";
 	private static String testStaffPassword ="password1";
 	private static String testStaffName ="Member";
 	

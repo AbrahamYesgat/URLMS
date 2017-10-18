@@ -48,7 +48,7 @@ class Staff
 {
   isA UserRole;
   enum staffRole {ResearchAssociate, ResearchAssistant};
-   * -- * Laboratory;
+   * -<@> * Laboratory;
 }
 
 class ProgressUpdate

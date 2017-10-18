@@ -27,9 +27,9 @@ public class TestLoginPersistence {
 		urlms = new URLMS();
 		
 		//Create participants
-		Director dr = new Director(testEmail, testPassword, testDirName, urlms);
-		Staff staffMember = new Staff(testStaffEmail, testPassword, testStaffName); 
+		Director dr = new Director(testEmail, testPassword, testDirName, urlms); 
 		urlms.addLaboratory("LabOne", "Test", new Date(2017, 10, 10), new Date(2017, 10, 10), true, dr);
+		Staff staffMember = new Staff(testStaffEmail, testPassword, testStaffName); 
 		urlms.getLaboratory(0).addStaff(staffMember);
 		
 		PersistenceXStream.initializeURLMS("output"+File.separator+"data.xml");

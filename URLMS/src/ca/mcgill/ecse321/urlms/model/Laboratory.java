@@ -826,12 +826,13 @@ public class Laboratory
       Supplies aSupply = supplies.get(i - 1);
       aSupply.delete();
     }
-    ArrayList<Staff> copyOfStaffs = new ArrayList<Staff>(staffs);
-    staffs.clear();
-    for(Staff aStaff : copyOfStaffs)
+    while (staffs.size() > 0)
     {
-      aStaff.removeLaboratory(this);
+      Staff aStaff = staffs.get(staffs.size() - 1);
+      aStaff.delete();
+      staffs.remove(aStaff);
     }
+    
     for(int i=progressUpdates.size(); i > 0; i--)
     {
       ProgressUpdate aProgressUpdate = progressUpdates.get(i - 1);
