@@ -46,6 +46,9 @@ public class LoginPage extends JFrame{
 		if(!isValidUser){
 			JOptionPane.showMessageDialog(this, "Invalid email address or password!", "Incorrect credentials", JOptionPane.WARNING_MESSAGE);
 		}
+		else {
+			JOptionPane.showMessageDialog(this, "Successful login. Rest is coming soon.", "Logged in", JOptionPane.INFORMATION_MESSAGE);
+		}
 		refreshData();
 		}
 	
