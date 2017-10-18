@@ -34,7 +34,7 @@ public class TestPersistence {
 	@After
 	public void tearDown() throws Exception {
 		urlms.delete();
-		new File("output"+File.separator+"data.xml").delete();
+		//new File("output"+File.separator+"data.xml").delete();
 	}
 
 	@Test

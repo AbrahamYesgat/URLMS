@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.urlms.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -15,7 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
-import ca.mcgill.ecse321.urlms.model.URLMS;
+import ca.mcgill.ecse321.urlms.model.*;
 
 public class LoginPage extends JFrame{
 	private static final long serialVersionUID = 7324018789116682077L;
@@ -25,6 +26,7 @@ public class LoginPage extends JFrame{
 	private JLabel passwordLoginLabel;
 	private JButton loginButton;
 	private URLMS urlms;
+	private List<Director> dirs;
 	
 	//Constructor for login page
 	public LoginPage(URLMS urlms) {
@@ -45,6 +47,10 @@ public class LoginPage extends JFrame{
 		boolean isValidUser = urlmsController.login(emailLoginTextField.getText(), passwordLoginTextField.getText());
 		if(!isValidUser){
 			JOptionPane.showMessageDialog(this, "Invalid email address or password!", "Incorrect credentials", JOptionPane.WARNING_MESSAGE);
+		}
+		else {
+			dirs = urlms.getDirectors(); 
+			JOptionPane.showMessageDialog(this, "Successful login. Rest coming soon", "Logged In", JOptionPane.INFORMATION_MESSAGE);
 		}
 		refreshData();
 		}
