@@ -1,6 +1,12 @@
 <?php 
-$urlms = URLMS::__construct();
-$controller = Controller::__construct($urlms);
+foreach(glob("../model/*.php") as $file){
+    require_once $file;
+}
+
+require_once '../controller/Controller.php';
+
+$urlms = new URLMS();
+$controller = new Controller($urlms);
 ?>
 
 <html>
