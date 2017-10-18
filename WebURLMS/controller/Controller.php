@@ -1,7 +1,7 @@
 <?php 
 class Controller
 {
-    private $urlms = nil;
+    private $urlms;
     
     public function __construct($aURLMS) {
         $this->urlms = $aURLMS;
