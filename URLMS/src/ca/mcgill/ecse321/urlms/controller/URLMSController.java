@@ -18,19 +18,19 @@ public class URLMSController {
 		
 		if(urlms.numberOfLaboratories() == 0) {
 			List<Director> dirs = urlms.getDirectors();
-			
+	
 			for (Director dir : dirs) {
-				if(dir.getEmail() == email && dir.getPassword() == password)
+				if(dir.getEmail().equals(email) && dir.getPassword().equals(password)) {
 					return true;
+				}
 			}
 		}
-		
 		else {
 			for (Laboratory lab : labs) {
-				if(lab.getDirector().getEmail() == email && lab.getDirector().getPassword() == password)
+				if(lab.getDirector().getEmail().equals(email) && lab.getDirector().getPassword().equals(password))
 						return true;
 				for (Staff member : lab.getStaffs()) {
-					if(member.getEmail() == email && member.getPassword() == password)
+					if(member.getEmail().equals(email) && member.getPassword().equals(password))
 						return true;	
 				}
 			}
