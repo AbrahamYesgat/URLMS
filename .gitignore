@@ -8,6 +8,16 @@ tmp/
 .settings/
 .loadpath
 
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+
 # External tool builders
 .externalToolBuilders/
 
