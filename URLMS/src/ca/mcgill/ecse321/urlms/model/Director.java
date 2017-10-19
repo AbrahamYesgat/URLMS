@@ -5,7 +5,7 @@ package ca.mcgill.ecse321.urlms.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 26 "../../../../../URLMS.ump"
+// line 25 "../../../../../URLMS.ump"
 public class Director extends UserRole
 {
 
@@ -93,9 +93,9 @@ public class Director extends UserRole
     return 0;
   }
 
-  public Laboratory addLaboratory(String aName, String aFieldOfStudy, Date aStartDate, Date aDeadline, boolean aActive, URLMS aURLMS)
+  public Laboratory addLaboratory(String aName, String aFieldOfStudy, Date aStartDate, boolean aActive, URLMS aURLMS)
   {
-    return new Laboratory(aName, aFieldOfStudy, aStartDate, aDeadline, aActive, aURLMS, this);
+    return new Laboratory(aName, aFieldOfStudy, aStartDate, aActive, aURLMS, this);
   }
 
   public boolean addLaboratory(Laboratory aLaboratory)

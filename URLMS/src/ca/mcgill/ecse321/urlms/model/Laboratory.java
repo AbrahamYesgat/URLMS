@@ -17,7 +17,6 @@ public class Laboratory
   private String name;
   private String fieldOfStudy;
   private Date startDate;
-  private Date deadline;
   private boolean active;
 
   //Laboratory Associations
@@ -34,12 +33,11 @@ public class Laboratory
   // CONSTRUCTOR
   //------------------------
 
-  public Laboratory(String aName, String aFieldOfStudy, Date aStartDate, Date aDeadline, boolean aActive, URLMS aURLMS, Director aDirector)
+  public Laboratory(String aName, String aFieldOfStudy, Date aStartDate, boolean aActive, URLMS aURLMS, Director aDirector)
   {
     name = aName;
     fieldOfStudy = aFieldOfStudy;
     startDate = aStartDate;
-    deadline = aDeadline;
     active = aActive;
     equipment = new ArrayList<Equipment>();
     boolean didAddURLMS = setURLMS(aURLMS);
@@ -87,14 +85,6 @@ public class Laboratory
     return wasSet;
   }
 
-  public boolean setDeadline(Date aDeadline)
-  {
-    boolean wasSet = false;
-    deadline = aDeadline;
-    wasSet = true;
-    return wasSet;
-  }
-
   public boolean setActive(boolean aActive)
   {
     boolean wasSet = false;
@@ -116,11 +106,6 @@ public class Laboratory
   public Date getStartDate()
   {
     return startDate;
-  }
-
-  public Date getDeadline()
-  {
-    return deadline;
   }
 
   public boolean getActive()
@@ -853,7 +838,6 @@ public class Laboratory
             "fieldOfStudy" + ":" + getFieldOfStudy()+ "," +
             "active" + ":" + getActive()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "startDate" + "=" + (getStartDate() != null ? !getStartDate().equals(this)  ? getStartDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "deadline" + "=" + (getDeadline() != null ? !getDeadline().equals(this)  ? getDeadline().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "uRLMS = "+(getURLMS()!=null?Integer.toHexString(System.identityHashCode(getURLMS())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "director = "+(getDirector()!=null?Integer.toHexString(System.identityHashCode(getDirector())):"null");
   }

@@ -129,9 +129,9 @@ class URLMS
     return 0;
   }
 
-  public function addLaboratoryVia($aName, $aFieldOfStudy, $aStartDate, $aDeadline, $aActive, $aDirector)
+  public function addLaboratoryVia($aName, $aFieldOfStudy, $aStartDate, $aActive, $aDirector)
   {
-    return new Laboratory($aName, $aFieldOfStudy, $aStartDate, $aDeadline, $aActive, $this, $aDirector);
+    return new Laboratory($aName, $aFieldOfStudy, $aStartDate, $aActive, $this, $aDirector);
   }
 
   public function addLaboratory($aLaboratory)

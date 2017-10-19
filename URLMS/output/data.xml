@@ -4,40 +4,39 @@
       <name>LabOne</name>
       <fieldOfStudy>Test</fieldOfStudy>
       <startDate id="4">3917-11-10</startDate>
-      <deadline id="5">3917-11-10</deadline>
       <active>true</active>
-      <equipment id="6"/>
+      <equipment id="5"/>
       <uRLMS reference="1"/>
-      <expenseReports id="7"/>
-      <director id="8">
+      <expenseReports id="6"/>
+      <director id="7">
         <email>director@urlms.ca</email>
         <password>password</password>
         <name>Director</name>
         <currentlyAssigned>true</currentlyAssigned>
         <labManaged>0</labManaged>
-        <laboratories id="9">
+        <laboratories id="8">
           <lab reference="3"/>
         </laboratories>
         <uRLMS reference="1"/>
       </director>
-      <supplies id="10"/>
-      <staffs id="11">
-        <staff id="12">
+      <supplies id="9"/>
+      <staffs id="10">
+        <staff id="11">
           <email>staff@urlms.ca</email>
           <password>password</password>
           <name>Staff</name>
           <currentlyAssigned>true</currentlyAssigned>
-          <laboratories id="13">
+          <laboratories id="12">
             <lab reference="3"/>
           </laboratories>
-          <progressUpdates id="14"/>
+          <progressUpdates id="13"/>
         </staff>
       </staffs>
-      <progressUpdates id="15"/>
-      <fundingAccounts id="16"/>
+      <progressUpdates id="14"/>
+      <fundingAccounts id="15"/>
     </lab>
   </laboratories>
-  <directors id="17">
-    <director reference="8"/>
+  <directors id="16">
+    <director reference="7"/>
   </directors>
 </ca.mcgill.ecse321.urlms.model.URLMS>

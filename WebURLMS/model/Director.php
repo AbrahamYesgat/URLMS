@@ -100,9 +100,9 @@ class Director extends UserRole
     return 0;
   }
 
-  public function addLaboratoryVia($aName, $aFieldOfStudy, $aStartDate, $aDeadline, $aActive, $aURLMS)
+  public function addLaboratoryVia($aName, $aFieldOfStudy, $aStartDate, $aActive, $aURLMS)
   {
-    return new Laboratory($aName, $aFieldOfStudy, $aStartDate, $aDeadline, $aActive, $aURLMS, $this);
+    return new Laboratory($aName, $aFieldOfStudy, $aStartDate, $aActive, $aURLMS, $this);
   }
 
   public function addLaboratory($aLaboratory)
