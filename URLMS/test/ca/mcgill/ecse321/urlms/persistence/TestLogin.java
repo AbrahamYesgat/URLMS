@@ -13,7 +13,7 @@ import ca.mcgill.ecse321.urlms.model.*;
 import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 
 // This tests if the persistence works (specifically for the login values).
-public class TestLoginPersistence {
+public class TestLogin {
 
 	// Tests values
 	private static String testEmail ="director@urlms.ca";

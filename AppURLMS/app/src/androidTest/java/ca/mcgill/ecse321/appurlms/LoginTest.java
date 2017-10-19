@@ -12,7 +12,7 @@ import ca.mcgill.ecse321.urlms.controller.URLMSController;
 import ca.mcgill.ecse321.urlms.model.*;
 
 @RunWith(AndroidJUnit4.class)
-public class LoginPersistenceTest {
+public class LoginTest {
     // Set values for test cases
     private static String testEmail ="director@urlms.ca";
     private static String testPassword ="password";
