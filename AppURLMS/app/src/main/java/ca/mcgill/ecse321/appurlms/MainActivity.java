@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         //sqlController = new SQLController(this);
         //SQLiteDatabase mydb = sqlController.getWritableDatabase();
         //urlms = sqlController.loadURLMSFromDatabase(mydb);
-        PersistenceXStream.initializeURLMS("/data.xml");
+        PersistenceXStream.initializeURLMS(getFilesDir().getAbsolutePath() +"data.xml");
         urlms = (URLMS) PersistenceXStream.loadFromXMLwithXStream();
 
         Button button = (Button) findViewById(R.id.login_button);

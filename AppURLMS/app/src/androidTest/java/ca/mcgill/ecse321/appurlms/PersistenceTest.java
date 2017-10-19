@@ -1,11 +1,13 @@
 package ca.mcgill.ecse321.appurlms;
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import org.junit.*;
 import org.junit.runner.RunWith;
 
 import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertEquals;
+import android.content.Context;
 
 import java.sql.Date;
 
@@ -34,7 +36,7 @@ public class PersistenceTest {
         urlms.getLaboratory(0).addStaff(staffMember);
 
         // Create data file
-        PersistenceXStream.initializeURLMS("/data.xml");
+        PersistenceXStream.initializeURLMS(InstrumentationRegistry.getTargetContext().getApplicationContext().getFilesDir().getAbsolutePath()+"/data.xml");
         PersistenceXStream.saveToXMLwithXStream(urlms);
     }
 
