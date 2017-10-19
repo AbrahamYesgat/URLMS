@@ -41,12 +41,10 @@ public class TestLoginPersistence {
 	@After
 	public void tearDown() throws Exception {
 		urlms.delete();
-		//new File("output"+File.separator+"data.xml").delete();
 	}
 
 	@Test
 	public void test() { 
-		
 	    // Clear the model in memory
 	    urlms.delete();
 	    assertEquals(false, urlms.hasDirectors());
