@@ -27,7 +27,7 @@ public class PersistenceTest {
 
     @Before
     public void setUp() {
-        urlms = new URLMS();
+        urlms = URLMS.getInstance();
 
         // Create participants
         Director dr = new Director(testEmail, testPassword, testDirName, urlms);
