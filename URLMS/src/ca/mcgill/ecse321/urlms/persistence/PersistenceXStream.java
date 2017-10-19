@@ -28,7 +28,7 @@ public abstract class PersistenceXStream {
         setAlias("user", UserRole.class);
         setAlias("lab", Laboratory.class);
 
-        // load model if exists, create otherwise
+        // Load model if exists, create otherwise
         File file = new File(fileName);
         if (file.exists()) {
             system = (URLMS) loadFromXMLwithXStream();
@@ -45,6 +45,7 @@ public abstract class PersistenceXStream {
         return system;
     }
 
+    // Save the object to the file. Will only be passing the URLMS object
     public static boolean saveToXMLwithXStream(Object obj) {
         xstream.setMode(XStream.ID_REFERENCES);
         String xml = xstream.toXML(obj); // save our xml file
@@ -60,6 +61,7 @@ public abstract class PersistenceXStream {
         }
     }
 
+    // Load the system from an existing data file
     public static Object loadFromXMLwithXStream() {
         xstream.setMode(XStream.ID_REFERENCES);
         try {
@@ -72,10 +74,12 @@ public abstract class PersistenceXStream {
         }
     }
 
+    // Changes the alias of an object
     public static void setAlias(String xmlTagName, Class<?> className) {
         xstream.alias(xmlTagName, className);
     }
-
+    
+    // Changes the file's name
     public static void setFilename(String fn) {
         filename = fn;
     }

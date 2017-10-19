@@ -6,16 +6,18 @@ import ca.mcgill.ecse321.urlms.model.URLMS;
 import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 import ca.mcgill.ecse321.urlms.view.LoginPage;
 
+// Main class of the desktop application.
 public class Main {
+	// Initialization of data file and system
 	private static String fileName = "output"+File.separator+"data.xml";
 	private static URLMS urlms = new URLMS();
 	
 	public static void main(String[] args) {
-		// load model
+		// Initialize data file or load data.
 		PersistenceXStream.initializeURLMS(fileName);
 		urlms = (URLMS) PersistenceXStream.loadFromXMLwithXStream();
 
-		// start UI
+		// Start UI
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 			new LoginPage(urlms).setVisible(true);

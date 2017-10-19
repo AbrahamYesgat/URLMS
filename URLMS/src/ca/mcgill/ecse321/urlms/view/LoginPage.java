@@ -18,6 +18,7 @@ import javax.swing.WindowConstants;
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
 import ca.mcgill.ecse321.urlms.model.*;
 
+// UI for the login page
 public class LoginPage extends JFrame{
 	private static final long serialVersionUID = 7324018789116682077L;
 	private JTextField emailLoginTextField;
@@ -28,28 +29,30 @@ public class LoginPage extends JFrame{
 	private URLMS urlms;
 	private List<Director> dirs;
 	
-	//Constructor for login page
+	// Constructor for login page
 	public LoginPage(URLMS urlms) {
 		this.urlms = urlms;
 	    initComponents();
 	}
 	
-	//Clears input when page is refreshed
+	// Clears input when page is refreshed
 	private void refreshData() {
 	    emailLoginTextField.setText("");
 	    passwordLoginTextField.setText("");
 	    pack();
 	}
 	
+	// The is performed when the user clicks on the login button
 	private void loginButtonActionPerformed() {
-		// create and call the controller
+		// Create and call the controller
 		URLMSController urlmsController = new URLMSController(urlms);
 		boolean isValidUser = urlmsController.login(emailLoginTextField.getText(), passwordLoginTextField.getText());
 		if(!isValidUser){
+			// Unsuccessful login
 			JOptionPane.showMessageDialog(this, "Invalid email address or password!", "Incorrect credentials", JOptionPane.WARNING_MESSAGE);
 		}
 		else {
-			dirs = urlms.getDirectors(); 
+			// Successful login
 			JOptionPane.showMessageDialog(this, "Successful login. Rest coming soon", "Logged In", JOptionPane.INFORMATION_MESSAGE);
 		}
 		refreshData();
@@ -57,14 +60,14 @@ public class LoginPage extends JFrame{
 	
 	//Initializes the display
 	private void initComponents() {
-	    // elements for login page
+	    // Elements for login page
 	    emailLoginTextField = new JTextField();
 	    emailLoginLabel = new JLabel();
 	    passwordLoginTextField = new JPasswordField();
 	    passwordLoginLabel = new JLabel();
 	    loginButton = new JButton();
 
-	    // global settings and listeners
+	    // Global settings and listeners
 	    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	    setTitle("Log in URLMS");
 
@@ -72,7 +75,7 @@ public class LoginPage extends JFrame{
 	    passwordLoginLabel.setText("Password:");
 	    loginButton.setText("Sign in");
 
-	    // layout
+	    // Layout
 	    GroupLayout layout = new GroupLayout(getContentPane());
 	    getContentPane().setLayout(layout);
 	    layout.setAutoCreateGaps(true);
@@ -107,7 +110,7 @@ public class LoginPage extends JFrame{
 
 	    pack();
 	    
-	    //Action listener for login button
+	    // Action listener for login button
 	    loginButton.addActionListener(new java.awt.event.ActionListener() {
 	        public void actionPerformed(java.awt.event.ActionEvent evt) {
 	            loginButtonActionPerformed();
