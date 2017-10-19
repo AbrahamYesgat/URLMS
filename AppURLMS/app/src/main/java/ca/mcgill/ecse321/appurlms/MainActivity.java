@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.appurlms;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.widget.Button;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,16 +10,17 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.database.sqlite.SQLiteDatabase;
+//import android.database.sqlite.SQLiteDatabase;
 
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
 import ca.mcgill.ecse321.urlms.model.*;
-import ca.mcgill.ecse321.appurlms.persistence.SQLController;
+import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
+//import ca.mcgill.ecse321.appurlms.persistence.SQLController;
 
 public class MainActivity extends AppCompatActivity {
 
     private URLMS urlms = null;
-    private SQLController sqlController = null;
+    //private SQLController sqlController = null;
     private String fileName;
     String error = null;
 
@@ -36,10 +38,21 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        fileName = getFilesDir().getAbsolutePath() + "/output/database.db";
-        sqlController = new SQLController(this);
-        SQLiteDatabase mydb = sqlController.getWritableDatabase();
-        urlms = sqlController.loadURLMSFromDatabase(mydb);
+        //fileName = getFilesDir().getAbsolutePath() + "/output/database.db";
+        //sqlController = new SQLController(this);
+        //SQLiteDatabase mydb = sqlController.getWritableDatabase();
+        //urlms = sqlController.loadURLMSFromDatabase(mydb);
+        PersistenceXStream.initializeURLMS("/data.xml");
+        urlms = (URLMS) PersistenceXStream.loadFromXMLwithXStream();
+
+        Button button = (Button) findViewById(R.id.login_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                login(view);
+            }
+        });
+
         refreshData();
     }
 
@@ -57,10 +70,13 @@ public class MainActivity extends AppCompatActivity {
 
         boolean isValid = cont.login(tv1.getText().toString(), tv2.getText().toString());
         if(!isValid) {
-            refreshData();
+            TextView loggingMessage = (TextView) findViewById(R.id.loggingMessage);
+            loggingMessage.setText("Wrong username/password combination!");
         }
         else{
-            
+            TextView loggingMessage = (TextView) findViewById(R.id.loggingMessage);
+            loggingMessage.setText("Successfully logged in as \n" + tv1.getText().toString());
+            refreshData();
         }
     }
 
