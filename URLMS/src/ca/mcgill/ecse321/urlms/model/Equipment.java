@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse321.urlms.model;
 
-// line 33 "../../../../../URLMS.ump"
+// line 32 "../../../../../URLMS.ump"
 public class Equipment
 {
 

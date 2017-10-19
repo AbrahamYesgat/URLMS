@@ -111,9 +111,9 @@ public class URLMS
     return 0;
   }
 
-  public Laboratory addLaboratory(String aName, String aFieldOfStudy, Date aStartDate, Date aDeadline, boolean aActive, Director aDirector)
+  public Laboratory addLaboratory(String aName, String aFieldOfStudy, Date aStartDate, boolean aActive, Director aDirector)
   {
-    return new Laboratory(aName, aFieldOfStudy, aStartDate, aDeadline, aActive, this, aDirector);
+    return new Laboratory(aName, aFieldOfStudy, aStartDate, aActive, this, aDirector);
   }
 
   public boolean addLaboratory(Laboratory aLaboratory)

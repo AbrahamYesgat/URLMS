@@ -13,7 +13,6 @@ class Laboratory
   private $name;
   private $fieldOfStudy;
   private $startDate;
-  private $deadline;
   private $active;
 
   //Laboratory Associations
@@ -30,12 +29,11 @@ class Laboratory
   // CONSTRUCTOR
   //------------------------
 
-  public function __construct($aName, $aFieldOfStudy, $aStartDate, $aDeadline, $aActive, $aURLMS, $aDirector)
+  public function __construct($aName, $aFieldOfStudy, $aStartDate, $aActive, $aURLMS, $aDirector)
   {
     $this->name = $aName;
     $this->fieldOfStudy = $aFieldOfStudy;
     $this->startDate = $aStartDate;
-    $this->deadline = $aDeadline;
     $this->active = $aActive;
     $this->equipment = array();
     $didAddURLMS = $this->setURLMS($aURLMS);
@@ -83,14 +81,6 @@ class Laboratory
     return $wasSet;
   }
 
-  public function setDeadline($aDeadline)
-  {
-    $wasSet = false;
-    $this->deadline = $aDeadline;
-    $wasSet = true;
-    return $wasSet;
-  }
-
   public function setActive($aActive)
   {
     $wasSet = false;
@@ -112,11 +102,6 @@ class Laboratory
   public function getStartDate()
   {
     return $this->startDate;
-  }
-
-  public function getDeadline()
-  {
-    return $this->deadline;
   }
 
   public function getActive()

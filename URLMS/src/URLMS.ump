@@ -10,7 +10,6 @@ class Laboratory
   name;
   fieldOfStudy;
   Date startDate;
-  Date deadline;
   Boolean active;
   
 1 -- * Equipment;

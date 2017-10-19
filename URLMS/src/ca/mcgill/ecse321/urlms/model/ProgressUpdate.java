@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse321.urlms.model;
 
-// line 55 "../../../../../URLMS.ump"
+// line 54 "../../../../../URLMS.ump"
 public class ProgressUpdate
 {
 

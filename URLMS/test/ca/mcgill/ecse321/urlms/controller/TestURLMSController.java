@@ -49,7 +49,7 @@ public class TestURLMSController {
 	  	assertEquals(true, sysC.login(testEmail, testPassword));
 	  	assertEquals(false, sysC.login("random", "random"));
 	  	
-	  	Laboratory lab = new Laboratory("name", "study", new Date(2017, 10, 10), new Date(2017, 11, 11) , true, urlms, dr);
+	  	Laboratory lab = new Laboratory("name", "study", new Date(2017, 10, 10), true, urlms, dr);
 	  	Staff member = new Staff(testStaffEmail,testStaffPassword,testStaffName);
 	  	lab.addStaff(member);
 	  	// Tests if the director and a staff member can login 
