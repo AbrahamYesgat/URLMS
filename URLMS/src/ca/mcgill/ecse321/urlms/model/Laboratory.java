@@ -5,7 +5,7 @@ package ca.mcgill.ecse321.urlms.model;
 import java.sql.Date;
 import java.util.*;
 
-// line 7 "../../../../../URLMS.ump"
+// line 8 "../../../../../URLMS.ump"
 public class Laboratory
 {
 

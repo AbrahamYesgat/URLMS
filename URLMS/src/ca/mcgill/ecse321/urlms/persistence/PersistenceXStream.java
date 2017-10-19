@@ -39,7 +39,7 @@ public abstract class PersistenceXStream {
                 e.printStackTrace();
                 System.exit(1);
             }
-             system = new URLMS();
+             system = URLMS.getInstance();
             saveToXMLwithXStream(system);
         }
         return system;

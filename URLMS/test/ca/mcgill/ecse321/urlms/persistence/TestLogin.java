@@ -26,7 +26,7 @@ public class TestLogin {
 	
 	@Before
 	public void setUp() throws Exception {
-		urlms = new URLMS();
+		urlms = URLMS.getInstance();
 		
 		// Create participants
 		Director dr = new Director(testEmail, testPassword, testDirName, urlms); 

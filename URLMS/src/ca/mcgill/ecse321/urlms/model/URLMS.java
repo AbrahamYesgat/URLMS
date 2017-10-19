@@ -10,6 +10,12 @@ public class URLMS
 {
 
   //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static URLMS theInstance = null;
+
+  //------------------------
   // MEMBER VARIABLES
   //------------------------
 
@@ -21,10 +27,19 @@ public class URLMS
   // CONSTRUCTOR
   //------------------------
 
-  public URLMS()
+  private URLMS()
   {
     laboratories = new ArrayList<Laboratory>();
     directors = new ArrayList<Director>();
+  }
+
+  public static URLMS getInstance()
+  {
+    if(theInstance == null)
+    {
+      theInstance = new URLMS();
+    }
+    return theInstance;
   }
 
   //------------------------

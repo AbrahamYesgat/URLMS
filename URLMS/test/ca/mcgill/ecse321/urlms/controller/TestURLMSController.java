@@ -33,7 +33,7 @@ public class TestURLMSController {
 
 	@Before
 	public void setUp() throws Exception {
-		urlms = new URLMS();
+		urlms = URLMS.getInstance();
 	}
 
 	@After
