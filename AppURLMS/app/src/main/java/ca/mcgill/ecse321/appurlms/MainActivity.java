@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 //import android.database.sqlite.SQLiteDatabase;
 
@@ -64,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(View v) {
-        TextView tv1 = (TextView) findViewById(R.id.user_email);
-        TextView tv2 = (TextView) findViewById(R.id.user_password);
+        EditText tv1 = (EditText) findViewById(R.id.user_email);
+        EditText tv2 = (EditText) findViewById(R.id.user_password);
         URLMSController cont = new URLMSController(urlms);
 
         boolean isValid = cont.login(tv1.getText().toString(), tv2.getText().toString());
