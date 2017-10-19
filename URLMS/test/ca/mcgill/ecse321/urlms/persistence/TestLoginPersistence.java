@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.urlms.login;
+package ca.mcgill.ecse321.urlms.persistence;
 
 import static org.junit.Assert.*;
 
@@ -12,11 +12,13 @@ import org.junit.Test;
 import ca.mcgill.ecse321.urlms.model.*;
 import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 
-public class TestPersistence {
+public class TestLoginPersistence {
 
-	private static String testEmail ="thing@urlms.ca";
+	private static String testEmail ="director@urlms.ca";
+	private static String testStaffEmail ="staff@urlms.ca";
 	private static String testPassword ="password";
-	private static String testName ="Shane Mac";
+	private static String testDirName ="Director";
+	private static String testStaffName ="Staff";
 	
 	private URLMS urlms;
 	
@@ -25,7 +27,10 @@ public class TestPersistence {
 		urlms = new URLMS();
 		
 		//Create participants
-		Director dr = new Director(testEmail, testPassword, testName, urlms);
+		Director dr = new Director(testEmail, testPassword, testDirName, urlms); 
+		urlms.addLaboratory("LabOne", "Test", new Date(2017, 10, 10), new Date(2017, 10, 10), true, dr);
+		Staff staffMember = new Staff(testStaffEmail, testPassword, testStaffName); 
+		urlms.getLaboratory(0).addStaff(staffMember);
 		
 		PersistenceXStream.initializeURLMS("output"+File.separator+"data.xml");
 		PersistenceXStream.saveToXMLwithXStream(urlms);
@@ -38,7 +43,7 @@ public class TestPersistence {
 	}
 
 	@Test
-	public void test() {
+	public void test() { // will test if both a director and staff member can log in successfully.
 
 	    // clear the model in memory
 	    urlms.delete();
@@ -52,10 +57,14 @@ public class TestPersistence {
 
 	    // check participants
 	    assertEquals(true, urlms.hasDirectors());
-	    assertEquals(false, urlms.hasLaboratories());
+	    assertEquals(true, urlms.hasLaboratories());
+	    assertEquals(true, urlms.getLaboratory(0).hasStaffs());
 	    assertEquals(testEmail, urlms.getDirector(0).getEmail());
 	    assertEquals(testPassword, urlms.getDirector(0).getPassword());
-	    assertEquals(testName, urlms.getDirector(0).getName());
+	    assertEquals(testDirName, urlms.getDirector(0).getName());
+	    assertEquals(testStaffEmail, urlms.getLaboratory(0).getStaff(0).getEmail());
+	    assertEquals(testPassword, urlms.getLaboratory(0).getStaff(0).getPassword());
+	    assertEquals(testStaffName, urlms.getLaboratory(0).getStaff(0).getName());
 	}
 
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.26.0-b05b57321 modeling language!*/
 
@@ -897,12 +897,14 @@ class Laboratory
     {
       $aSupply->delete();
     }
-    $copyOfStaffs = $this->staffs;
-    $this->staffs = array();
-    foreach ($copyOfStaffs as $aStaff)
+    while (count($this->staffs) > 0)
     {
-      $aStaff->removeLaboratory($this);
+      $aStaff = $this->staffs[count($this->staffs) - 1];
+      $aStaff->delete();
+      unset($this->staffs[$this->indexOfStaff($aStaff)]);
+      $this->staffs = array_values($this->staffs);
     }
+    
     foreach ($this->progressUpdates as $aProgressUpdate)
     {
       $aProgressUpdate->delete();
