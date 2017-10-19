@@ -1,6 +1,7 @@
 namespace ca.mcgill.ecse321.urlms.model;
 
 class URLMS{
+  singleton;
   1 <@>-* Laboratory;
   1 <@>-* Director;
 }

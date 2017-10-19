@@ -6,6 +6,12 @@ class URLMS
 {
 
   //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static $theInstance = null;
+
+  //------------------------
   // MEMBER VARIABLES
   //------------------------
 
@@ -17,10 +23,19 @@ class URLMS
   // CONSTRUCTOR
   //------------------------
 
-  public function __construct()
+  private function __construct()
   {
     $this->laboratories = array();
     $this->directors = array();
+  }
+
+  public static function getInstance()
+  {
+    if(self::$theInstance == null)
+    {
+      self::$theInstance = new URLMS();
+    }
+    return self::$theInstance;
   }
 
   //------------------------
