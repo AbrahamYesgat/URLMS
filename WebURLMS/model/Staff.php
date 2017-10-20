@@ -1,6 +1,6 @@
 <?php
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.0-b05b57321 modeling language!*/
+/*This code was generated using the UMPLE 1.25.0-9e8af9e modeling language!*/
 
 class Staff extends UserRole
 {
@@ -286,6 +286,13 @@ class Staff extends UserRole
     }
     parent::delete();
   }
+
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 50 ../../../../../URLMS.ump
+  //enum staffRole {ResearchAssociate, ResearchAssistant};
 
 }
 ?>
