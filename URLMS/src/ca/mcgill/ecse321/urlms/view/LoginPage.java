@@ -53,7 +53,7 @@ public class LoginPage extends JFrame{
 		}
 		else {
 			// Successful login
-			JOptionPane.showMessageDialog(this, "Successful login. Rest coming soon", "Logged In", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Successful login as "+ emailLoginTextField.getText()+ ". Rest coming soon.", "Logged In", JOptionPane.INFORMATION_MESSAGE);
 		}
 		refreshData();
 		}
