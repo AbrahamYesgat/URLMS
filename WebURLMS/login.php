@@ -1,11 +1,13 @@
 <?php 
-foreach(glob("../model/*.php") as $file){
+$curr_dir = dirname(__FILE__);
+
+foreach(glob($curr_dir . '/model/*.php') as $file){
     require_once $file;
 }
 
-require_once '../controller/Controller.php';
+require_once $curr_dir . '/controller/Controller.php';
 
-$urlms = new URLMS();
+$urlms = URLMS::getInstance();
 $controller = new Controller($urlms);
 ?>
 

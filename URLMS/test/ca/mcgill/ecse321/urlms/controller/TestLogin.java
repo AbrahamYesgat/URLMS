@@ -13,7 +13,7 @@ import org.junit.Test;
 import ca.mcgill.ecse321.urlms.model.*;
 
 // This tests if the login method in the controller works
-public class TestURLMSController {
+public class TestLogin {
 	
 	// Set values for test cases
 	private static String testEmail ="director@urlms.ca";

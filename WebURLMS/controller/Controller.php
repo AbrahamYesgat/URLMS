@@ -1,4 +1,10 @@
 <?php 
+$curr_dir = dirname(__FILE__);
+
+foreach(glob($curr_dir . '/../model/*.php') as $file){
+    require_once $file;
+}
+
 class Controller
 {
     private $urlms;
