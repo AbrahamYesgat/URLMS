@@ -1,9 +1,12 @@
 package ca.mcgill.ecse321.urlms.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import ca.mcgill.ecse321.urlms.model.*;
+import ca.mcgill.ecse321.urlms.model.Staff.StaffRole;
+import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 
 public class URLMSController {
 
@@ -37,6 +40,21 @@ public class URLMSController {
 			}
 		}
 		// If it does not find a user, it returns false (failed login).
+		return false;
+	}
+	
+	// Logout method
+	public boolean logout() {
+		return PersistenceXStream.saveToXMLwithXStream(urlms);
+	}
+	
+	// Add a new laboratory method
+	public boolean addLaboratory(String name, String fieldOfStudy, Date startDate) {
+		return false;
+	}
+	
+	// Add a new staff member to a laboratory method
+	public boolean addStaff(String name, String email, String password, StaffRole role) {
 		return false;
 	}
 }
