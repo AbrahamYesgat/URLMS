@@ -4,7 +4,7 @@
 package ca.mcgill.ecse321.urlms.model;
 import java.util.*;
 
-// line 72 "../../../../../URLMS.ump"
+// line 71 "../../../../../URLMS.ump"
 public class UserRole
 {
 

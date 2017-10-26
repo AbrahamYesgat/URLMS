@@ -5,7 +5,7 @@ package ca.mcgill.ecse321.urlms.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 25 "../../../../../URLMS.ump"
+// line 24 "../../../../../URLMS.ump"
 public class Director extends UserRole
 {
 

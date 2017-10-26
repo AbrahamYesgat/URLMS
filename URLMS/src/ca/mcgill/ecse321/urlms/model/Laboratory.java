@@ -2,12 +2,18 @@
 /*This code was generated using the UMPLE 1.26.0-b05b57321 modeling language!*/
 
 package ca.mcgill.ecse321.urlms.model;
-import java.sql.Date;
 import java.util.*;
+import java.sql.Date;
 
 // line 8 "../../../../../URLMS.ump"
 public class Laboratory
 {
+
+  //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static Map<String, Laboratory> laboratorysByName = new HashMap<String, Laboratory>();
 
   //------------------------
   // MEMBER VARIABLES
@@ -35,10 +41,13 @@ public class Laboratory
 
   public Laboratory(String aName, String aFieldOfStudy, Date aStartDate, boolean aActive, URLMS aURLMS, Director aDirector)
   {
-    name = aName;
     fieldOfStudy = aFieldOfStudy;
     startDate = aStartDate;
     active = aActive;
+    if (!setName(aName))
+    {
+      throw new RuntimeException("Cannot create due to duplicate name");
+    }
     equipment = new ArrayList<Equipment>();
     boolean didAddURLMS = setURLMS(aURLMS);
     if (!didAddURLMS)
@@ -64,8 +73,16 @@ public class Laboratory
   public boolean setName(String aName)
   {
     boolean wasSet = false;
+    String anOldName = getName();
+    if (hasWithName(aName)) {
+      return wasSet;
+    }
     name = aName;
     wasSet = true;
+    if (anOldName != null) {
+      laboratorysByName.remove(anOldName);
+    }
+    laboratorysByName.put(aName, this);
     return wasSet;
   }
 
@@ -96,6 +113,16 @@ public class Laboratory
   public String getName()
   {
     return name;
+  }
+
+  public static Laboratory getWithName(String aName)
+  {
+    return laboratorysByName.get(aName);
+  }
+
+  public static boolean hasWithName(String aName)
+  {
+    return getWithName(aName) != null;
   }
 
   public String getFieldOfStudy()
@@ -790,6 +817,7 @@ public class Laboratory
 
   public void delete()
   {
+    laboratorysByName.remove(getName());
     for(int i=equipment.size(); i > 0; i--)
     {
       Equipment aEquipment = equipment.get(i - 1);

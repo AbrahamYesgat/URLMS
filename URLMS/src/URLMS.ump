@@ -7,11 +7,10 @@ class URLMS{
 }
 class Laboratory
 {
-  name;
+  unique name;
   fieldOfStudy;
   Date startDate;
   Boolean active;
-  
 1 -- * Equipment;
 }
 

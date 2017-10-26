@@ -22,9 +22,9 @@
       <supplies id="9"/>
       <staffs id="10">
         <staff id="11">
-          <email>staff@urlms.ca</email>
-          <password>password1</password>
-          <name>Member</name>
+          <email>Member</email>
+          <password>staff@urlms.ca</password>
+          <name>password1</name>
           <currentlyAssigned>true</currentlyAssigned>
           <staffRole>ResearchAssociate</staffRole>
           <laboratories id="12">

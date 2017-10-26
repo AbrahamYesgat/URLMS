@@ -1,9 +1,15 @@
 <?php
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.25.0-9e8af9e modeling language!*/
+/*This code was generated using the UMPLE 1.26.0-b05b57321 modeling language!*/
 
 class Laboratory
 {
+
+  //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static $laboratorysByName = array();
 
   //------------------------
   // MEMBER VARIABLES
@@ -31,10 +37,13 @@ class Laboratory
 
   public function __construct($aName, $aFieldOfStudy, $aStartDate, $aActive, $aURLMS, $aDirector)
   {
-    $this->name = $aName;
     $this->fieldOfStudy = $aFieldOfStudy;
     $this->startDate = $aStartDate;
     $this->active = $aActive;
+    if (!$this->setName($aName))
+    {
+      throw new RuntimeException("Cannot create due to duplicate name");
+    }
     $this->equipment = array();
     $didAddURLMS = $this->setURLMS($aURLMS);
     if (!$didAddURLMS)
@@ -60,8 +69,18 @@ class Laboratory
   public function setName($aName)
   {
     $wasSet = false;
+    if (isset($this->name)) {
+      $anOldName = $this->getName();
+    }
+    if (Laboratory::hasWithName($aName)) {
+      return $wasSet;
+    }
     $this->name = $aName;
     $wasSet = true;
+    if (isset($anOldName)) {
+      unset(Laboratory::$laboratorysByName[(string)$anOldName]);
+    }
+    Laboratory::$laboratorysByName[(string)$aName] = $this;
     return $wasSet;
   }
 
@@ -92,6 +111,16 @@ class Laboratory
   public function getName()
   {
     return $this->name;
+  }
+
+  public static function getWithName($aName)
+  {
+    return Laboratory::$laboratorysByName[(string)$aName];
+  }
+
+  public static function hasWithName($aName)
+  {
+    return array_key_exists((string)$aName, Laboratory::$laboratorysByName);
   }
 
   public function getFieldOfStudy()
@@ -864,6 +893,7 @@ class Laboratory
 
   public function delete()
   {
+    unset(Laboratory::$laboratorysByName[(string)$this->getName()]);
     foreach ($this->equipment as $aEquipment)
     {
       $aEquipment->delete();

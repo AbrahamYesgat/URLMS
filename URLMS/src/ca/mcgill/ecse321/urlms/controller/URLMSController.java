@@ -59,7 +59,7 @@ public class URLMSController {
 	// Add a new laboratory method
 	public boolean addLaboratory(String name, String fieldOfStudy, Date startDate) {
 		if(activeUser instanceof Director) {
-			((Director) activeUser).addLaboratory(name, fieldOfStudy, startDate, true, urlms);
+			activeLab = ((Director) activeUser).addLaboratory(name, fieldOfStudy, startDate, true, urlms);
 			return true;
 		}
 		return false;
@@ -68,7 +68,8 @@ public class URLMSController {
 	// Add a new staff member to a laboratory method
 	public boolean addStaff(String name, String email, String password, Staff.StaffRole role) {
 		if(activeUser instanceof Director) {
-			Staff newMember = new Staff(name, email, password, role, activeLab);
+			new Staff(name, email, password, role, activeLab);
+			return true;
 		}
 		return false;
 	}
