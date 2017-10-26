@@ -55,21 +55,17 @@ public class TestLogout {
 	  	assertEquals(true, sysC.logout());
 	  	assertEquals(null, sysC.getUser());
 	    
-	  	Staff member = new Staff(testStaffEmail,testStaffPassword,testStaffName, role);
+	  	Laboratory lab = new Laboratory("name", "study", new Date(2017, 10, 10), true, urlms, urlms.getDirector(0));
+	  	Staff member = new Staff(testStaffEmail,testStaffPassword,testStaffName, role, lab);
 	  	sysC.setActiveUser(member);
+	  	sysC.setActiveLaboratory(lab);
 	  	sysC.login(testStaffEmail, testStaffPassword);
 	  	//Tests if the staff logout works
 	  	assertEquals(member, sysC.getUser());
+	  	assertEquals(lab, sysC.getLaboratory());
 	  	assertEquals(true, sysC.logout());
 	  	assertEquals(null, sysC.getUser());
-	    
-	  //	Laboratory lab = new Laboratory("name", "study", new Date(2017, 10, 10), true, urlms, dr);
-	  //	sysC.setActiveLaboratory(lab);
-	  	//lab.addStaff(member);
-	  	
-	  	//Tests if logout resets the active laboratory
-	  	
-	  	
+	  	assertEquals(null, sysC.getLaboratory());
 	}
 
 }

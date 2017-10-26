@@ -52,8 +52,7 @@ public class TestLogin {
 	  	assertEquals(false, sysC.login("random", "random"));
 	  	
 	  	Laboratory lab = new Laboratory("name", "study", new Date(2017, 10, 10), true, urlms, dr);
-	  	Staff member = new Staff(testStaffEmail,testStaffPassword,testStaffName, role);
-	  	lab.addStaff(member);
+	  	Staff member = new Staff(testStaffEmail,testStaffPassword,testStaffName, role, lab);
 	  	// Tests if the director and a staff member can login 
 	  	assertEquals(true, sysC.login(testEmail, testPassword));
 	  	assertEquals(true, sysC.login(testStaffEmail, testStaffPassword));

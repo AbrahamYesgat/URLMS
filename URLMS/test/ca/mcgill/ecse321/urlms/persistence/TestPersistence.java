@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.urlms.persistence;
+ package ca.mcgill.ecse321.urlms.persistence;
 
 import static org.junit.Assert.*;
 
@@ -33,8 +33,7 @@ public class TestPersistence {
 		// Create participants
 		Director dr = new Director(testEmail, testPassword, testDirName, urlms); 
 		urlms.addLaboratory("LabOne", "Test", new Date(2017, 10, 10), true, dr);
-		Staff staffMember = new Staff(testStaffEmail, testPassword, testStaffName, role); 
-		urlms.getLaboratory(0).addStaff(staffMember);
+		Staff staffMember = new Staff(testStaffEmail, testPassword, testStaffName, role, urlms.getLaboratory(0)); 
 		// Create data file
 		PersistenceXStream.initializeURLMS("output"+File.separator+"data.xml");
 		PersistenceXStream.saveToXMLwithXStream(urlms);
