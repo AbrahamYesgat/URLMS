@@ -11,6 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import ca.mcgill.ecse321.urlms.model.*;
+import ca.mcgill.ecse321.urlms.model.Staff.StaffRole;
 import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 
 public class TestLogout {
@@ -22,6 +23,7 @@ public class TestLogout {
 	private static String testStaffEmail ="staff@urlms.ca";
 	private static String testStaffPassword ="password1";
 	private static String testStaffName ="Member";
+	private static StaffRole role = StaffRole.ResearchAssociate;
 	
 	private static URLMS urlms;
 
@@ -49,20 +51,21 @@ public class TestLogout {
 	public void test() {
 		URLMSController sysC = new URLMSController(urlms);
 		// Tests if the director logout works
+		sysC.login(testEmail, testPassword);
 	  	assertEquals(true, sysC.logout());
 	  	assertEquals(null, sysC.getUser());
 	    
-	  	Staff member = new Staff(testStaffEmail,testStaffPassword,testStaffName);
+	  	Staff member = new Staff(testStaffEmail,testStaffPassword,testStaffName, role);
 	  	sysC.setActiveUser(member);
-	  	
+	  	sysC.login(testStaffEmail, testStaffPassword);
 	  	//Tests if the staff logout works
 	  	assertEquals(member, sysC.getUser());
 	  	assertEquals(true, sysC.logout());
 	  	assertEquals(null, sysC.getUser());
 	    
-	  	Laboratory lab = new Laboratory("name", "study", new Date(2017, 10, 10), true, urlms, dr);
-	  	sysC.setActiveLaboratory(lab);
-	  	lab.addStaff(member);
+	  //	Laboratory lab = new Laboratory("name", "study", new Date(2017, 10, 10), true, urlms, dr);
+	  //	sysC.setActiveLaboratory(lab);
+	  	//lab.addStaff(member);
 	  	
 	  	//Tests if logout resets the active laboratory
 	  	

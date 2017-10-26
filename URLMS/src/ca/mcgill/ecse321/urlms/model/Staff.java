@@ -29,11 +29,16 @@ public class Staff extends UserRole
   // CONSTRUCTOR
   //------------------------
 
-  public Staff(String aEmail, String aPassword, String aName, StaffRole aStaffRole)
+  public Staff(String aEmail, String aPassword, String aName, StaffRole aStaffRole, Laboratory... allLaboratories)
   {
     super(aEmail, aPassword, aName);
     staffRole = aStaffRole;
     laboratories = new ArrayList<Laboratory>();
+    boolean didAddLaboratories = setLaboratories(allLaboratories);
+    if (!didAddLaboratories)
+    {
+      throw new RuntimeException("Unable to create Staff, must have at least 1 laboratories");
+    }
     progressUpdates = new ArrayList<ProgressUpdate>();
   }
 
@@ -114,9 +119,15 @@ public class Staff extends UserRole
     return index;
   }
 
+  public boolean isNumberOfLaboratoriesValid()
+  {
+    boolean isValid = numberOfLaboratories() >= minimumNumberOfLaboratories();
+    return isValid;
+  }
+
   public static int minimumNumberOfLaboratories()
   {
-    return 0;
+    return 1;
   }
 
   public boolean addLaboratory(Laboratory aLaboratory)
@@ -147,6 +158,11 @@ public class Staff extends UserRole
       return wasRemoved;
     }
 
+    if (numberOfLaboratories() <= minimumNumberOfLaboratories())
+    {
+      return wasRemoved;
+    }
+
     int oldIndex = laboratories.indexOf(aLaboratory);
     laboratories.remove(oldIndex);
     if (aLaboratory.indexOfStaff(this) == -1)
@@ -162,6 +178,47 @@ public class Staff extends UserRole
       }
     }
     return wasRemoved;
+  }
+
+  public boolean setLaboratories(Laboratory... newLaboratories)
+  {
+    boolean wasSet = false;
+    ArrayList<Laboratory> verifiedLaboratories = new ArrayList<Laboratory>();
+    for (Laboratory aLaboratory : newLaboratories)
+    {
+      if (verifiedLaboratories.contains(aLaboratory))
+      {
+        continue;
+      }
+      verifiedLaboratories.add(aLaboratory);
+    }
+
+    if (verifiedLaboratories.size() != newLaboratories.length || verifiedLaboratories.size() < minimumNumberOfLaboratories())
+    {
+      return wasSet;
+    }
+
+    ArrayList<Laboratory> oldLaboratories = new ArrayList<Laboratory>(laboratories);
+    laboratories.clear();
+    for (Laboratory aNewLaboratory : verifiedLaboratories)
+    {
+      laboratories.add(aNewLaboratory);
+      if (oldLaboratories.contains(aNewLaboratory))
+      {
+        oldLaboratories.remove(aNewLaboratory);
+      }
+      else
+      {
+        aNewLaboratory.addStaff(this);
+      }
+    }
+
+    for (Laboratory anOldLaboratory : oldLaboratories)
+    {
+      anOldLaboratory.removeStaff(this);
+    }
+    wasSet = true;
+    return wasSet;
   }
 
   public boolean addLaboratoryAt(Laboratory aLaboratory, int index)

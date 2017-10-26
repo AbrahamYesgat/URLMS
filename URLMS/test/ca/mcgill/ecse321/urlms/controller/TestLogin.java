@@ -11,6 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import ca.mcgill.ecse321.urlms.model.*;
+import ca.mcgill.ecse321.urlms.model.Staff.StaffRole;
 
 // This tests if the login method in the controller works
 public class TestLogin {
@@ -23,6 +24,7 @@ public class TestLogin {
 	private static String testStaffEmail ="staff@urlms.ca";
 	private static String testStaffPassword ="password1";
 	private static String testStaffName ="Member";
+	private static StaffRole role = StaffRole.ResearchAssociate;
 	
 	private URLMS urlms;
 	
@@ -50,7 +52,7 @@ public class TestLogin {
 	  	assertEquals(false, sysC.login("random", "random"));
 	  	
 	  	Laboratory lab = new Laboratory("name", "study", new Date(2017, 10, 10), true, urlms, dr);
-	  	Staff member = new Staff(testStaffEmail,testStaffPassword,testStaffName);
+	  	Staff member = new Staff(testStaffEmail,testStaffPassword,testStaffName, role);
 	  	lab.addStaff(member);
 	  	// Tests if the director and a staff member can login 
 	  	assertEquals(true, sysC.login(testEmail, testPassword));

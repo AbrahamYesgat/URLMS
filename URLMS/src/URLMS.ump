@@ -49,7 +49,7 @@ class Staff
   isA UserRole;
   enum StaffRole {ResearchAssociate, ResearchAssistant};
   StaffRole staffRole;
-   * -<@> * Laboratory;
+   * -<@> 1..* Laboratory;
 }
 
 class ProgressUpdate
