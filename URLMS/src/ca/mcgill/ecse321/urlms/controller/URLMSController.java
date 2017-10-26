@@ -18,6 +18,14 @@ public class URLMSController {
 		this.urlms = urlms;
 	}
 	
+	public void setURLMS(URLMS urlms) {
+		this.urlms = urlms;
+	}
+	
+	public URLMS getURLMS() {
+		return this.urlms;
+	}
+	
 	// Login method
 	public boolean login(String email, String password) {
 		List<Laboratory> labs = urlms.getLaboratories();

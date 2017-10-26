@@ -2,6 +2,8 @@ package ca.mcgill.ecse321.urlms.controller;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -26,6 +28,9 @@ public class TestCreateDirector {
 	@Before
 	public void setUp() throws Exception {
 		urlms = URLMS.getInstance();
+		// Create data file
+		PersistenceXStream.initializeURLMS("output"+File.separator+"data.xml");
+		PersistenceXStream.saveToXMLwithXStream(urlms);
 	}
 
 	@After
@@ -43,6 +48,7 @@ public class TestCreateDirector {
 	    urlms = (URLMS) PersistenceXStream.loadFromXMLwithXStream();
 	    if (urlms == null)
 	        fail("Could not load file.");
+	    sysC.setURLMS(urlms);
 	    assertEquals(true, sysC.login(testEmail, testPassword));
 	}
 
