@@ -53,7 +53,7 @@ public class TestLogout {
 		// Tests if the director logout works
 		sysC.login(testEmail, testPassword);
 	  	assertEquals(true, sysC.logout());
-	  	assertEquals(null, sysC.getUser());
+	  	assertEquals(null, sysC.getActiveUser());
 	    
 	  	Laboratory lab = new Laboratory("name", "study", new Date(2017, 10, 10), true, urlms, urlms.getDirector(0));
 	  	Staff member = new Staff(testStaffEmail,testStaffPassword,testStaffName, role, lab);
@@ -61,11 +61,11 @@ public class TestLogout {
 	  	sysC.setActiveLaboratory(lab);
 	  	sysC.login(testStaffEmail, testStaffPassword);
 	  	//Tests if the staff logout works
-	  	assertEquals(member, sysC.getUser());
-	  	assertEquals(lab, sysC.getLaboratory());
+	  	assertEquals(member, sysC.getActiveUser());
+	  	assertEquals(lab, sysC.getActiveLaboratory());
 	  	assertEquals(true, sysC.logout());
-	  	assertEquals(null, sysC.getUser());
-	  	assertEquals(null, sysC.getLaboratory());
+	  	assertEquals(null, sysC.getActiveUser());
+	  	assertEquals(null, sysC.getActiveLaboratory());
 	}
 
 }

@@ -70,10 +70,10 @@ class Controller
     public function setActiveUser($user) {
         $activeUser = $user;
     }
-    public function getUser() {
+    public function getActiveUser() {
         return $activeUser;
     }
-    public function getLaboratory() {
+    public function getActiveLaboratory() {
         return $activeLab;
     }
 }

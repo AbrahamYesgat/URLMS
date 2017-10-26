@@ -80,10 +80,10 @@ public class URLMSController {
 	public void setActiveUser(UserRole user) {
 		activeUser = user;
 	}
-	public UserRole getUser() {
+	public UserRole getActiveUser() {
 		return activeUser;
 	}
-	public Laboratory getLaboratory() {
+	public Laboratory getActiveLaboratory() {
 		return activeLab;
 	}
 }
