@@ -59,7 +59,7 @@ public class URLMSController {
 	
 	// Create a director method
 	public boolean createDirector(String email, String password, String name) {
-		new Director(email, password, name, urlms);
+		urlms.addDirector(email, password, name);
 		return PersistenceXStream.saveToXMLwithXStream(urlms);
 	}
 	

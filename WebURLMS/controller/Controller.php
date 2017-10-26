@@ -5,6 +5,8 @@ foreach(glob($curr_dir . '/../model/*.php') as $file){
     require_once $file;
 }
 
+require_once $curr_dir . '/persistence/PersistenceManager.php';
+
 class Controller
 {
     private $urlms;
@@ -49,7 +51,7 @@ class Controller
     //Create a new lab
     public function addLaboratory($name, $fieldOfStudy, $startDate) {
         if($activeUser instanceof Director) {
-            $activeUser->addLaboratoryVia($name, $fieldOfStudy, $startDate, true, $this->urlms);
+            $activeLab = $activeUser->addLaboratoryVia($name, $fieldOfStudy, $startDate, true, $this->urlms);
         }
         
         return false;
@@ -62,6 +64,11 @@ class Controller
         }
         
         return true;
+    }
+    
+    public function createDirector($email, $password, $name) {
+        URLMS::getInstance()->addDirectorVia($email, $password, $name);
+        PersistenceManager::writeDataToStore($this->urlms);
     }
     
     public function setActiveLaboratory($lab){
