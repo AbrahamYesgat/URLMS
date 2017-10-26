@@ -43,6 +43,7 @@ public class TestAddLaboratory {
 
 	@After
 	public void tearDown() throws Exception {
+		urlms.delete();
 	}
 
 	@Test
