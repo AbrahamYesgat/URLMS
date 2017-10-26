@@ -72,4 +72,17 @@ public class URLMSController {
 		}
 		return false;
 	}
+	
+	public void setActiveLaboratory(Laboratory lab){
+		activeLab = lab;
+	}
+	public void setActiveUser(UserRole user) {
+		activeUser = user;
+	}
+	public UserRole getUser() {
+		return activeUser;
+	}
+	public Laboratory getLaboratory() {
+		return activeLab;
+	}
 }
