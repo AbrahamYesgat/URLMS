@@ -49,39 +49,32 @@ class Controller
     //Create a new lab
     public function addLaboratory($name, $fieldOfStudy, $startDate) {
         if($activeUser instanceof Director) {
-            $activeUser->addLaboratoryVia($name, $fieldOfStudy, $startDate, true, $this->urlms)
+            $activeUser->addLaboratoryVia($name, $fieldOfStudy, $startDate, true, $this->urlms);
         }
         
         return false;
     }
     
-    //
+    // Add a new staff member to the current laboratory
     public function addStaff($name, $email, $password, $role) {
         if($activeUser instanceof Director) {
-            $newMember = new Staff($name, $);
+            $newMember = new Staff($name, $email, $password, [$activeLab]);
         }
+        
+        return true;
     }
     
-    // Add a new staff member to a laboratory method
-    public boolean addStaff(String name, String email, String password, Staff.StaffRole role) {
-        if(activeUser instanceof Director) {
-            Staff newMember = new Staff(name, email, password);
-            activeLab.addStaff(newMember);
-        }
-        return false;
+    public function setActiveLaboratory($lab){
+        $activeLab = $lab;
     }
-    
-    public void setActiveLaboratory(Laboratory lab){
-        activeLab = lab;
+    public function setActiveUser($user) {
+        $activeUser = $user;
     }
-    public void setActiveUser(UserRole user) {
-        activeUser = user;
+    public function getUser() {
+        return $activeUser;
     }
-    public UserRole getUser() {
-        return activeUser;
-    }
-    public Laboratory getLaboratory() {
-        return activeLab;
+    public function getLaboratory() {
+        return $activeLab;
     }
 }
 ?>
