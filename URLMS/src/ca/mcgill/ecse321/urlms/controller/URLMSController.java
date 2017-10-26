@@ -68,8 +68,7 @@ public class URLMSController {
 	// Add a new staff member to a laboratory method
 	public boolean addStaff(String name, String email, String password, Staff.StaffRole role) {
 		if(activeUser instanceof Director) {
-			Staff newMember = new Staff(name, email, password, role);
-			activeLab.addStaff(newMember);
+			Staff newMember = new Staff(name, email, password, role, activeLab);
 		}
 		return false;
 	}
