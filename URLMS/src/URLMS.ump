@@ -47,7 +47,8 @@ class Supplies
 class Staff
 {
   isA UserRole;
-  enum staffRole {ResearchAssociate, ResearchAssistant};
+  enum StaffRole {ResearchAssociate, ResearchAssistant};
+  StaffRole staffRole;
    * -<@> * Laboratory;
 }
 

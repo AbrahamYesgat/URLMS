@@ -52,6 +52,7 @@ public class URLMSController {
 	// Logout method
 	public boolean logout() {
 		activeUser = null;
+		activeLab = null; 
 		return PersistenceXStream.saveToXMLwithXStream(urlms);
 	}
 	
@@ -67,7 +68,7 @@ public class URLMSController {
 	// Add a new staff member to a laboratory method
 	public boolean addStaff(String name, String email, String password, Staff.StaffRole role) {
 		if(activeUser instanceof Director) {
-			Staff newMember = new Staff(name, email, password);
+			Staff newMember = new Staff(name, email, password, role);
 			activeLab.addStaff(newMember);
 		}
 		return false;

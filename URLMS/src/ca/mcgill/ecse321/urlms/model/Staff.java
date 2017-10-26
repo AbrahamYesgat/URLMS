@@ -18,6 +18,9 @@ public class Staff extends UserRole
   // MEMBER VARIABLES
   //------------------------
 
+  //Staff Attributes
+  private StaffRole staffRole;
+
   //Staff Associations
   private List<Laboratory> laboratories;
   private List<ProgressUpdate> progressUpdates;
@@ -26,9 +29,10 @@ public class Staff extends UserRole
   // CONSTRUCTOR
   //------------------------
 
-  public Staff(String aEmail, String aPassword, String aName)
+  public Staff(String aEmail, String aPassword, String aName, StaffRole aStaffRole)
   {
     super(aEmail, aPassword, aName);
+    staffRole = aStaffRole;
     laboratories = new ArrayList<Laboratory>();
     progressUpdates = new ArrayList<ProgressUpdate>();
   }
@@ -36,6 +40,19 @@ public class Staff extends UserRole
   //------------------------
   // INTERFACE
   //------------------------
+
+  public boolean setStaffRole(StaffRole aStaffRole)
+  {
+    boolean wasSet = false;
+    staffRole = aStaffRole;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public StaffRole getStaffRole()
+  {
+    return staffRole;
+  }
 
   public Laboratory getLaboratory(int index)
   {
@@ -267,4 +284,10 @@ public class Staff extends UserRole
     super.delete();
   }
 
+
+  public String toString()
+  {
+    return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "staffRole" + "=" + (getStaffRole() != null ? !getStaffRole().equals(this)  ? getStaffRole().toString().replaceAll("  ","    ") : "this" : "null");
+  }
 }

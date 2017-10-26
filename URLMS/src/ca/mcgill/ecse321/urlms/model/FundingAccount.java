@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse321.urlms.model;
 
-// line 63 "../../../../../URLMS.ump"
+// line 64 "../../../../../URLMS.ump"
 public class FundingAccount
 {
 
