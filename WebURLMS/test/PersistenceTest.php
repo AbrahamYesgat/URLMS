@@ -24,7 +24,7 @@ class PersistenceTest extends PHPUnit_Framework_TestCase
         
         // Create participants
         $dr = new Director($testEmail, $testPassword, $testDirName, $this->urlms);
-        $this->urlms->addLaboratory("LabOne", "Test", date("m.d.y", strtotime("2017-10-10")), true, dr);
+        $this->urlms->addLaboratory("LabOne", "Test", new DateTime("new"), true, dr);
         $staffMember = new Staff($this->testStaffEmail, $this->testPassword, $this->testStaffName);
         $this->urlms->getLaboratory_index(0)->addStaff($staffMember);
         // Create data file

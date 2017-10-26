@@ -1,12 +1,12 @@
 <?php
 class PersistenceManager {
-    private $filename;
+    public static $filename = 'data.txt';
     
-    function __construct($filename = 'data.txt') {
-        $this->filename = $filename;
+    public static function setFilename($filename) {
+        PersistenceManager::$filename = $filename;
     }
     
-    function loadDataFromStore() {
+    public static function loadDataFromStore() {
         if (file_exists($this->filename)) {
             $str = file_get_contents($this->filename);
             $rm = unserialize($str);
@@ -17,7 +17,7 @@ class PersistenceManager {
         return $rm;
     }
     
-    function writeDataToStore($urlms) {
+    public static function writeDataToStore($urlms) {
         $str = serialize($urlms);
         file_put_contents($this->filename, $str);
     }

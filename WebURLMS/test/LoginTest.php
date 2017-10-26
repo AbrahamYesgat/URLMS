@@ -37,7 +37,7 @@ class LoginTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(true, $sysC->login(testEmail, testPassword));
         $this->assertEquals(false, $sysC->login("random", "random"));
         
-        $lab = new Laboratory("name", "study", date("m.d.y", strtotime("2017-10-10")), true, $this->urlms, $this->dr);
+        $lab = new Laboratory("name", "study", new Datetime("now"), true, $this->urlms, $this->dr);
         $member = new Staff($this->testStaffEmail,$this->testStaffPassword,$this->testStaffName);
         $lab->addStaff($member);
         // Tests if the director and a staff member can login

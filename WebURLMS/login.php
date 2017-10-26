@@ -8,8 +8,7 @@ foreach(glob($curr_dir . '/model/*.php') as $file){
 require_once $curr_dir . '/controller/Controller.php';
 require_once $curr_dir . '/../persistence/PersistenceManager.php';
 
-$pm = new PersistenceManager();
-$urlms = $pm->loadDataFromStore();
+$urlms = PersistenceManager::loadDataFromStore();
 $controller = new Controller($urlms);
 ?>
 

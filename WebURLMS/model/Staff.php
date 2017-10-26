@@ -9,6 +9,9 @@ class Staff extends UserRole
   // MEMBER VARIABLES
   //------------------------
 
+  //Staff Attributes
+  private $staffRole;
+
   //Staff Associations
   private $laboratories;
   private $progressUpdates;
@@ -17,16 +20,35 @@ class Staff extends UserRole
   // CONSTRUCTOR
   //------------------------
 
-  public function __construct($aEmail, $aPassword, $aName)
+  public function __construct($aEmail, $aPassword, $aName, $aStaffRole, $allLaboratories)
   {
     parent::__construct($aEmail, $aPassword, $aName);
+    $this->staffRole = $aStaffRole;
     $this->laboratories = array();
+    $didAddLaboratories = $this->setLaboratories($allLaboratories);
+    if (!$didAddLaboratories)
+    {
+      throw new Exception("Unable to create Staff, must have at least 1 laboratories");
+    }
     $this->progressUpdates = array();
   }
 
   //------------------------
   // INTERFACE
   //------------------------
+
+  public function setStaffRole($aStaffRole)
+  {
+    $wasSet = false;
+    $this->staffRole = $aStaffRole;
+    $wasSet = true;
+    return $wasSet;
+  }
+
+  public function getStaffRole()
+  {
+    return $this->staffRole;
+  }
 
   public function getLaboratory_index($index)
   {
@@ -110,9 +132,15 @@ class Staff extends UserRole
     return $index;
   }
 
+  public function isNumberOfLaboratoriesValid()
+  {
+    $isValid = $this->numberOfLaboratories() >= self::minimumNumberOfLaboratories();
+    return $isValid;
+  }
+
   public static function minimumNumberOfLaboratories()
   {
-    return 0;
+    return 1;
   }
 
   public function addLaboratory($aLaboratory)
@@ -143,6 +171,11 @@ class Staff extends UserRole
       return $wasRemoved;
     }
 
+    if ($this->numberOfLaboratories() <= self::minimumNumberOfLaboratories())
+    {
+      return $wasRemoved;
+    }
+
     $oldIndex = $this->indexOfLaboratory($aLaboratory);
     unset($this->laboratories[$oldIndex]);
     if ($aLaboratory->indexOfStaff($this) == -1)
@@ -160,6 +193,49 @@ class Staff extends UserRole
     }
     $this->laboratories = array_values($this->laboratories);
     return $wasRemoved;
+  }
+
+  public function setLaboratories($newLaboratories)
+  {
+    $wasSet = false;
+    $verifiedLaboratories = array();
+    foreach ($newLaboratories as $aLaboratory)
+    {
+      if (array_search($aLaboratory,$verifiedLaboratories) !== false)
+      {
+        continue;
+      }
+      $verifiedLaboratories[] = $aLaboratory;
+    }
+
+    if (count($verifiedLaboratories) != count($newLaboratories) || count($verifiedLaboratories) < self::minimumNumberOfLaboratories())
+    {
+      return $wasSet;
+    }
+
+    $oldLaboratories = $this->laboratories;
+    $this->laboratories = array();
+    foreach ($verifiedLaboratories as $aNewLaboratory)
+    {
+      $this->laboratories[] = $aNewLaboratory;
+      $removeIndex = array_search($aNewLaboratory,$oldLaboratories);
+      if ($removeIndex !== false)
+      {
+        unset($oldLaboratories[$removeIndex]);
+        $oldLaboratories = array_values($oldLaboratories);
+      }
+      else
+      {
+        $aNewLaboratory->addStaff($this);
+      }
+    }
+
+    foreach ($oldLaboratories as $anOldLaboratory)
+    {
+      $anOldLaboratory->removeStaff($this);
+    }
+    $wasSet = true;
+    return $wasSet;
   }
 
   public function addLaboratoryAt($aLaboratory, $index)
@@ -286,13 +362,6 @@ class Staff extends UserRole
     }
     parent::delete();
   }
-
-  //------------------------
-  // DEVELOPER CODE - PROVIDED AS-IS
-  //------------------------
-  
-  // line 50 ../../../../../URLMS.ump
-  //enum staffRole {ResearchAssociate, ResearchAssistant};
 
 }
 ?>

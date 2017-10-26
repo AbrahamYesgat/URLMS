@@ -47,9 +47,15 @@ class Supplies
 class Staff
 {
   isA UserRole;
-  enum staffRole {ResearchAssociate, ResearchAssistant};
-   * -<@> * Laboratory;
+  StaffRole staffRole;
+   * -<@> 1..* Laboratory;
 }
+
+interface StaffRole
+ {
+     const ResearchAssociate = 0;
+     const ResearchAssistant = 1;
+ }
 
 class ProgressUpdate
 {
