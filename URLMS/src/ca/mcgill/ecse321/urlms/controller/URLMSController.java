@@ -49,6 +49,12 @@ public class URLMSController {
 		return false;
 	}
 	
+	// Create a director method
+	public boolean createDirector(String email, String password, String name) {
+		new Director(email, password, name, urlms);
+		return PersistenceXStream.saveToXMLwithXStream(urlms);
+	}
+	
 	// Logout method
 	public boolean logout() {
 		activeUser = null;
@@ -60,7 +66,7 @@ public class URLMSController {
 	public boolean addLaboratory(String name, String fieldOfStudy, Date startDate) {
 		if(activeUser instanceof Director) {
 			activeLab = ((Director) activeUser).addLaboratory(name, fieldOfStudy, startDate, true, urlms);
-			return true;
+			return PersistenceXStream.saveToXMLwithXStream(urlms);
 		}
 		return false;
 	}
@@ -69,7 +75,7 @@ public class URLMSController {
 	public boolean addStaff(String name, String email, String password, Staff.StaffRole role) {
 		if(activeUser instanceof Director) {
 			new Staff(name, email, password, role, activeLab);
-			return true;
+			return PersistenceXStream.saveToXMLwithXStream(urlms);
 		}
 		return false;
 	}
