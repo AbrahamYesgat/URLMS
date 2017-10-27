@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             loggingMessage.setText("Wrong username/password combination!");
         }
         else{
+            //MAKE THIS CHANGE THE UI 
             TextView loggingMessage = (TextView) findViewById(R.id.loggingMessage);
             loggingMessage.setText("Successfully logged in as \n" + tv1.getText().toString());
             refreshData();
