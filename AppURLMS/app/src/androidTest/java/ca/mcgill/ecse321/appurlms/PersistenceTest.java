@@ -12,6 +12,7 @@ import android.content.Context;
 import java.sql.Date;
 
 import ca.mcgill.ecse321.urlms.model.*;
+import ca.mcgill.ecse321.urlms.model.Staff.StaffRole;
 import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 
 @RunWith(AndroidJUnit4.class)
@@ -22,6 +23,7 @@ public class PersistenceTest {
     private static String testPassword ="password";
     private static String testDirName ="Director";
     private static String testStaffName ="Staff";
+    private static StaffRole role = StaffRole.ResearchAssociate;
 
     private URLMS urlms;
 
@@ -31,8 +33,8 @@ public class PersistenceTest {
 
         // Create participants
         Director dr = new Director(testEmail, testPassword, testDirName, urlms);
-        urlms.addLaboratory("LabOne", "Test", new Date(2017, 10, 10), new Date(2017, 10, 10), true, dr);
-        Staff staffMember = new Staff(testStaffEmail, testPassword, testStaffName);
+        urlms.addLaboratory("LabOne", "Test", new Date(2017, 10, 10), true, dr);
+        Staff staffMember = new Staff(testStaffEmail, testPassword, testStaffName, role, urlms.getLaboratory(0));
         urlms.getLaboratory(0).addStaff(staffMember);
 
         // Create data file
