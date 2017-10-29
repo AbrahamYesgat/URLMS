@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/andrevallieres/.android/build-cache/b645fad50e8d331dd73f62e2df99b0e0165720a0/output/jars/classes.jar"
+        revision="25.0.3"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-247ee5e71efb32e7d2c6ec4649a180f1bde48f9d.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/.android/build-cache/28ca2e3473de4296f2ef78ed88107676d1b85e8b/output/jars/classes.jar"
+        revision="25.0.3"
+        sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-7c181e8b397e598d189e84306575b1b5dbf24b0d.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/.android/build-cache/412890e3593d53b31e19a5320214302a0826f6be/output/jars/classes.jar"
+        revision="25.0.3"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-0f51f0771f77eb2f9dddf53425fead5d2ea3be5a.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/.android/build-cache/07eb387867fcd0405ee2bae5630e31225767d096/output/jars/classes.jar"
+        revision="25.0.3"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-783363d16b764e8dd1c605e913f52630b0d8c06b.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/.gradle/caches/modules-2/files-2.1/com.thoughtworks.xstream/xstream/1.4.7/bce3282142b63068260f021fcbe48b72e8d71a1a/xstream-1.4.7.jar"
+        revision="25.0.3"
+        sha1="bce3282142b63068260f021fcbe48b72e8d71a1a">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/xstream-1.4.7-74cc6c5f8d730a074622e43babadba08978d7fad.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/.android/build-cache/cdd4655c286923c5f00fa778ca910b1d00c72da2/output/jars/classes.jar"
+        revision="25.0.3"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-ce2fac1b4a6522b4d4846026d402962414c1eea1.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/.android/build-cache/1f445138d70520c9ff5fc5d690773d21d1f39e54/output/jars/classes.jar"
+        revision="25.0.3"
+        sha1="150252b33b00274cc868578ade018fda0d43a3eb">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-bd86546b65ff3149bccc624218d8ac5e47aae583.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/.android/build-cache/41d72d2302679ea0aa94de2a48e716747b7a3a76/output/jars/classes.jar"
+        revision="25.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-9d48b295bcda29775e61974b6dad4dafed8dbf2e.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/.android/build-cache/98f2f4e4367ce72b3d39cfdf39371178cf22138d/output/jars/classes.jar"
+        revision="25.0.3"
+        sha1="38789e20ace9ab7dbd00554bd2673ab424478d3b">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-193a6ef8757d29f33f2aa65a0f8df5422a047885.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/.android/build-cache/8ec52a9af893d63612b3c6a950172fd9349ea734/output/jars/classes.jar"
+        revision="25.0.3"
+        sha1="d4cf6227dd6a2ceff0f7dcf0c324380b7abf2c28">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-c6484ec095cf89a11fd93dd1cf55adc1a807f687.jar" />
+    </item>
+    <item
+        jar="/Applications/Android Studio.app/Contents/gradle/m2repository/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar"
+        revision="25.0.3"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/gson-2.2.4-d0ce76b63ce905fbab3c5d385c8e1b8692010f19.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/.android/build-cache/f029eb30bf8733ee5ffba542cd0610fbe31c7ec6/output/jars/classes.jar"
+        revision="25.0.3"
+        sha1="95519720620b553f63afc789beba9ad582807f7c">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-89ed89cf644ca1ceab099076ba8745146d5853c2.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/Library/Android/sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2/constraint-layout-solver-1.0.2.jar"
+        revision="25.0.3"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/constraint-layout-solver-1.0.2-c302fb29f639da1c8d0716f97521472bccffe67d.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/.android/build-cache/6c9beb7378dbdbd0af9593f9b9f4521ba7498236/output/jars/classes.jar"
+        revision="25.0.3"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-a5d3876ebc46f93bdd83d07480a3082240e1890d.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.3.1/support-annotations-25.3.1.jar"
+        revision="25.0.3"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/support-annotations-25.3.1-f5c07aa81c44c78ba4f276ff1606ed65430091ec.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/.gradle/caches/modules-2/files-2.1/xpp3/xpp3_min/1.1.4c/19d4e90b43059058f6e056f794f0ea4030d60b86/xpp3_min-1.1.4c.jar"
+        revision="25.0.3"
+        sha1="19d4e90b43059058f6e056f794f0ea4030d60b86">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/xpp3_min-1.1.4c-6919688fdd2d77bfac8f5842165a1d6fc913bcf2.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/libs/URLMS.jar"
+        revision="25.0.3"
+        sha1="49e4944702135c494bccbf7173765dca55d6fc8d">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/URLMS-ac05f777ff0f414795106c01157fd20e01b5ecdd.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/.android/build-cache/f690624586a77bf151bc217ea9e6dc5877c88082/output/jars/classes.jar"
+        revision="25.0.3"
+        sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-a4a82dcdc482dce25e13d17cedc78191c610c87a.jar" />
+    </item>
+    <item
+        jar="/Users/andrevallieres/.android/build-cache/b174b47234632dc117e0242c52cb7a30247a038a/output/jars/classes.jar"
+        revision="25.0.3"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="/Users/andrevallieres/Documents/workspace/ECSE321/P1/AppURLMS/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-550ce570eed88d9a90ca88cda2f1e01f4789fbb3.jar" />
+    </item>
+
+</items>
