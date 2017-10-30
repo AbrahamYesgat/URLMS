@@ -1,5 +1,8 @@
 # Locally stored "Eclipse launch configurations"
 *.launch
+.settings/
+.loadpath
+
 
 # Compiled class file
 *.class
