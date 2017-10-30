@@ -5,7 +5,9 @@ foreach(glob($curr_dir . '/../model/*.php') as $file){
     require_once $file;
 }
 
-class PersistenceTest extends PHPUnit_Framework_TestCase
+require_once $curr_dir . '/../controller/Controller.php';
+
+class PersistenceTest extends PHPUnit\Framework\TestCase
 {
     protected $pm;
     protected $urlms;
@@ -24,9 +26,8 @@ class PersistenceTest extends PHPUnit_Framework_TestCase
         
         // Create participants
         $dr = new Director($testEmail, $testPassword, $testDirName, $this->urlms);
-        $this->urlms->addLaboratory("LabOne", "Test", new DateTime("new"), true, dr);
-        $staffMember = new Staff($this->testStaffEmail, $this->testPassword, $this->testStaffName);
-        $this->urlms->getLaboratory_index(0)->addStaff($staffMember);
+        $lab = $this->urlms->addLaboratoryVia("LabOne", "Test", new DateTime("now"), true, $dr);
+        $staffMember = new Staff($this->testStaffEmail, $this->testPassword, $this->testStaffName, StaffRole::ResearchAssistant, [$lab]);
         // Create data file
         $this->pm->writeDataToStore($this->urlms);
     }

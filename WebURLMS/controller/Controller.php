@@ -5,7 +5,7 @@ foreach(glob($curr_dir . '/../model/*.php') as $file){
     require_once $file;
 }
 
-require_once $curr_dir . '/persistence/PersistenceManager.php';
+require_once $curr_dir . '/../persistence/PersistenceManager.php';
 
 class Controller
 {

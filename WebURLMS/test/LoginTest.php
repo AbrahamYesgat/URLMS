@@ -5,7 +5,9 @@ foreach(glob($curr_dir . '/../model/*.php') as $file){
     require_once $file;
 }
 
-class LoginTest extends PHPUnit_Framework_TestCase
+require_once $curr_dir . '/../controller/Controller.php';
+
+class LoginTest extends PHPUnit\Framework\TestCase
 {
     protected $pm;
     protected $urlms;
