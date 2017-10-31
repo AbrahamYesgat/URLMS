@@ -1,10 +1,9 @@
 package ca.mcgill.ecse321.appurlms;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +16,7 @@ import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 public class MainActivity extends AppCompatActivity {
 
     private URLMS urlms = null;
+    private URLMSController cont;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +27,21 @@ public class MainActivity extends AppCompatActivity {
         PersistenceXStream.initializeURLMS(getFilesDir().getAbsolutePath() +"/data.xml");
         urlms = (URLMS) PersistenceXStream.loadFromXMLwithXStream();
 
-        Button button = (Button) findViewById(R.id.login_button);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button button1 = (Button) findViewById(R.id.login_button);
+        Button button2 = (Button) findViewById(R.id.sign_up_button);
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 login(view);
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(intent1);
+                finish();
             }
         });
 
@@ -49,39 +59,18 @@ public class MainActivity extends AppCompatActivity {
     public void login(View v) {
         EditText tv1 = (EditText) findViewById(R.id.user_email);
         EditText tv2 = (EditText) findViewById(R.id.user_password);
-        URLMSController cont = new URLMSController(urlms);
 
         //Call controller method to verify if in xml
+        cont = new URLMSController(urlms);
         boolean isValid = cont.login(tv1.getText().toString(), tv2.getText().toString());
         if(!isValid) {
             TextView loggingMessage = (TextView) findViewById(R.id.loggingMessage);
             loggingMessage.setText("Wrong username/password combination!");
         }
         else{
-            //MAKE THIS CHANGE THE UI 
-            TextView loggingMessage = (TextView) findViewById(R.id.loggingMessage);
-            loggingMessage.setText("Successfully logged in as \n" + tv1.getText().toString());
-            refreshData();
+            Intent intent = new Intent(MainActivity.this, AddLaboratoryActivity.class);
+            startActivity(intent);
+            finish();
         }
-    }
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

@@ -4,4 +4,6 @@
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
     <string name="login_button">Login</string>
+    <string name="title_activity_lab">LabActivity</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
 </resources>
