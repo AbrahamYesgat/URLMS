@@ -52,18 +52,15 @@ public class URLMSController {
 		List<Laboratory> labs = urlms.getLaboratories();
 		// Tries to find a director or a staff member that matches the input.
 		List<Director> dirs = urlms.getDirectors();
-			for (Director dir : dirs) {
-				if(dir.getEmail().equals(email) && dir.getPassword().equals(password)) {
-					activeUser = dir;
-					return true;
-				}
+		for (Director dir : dirs) {
+			if(dir.getEmail().equals(email) && dir.getPassword().equals(password)) {
+				activeUser = dir;
+				return true;
 			}
-		
+		}
+
+		if(urlms.hasLaboratories()) {
 			for (Laboratory lab : labs) {
-				if(lab.getDirector().getEmail().equals(email) && lab.getDirector().getPassword().equals(password)) {
-						activeUser = lab.getDirector(); 
-						return true;
-				}
 				for (Staff member : lab.getStaffs()) {
 					if(member.getEmail().equals(email) && member.getPassword().equals(password)) {
 						activeUser = member;
@@ -71,6 +68,7 @@ public class URLMSController {
 					}
 				}
 			}
+		}
 		// If it does not find a user, it returns false (failed login).
 		return false;
 	}

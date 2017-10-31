@@ -25,11 +25,13 @@ class Controller
             }
         }
         
-        foreach($labs as $lab) {
-            foreach($lab->getStaffs() as $staff) {
-                if($staff->getEmail() == $email && $staff->getPassword() == $password) {
-                    $this->activeUser = $staff;
-                    return true;
+       if ($this->urlms->numberOfLaboratories() != 0) {
+            foreach($labs as $lab) {
+                foreach($lab->getStaffs() as $staff) {
+                    if($staff->getEmail() == $email && $staff->getPassword() == $password) {
+                        $this->activeUser = $staff;
+                        return true;
+                    }
                 }
             }
         }
