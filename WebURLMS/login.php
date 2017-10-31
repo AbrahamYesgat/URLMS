@@ -1,12 +1,10 @@
 <?php 
-$curr_dir = dirname(__FILE__);
-
-foreach(glob($curr_dir . '/model/*.php') as $file){
+foreach(glob(dirname(__FILE__) . '/model/*.php') as $file){
     require_once $file;
 }
 
-require_once $curr_dir . '/controller/Controller.php';
-require_once $curr_dir . '/persistence/PersistenceManager.php';
+require_once dirname(__FILE__) . '/controller/Controller.php';
+require_once dirname(__FILE__) . '/persistence/PersistenceManager.php';
 
 $urlms = PersistenceManager::loadDataFromStore();
 $controller = new Controller($urlms);

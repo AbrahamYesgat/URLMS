@@ -1,16 +1,17 @@
 <?php
-$curr_dir = dirname(__FILE__);
+use PHPUnit\Framework\TestCase;
 
-foreach(glob($curr_dir . '/../model/*.php') as $file){
+foreach(glob(dirname(__FILE__) . '/../model/*.php') as $file){
     require_once $file;
 }
 
-require_once $curr_dir . '/../controller/Controller.php';
+require_once dirname(__FILE__) . '/../controller/Controller.php';
 
-class LoginTest extends PHPUnit\Framework\TestCase
+class LoginTest extends TestCase
 {
-    protected $pm;
-    protected $urlms;
+    private $pm;
+    private $urlms;
+    private $controller;
     
     // Set values for test cases
     private $testEmail ="director@urlms.ca";
@@ -21,32 +22,33 @@ class LoginTest extends PHPUnit\Framework\TestCase
     private $testStaffPassword ="password1";
     private $testStaffName ="Member";
     
-    protected function setUp()
+    public function setUp()
     {
         $this->urlms = URLMS::getInstance();
+        $this->controller = new Controller($this->urlms);
     }
     
-    protected function tearDown()
+    public function tearDown()
     {
         $this->urlms->delete();
     }
     
     public function testLogin()
     {
-        $dr = new Director($this->testEmail, $this->testPassword, $this->testName, $this->urlms);
-        $sysC = new Controller($this->urlms);
-        // Tests if the director login works
-        $this->assertEquals(true, $sysC->login(testEmail, testPassword));
-        $this->assertEquals(false, $sysC->login("random", "random"));
+        //Create director
+        $this->controller->createDirector($this->testEmail, $this->testPassword, $this->testName);
         
-        $lab = new Laboratory("name", "study", new Datetime("now"), true, $this->urlms, $this->dr);
-        $member = new Staff($this->testStaffEmail,$this->testStaffPassword,$this->testStaffName);
-        $lab->addStaff($member);
+        // Tests if the director login works
+        $this->assertEquals(true, $this->controller->login($this->testEmail, $this->testPassword));
+        $this->assertEquals(false, $this->controller->login("random", "random"));
+        
+        $this->controller->addLaboratory("name", "study", new Datetime("now"));
+        $this->controller->addStaff($this->testStaffName, $this->testStaffEmail, $this->testStaffPassword, StaffRole::ResearchAssistant);
+        
         // Tests if the director and a staff member can login
-        $this->assertEquals(true, $sysC->login($this->testEmail, $this->testPassword));
-        $this->assertEquals(true, $sysC->login($this->testStaffEmail, $this->testStaffPassword));
-        $this->assertEquals(false, $sysC->login("not", "right"));
+        $this->assertEquals(true, $this->controller->login($this->testEmail, $this->testPassword));
+        $this->assertEquals(true, $this->controller->login($this->testStaffEmail, $this->testStaffPassword));
+        $this->assertEquals(false, $this->controller->login("not", "right"));
     }
-    
 }
 ?>

@@ -1,11 +1,9 @@
 <?php 
-$curr_dir = dirname(__FILE__);
-
-foreach(glob($curr_dir . '/../model/*.php') as $file){
+foreach(glob(dirname(__FILE__) . '/../model/*.php') as $file){
     require_once $file;
 }
 
-require_once $curr_dir . '/../persistence/PersistenceManager.php';
+require_once dirname(__FILE__) . '/../persistence/PersistenceManager.php';
 
 class Controller
 {
@@ -20,29 +18,27 @@ class Controller
     public function login($email, $password) {
         $labs = $this->urlms->getLaboratories();
         
-        if ($this->urlms->numberOfLaboratories() == 0) {
-            foreach($this->urlms->getDirectors() as $dir) {
-                if($dir->getEmail() == $email && $dir->getPassword() == $password) {
-                    return true;
-                }
+        foreach($this->urlms->getDirectors() as $dir) {
+            if($dir->getEmail() == $email && $dir->getPassword() == $password) {
+                $this->activeUser = $dir;
+                return true;
             }
-        } 
+        }
         
-        else {
-            foreach($labs as $lab) {
-                foreach($this->urlms->getStaffs() as $staff) {
-                    if($staff->getEmail() == $email && $staff->getPassword() == $password) {
-                        return true;
-                    }
+        foreach($labs as $lab) {
+            foreach($lab->getStaffs() as $staff) {
+                if($staff->getEmail() == $email && $staff->getPassword() == $password) {
+                    $this->activeUser = $staff;
+                    return true;
                 }
             }
         }
         
-        return FALSE;
+        return false;
     }
     
     public function logout() {
-        $activeUser = null;
+        $this->activeUser = null;
         PersistenceManager::writeDataToStore($this->urlms);
         
         return true;
@@ -50,38 +46,38 @@ class Controller
     
     //Create a new lab
     public function addLaboratory($name, $fieldOfStudy, $startDate) {
-        if($activeUser instanceof Director) {
-            $activeLab = $activeUser->addLaboratoryVia($name, $fieldOfStudy, $startDate, true, $this->urlms);
+        if($this->activeUser instanceof Director) {
+            $this->activeLab = $this->activeUser->addLaboratoryVia($name, $fieldOfStudy, $startDate, true, $this->urlms, $this->activeUser);
         }
         
-        return false;
+        PersistenceManager::writeDataToStore($this->urlms);
     }
     
     // Add a new staff member to the current laboratory
     public function addStaff($name, $email, $password, $role) {
-        if($activeUser instanceof Director) {
-            $newMember = new Staff($name, $email, $password, [$activeLab]);
+        if($this->activeUser instanceof Director) {
+            new Staff($email, $password, $name, $role, [$this->activeLab]);
         }
         
-        return true;
+        PersistenceManager::writeDataToStore($this->urlms);
     }
     
     public function createDirector($email, $password, $name) {
-        URLMS::getInstance()->addDirectorVia($email, $password, $name);
+        $this->activeUser = $this->urlms->addDirectorVia($email, $password, $name);
         PersistenceManager::writeDataToStore($this->urlms);
     }
     
     public function setActiveLaboratory($lab){
-        $activeLab = $lab;
+        $this->activeLab = $lab;
     }
     public function setActiveUser($user) {
-        $activeUser = $user;
+        $this->activeUser = $user;
     }
     public function getActiveUser() {
-        return $activeUser;
+        return $this->activeUser;
     }
     public function getActiveLaboratory() {
-        return $activeLab;
+        return $this->activeLab;
     }
 }
 ?>

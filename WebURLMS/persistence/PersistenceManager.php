@@ -1,14 +1,14 @@
 <?php
 class PersistenceManager {
-    public static $filename = 'data.txt';
+    private static $filename = 'data.txt';
     
     public static function setFilename($filename) {
         PersistenceManager::$filename = $filename;
     }
     
     public static function loadDataFromStore() {
-        if (file_exists($this->filename)) {
-            $str = file_get_contents($this->filename);
+        if (file_exists(PersistenceManager::$filename)) {
+            $str = file_get_contents(PersistenceManager::$filename);
             $rm = unserialize($str);
         } else {
             $rm = URLMS::getInstance();
@@ -19,7 +19,7 @@ class PersistenceManager {
     
     public static function writeDataToStore($urlms) {
         $str = serialize($urlms);
-        file_put_contents($this->filename, $str);
+        file_put_contents(PersistenceManager::$filename, $str);
     }
 }
 ?>
