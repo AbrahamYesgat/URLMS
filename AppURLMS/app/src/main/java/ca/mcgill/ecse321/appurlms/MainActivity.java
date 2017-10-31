@@ -15,8 +15,8 @@ import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 
 public class MainActivity extends AppCompatActivity {
 
-    private URLMS urlms = null;
-    private URLMSController cont;
+    public URLMS urlms;
+    public static URLMSController cont;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,26 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         PersistenceXStream.initializeURLMS(getFilesDir().getAbsolutePath() +"/data.xml");
         urlms = (URLMS) PersistenceXStream.loadFromXMLwithXStream();
-
-        Button button1 = (Button) findViewById(R.id.login_button);
-        Button button2 = (Button) findViewById(R.id.sign_up_button);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                login(view);
-            }
-        });
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent1 = new Intent(MainActivity.this, SignUpActivity.class);
-                startActivity(intent1);
-                finish();
-            }
-        });
-
-        refreshData();
     }
 
     private void refreshData() {
@@ -72,5 +52,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+    }
+
+    public void signUp(View view) {
+        Intent intent1 = new Intent(MainActivity.this, SignUpActivity.class);
+        startActivity(intent1);
+        finish();
     }
 }

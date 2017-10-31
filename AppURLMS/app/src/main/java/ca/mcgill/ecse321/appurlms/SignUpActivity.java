@@ -13,25 +13,10 @@ import ca.mcgill.ecse321.urlms.model.URLMS;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private URLMS urlms;
-    private URLMSController cont;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        urlms = URLMS.getInstance();
-
-        Button button1 = (Button) findViewById(R.id.sign_up_button);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createDirector(view);
-            }
-        });
-
-        refreshData();
     }
 
     private void refreshData() {
@@ -44,19 +29,20 @@ public class SignUpActivity extends AppCompatActivity {
         tv3.setText("");
     }
 
-    private void createDirector(View view) {
+
+    public void createDirector(View view) {
         EditText tv1 = (EditText) findViewById(R.id.user_email);
         EditText tv2 = (EditText) findViewById(R.id.user_password);
         EditText tv3 = (EditText) findViewById(R.id.user_name);
 
-        cont = new URLMSController(urlms);
+        //cont = new URLMSController(urlms);
 
         if(tv1.getText().toString() == "" || tv2.getText().toString() == "" || tv3.getText().toString() == ""){
-            TextView loggingMessage = (TextView) findViewById(R.id.loggingMessage);
-            loggingMessage.setText("Missing info to create user!");
+            TextView signUpMessage = (TextView) findViewById(R.id.signUpMessage);
+            signUpMessage.setText("Missing info to create user!");
         }
         else {
-            if(cont.createDirector(tv1.getText().toString(), tv2.getText().toString(), tv3.getText().toString())){
+            if(MainActivity.cont.createDirector(tv1.getText().toString(), tv2.getText().toString(), tv3.getText().toString())){
             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
