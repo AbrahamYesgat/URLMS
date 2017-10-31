@@ -7,8 +7,8 @@ class PersistenceManager {
     }
     
     public static function loadDataFromStore() {
-        if (file_exists(PersistenceManager::$filename)) {
-            $str = file_get_contents(PersistenceManager::$filename);
+        if (file_exists('/' . PersistenceManager::$filename)) {
+            $str = file_get_contents('/' . PersistenceManager::$filename);
             $rm = unserialize($str);
         } else {
             $rm = URLMS::getInstance();
@@ -19,7 +19,7 @@ class PersistenceManager {
     
     public static function writeDataToStore($urlms) {
         $str = serialize($urlms);
-        file_put_contents(PersistenceManager::$filename, $str);
+        file_put_contents('/' . PersistenceManager::$filename, $str);
     }
 }
 ?>

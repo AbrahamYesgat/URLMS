@@ -1,15 +1,24 @@
+<?php 
+foreach(glob(dirname(__FILE__) . '/model/*.php') as $file){
+    require_once $file;
+}
+
+session_start();
+$_SESSION['logged_in'] = false;
+$_SESSION['activeUser'] = null;
+$_SESSION['urlms'] = URLMS::getInstance();
+$_SESSION['controller'] = new Controller($_SESSION['urlms']);
+?>
+
 <!DOCTYPE html>
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>University Research Lab Management System - Login</title>
+  <title>University Research Lab Management System - Home page</title>
   <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
-  
       <link rel="stylesheet" href="css/style.css">
-
-  
 </head>
 
 <body>
@@ -22,9 +31,9 @@
       
       <div class="tab-content">
         <div id="signup">   
-          <h1>Create new account</h1>
+          <h1>Create director account</h1>
           
-          <form action="/" method="post">
+          <form action="/signup.php" method="post">
           
            <div class="field-wrap">
               <label>
@@ -56,7 +65,7 @@
         <div id="login">   
           <h1>Welcome Back!</h1>
           
-          <form action="/" method="post">
+          <form action="/login.php" method="post">
           
             <div class="field-wrap">
             <label>

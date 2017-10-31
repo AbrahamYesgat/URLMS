@@ -1,5 +1,5 @@
 <?php
-use PHPUnit\Framework\TestCase;
+//use PHPUnit\Framework\TestCase;
 
 foreach(glob(dirname(__FILE__) . '/../model/*.php') as $file){
     require_once $file;
@@ -7,7 +7,7 @@ foreach(glob(dirname(__FILE__) . '/../model/*.php') as $file){
 
 require_once dirname(__FILE__) . '/../controller/Controller.php';
 
-class LoginTest extends TestCase
+class LoginTest extends PHPUnit\Framework\TestCase
 {
     private $pm;
     private $urlms;
