@@ -16,6 +16,20 @@ public class AddStaffActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_staff);
     }
 
+    private void refreshData() {
+        //Resets text entries values
+        TextView addStaffMessage = (TextView) findViewById(R.id.addStaffMessage);
+        EditText tv1 = (EditText) findViewById(R.id.staff_email);
+        EditText tv2 = (EditText) findViewById(R.id.staff_password);
+        EditText tv3 = (EditText) findViewById(R.id.staff_name);
+        EditText tv4 = (EditText) findViewById(R.id.staff_role);
+        tv1.setText("");
+        tv2.setText("");
+        tv3.setText("");
+        tv4.setText("");
+        addStaffMessage.setText("");
+    }
+
     public void addStaff(View view) {
         TextView addStaffMessage = (TextView) findViewById(R.id.addStaffMessage);
         EditText tv1 = (EditText) findViewById(R.id.staff_email);
@@ -29,13 +43,7 @@ public class AddStaffActivity extends AppCompatActivity {
             addStaffMessage.setText("Missing info to create user!");
         }
         else {
-            boolean isValid = MainActivity.cont.createDirector(tv1.getText().toString(), tv2.getText().toString(), tv3.getText().toString());
-            if(isValid){
-                addStaffMessage.setText("Successfully added " + tv3);
-            }
-            else {
-                addStaffMessage.setText("This email already exists!");
-            }
+            refreshData();
         }
     }
 
