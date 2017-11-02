@@ -14,7 +14,7 @@
         tools:layout_editor_absoluteY="0dp">
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/lab_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -22,7 +22,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/field_of_study"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -30,7 +30,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

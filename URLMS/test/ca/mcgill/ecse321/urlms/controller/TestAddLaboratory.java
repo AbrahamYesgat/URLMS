@@ -51,6 +51,7 @@ public class TestAddLaboratory {
 		URLMSController sysC = new URLMSController(urlms);
 		sysC.login(testEmail, testPassword);
 		assertEquals(true, sysC.addLaboratory("name", "study", new Date(2017, 10, 10)));
+		assertEquals(false, sysC.addLaboratory("name", "study", new Date(2017, 10, 10)));
 		sysC.addStaff(testStaffName, testStaffEmail, testStaffPassword, role);
 		sysC.logout(); 
 		

@@ -87,7 +87,7 @@ public class URLMSController {
 			if(dir.getEmail().equals(email)) {
 				return false;
 			}
-		}
+		} 
 		urlms.addDirector(email, password, name);
 		return PersistenceXStream.saveToXMLwithXStream(urlms);
 	}
@@ -113,6 +113,14 @@ public class URLMSController {
 	 */
 	public boolean addLaboratory(String name, String fieldOfStudy, Date startDate) {
 		if(activeUser instanceof Director) {
+			if(urlms.hasLaboratories()) {
+				List<Laboratory> labs = urlms.getLaboratories();
+				for (Laboratory lab : labs) {
+					if(lab.getName().equals(name)){
+						return false;
+					}
+				}
+			}
 			activeLab = ((Director) activeUser).addLaboratory(name, fieldOfStudy, startDate, true, urlms);
 			return PersistenceXStream.saveToXMLwithXStream(urlms);
 		}
@@ -130,6 +138,14 @@ public class URLMSController {
 	 */
 	public boolean addStaff(String name, String email, String password, Staff.StaffRole role) {
 		if(activeUser instanceof Director) {
+			List<Laboratory> labs = urlms.getLaboratories();
+			for (Laboratory lab : labs) {
+				for (Staff member : lab.getStaffs()) {
+					if(member.getEmail().equals(email)) {
+						return false;	
+					}
+				}
+			}
 			new Staff(name, email, password, role, activeLab);
 			return PersistenceXStream.saveToXMLwithXStream(urlms);
 		}

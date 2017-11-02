@@ -49,11 +49,11 @@ public class TestAddStaff {
 	@Test
 	public void test() {
 		URLMSController sysC = new URLMSController(urlms);
-		Laboratory lab = new Laboratory("name", "study", new Date(2017, 10, 10), true, urlms, urlms.getDirector(0));
 		//Tests successful addStaff
 		sysC.login(testEmail, testPassword);
-		sysC.setActiveLaboratory(lab);
+		sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
 		assertEquals(true, sysC.addStaff(testStaffName, testStaffEmail, testStaffPassword, role));
+		assertEquals(false, sysC.addStaff(testStaffName, testStaffEmail, testStaffPassword, role));
 		sysC.logout();
 		
 		//Tests unsuccessful addStaff (if staff tries to add staff)
