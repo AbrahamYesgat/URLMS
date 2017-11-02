@@ -52,8 +52,8 @@ public class TestAddStaff {
 		//Tests successful addStaff
 		sysC.login(testEmail, testPassword);
 		sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
-		assertEquals(true, sysC.addStaff(testStaffName, testStaffEmail, testStaffPassword, role));
-		assertEquals(false, sysC.addStaff(testStaffName, testStaffEmail, testStaffPassword, role));
+		assertEquals(true, sysC.addStaff(testStaffEmail, testStaffPassword, testName, role));
+		assertEquals(false, sysC.addStaff(testStaffEmail, testStaffPassword, testName, role));
 		sysC.logout();
 		
 		//Tests unsuccessful addStaff (if staff tries to add staff)

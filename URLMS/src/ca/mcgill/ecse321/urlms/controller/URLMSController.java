@@ -136,7 +136,7 @@ public class URLMSController {
 	 * @param role Whether the member is a research associate or a research assistant. 
 	 * @return True if the database successfully saved the laboratory. False if it did not and if a staff user tried to add a laboratory.
 	 */
-	public boolean addStaff(String name, String email, String password, Staff.StaffRole role) {
+	public boolean addStaff(String email, String password, String name, Staff.StaffRole role) {
 		if(activeUser instanceof Director) {
 			List<Laboratory> labs = urlms.getLaboratories();
 			for (Laboratory lab : labs) {
@@ -146,7 +146,7 @@ public class URLMSController {
 					}
 				}
 			}
-			new Staff(name, email, password, role, activeLab);
+			new Staff(email, password, name, role, activeLab);
 			return PersistenceXStream.saveToXMLwithXStream(urlms);
 		}
 		return false;
