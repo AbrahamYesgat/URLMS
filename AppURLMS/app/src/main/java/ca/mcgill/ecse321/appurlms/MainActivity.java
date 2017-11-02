@@ -28,14 +28,6 @@ public class MainActivity extends AppCompatActivity {
         urlms = (URLMS) PersistenceXStream.loadFromXMLwithXStream();
     }
 
-    private void refreshData() {
-        //Resets text entries values
-        TextView tv1 = (TextView) findViewById(R.id.user_email);
-        TextView tv2 = (TextView) findViewById(R.id.user_password);
-        tv1.setText("");
-        tv2.setText("");
-    }
-
     public void login(View v) {
         EditText tv1 = (EditText) findViewById(R.id.user_email);
         EditText tv2 = (EditText) findViewById(R.id.user_password);

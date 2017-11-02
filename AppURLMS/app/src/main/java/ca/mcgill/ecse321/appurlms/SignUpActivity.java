@@ -33,7 +33,15 @@ public class SignUpActivity extends AppCompatActivity {
             signUpMessage.setText("Missing info to create user!");
         }
         else {
-
+            boolean isValid = MainActivity.cont.createDirector(tv1.getText().toString(), tv2.getText().toString(), tv3.getText().toString());
+            if(isValid) {
+                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else {
+                signUpMessage.setText("This email already exists!");
+            }
         }
     }
 }
