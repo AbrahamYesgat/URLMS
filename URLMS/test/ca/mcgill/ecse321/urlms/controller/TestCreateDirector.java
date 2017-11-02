@@ -43,6 +43,9 @@ public class TestCreateDirector {
 		URLMSController sysC = new URLMSController(urlms);
 		assertEquals(true, sysC.createDirector(testEmail, testPassword, testName));
 		assertEquals(true, sysC.login(testEmail, testPassword));
+		assertEquals(false, sysC.createDirector(testEmail, testPassword, testName));
+		assertEquals(false, sysC.createDirector(testEmail, "test", "test"));
+		assertEquals(true, sysC.createDirector("email", testPassword, testName));
 		urlms.delete();
 	    // Load model
 	    urlms = (URLMS) PersistenceXStream.loadFromXMLwithXStream();

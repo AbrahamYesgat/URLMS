@@ -82,6 +82,12 @@ public class URLMSController {
 	 * @return True if the database successfully saved the data. False for a saving error. 
 	 */
 	public boolean createDirector(String email, String password, String name) {
+		List<Director> dirs = urlms.getDirectors();
+		for (Director dir : dirs) {
+			if(dir.getEmail().equals(email)) {
+				return false;
+			}
+		}
 		urlms.addDirector(email, password, name);
 		return PersistenceXStream.saveToXMLwithXStream(urlms);
 	}

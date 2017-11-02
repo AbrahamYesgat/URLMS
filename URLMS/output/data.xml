@@ -10,5 +10,14 @@
       <laboratories id="5"/>
       <uRLMS reference="1"/>
     </director>
+    <director id="6">
+      <email>email</email>
+      <password>password</password>
+      <name>Director</name>
+      <currentlyAssigned>true</currentlyAssigned>
+      <labManaged>0</labManaged>
+      <laboratories id="7"/>
+      <uRLMS reference="1"/>
+    </director>
   </directors>
 </ca.mcgill.ecse321.urlms.model.URLMS>
