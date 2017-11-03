@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.sql.Date;
 
 import ca.mcgill.ecse321.urlms.model.Staff;
+import ca.mcgill.ecse321.urlms.model.UserRole;
 
 import static ca.mcgill.ecse321.appurlms.MainActivity.cont;
 
@@ -126,13 +127,18 @@ public class ControlActivity extends AppCompatActivity {
         TextView addLabMessage = (TextView) findViewById(R.id.addLabMessage);
         labName = (EditText) findViewById(R.id.lab_name);
         fieldOfStudy = (EditText) findViewById(R.id.field_of_study);
-        if(TextUtils.isEmpty(labName.getText().toString()) || TextUtils.isEmpty(fieldOfStudy.getText().toString()))
-        {
-            addLabMessage.setText("Missing info to create laboratory!");
+        if(cont.getActiveUser() instanceof Staff){
+            addLabMessage.setText("Staff is not allowed to create a lab!");
         }
         else {
-            previous = current;
-            setContentView(current = R.layout.add_lab_select_date);
+            if(TextUtils.isEmpty(labName.getText().toString()) || TextUtils.isEmpty(fieldOfStudy.getText().toString()))
+            {
+            addLabMessage.setText("Missing info to create laboratory!");
+            }
+            else {
+                previous = current;
+                setContentView(current = R.layout.add_lab_select_date);
+            }
         }
     }
 }
