@@ -29,26 +29,18 @@
             android:hint="Field Of Study"
             android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Start Date"
-            android:inputType="date" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/add_lab_button"
+                android:id="@+id/add_date_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_weight="1"
-                android:onClick="addLab"
+                android:onClick="addDate"
                 android:text="Add Lab" />
 
             <Button
@@ -88,4 +80,5 @@
         </LinearLayout>
 
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

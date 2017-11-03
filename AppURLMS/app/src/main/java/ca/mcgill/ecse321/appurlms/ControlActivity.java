@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.sql.Date;
 
 import ca.mcgill.ecse321.urlms.model.Staff;
 
@@ -17,6 +20,8 @@ public class ControlActivity extends AppCompatActivity {
 
     private int current;
     private int previous;
+    EditText labName;
+    EditText fieldOfStudy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,19 +30,21 @@ public class ControlActivity extends AppCompatActivity {
     }
 
     public void addLab(View view) {
-        TextView addLabMessage = (TextView) findViewById(R.id.addLabMessage);
-        EditText tv1 = (EditText) findViewById(R.id.lab_name);
-        EditText tv2 = (EditText) findViewById(R.id.field_of_study);
-        EditText tv3 = (EditText) findViewById(R.id.date);
+        DatePicker labStartDate = (DatePicker) findViewById(R.id.lab_start_date);
+        int day = labStartDate.getDayOfMonth();
+        int month = labStartDate.getMonth() + 1;
+        int year = labStartDate.getYear();
 
-        if(TextUtils.isEmpty(tv1.getText().toString()) || TextUtils.isEmpty(tv2.getText().toString())
-                || TextUtils.isEmpty(tv3.getText().toString()))
-        {
-            addLabMessage.setText("Missing info to create laboratory!");
+        boolean isValid = cont.addLaboratory(labName.getText().toString(), fieldOfStudy.getText().toString(), new Date(year, month,day));
+        if(isValid) {
+            previous = R.layout.add_lab;
+            setContentView(current = R.layout.add_staff);
         }
         else {
-            previous = current;
-            setContentView(current = R.layout.add_staff);
+            setContentView(previous);
+            current = previous;
+            TextView addLabMessage = (TextView) findViewById(R.id.addLabMessage);
+            addLabMessage.setText("Laboratory name already exists!");
         }
     }
 
@@ -74,9 +81,8 @@ public class ControlActivity extends AppCompatActivity {
         }
         else {
             if(researchAssistant.isChecked() && !(researchAssociate.isChecked())) {
-                //isValid = cont.addStaff(tv1.getText().toString(), tv2.getText().toString(),
-                       // tv3.getText().toString(), Staff.StaffRole.ResearchAssistant);
-                isValid = true;
+                isValid = cont.addStaff(tv1.getText().toString(), tv2.getText().toString(),
+                        tv3.getText().toString(), Staff.StaffRole.ResearchAssistant);
                 if(isValid) {
                     refreshStaffData();
                     addStaffMessage.setText("Successfully added staff member");
@@ -86,9 +92,8 @@ public class ControlActivity extends AppCompatActivity {
                 }
             }
             else if(!(researchAssistant.isChecked()) && researchAssociate.isChecked()) {
-                //isValid = cont.addStaff(tv1.getText().toString(), tv2.getText().toString(),
-                  //      tv3.getText().toString(), Staff.StaffRole.ResearchAssociate);
-                isValid = true;
+                isValid = cont.addStaff(tv1.getText().toString(), tv2.getText().toString(),
+                        tv3.getText().toString(), Staff.StaffRole.ResearchAssociate);
                 if(isValid) {
                     refreshStaffData();
                     addStaffMessage.setText("Successfully added staff member");
@@ -105,11 +110,29 @@ public class ControlActivity extends AppCompatActivity {
 
     public void returnToPrevious(View view) {
         setContentView(previous);
+        int temp = current;
+        current = previous;
+        previous = temp;
+
     }
 
     public void logout(View view) {
         Intent intent = new Intent(ControlActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void addDate(View view) {
+        TextView addLabMessage = (TextView) findViewById(R.id.addLabMessage);
+        labName = (EditText) findViewById(R.id.lab_name);
+        fieldOfStudy = (EditText) findViewById(R.id.field_of_study);
+        if(TextUtils.isEmpty(labName.getText().toString()) || TextUtils.isEmpty(fieldOfStudy.getText().toString()))
+        {
+            addLabMessage.setText("Missing info to create laboratory!");
+        }
+        else {
+            previous = current;
+            setContentView(current = R.layout.add_lab_select_date);
+        }
     }
 }
