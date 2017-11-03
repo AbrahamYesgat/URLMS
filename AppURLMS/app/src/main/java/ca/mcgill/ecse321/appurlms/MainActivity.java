@@ -3,9 +3,8 @@ package ca.mcgill.ecse321.appurlms;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,9 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.login);
 
         PersistenceXStream.initializeURLMS(getFilesDir().getAbsolutePath() +"/data.xml");
         urlms = (URLMS) PersistenceXStream.loadFromXMLwithXStream();
@@ -40,15 +37,39 @@ public class MainActivity extends AppCompatActivity {
             loggingMessage.setText("Wrong username/password combination!");
         }
         else{
-            Intent intent = new Intent(MainActivity.this, AddLaboratoryActivity.class);
+            Intent intent = new Intent(MainActivity.this, ControlActivity.class);
             startActivity(intent);
             finish();
         }
     }
 
     public void signUp(View view) {
-        Intent intent1 = new Intent(MainActivity.this, SignUpActivity.class);
-        startActivity(intent1);
-        finish();
+        setContentView(R.layout.sign_up);
+    }
+
+    public void createDirector(View view) {
+        TextView signUpMessage = (TextView) findViewById(R.id.signUpMessage);
+        EditText tv1 = (EditText) findViewById(R.id.user_email);
+        EditText tv2 = (EditText) findViewById(R.id.user_password);
+        EditText tv3 = (EditText) findViewById(R.id.user_name);
+
+        if(TextUtils.isEmpty(tv1.getText().toString()) || TextUtils.isEmpty(tv2.getText().toString())
+                || TextUtils.isEmpty(tv3.getText().toString()))
+        {
+            signUpMessage.setText("Missing info to create user!");
+        }
+        else {
+            boolean isValid = cont.createDirector(tv1.getText().toString(), tv2.getText().toString(), tv3.getText().toString());
+            if(isValid) {
+                setContentView(R.layout.login);
+            }
+            else {
+                signUpMessage.setText("This email already exists!");
+            }
+        }
+    }
+
+    public void returnToLogin(View view) {
+        setContentView(R.layout.login);
     }
 }
