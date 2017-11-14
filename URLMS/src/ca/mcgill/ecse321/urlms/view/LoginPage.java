@@ -30,6 +30,7 @@ public class LoginPage extends JFrame{
 	private JTextField passwordLoginTextField;
 	private JLabel passwordLoginLabel;
 	private JButton loginButton;
+	private JButton registerButton;
 	private URLMS urlms;
 	private List<Director> dirs;
 	
@@ -81,6 +82,7 @@ public class LoginPage extends JFrame{
 	    passwordLoginTextField = new JPasswordField();
 	    passwordLoginLabel = new JLabel();
 	    loginButton = new JButton();
+	    registerButton = new JButton();
 
 	    // Global settings and listeners
 	    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -89,6 +91,7 @@ public class LoginPage extends JFrame{
 	    emailLoginLabel.setText("Email:");
 	    passwordLoginLabel.setText("Password:");
 	    loginButton.setText("Sign in");
+	    registerButton.setText("Register");
 
 	    // Layout
 	    GroupLayout layout = new GroupLayout(getContentPane());
@@ -105,11 +108,14 @@ public class LoginPage extends JFrame{
 		    	    	.addComponent(passwordLoginLabel)
 		    	    	.addGroup(layout.createSequentialGroup()
 		    	    			.addComponent(passwordLoginTextField, 30,30, 100)
-		    	    			.addComponent(loginButton)))
+		    	    			.addGroup(layout.createParallelGroup()
+		    	    					.addComponent(registerButton)
+		    	    					.addComponent(loginButton)
+		    	    					)))
 		        );
 		    
 	    layout.setHorizontalGroup(
-	    	layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+	    	layout.createParallelGroup()
 	    	.addGroup(layout.createSequentialGroup()
 	    			.addComponent(emailLoginLabel)
 	    			.addComponent(emailLoginTextField, 200, 200, 400))
@@ -117,11 +123,15 @@ public class LoginPage extends JFrame{
 	    			.addComponent(passwordLoginLabel)
 	    			.addGroup(layout.createParallelGroup()
 	    					.addComponent(passwordLoginTextField, 200, 200, 400)
-	    					.addComponent(loginButton)))
+	    					.addGroup(layout.createSequentialGroup()
+	    							.addComponent(registerButton)
+	    							.addComponent(loginButton)
+	    							)))
 	        );
 	    
-	    layout.linkSize(SwingConstants.VERTICAL, new java.awt.Component[] {emailLoginLabel, passwordLoginLabel});
-	    layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {loginButton, emailLoginTextField, passwordLoginTextField});
+	    layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {emailLoginLabel, passwordLoginLabel});
+	    layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {emailLoginTextField, passwordLoginTextField});
+	    layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {loginButton, registerButton});
 
 	    pack();
 	    
