@@ -1,5 +1,6 @@
 language: android
 android:
+  install: ant deps
   components:
     - tools
     - platform-tools
@@ -12,4 +13,4 @@ android:
     - android-25
 
     # Emulators
-    #  - sys-img-armeabi-v7a-android-25
+    - sys-img-armeabi-v7a-android-25
