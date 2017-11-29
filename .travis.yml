@@ -1,5 +1,7 @@
 language: android
 jdk: openjdk8
+before_install:
+  cd ./AppURLMS
 android:
   licenses:
     - 'android-sdk-preview-license-52d11cd2'
@@ -8,11 +10,8 @@ android:
   components:
     - tools
     - build-tools-26.0.2
+    - tools
     - platform-tools
     - android-25
     - extra-google-m2repository
     - extra-android-m2repository
-  before_script:
-    - cd ./AppURLMS
-  script:
-    - gradle build
