@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import ca.mcgill.ecse321.urlms.model.*;
 import ca.mcgill.ecse321.urlms.model.Staff.StaffRole;
+import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 
 // This tests if the login method in the controller works
 public class TestLogin {

@@ -183,4 +183,40 @@ public class URLMSController {
 	public Laboratory getActiveLaboratory() {
 		return activeLab;
 	}
+	
+	/**
+	 * Determines if user is a director or not.
+	 * @param email User's email.
+	 * @return director If user is a director, director is returned.
+	 */
+	public Director getDirector(String email){
+		List<Laboratory> labs = urlms.getLaboratories();
+		List<Director> dirs = urlms.getDirectors();
+		for (Director dir : dirs) {
+			if(dir.getEmail().equals(email)) {
+				activeUser = dir;
+				return dir;
+			}
+		}
+		return null;
+	}
+	/**
+	 * Determines if user is a staff member or not.
+	 * @param email User's email.
+	 * @return staff If user is a staff, staff is is returned.
+	 */
+	public Staff getStaffMember(String email){
+		List<Laboratory> labs = urlms.getLaboratories();
+		if(urlms.hasLaboratories()) {
+			for (Laboratory lab : labs) {
+				for (Staff member : lab.getStaffs()) {
+					if(member.getEmail().equals(email)) {
+						activeUser = member;
+						return member;	
+					}
+				}
+			}
+		}
+		return null;
+	}
 }

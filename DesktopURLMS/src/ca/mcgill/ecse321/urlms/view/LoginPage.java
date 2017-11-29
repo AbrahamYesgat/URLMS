@@ -1,7 +1,5 @@
 package ca.mcgill.ecse321.urlms.view;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.GroupLayout;
@@ -40,6 +38,23 @@ public class LoginPage extends JFrame{
 	 */
 	public LoginPage(URLMS urlms) {
 		this.urlms = urlms;
+		 try {
+	           for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+	               if ("Nimbus".equals(info.getName())) {
+	                   javax.swing.UIManager.setLookAndFeel(info.getClassName());
+	                   break;
+	               }
+	           }
+	       } catch (ClassNotFoundException ex) {
+	           java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	       } catch (InstantiationException ex) {
+	           java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	       } catch (IllegalAccessException ex) {
+	           java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	       } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+	           java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	       }
+		// initialize Login Page
 	    initComponents();
 	}
 	
@@ -64,13 +79,15 @@ public class LoginPage extends JFrame{
 		if(!isValidUser){
 			// Unsuccessful login
 			JOptionPane.showMessageDialog(this, "Invalid email address or password!", "Incorrect credentials", JOptionPane.WARNING_MESSAGE);
+			refreshData();
 		}
 		else {
 			// Successful login
-			JOptionPane.showMessageDialog(this, "Successful login as "+ emailLoginTextField.getText()+ ". Rest coming soon.", "Logged In", JOptionPane.INFORMATION_MESSAGE);
+			LabSelectionPage labSelection = new LabSelectionPage(urlms, emailLoginTextField.getText());
+			labSelection.setVisible(true);
+			this.setVisible(false);
 		}
-		refreshData();
-		}
+	}
 	
 	/**
 	 * The layout of the UI. 
