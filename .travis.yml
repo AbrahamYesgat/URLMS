@@ -1,4 +1,4 @@
-language: android
+language: android, java
 android:
   install: ant deps
   components:
@@ -14,3 +14,6 @@ android:
 
     # Emulators
     - sys-img-armeabi-v7a-android-25
+
+java:
+  jdk: openjdk8
