@@ -14,8 +14,11 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
 import ca.mcgill.ecse321.urlms.model.Director;
@@ -25,10 +28,15 @@ import ca.mcgill.ecse321.urlms.model.URLMS;
 import ca.mcgill.ecse321.urlms.model.UserRole;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 public class LabSelectionPage extends JFrame {
@@ -115,19 +123,25 @@ public class LabSelectionPage extends JFrame {
 		for(Laboratory lab : ((Director)this.currentUser).getLaboratories()){
 			
 		}
-		// Global settings and listeners
+		// Initialization of scroll pane for table
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Lab Selection Page");
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
+		// Initialization of components
 		JLabel lblExistingLaboratories = new JLabel("Existing Laboratories :");
 		lblExistingLaboratories.setFont(new Font("Modern No. 20", Font.PLAIN, 24));
-		
 		JButton createLabBtn = new JButton("Create Laboratory");
 		createLabBtn.setBackground(new Color(0, 191, 255));
 		createLabBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		JButton logoutBtn = new JButton("Logout");
+		logoutBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		logoutBtn.setBackground(new Color(255, 255, 0));
+		
+		
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -136,7 +150,10 @@ public class LabSelectionPage extends JFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblExistingLaboratories, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
 						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 978, Short.MAX_VALUE)
-						.addComponent(createLabBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(createLabBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 570, Short.MAX_VALUE)
+							.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -147,11 +164,23 @@ public class LabSelectionPage extends JFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 297, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-					.addComponent(createLabBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(createLabBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+						.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
 					.addGap(30))
 		);
 		
-		labSelectionTable = new JTable();
+		labSelectionTable = new JTable(){
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+				Component c = super.prepareRenderer(renderer, row, column);
+				if (column == 0 && c instanceof JComponent) {
+					JComponent jc = (JComponent) c;
+					jc.setToolTipText("Double click to view lab: " + (String) getValueAt(row, column));
+				}
+				return c;
+			}
+		};
+		labSelectionTable.setShowGrid(true); // adds cell borders
 		labSelectionTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		labSelectionTable.setCellSelectionEnabled(true);
 		labSelectionTable.setModel(new DefaultTableModel(
@@ -160,7 +189,9 @@ public class LabSelectionPage extends JFrame {
 			new String[] {
 				"Name", "Field", "Active", "Start Date"
 			}
-		));
+			)
+			{public boolean isCellEditable(int row, int column){return false;}}//This causes all cells to be not editable
+		);
 		labSelectionTable.setRowHeight(35);
 		initialiseTable(labSelectionTable);
 		scrollPane.setViewportView(labSelectionTable);
@@ -168,11 +199,35 @@ public class LabSelectionPage extends JFrame {
 		labSelectionHeader.setFont(new java.awt.Font("Lucida Grande", 1, 18));
 		getContentPane().setLayout(groupLayout);
 		
+		
+		
 		// action listeners of all events here
+		
+		// create lab button action listener
 		createLabBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 			}
 		});	
+		// logout button action listener
+		logoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		// lab selection table mouse listener used to redirect to selected lab's home page
+		labSelectionTable.addMouseListener(new MouseAdapter() {
+			  public void mouseClicked(MouseEvent e) {
+			    if (e.getClickCount() == 2) {
+			      JTable target = (JTable)e.getSource();
+			      int row = target.getSelectedRow();
+			      int column = target.getSelectedColumn();
+			      if(0 <= column && column <= 3){
+			    	  JOptionPane.showMessageDialog(labSelectionTable, "Congratulations for selecting a lab!", "Selected lab", JOptionPane.INFORMATION_MESSAGE, null);
+			      }
+			     }
+			  }
+			});
+		
+		
 		
 		// set window size to preferred size of components
 		pack();
