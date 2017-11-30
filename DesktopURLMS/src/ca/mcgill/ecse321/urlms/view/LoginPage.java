@@ -151,6 +151,8 @@ public class LoginPage extends JFrame{
 	    layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {loginButton, registerButton});
 
 	    pack();
+	    // makes window appear in center of screen
+	 	this.setLocationRelativeTo(null);
 	    
 	    // Action listener for login button
 	    loginButton.addActionListener(new java.awt.event.ActionListener() {

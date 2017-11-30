@@ -49,8 +49,17 @@ public class LabSelectionPage extends JFrame {
 	 * Table containing all labs user is a part of
 	 */
 	private JTable labSelectionTable;
+	/**
+	 * Currently logged in user
+	 */
 	private UserRole currentUser;
+	/**
+	 * URLMS system
+	 */
 	private URLMS urlms;
+	/**
+	 * Instance of URLMS controller
+	 */
 	private URLMSController urlmsCont;
 	/**
 	 * Create the frame.
@@ -221,7 +230,9 @@ public class LabSelectionPage extends JFrame {
 			      int row = target.getSelectedRow();
 			      int column = target.getSelectedColumn();
 			      if(0 <= column && column <= 3){
-			    	  JOptionPane.showMessageDialog(labSelectionTable, "Congratulations for selecting a lab!", "Selected lab", JOptionPane.INFORMATION_MESSAGE, null);
+			    	  DirectorLabPage labHomePage = new DirectorLabPage(urlms);
+			    	  labHomePage.setVisible(true);
+			    	  setVisible(false);
 			      }
 			     }
 			  }
@@ -231,6 +242,8 @@ public class LabSelectionPage extends JFrame {
 		
 		// set window size to preferred size of components
 		pack();
+		// makes window appear in center of screen
+		this.setLocationRelativeTo(null);
 		
 	}
 }
