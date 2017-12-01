@@ -3,6 +3,8 @@ package ca.mcgill.ecse321.urlms.controller;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
+import java.io.*;
 
 import ca.mcgill.ecse321.urlms.model.*;
 import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
@@ -151,6 +153,78 @@ public class URLMSController {
 		}
 		return false;
 	}
+	/**
+	 * Director removes a staff member to the active laboratory. The parameters can be modified by the user within their profile. 
+	 * @param email of the staff member being removed from the system 
+	 * @return True if the database successfully removed the user from the active laboratory. False if it did not.
+	 */
+	
+	public boolean removeStaff(String email) {
+		if(activeUser instanceof Director) {
+			Laboratory lab = activeLab;
+				for (Staff member : lab.getStaffs()) {
+					if(member.getEmail().equals(email)) {
+						Staff aStaff=getStaffMember(email);
+						lab.removeStaff(aStaff);
+				}
+			}
+			return PersistenceXStream.saveToXMLwithXStream(urlms);
+		}
+		return false;
+	}
+	
+	/**
+	 * Director is allowed to create equipment types for his labs, which he can later add or remove quantities to
+	 * @param String of the equipment name 
+	 * @return True if the database successfully added the equipment to the XML file, false if it did not work (if the person is not director)
+	 */
+	public boolean createEquipmentType(String equipment){
+
+		String message = "";
+		URLMS urlms = URLMS.getInstance();
+
+		//checks the list if the item has already been create
+		Iterator<Equipment> EquipmentIterator = activeLab.getEquipment().iterator();
+		while (EquipmentIterator.hasNext()) {
+			Equipment currEquipment = EquipmentIterator.next();
+			if (currEquipment.getName().compareToIgnoreCase(equipment)==0){
+				message = currEquipment.getName() + " was attempted to be added! This equipment type already exists. Please just change the amount needed.";
+				System.out.println(message);
+				return false;
+			}
+		
+		
+		equipment = equipment.trim();
+
+		
+		//add to system
+		equipment = equipment.toUpperCase();
+		Equipment AnEquip = new Equipment(equipment, 0, activeLab);
+		PersistenceXStream.saveToXMLwithXStream(urlms);
+		return true;
+		}
+	return false;
+
+	}
+	
+	public void addEquipments(String equipment,int quantity) {
+		//if quantity > 0; add the amount, if quantity<0 take off that amount
+		int result=0;
+		Iterator<Equipment> EquipmentIterator = activeLab.getEquipment().iterator();
+		while (EquipmentIterator.hasNext()) {
+			Equipment currEquipment = EquipmentIterator.next();
+			if (currEquipment.getName().compareToIgnoreCase(equipment)==0){
+				result=currEquipment.getQuantity();
+				currEquipment.setQuantity(result + quantity);
+
+			}
+		}
+
+
+		PersistenceXStream.saveToXMLwithXStream(urlms);
+
+	}
+
 	
 	/**
 	 * Allows to keep track of the laboratory currently selected by the user. 
@@ -219,4 +293,5 @@ public class URLMSController {
 		}
 		return null;
 	}
+	
 }

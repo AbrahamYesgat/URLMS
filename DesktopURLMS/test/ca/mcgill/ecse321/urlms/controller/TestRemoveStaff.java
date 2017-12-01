@@ -1,6 +1,6 @@
 package ca.mcgill.ecse321.urlms.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.sql.Date;
@@ -10,12 +10,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import ca.mcgill.ecse321.urlms.model.*;
+import ca.mcgill.ecse321.urlms.model.Director;
+import ca.mcgill.ecse321.urlms.model.URLMS;
 import ca.mcgill.ecse321.urlms.model.Staff.StaffRole;
 import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 
-public class TestAddStaff {
-
+public class TestRemoveStaff {
+	
 	private static String testEmail ="director@urlms.ca";
 	private static String testPassword ="password";
 	private static String testName ="Director";
@@ -49,14 +50,10 @@ public class TestAddStaff {
 	@Test
 	public void test() {
 		URLMSController sysC = new URLMSController(urlms);
-		Laboratory activeLab=sysC.getActiveLaboratory();
-		
 		//Tests successful addStaff
 		sysC.login(testEmail, testPassword);
 		sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
-		assertEquals(true, sysC.addStaff(testStaffEmail, testStaffPassword, testName, role));
-		assertEquals(false, sysC.addStaff(testStaffEmail, testStaffPassword, testName, role));
-
+		assertEquals(true, sysC.removeStaff(testStaffEmail));
 		sysC.logout();
 
 		//Tests unsuccessful addStaff (if staff tries to add staff)

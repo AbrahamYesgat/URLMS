@@ -342,7 +342,7 @@ public class Laboratory
 
   public Equipment addEquipment(String aName, String aType, int aQuantity)
   {
-    return new Equipment(aName, aType, aQuantity, this);
+    return new Equipment(aName, aQuantity, this);
   }
 
   public boolean addEquipment(Equipment aEquipment)

@@ -1,21 +1,22 @@
 package ca.mcgill.ecse321.urlms.controller;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
 import java.sql.Date;
+import java.util.Iterator;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import ca.mcgill.ecse321.urlms.model.*;
+import ca.mcgill.ecse321.urlms.model.Director;
+import ca.mcgill.ecse321.urlms.model.Equipment;
+import ca.mcgill.ecse321.urlms.model.Laboratory;
+import ca.mcgill.ecse321.urlms.model.URLMS;
 import ca.mcgill.ecse321.urlms.model.Staff.StaffRole;
 import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 
-public class TestAddStaff {
-
+public class TestManageEquipment {
 	private static String testEmail ="director@urlms.ca";
 	private static String testPassword ="password";
 	private static String testName ="Director";
@@ -51,17 +52,22 @@ public class TestAddStaff {
 		URLMSController sysC = new URLMSController(urlms);
 		Laboratory activeLab=sysC.getActiveLaboratory();
 		
-		//Tests successful addStaff
 		sysC.login(testEmail, testPassword);
 		sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
-		assertEquals(true, sysC.addStaff(testStaffEmail, testStaffPassword, testName, role));
-		assertEquals(false, sysC.addStaff(testStaffEmail, testStaffPassword, testName, role));
+	
+		
+		sysC.createEquipmentType("Computer");
+		sysC.createEquipmentType("ComPUTER");
+		sysC.addEquipments("ComPuter", 4);
+//		sysC.addEquipments("Computer", 4);
+		sysC.addEquipments("Computer", -1);
+//		sysC.createEquipmentType("computer");
+
 
 		sysC.logout();
 
-		//Tests unsuccessful addStaff (if staff tries to add staff)
-		sysC.login(testStaffEmail, testStaffPassword);
-		assertEquals(false, sysC.addStaff("value", "value", "value", role));
+
 	}
 
+	  
 }

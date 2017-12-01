@@ -3,6 +3,8 @@
 
 package ca.mcgill.ecse321.urlms.model;
 
+import java.util.Iterator;
+
 // line 31 "../../../../../URLMS.ump"
 public class Equipment
 {
@@ -23,10 +25,9 @@ public class Equipment
   // CONSTRUCTOR
   //------------------------
 
-  public Equipment(String aName, String aType, int aQuantity, Laboratory aLaboratory)
+  public Equipment(String aName, int aQuantity, Laboratory aLaboratory)
   {
     name = aName;
-    type = aType;
     quantity = aQuantity;
     boolean didAddLaboratory = setLaboratory(aLaboratory);
     if (!didAddLaboratory)
@@ -67,6 +68,7 @@ public class Equipment
   {
     return name;
   }
+  
 
   public String getType()
   {
