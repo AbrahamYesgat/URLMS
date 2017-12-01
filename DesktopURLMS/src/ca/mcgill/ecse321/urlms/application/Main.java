@@ -24,7 +24,6 @@ public class Main {
 		// Initialize data file or load data.
 		PersistenceXStream.initializeURLMS(fileName);
 		urlms = (URLMS) PersistenceXStream.loadFromXMLwithXStream();
-
 		// Start UI
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {

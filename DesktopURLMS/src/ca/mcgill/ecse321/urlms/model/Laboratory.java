@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.0-b05b57321 modeling language!*/
+/*This code was generated using the UMPLE 1.22.0.5146 modeling language!*/
 
 package ca.mcgill.ecse321.urlms.model;
 import java.util.*;
@@ -340,9 +340,9 @@ public class Laboratory
     return 0;
   }
 
-  public Equipment addEquipment(String aName, String aType, int aQuantity)
+  public Equipment addEquipment(String aName, int aQuantity)
   {
-    return new Equipment(aName, aType, aQuantity, this);
+    return new Equipment(aName, aQuantity, this);
   }
 
   public boolean addEquipment(Equipment aEquipment)
@@ -522,9 +522,9 @@ public class Laboratory
     return 0;
   }
 
-  public Supplies addSupply(String aName, String aType, int aQuantity)
+  public Supplies addSupply(String aName, int aQuantity)
   {
-    return new Supplies(aName, aType, aQuantity, this);
+    return new Supplies(aName, aQuantity, this);
   }
 
   public boolean addSupply(Supplies aSupply)
@@ -846,6 +846,7 @@ public class Laboratory
       staffs.remove(aStaff);
     }
     
+      
     for(int i=progressUpdates.size(); i > 0; i--)
     {
       ProgressUpdate aProgressUpdate = progressUpdates.get(i - 1);
@@ -861,12 +862,14 @@ public class Laboratory
 
   public String toString()
   {
+	  String outputString = "";
     return super.toString() + "["+
             "name" + ":" + getName()+ "," +
             "fieldOfStudy" + ":" + getFieldOfStudy()+ "," +
             "active" + ":" + getActive()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "startDate" + "=" + (getStartDate() != null ? !getStartDate().equals(this)  ? getStartDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "uRLMS = "+(getURLMS()!=null?Integer.toHexString(System.identityHashCode(getURLMS())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "director = "+(getDirector()!=null?Integer.toHexString(System.identityHashCode(getDirector())):"null");
+            "  " + "director = "+(getDirector()!=null?Integer.toHexString(System.identityHashCode(getDirector())):"null")
+     + outputString;
   }
 }

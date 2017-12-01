@@ -1,18 +1,12 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.0-b05b57321 modeling language!*/
+/*This code was generated using the UMPLE 1.22.0.5146 modeling language!*/
 
 package ca.mcgill.ecse321.urlms.model;
 import java.util.*;
 
-// line 46 "../../../../../URLMS.ump"
+// line 44 "../../../../../URLMS.ump"
 public class Staff extends UserRole
 {
-
-  //------------------------
-  // ENUMERATIONS
-  //------------------------
-
-  public enum StaffRole { ResearchAssociate, ResearchAssistant }
 
   //------------------------
   // MEMBER VARIABLES
@@ -344,7 +338,17 @@ public class Staff extends UserRole
 
   public String toString()
   {
+	  String outputString = "";
     return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "staffRole" + "=" + (getStaffRole() != null ? !getStaffRole().equals(this)  ? getStaffRole().toString().replaceAll("  ","    ") : "this" : "null");
-  }
+            "  " + "staffRole" + "=" + (getStaffRole() != null ? !getStaffRole().equals(this)  ? getStaffRole().toString().replaceAll("  ","    ") : "this" : "null")
+     + outputString;
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 47 ../../../../../URLMS.ump
+  enum StaffRole {ResearchAssociate, ResearchAssistant};
+
+  
 }

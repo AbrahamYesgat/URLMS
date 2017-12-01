@@ -1,9 +1,9 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.0-b05b57321 modeling language!*/
+/*This code was generated using the UMPLE 1.22.0.5146 modeling language!*/
 
 package ca.mcgill.ecse321.urlms.model;
 
-// line 54 "../../../../../URLMS.ump"
+// line 52 "../../../../../URLMS.ump"
 public class ProgressUpdate
 {
 
@@ -145,11 +145,13 @@ public class ProgressUpdate
 
   public String toString()
   {
+	  String outputString = "";
     return super.toString() + "["+
             "id" + ":" + getId()+ "," +
             "title" + ":" + getTitle()+ "," +
             "reportingPeriod" + ":" + getReportingPeriod()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "laboratory = "+(getLaboratory()!=null?Integer.toHexString(System.identityHashCode(getLaboratory())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "staff = "+(getStaff()!=null?Integer.toHexString(System.identityHashCode(getStaff())):"null");
+            "  " + "staff = "+(getStaff()!=null?Integer.toHexString(System.identityHashCode(getStaff())):"null")
+     + outputString;
   }
 }

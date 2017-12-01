@@ -37,13 +37,13 @@ public class DirectorLabPage extends JFrame{
 	/**
 	 * URLMS System
 	 */
-	private URLMS urlms;
-	
+	private URLMS urlms;	
 
 
 
 	public DirectorLabPage(URLMS urlms) {
 		this.urlms = urlms;
+		setResizable(false);
 		
 		try {
 	           for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -137,7 +137,6 @@ public class DirectorLabPage extends JFrame{
 		});*/
 		
 		// Layout
-		getContentPane().setLayout(new GridBagLayout());
 	    GroupLayout layout = new GroupLayout(getContentPane());
 	    getContentPane().setLayout(layout);
 	    layout.setAutoCreateGaps(true);
@@ -146,19 +145,19 @@ public class DirectorLabPage extends JFrame{
 	    layout.setHorizontalGroup(
 	    	layout.createParallelGroup()
 	    		.addGroup(layout.createSequentialGroup()
-	    				.addGap((screenSize.width/2)/5)
+	    				.addGap((screenSize.width/2)/4)
 	    				.addComponent(btnSupplies)
     					.addComponent(btnProgReport))
 	    		.addGroup(layout.createSequentialGroup()
-	    				.addGap((screenSize.width/2)/5)
+	    				.addGap((screenSize.width/2)/4)
 	    				.addComponent(btnEquipment)
     					.addComponent(btnTrackLab))
 	    		.addGroup(layout.createSequentialGroup()
-	    				.addGap((screenSize.width/2)/5)
+	    				.addGap((screenSize.width/2)/4)
 	    				.addComponent(btnStaff)
     					.addComponent(btnExpReport))
 	    		.addGroup(layout.createSequentialGroup()
-	    				.addGap((screenSize.width/2)/5)
+	    				.addGap((screenSize.width/2)/4)
 	    				.addComponent(btnFundAcc))
 	    );
 	    layout.setVerticalGroup(
