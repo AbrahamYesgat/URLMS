@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".ControlActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".AddStaffActivity"></activity>
+        <activity android:name=".AddStaffActivity" />
+        <activity android:name=".HomePage"></activity>
     </application>
 
 </manifest>

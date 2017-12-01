@@ -23,21 +23,20 @@ public class MainActivity extends AppCompatActivity {
 
         PersistenceXStream.initializeURLMS(getFilesDir().getAbsolutePath() +"/data.xml");
         urlms = (URLMS) PersistenceXStream.loadFromXMLwithXStream();
+        cont = new URLMSController(urlms);
     }
 
     public void login(View v) {
         EditText tv1 = (EditText) findViewById(R.id.user_email);
         EditText tv2 = (EditText) findViewById(R.id.user_password);
 
-        //Call controller method to verify if in xml
-        cont = new URLMSController(urlms);
         boolean isValid = cont.login(tv1.getText().toString(), tv2.getText().toString());
         if(!isValid) {
             TextView loggingMessage = (TextView) findViewById(R.id.loggingMessage);
             loggingMessage.setText("Wrong username/password combination!");
         }
         else{
-            Intent intent = new Intent(MainActivity.this, ControlActivity.class);
+            Intent intent = new Intent(MainActivity.this, HomePage.class);
             startActivity(intent);
             finish();
         }
@@ -49,18 +48,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void createDirector(View view) {
         TextView signUpMessage = (TextView) findViewById(R.id.signUpMessage);
-        EditText tv1 = (EditText) findViewById(R.id.user_email);
-        EditText tv2 = (EditText) findViewById(R.id.user_password);
-        EditText tv3 = (EditText) findViewById(R.id.user_name);
+        EditText tv3 = (EditText) findViewById(R.id.dir_email);
+        EditText tv4 = (EditText) findViewById(R.id.dir_password);
+        EditText tv5 = (EditText) findViewById(R.id.user_name);
 
-        if(TextUtils.isEmpty(tv1.getText().toString()) || TextUtils.isEmpty(tv2.getText().toString())
-                || TextUtils.isEmpty(tv3.getText().toString()))
+        if(TextUtils.isEmpty(tv3.getText().toString()) || TextUtils.isEmpty(tv4.getText().toString())
+                || TextUtils.isEmpty(tv5.getText().toString()))
         {
             signUpMessage.setText("Missing info to create user!");
         }
         else {
-            boolean isValid = cont.createDirector(tv1.getText().toString(), tv2.getText().toString(), tv3.getText().toString());
-            if(isValid) {
+            boolean valid = cont.createDirector(tv3.getText().toString(), tv4.getText().toString(), tv5.getText().toString());
+            if(valid) {
                 setContentView(R.layout.login);
             }
             else {
