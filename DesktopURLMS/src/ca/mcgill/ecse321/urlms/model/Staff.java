@@ -348,7 +348,7 @@ public class Staff extends UserRole
   //------------------------
   
   // line 47 ../../../../../URLMS.ump
-  enum StaffRole {ResearchAssociate, ResearchAssistant};
+  public enum StaffRole {ResearchAssociate, ResearchAssistant};
 
   
 }

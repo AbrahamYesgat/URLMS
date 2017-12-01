@@ -50,14 +50,6 @@ public class UserRole
     if (hasWithEmail(aEmail)) {
       return wasSet;
     }
-    String anOldEmail = getEmail();
-    if (hasWithEmail(aEmail)) {
-      return wasSet;
-    }
-    String anOldEmail = getEmail();
-    if (hasWithEmail(aEmail)) {
-      return wasSet;
-    }
     email = aEmail;
     wasSet = true;
     if (anOldEmail != null) {
