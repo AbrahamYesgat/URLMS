@@ -1,10 +1,10 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.0-b05b57321 modeling language!*/
+/*This code was generated using the UMPLE 1.22.0.5146 modeling language!*/
 
 package ca.mcgill.ecse321.urlms.model;
 import java.util.*;
 
-// line 71 "../../../../../URLMS.ump"
+// line 69 "../../../../../URLMS.ump"
 public class UserRole
 {
 
@@ -50,8 +50,24 @@ public class UserRole
     if (hasWithEmail(aEmail)) {
       return wasSet;
     }
+    String anOldEmail = getEmail();
+    if (hasWithEmail(aEmail)) {
+      return wasSet;
+    }
+    String anOldEmail = getEmail();
+    if (hasWithEmail(aEmail)) {
+      return wasSet;
+    }
     email = aEmail;
     wasSet = true;
+    if (anOldEmail != null) {
+      userrolesByEmail.remove(anOldEmail);
+    }
+    userrolesByEmail.put(aEmail, this);
+    if (anOldEmail != null) {
+      userrolesByEmail.remove(anOldEmail);
+    }
+    userrolesByEmail.put(aEmail, this);
     if (anOldEmail != null) {
       userrolesByEmail.remove(anOldEmail);
     }
@@ -134,15 +150,19 @@ public class UserRole
   public void delete()
   {
     userrolesByEmail.remove(getEmail());
+    userrolesByEmail.remove(getEmail());
+    userrolesByEmail.remove(getEmail());
   }
 
 
   public String toString()
   {
+	  String outputString = "";
     return super.toString() + "["+
             "email" + ":" + getEmail()+ "," +
             "password" + ":" + getPassword()+ "," +
             "name" + ":" + getName()+ "," +
-            "currentlyAssigned" + ":" + getCurrentlyAssigned()+ "]";
+            "currentlyAssigned" + ":" + getCurrentlyAssigned()+ "]"
+     + outputString;
   }
 }

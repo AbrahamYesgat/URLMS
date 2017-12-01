@@ -1,9 +1,9 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.0-b05b57321 modeling language!*/
+/*This code was generated using the UMPLE 1.22.0.5146 modeling language!*/
 
 package ca.mcgill.ecse321.urlms.model;
 
-// line 63 "../../../../../URLMS.ump"
+// line 61 "../../../../../URLMS.ump"
 public class FundingAccount
 {
 
@@ -97,9 +97,11 @@ public class FundingAccount
 
   public String toString()
   {
+	  String outputString = "";
     return super.toString() + "["+
             "currentBalance" + ":" + getCurrentBalance()+ "," +
             "accountNumber" + ":" + getAccountNumber()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "laboratory = "+(getLaboratory()!=null?Integer.toHexString(System.identityHashCode(getLaboratory())):"null");
+            "  " + "laboratory = "+(getLaboratory()!=null?Integer.toHexString(System.identityHashCode(getLaboratory())):"null")
+     + outputString;
   }
 }

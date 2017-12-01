@@ -31,14 +31,12 @@ class Director
 class Equipment
 {
   name;
-  type;
   Integer quantity;
 }
 
 class Supplies
 {
   name;
-  type;
   Integer quantity;
   * -- 1 Laboratory;
 }

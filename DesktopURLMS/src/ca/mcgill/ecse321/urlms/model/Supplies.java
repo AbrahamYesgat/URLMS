@@ -1,9 +1,9 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.0-b05b57321 modeling language!*/
+/*This code was generated using the UMPLE 1.22.0.5146 modeling language!*/
 
 package ca.mcgill.ecse321.urlms.model;
 
-// line 38 "../../../../../URLMS.ump"
+// line 37 "../../../../../URLMS.ump"
 public class Supplies
 {
 
@@ -13,7 +13,6 @@ public class Supplies
 
   //Supplies Attributes
   private String name;
-  private String type;
   private int quantity;
 
   //Supplies Associations
@@ -23,10 +22,9 @@ public class Supplies
   // CONSTRUCTOR
   //------------------------
 
-  public Supplies(String aName, String aType, int aQuantity, Laboratory aLaboratory)
+  public Supplies(String aName, int aQuantity, Laboratory aLaboratory)
   {
     name = aName;
-    type = aType;
     quantity = aQuantity;
     boolean didAddLaboratory = setLaboratory(aLaboratory);
     if (!didAddLaboratory)
@@ -47,14 +45,6 @@ public class Supplies
     return wasSet;
   }
 
-  public boolean setType(String aType)
-  {
-    boolean wasSet = false;
-    type = aType;
-    wasSet = true;
-    return wasSet;
-  }
-
   public boolean setQuantity(int aQuantity)
   {
     boolean wasSet = false;
@@ -66,11 +56,6 @@ public class Supplies
   public String getName()
   {
     return name;
-  }
-
-  public String getType()
-  {
-    return type;
   }
 
   public int getQuantity()
@@ -112,10 +97,11 @@ public class Supplies
 
   public String toString()
   {
+	  String outputString = "";
     return super.toString() + "["+
             "name" + ":" + getName()+ "," +
-            "type" + ":" + getType()+ "," +
             "quantity" + ":" + getQuantity()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "laboratory = "+(getLaboratory()!=null?Integer.toHexString(System.identityHashCode(getLaboratory())):"null");
+            "  " + "laboratory = "+(getLaboratory()!=null?Integer.toHexString(System.identityHashCode(getLaboratory())):"null")
+     + outputString;
   }
 }
