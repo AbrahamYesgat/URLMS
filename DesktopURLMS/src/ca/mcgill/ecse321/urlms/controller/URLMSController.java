@@ -178,7 +178,7 @@ public class URLMSController {
 	 * @param String of the equipment name 
 	 * @return True if the database successfully added the equipment to the XML file, false if it did not work (if the person is not director)
 	 */
-	public boolean createEquipmentType(String equipment){
+	public boolean createEquipment(String equipment, int quantity){
 
 		String message = "";
 		URLMS urlms = URLMS.getInstance();
@@ -199,7 +199,7 @@ public class URLMSController {
 		
 		//add to system
 		equipment = equipment.toUpperCase();
-		Equipment AnEquip = new Equipment(equipment, 0, activeLab);
+		Equipment AnEquip = new Equipment(equipment, quantity, activeLab);
 		PersistenceXStream.saveToXMLwithXStream(urlms);
 		return true;
 		}
@@ -223,6 +223,48 @@ public class URLMSController {
 
 		PersistenceXStream.saveToXMLwithXStream(urlms);
 
+	}
+	
+	public boolean createSupplies(String supplies, int quantity) {
+		
+		String message = "";
+		URLMS urlms = URLMS.getInstance();
+		
+		Iterator<Supplies> SuppliesIterator = activeLab.getSupplies().iterator();
+		while(SuppliesIterator.hasNext()) {
+			Supplies currSupplies = SuppliesIterator.next();
+			
+			if(currSupplies.getName().compareToIgnoreCase(supplies)==0) {
+				message = currSupplies.getName() + " was attempted to be added! This equipment type already exists. Please just change the amount needed.";
+				System.out.println(message);
+				return false;
+			}
+			
+			supplies = supplies.trim();
+			
+			supplies = supplies.toUpperCase();
+			Supplies AnSupply = new Supplies(supplies, quantity, activeLab);
+			PersistenceXStream.saveToXMLwithXStream(urlms);
+			return true;
+		}
+			
+		return false;
+		
+	}
+
+	public void addSupplies(String supplies, int quantity) {
+		int result=0;
+		Iterator<Supplies> SuppliesIterator = activeLab.getSupplies().iterator();
+		while(SuppliesIterator.hasNext()) {
+			Supplies currSupplies = SuppliesIterator.next();
+			if(currSupplies.getName().compareToIgnoreCase(supplies)==0) {
+				result=currSupplies.getQuantity();
+				currSupplies.setQuantity(result + quantity);
+			}
+		}
+		
+		PersistenceXStream.saveToXMLwithXStream(urlms);
+		
 	}
 
 	
