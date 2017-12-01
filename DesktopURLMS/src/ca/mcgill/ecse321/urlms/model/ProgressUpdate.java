@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.22.0.5146 modeling language!*/
+/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
 
 package ca.mcgill.ecse321.urlms.model;
 
@@ -145,13 +145,11 @@ public class ProgressUpdate
 
   public String toString()
   {
-	  String outputString = "";
     return super.toString() + "["+
             "id" + ":" + getId()+ "," +
             "title" + ":" + getTitle()+ "," +
             "reportingPeriod" + ":" + getReportingPeriod()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "laboratory = "+(getLaboratory()!=null?Integer.toHexString(System.identityHashCode(getLaboratory())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "staff = "+(getStaff()!=null?Integer.toHexString(System.identityHashCode(getStaff())):"null")
-     + outputString;
+            "  " + "staff = "+(getStaff()!=null?Integer.toHexString(System.identityHashCode(getStaff())):"null");
   }
 }

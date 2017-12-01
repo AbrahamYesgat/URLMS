@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.22.0.5146 modeling language!*/
+/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
 
 package ca.mcgill.ecse321.urlms.model;
 import java.util.*;
@@ -259,7 +259,6 @@ public class URLMS
       laboratories.remove(aLaboratory);
     }
     
-      
     while (directors.size() > 0)
     {
       Director aDirector = directors.get(directors.size() - 1);
@@ -267,7 +266,6 @@ public class URLMS
       directors.remove(aDirector);
     }
     
-      
   }
 
 }
