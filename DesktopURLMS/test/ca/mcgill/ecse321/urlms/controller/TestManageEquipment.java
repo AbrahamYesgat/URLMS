@@ -56,8 +56,8 @@ public class TestManageEquipment {
 		sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
 	
 		
-		sysC.createEquipmentType("Computer");
-		sysC.createEquipmentType("ComPUTER");
+		sysC.createEquipment("Computer", 6);
+		sysC.createEquipment("ComPUTER", 6);
 		sysC.addEquipments("ComPuter", 4);
 //		sysC.addEquipments("Computer", 4);
 		sysC.addEquipments("Computer", -1);
