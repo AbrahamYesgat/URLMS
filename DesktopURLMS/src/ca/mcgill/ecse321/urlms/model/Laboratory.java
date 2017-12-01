@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.22.0.5146 modeling language!*/
+/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
 
 package ca.mcgill.ecse321.urlms.model;
 import java.util.*;
@@ -846,7 +846,6 @@ public class Laboratory
       staffs.remove(aStaff);
     }
     
-      
     for(int i=progressUpdates.size(); i > 0; i--)
     {
       ProgressUpdate aProgressUpdate = progressUpdates.get(i - 1);
@@ -862,14 +861,12 @@ public class Laboratory
 
   public String toString()
   {
-	  String outputString = "";
     return super.toString() + "["+
             "name" + ":" + getName()+ "," +
             "fieldOfStudy" + ":" + getFieldOfStudy()+ "," +
             "active" + ":" + getActive()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "startDate" + "=" + (getStartDate() != null ? !getStartDate().equals(this)  ? getStartDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "uRLMS = "+(getURLMS()!=null?Integer.toHexString(System.identityHashCode(getURLMS())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "director = "+(getDirector()!=null?Integer.toHexString(System.identityHashCode(getDirector())):"null")
-     + outputString;
+            "  " + "director = "+(getDirector()!=null?Integer.toHexString(System.identityHashCode(getDirector())):"null");
   }
 }

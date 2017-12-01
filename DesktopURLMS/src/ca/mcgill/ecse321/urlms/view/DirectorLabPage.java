@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,7 +21,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import ca.mcgill.ecse321.urlms.model.URLMS;
-
 /**
  * UI for the home page of a selected lab.
  * @author Group 1
@@ -32,8 +32,6 @@ public class DirectorLabPage extends JFrame{
 	 * Serial ID
 	 */
 	private static final long serialVersionUID = 1020649756845890686L;
-	
-	private JPanel contentPane;
 	/**
 	 * URLMS System
 	 */
@@ -74,6 +72,8 @@ public class DirectorLabPage extends JFrame{
 		
 		// Initialization of all buttons and labels
 		JLabel welcomeLbl = new JLabel("Welcome Director");
+		welcomeLbl.setFont(new Font("Microsoft JhengHei Light", Font.BOLD, 24));
+		welcomeLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JButton btnStaff = new JButton("Manage Staff");
 		btnStaff.setBackground(new Color(0, 191, 255));
@@ -95,46 +95,17 @@ public class DirectorLabPage extends JFrame{
 		btnProgReport.setBackground(new Color(0, 191, 255));
 		btnProgReport.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		
-		JButton btnTrackLab = new JButton("Track Lab");
-		btnTrackLab.setBackground(new Color(0, 191, 255));
-		btnTrackLab.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		JButton btneditLab = new JButton("Edit Lab");
+		btneditLab.setBackground(new Color(0, 191, 255));
+		btneditLab.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		
 		JButton btnExpReport = new JButton("Generate Expense Report");
 		btnExpReport.setBackground(new Color(0, 191, 255));
 		btnExpReport.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		
-
-		/*btnStaff.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new StaffPage(urlms);
-				StaffPage.f.setVisible(true);
-				DirectorMainPage.f.setVisible(false);
-			}
-		});*/
-		
-		/*btnEquipment.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new EquipmentPage(urlms);
-				EquipmentPage.f.setVisible(true);
-				DirectorMainPage.f.setVisible(false);
-			}
-		});*/
-		
-		/*btnSupplies.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new SupplyPage(urlms);
-				SupplyPage.f.setVisible(true);
-				DirectorMainPage.f.setVisible(false);
-			}
-		});*/
-		
-		/*btnLabExpsenses.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new LabExpensesPage(urlms);
-				LabExpensesPage.f.setVisible(true);
-				DirectorMainPage.f.setVisible(false);
-			}
-		});*/
+		JButton btnBack = new JButton("Back");
+		btnBack.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		btnBack.setBackground(new Color(255, 255, 0));
 		
 		// Layout
 	    GroupLayout layout = new GroupLayout(getContentPane());
@@ -145,13 +116,16 @@ public class DirectorLabPage extends JFrame{
 	    layout.setHorizontalGroup(
 	    	layout.createParallelGroup()
 	    		.addGroup(layout.createSequentialGroup()
+    				.addGap(screenSize.width/5)
+    				.addComponent(welcomeLbl))
+	    		.addGroup(layout.createSequentialGroup()
 	    				.addGap((screenSize.width/2)/4)
 	    				.addComponent(btnSupplies)
     					.addComponent(btnProgReport))
 	    		.addGroup(layout.createSequentialGroup()
 	    				.addGap((screenSize.width/2)/4)
 	    				.addComponent(btnEquipment)
-    					.addComponent(btnTrackLab))
+    					.addComponent(btneditLab))
 	    		.addGroup(layout.createSequentialGroup()
 	    				.addGap((screenSize.width/2)/4)
 	    				.addComponent(btnStaff)
@@ -162,13 +136,14 @@ public class DirectorLabPage extends JFrame{
 	    );
 	    layout.setVerticalGroup(
 	    	layout.createSequentialGroup()
+	    		.addComponent(welcomeLbl)
 	    		.addGap((screenSize.height/2)/5)
 	    		.addGroup(layout.createParallelGroup()
 	    				.addComponent(btnSupplies)
     					.addComponent(btnProgReport))
 	    		.addGroup(layout.createParallelGroup()
 	    				.addComponent(btnEquipment)
-    					.addComponent(btnTrackLab))
+    					.addComponent(btneditLab))
 	    		.addGroup(layout.createParallelGroup()
 	    				.addComponent(btnStaff)
     					.addComponent(btnExpReport)
@@ -176,45 +151,36 @@ public class DirectorLabPage extends JFrame{
 	    		.addComponent(btnFundAcc)
 	    );
 	    
-	    layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {btnProgReport, btnTrackLab, btnExpReport, btnSupplies, btnEquipment, btnStaff, btnFundAcc});
-	    /*GroupLayout groupLayout = new GroupLayout(getContentPane());
-		JButton btnHome = new JButton("Home");
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnHome)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnStaff)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnEquipment)
-							.addGap(12)
-							.addComponent(btnSupplies)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnExpReport))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(215)
-							.addComponent(welcomeLbl)))
-					.addContainerGap(9, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(16)
-					.addComponent(welcomeLbl)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnSupplies)
-						.addComponent(btnHome)
-						.addComponent(btnStaff)
-						.addComponent(btnExpReport)
-						.addComponent(btnEquipment))
-					.addContainerGap(19, Short.MAX_VALUE))
-		);
-		getContentPane().setLayout(groupLayout);*/
+	    layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {btnProgReport, btneditLab, btnExpReport, btnSupplies, btnEquipment, btnStaff, btnFundAcc});
 		
+	    btnStaff.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		new ManageStaffPage(urlms).setVisible(true);;
+	    		setVisible(false);
+	    	}
+	    });
+	
+	    btnEquipment.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		new ManageEquipmentPage(urlms).setVisible(true);
+	    		setVisible(false);
+	    	}
+	    });
+	
+	    btnSupplies.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		new ManageSupplyPage(urlms).setVisible(true);
+	    		setVisible(false);
+	    	}
+	    });
+	
+	    /*btnExpReport.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		new LabExpensesPage(urlms);
+	    		LabExpensesPage.f.setVisible(true);
+	    		setVisible(false);
+	    	}
+	    });*/
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
 	}

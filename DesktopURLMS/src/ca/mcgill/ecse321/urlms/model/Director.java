@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.22.0.5146 modeling language!*/
+/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
 
 package ca.mcgill.ecse321.urlms.model;
 import java.util.*;
@@ -188,7 +188,6 @@ public class Director extends UserRole
       laboratories.remove(aLaboratory);
     }
     
-      
     URLMS placeholderURLMS = uRLMS;
     this.uRLMS = null;
     placeholderURLMS.removeDirector(this);
@@ -198,10 +197,8 @@ public class Director extends UserRole
 
   public String toString()
   {
-	  String outputString = "";
     return super.toString() + "["+
             "labManaged" + ":" + getLabManaged()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "uRLMS = "+(getURLMS()!=null?Integer.toHexString(System.identityHashCode(getURLMS())):"null")
-     + outputString;
+            "  " + "uRLMS = "+(getURLMS()!=null?Integer.toHexString(System.identityHashCode(getURLMS())):"null");
   }
 }

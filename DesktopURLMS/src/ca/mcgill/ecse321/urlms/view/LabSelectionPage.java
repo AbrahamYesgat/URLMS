@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -31,6 +32,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
@@ -135,6 +138,8 @@ public class LabSelectionPage extends JFrame {
 		// Initialization of scroll pane for table
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Lab Selection Page");
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setBounds(new java.awt.Rectangle(0, 0, screenSize.width/2, screenSize.height/2));
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -147,7 +152,7 @@ public class LabSelectionPage extends JFrame {
 		createLabBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		JButton logoutBtn = new JButton("Logout");
 		logoutBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
-		logoutBtn.setBackground(new Color(255, 255, 0));
+		logoutBtn.setBackground(new Color(255, 255, 81));
 		
 		
 		
