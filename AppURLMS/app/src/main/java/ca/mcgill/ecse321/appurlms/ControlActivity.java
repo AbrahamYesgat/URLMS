@@ -141,4 +141,10 @@ public class ControlActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void back(View view) {
+        Intent intent = new Intent(ControlActivity.this, HomePage.class);
+        startActivity(intent);
+        finish();
+    }
 }
