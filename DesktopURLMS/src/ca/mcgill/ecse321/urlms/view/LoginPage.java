@@ -85,7 +85,7 @@ public class LoginPage extends JFrame{
 			// Successful login
 			LabSelectionPage labSelection = new LabSelectionPage(urlms, emailLoginTextField.getText());
 			labSelection.setVisible(true);
-			this.setVisible(false);
+			this.dispose();
 		}
 	}
 	
