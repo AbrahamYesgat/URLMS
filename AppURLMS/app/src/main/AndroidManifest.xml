@@ -23,7 +23,8 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".AddStaffActivity" />
         <activity android:name=".HomePage" />
-        <activity android:name=".AddStaff"></activity>
+        <activity android:name=".AddStaff" />
+        <activity android:name=".LabPage"></activity>
     </application>
 
 </manifest>

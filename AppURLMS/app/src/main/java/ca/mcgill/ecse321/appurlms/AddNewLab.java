@@ -19,9 +19,8 @@ import static ca.mcgill.ecse321.appurlms.MainActivity.cont;
 public class AddNewLab extends AppCompatActivity {
 
     private int current;
-    private int previous;
-    EditText labName;
-    EditText fieldOfStudy;
+    private EditText labName;
+    private EditText fieldOfStudy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class AddNewLab extends AppCompatActivity {
 
         boolean isValid = cont.addLaboratory(labName.getText().toString(), fieldOfStudy.getText().toString(), new Date(year, month,day));
         if(isValid) {
-            Intent intent = new Intent(AddNewLab.this, HomePage.class);
+            Intent intent = new Intent(AddNewLab.this, LabPage.class);
             startActivity(intent);
             finish();
         }
