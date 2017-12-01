@@ -19,10 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ControlActivity" />
+        <activity android:name=".AddNewLab" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".AddStaffActivity" />
-        <activity android:name=".HomePage"></activity>
+        <activity android:name=".HomePage" />
+        <activity android:name=".AddStaff"></activity>
     </application>
 
 </manifest>

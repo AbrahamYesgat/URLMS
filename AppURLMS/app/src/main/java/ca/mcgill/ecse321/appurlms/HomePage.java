@@ -22,13 +22,14 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
 
         if(cont.getActiveUser() instanceof Director){
+            setContentView(R.layout.dir_home_page);
             Director active = (Director)(cont.getActiveUser());
             labs = active.getLaboratories();
         }
         else {
+            setContentView(R.layout.staff_home_page);
             Staff active = (Staff)(cont.getActiveUser());
             labs = active.getLaboratories();
         }
@@ -48,7 +49,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void addLab(View view) {
-        Intent intent = new Intent(HomePage.this, ControlActivity.class);
+        Intent intent = new Intent(HomePage.this, AddNewLab.class);
         startActivity(intent);
         finish();
     }
