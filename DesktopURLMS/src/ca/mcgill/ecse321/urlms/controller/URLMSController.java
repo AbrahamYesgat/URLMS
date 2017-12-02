@@ -257,14 +257,18 @@ public class URLMSController {
 	}
 
 	public boolean addExistingStaff(String email) {
-		if(activeUser instanceof Director){
-			if(Staff.getWithEmail(email) instanceof Staff){
-				Staff member = (Staff)Staff.getWithEmail(email);
-				activeLab.addStaff(member);
-				return PersistenceXStream.saveToXMLwithXStream(urlms);
-			}
-		}
-		return false;
+        if(activeUser instanceof Director) {
+            List<Laboratory> labs = urlms.getLaboratories();
+            for (Laboratory lab : labs) {
+                for (Staff member : lab.getStaffs()) {
+                    if(member.getEmail().equalsIgnoreCase(email)) {
+                        activeLab.addStaff(member);
+                        return PersistenceXStream.saveToXMLwithXStream(urlms);
+                    }
+                }
+            }
+        }
+        return false;
 	}
 
 	/**
@@ -276,13 +280,17 @@ public class URLMSController {
 	public boolean removeStaff(String email) {
 		if(activeUser instanceof Director) {
 			Laboratory lab = activeLab;
-				for (Staff member : lab.getStaffs()) {
-					if(member.getEmail().equals(email)) {
-						Staff aStaff=getStaffMember(email);
-						lab.removeStaff(aStaff);
+			for (Staff member : lab.getStaffs()) {
+				if(member.getEmail().equals(email)) {
+					if(member.getLaboratories().size() == 1) {
+						member.delete();
+					}
+					else {
+						lab.removeStaff(member);
+					}
+					return PersistenceXStream.saveToXMLwithXStream(urlms);
 				}
 			}
-			return PersistenceXStream.saveToXMLwithXStream(urlms);
 		}
 		return false;
 	}
@@ -489,7 +497,6 @@ public class URLMSController {
 		List<Director> dirs = urlms.getDirectors();
 		for (Director dir : dirs) {
 			if(dir.getEmail().equals(email)) {
-				activeUser = dir;
 				return dir;
 			}
 		}
@@ -506,7 +513,6 @@ public class URLMSController {
 			for (Laboratory lab : labs) {
 				for (Staff member : lab.getStaffs()) {
 					if(member.getEmail().equals(email)) {
-						activeUser = member;
 						return member;	
 					}
 				}

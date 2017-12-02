@@ -46,4 +46,22 @@ public class LabPage extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void manageSupplies(View view) {
+        Intent intent = new Intent(LabPage.this, ManageSupplies.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void manageEquipment(View view) {
+        Intent intent = new Intent(LabPage.this, ManageEquipment.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void editLab(View view) {
+        Intent intent = new Intent(LabPage.this, EditLab.class);
+        startActivity(intent);
+        finish();
+    }
 }
