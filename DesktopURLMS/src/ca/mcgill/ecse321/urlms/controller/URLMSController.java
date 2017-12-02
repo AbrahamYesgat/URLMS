@@ -174,6 +174,34 @@ public class URLMSController {
 		return false;
 	}
 	
+	
+	public boolean updateProfile(String email, String password, String name) {
+		
+		//This checks is the email is unchanghed, if so, only update password and Name
+		if(activeUser.getEmail().equalsIgnoreCase(email)) {
+			activeUser.setPassword(password);
+			activeUser.setName(name);
+			return PersistenceXStream.saveToXMLwithXStream(urlms);
+		}
+		
+		//Verify if the email address updated already exists in the system
+		List<Laboratory> labs = urlms.getLaboratories();
+		for (Laboratory lab : labs) {
+			for (Staff member : lab.getStaffs()) {
+				if(member.getEmail().equalsIgnoreCase(email)) {
+					System.out.println("email exists already");
+					return false;	
+				}
+			}
+		}
+		// Update all info
+		activeUser.setEmail(email);
+		activeUser.setPassword(password);
+		activeUser.setName(name);
+		return PersistenceXStream.saveToXMLwithXStream(urlms);
+	
+	}
+	
 	/**
 	 * Director adds a staff member to a selected laboratory. The parameters can be modified by the user within their profile. 
 	 * @param name First and/or last name of the new member 
