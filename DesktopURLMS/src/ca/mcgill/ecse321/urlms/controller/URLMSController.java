@@ -129,7 +129,49 @@ public class URLMSController {
 		return false;
 	}
 	
+	public boolean removeFunds(double removeFunds, int accountNumber) {
+		
+		//In case the value passed in is negative, switch it to postivie
+		if(removeFunds < 0)
+			removeFunds = removeFunds*-1;
+				
+		// First check that the user is a director of the current Lab
+		if(activeUser instanceof Director) {
+			// Get the account from the lab
+			FundingAccount currAcct = activeLab.getFundingAccount(accountNumber);
+			// Update the funds of the account 
+			currAcct.setCurrentBalance(currAcct.getCurrentBalance() - removeFunds);
+			return PersistenceXStream.saveToXMLwithXStream(urlms);
+		}
+		
+		return false;
 
+	}
+	
+	
+	
+	
+	public boolean addFunds(double newFunds, int accountNumber) {
+		
+		//Incase the parameter newFunds was negative, return and do not complete
+		if(newFunds<0) {
+			System.out.println("You cannot add a negative amount of funds");
+			return false;
+		}
+	
+		
+		// First check that the user is a director of the current Lab
+		if(activeUser instanceof Director) {
+			// Get the account from the lab
+			FundingAccount currAcct = activeLab.getFundingAccount(accountNumber);
+			// Update the funds of the account 
+			currAcct.setCurrentBalance(currAcct.getCurrentBalance() + newFunds);
+			return PersistenceXStream.saveToXMLwithXStream(urlms);
+		}
+		
+		return false;
+	}
+	
 	/**
 	 * Director adds a staff member to a selected laboratory. The parameters can be modified by the user within their profile. 
 	 * @param name First and/or last name of the new member 
