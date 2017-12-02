@@ -72,7 +72,7 @@ public class ManageStaffPage extends JFrame{
 	 * Constructor of ManageStaffPage frame
 	 * @param urlms current URLMS system
 	 */
-	public ManageStaffPage(URLMS urlms, Laboratory lab){
+	public ManageStaffPage(URLMS urlms, Laboratory lab, URLMSController urlmsCont){
 		this.urlms = urlms;
 		this.currentLab = lab;
 		setResizable(false);
@@ -93,7 +93,7 @@ public class ManageStaffPage extends JFrame{
 	       } catch (javax.swing.UnsupportedLookAndFeelException ex) {
 	           java.util.logging.Logger.getLogger(DirectorLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       }
-		this.urlmsCont = new URLMSController(urlms);
+		this.urlmsCont = urlmsCont;
 		initComponents();
 	}
 	

@@ -144,19 +144,16 @@ public class URLMSController {
 			for (Laboratory lab : labs) {
 				for (Staff member : lab.getStaffs()) {
 					if(member.getEmail().equalsIgnoreCase(email)) {
-						for(Laboratory memberLab: member.getLaboratories()){ // check if member already part of active lab
-							if(memberLab.getName().equalsIgnoreCase(activeLab.getName())){
-								return false; 
-							}
-						}
-						activeLab.addStaff(member); // member exists but is not part of active lab
-						return PersistenceXStream.saveToXMLwithXStream(urlms);
+						System.out.println("member exists");
+						return false;	
 					}
 				}
 			}
-			new Staff(email, password, name, role, activeLab); // member does not exist in any labs
+			new Staff(email, password, name, role, activeLab);
+			System.out.println("failing at persistence");
 			return PersistenceXStream.saveToXMLwithXStream(urlms);
 		}
+		System.out.println("not active user");
 		return false;
 	}
 	/**

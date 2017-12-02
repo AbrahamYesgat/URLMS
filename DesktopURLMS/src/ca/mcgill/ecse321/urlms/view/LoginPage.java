@@ -83,7 +83,7 @@ public class LoginPage extends JFrame{
 		}
 		else {
 			// Successful login
-			LabSelectionPage labSelection = new LabSelectionPage(urlms, emailLoginTextField.getText());
+			LabSelectionPage labSelection = new LabSelectionPage(urlms, emailLoginTextField.getText(), urlmsController);
 			labSelection.setVisible(true);
 			this.dispose();
 		}
