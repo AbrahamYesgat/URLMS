@@ -34,4 +34,10 @@ public class LabPage extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void back(View view) {
+        Intent intent = new Intent(LabPage.this, HomePage.class);
+        startActivity(intent);
+        finish();
+    }
 }
