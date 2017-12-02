@@ -146,13 +146,13 @@ public class LabSelectionPage extends JFrame {
 		
 		// Initialization of components
 		JLabel lblExistingLaboratories = new JLabel("Existing Laboratories :");
-		lblExistingLaboratories.setFont(new Font("Modern No. 20", Font.PLAIN, 24));
+		lblExistingLaboratories.setFont(new Font("Modern No. 20", Font.PLAIN, 28));
 		JButton createLabBtn = new JButton("Create Laboratory");
 		createLabBtn.setBackground(new Color(0, 191, 255));
 		createLabBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		JButton logoutBtn = new JButton("Logout");
 		logoutBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
-		logoutBtn.setBackground(new Color(255, 255, 81));
+		logoutBtn.setBackground(new Color(255, 255, 13));
 		
 		
 		
@@ -206,7 +206,8 @@ public class LabSelectionPage extends JFrame {
 			)
 			{public boolean isCellEditable(int row, int column){return false;}}//This causes all cells to be not editable
 		);
-		labSelectionTable.setRowHeight(35);
+		labSelectionTable.setRowHeight(40);
+		labSelectionTable.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		initialiseTable(labSelectionTable);
 		scrollPane.setViewportView(labSelectionTable);
 		JTableHeader labSelectionHeader = labSelectionTable.getTableHeader();
@@ -224,7 +225,9 @@ public class LabSelectionPage extends JFrame {
 		});	
 		// logout button action listener
 		logoutBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent evt) {
+				urlmsCont.logout();
+				dispose();
 			}
 		});
 		// lab selection table mouse listener used to redirect to selected lab's home page
@@ -245,8 +248,6 @@ public class LabSelectionPage extends JFrame {
 		
 		
 		
-		// set window size to preferred size of components
-		pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
 		
