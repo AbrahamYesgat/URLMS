@@ -28,10 +28,10 @@ public class AddStaff extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_staff);
     }
-
+    private EditText tv1;
     public void addStaff(View view) {
         TextView addStaffMessage = (TextView) findViewById(R.id.addStaffMessage);
-        EditText tv1 = (EditText) findViewById(R.id.staff_email);
+        tv1 = (EditText) findViewById(R.id.staff_email);
         EditText tv2 = (EditText) findViewById(R.id.staff_password);
         EditText tv3 = (EditText) findViewById(R.id.staff_name);
         CheckBox researchAssistant = (CheckBox)findViewById(R.id.role2_box);
@@ -94,7 +94,7 @@ public class AddStaff extends AppCompatActivity {
     private void refreshStaffData() {
         //Resets text entries values
         TextView addStaffMessage = (TextView) findViewById(R.id.addStaffMessage);
-        EditText tv1 = (EditText) findViewById(R.id.staff_email);
+        tv1 = (EditText) findViewById(R.id.staff_email);
         EditText tv2 = (EditText) findViewById(R.id.staff_password);
         EditText tv3 = (EditText) findViewById(R.id.staff_name);
         CheckBox researchAssistant = (CheckBox) findViewById(R.id.role2_box);
@@ -121,16 +121,16 @@ public class AddStaff extends AppCompatActivity {
 
     public void addExistingStaff(View view) {
         TextView addStaffMessage = (TextView) findViewById(R.id.addStaffMessage);
-        EditText tv1 = (EditText) findViewById(R.id.staff_email);
         pw.dismiss();
-       //boolean isValid = thing here
+        String email = tv1.getText().toString();
+       boolean isValid = cont.addExistingStaff(email);
         refreshStaffData();
-//        if(isVAlid){
+        if(isValid){
             addStaffMessage.setText("Successfully added staff member");
-//        }
-//        else{
-//            addStaffMessage.setText("Some error has occured please try again.");
-//        }
+        }
+        else{
+            addStaffMessage.setText("Error: This email is associated to a director.");
+       }
     }
 
     public void cancel(View view) {

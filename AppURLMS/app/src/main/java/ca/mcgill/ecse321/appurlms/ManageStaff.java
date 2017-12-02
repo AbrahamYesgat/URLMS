@@ -92,8 +92,10 @@ public class ManageStaff extends AppCompatActivity {
     }
 
     public void removeStaff(View view) {
-        //ADD METHOD HERE
-        finish();
-        startActivity(getIntent());
+        boolean isValid = cont.removeStaff(removeStaff.getEmail());
+        if(isValid) {
+            finish();
+            startActivity(getIntent());
+        }
     }
 }
