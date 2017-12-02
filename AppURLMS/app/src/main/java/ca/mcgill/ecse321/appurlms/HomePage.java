@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -25,16 +26,22 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        String name;
         if(cont.getActiveUser() instanceof Director){
             setContentView(R.layout.dir_home_page);
             Director active = (Director)(cont.getActiveUser());
             labs = active.getLaboratories();
+            name = active.getName();
         }
         else {
             setContentView(R.layout.staff_home_page);
             Staff active = (Staff)(cont.getActiveUser());
             labs = active.getLaboratories();
+            name = active.getName();
         }
+
+        TextView nameMessage = (TextView)findViewById(R.id.dir_name_message);
+        nameMessage.setText("Welcome " + name);
 
         int i= 0;
         String[] labArray = new String[labs.size()];

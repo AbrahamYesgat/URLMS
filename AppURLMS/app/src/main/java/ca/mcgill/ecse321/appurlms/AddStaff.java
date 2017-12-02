@@ -121,9 +121,16 @@ public class AddStaff extends AppCompatActivity {
 
     public void addExistingStaff(View view) {
         TextView addStaffMessage = (TextView) findViewById(R.id.addStaffMessage);
+        EditText tv1 = (EditText) findViewById(R.id.staff_email);
         pw.dismiss();
+       //boolean isValid = thing here
         refreshStaffData();
-        addStaffMessage.setText("Successfully added staff member");
+//        if(isVAlid){
+            addStaffMessage.setText("Successfully added staff member");
+//        }
+//        else{
+//            addStaffMessage.setText("Some error has occured please try again.");
+//        }
     }
 
     public void cancel(View view) {
