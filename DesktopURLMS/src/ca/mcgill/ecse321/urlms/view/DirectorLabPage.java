@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import ca.mcgill.ecse321.urlms.controller.URLMSController;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.URLMS;
 /**
@@ -42,13 +43,18 @@ public class DirectorLabPage extends JFrame{
 	 */
 	private Laboratory currentLab;
 	/**
+	 * URLMS controller
+	 */
+	private URLMSController urlmsCont;
+	/**
 	 * Constructor of DirectorLabPage frame
 	 * @param urlms current URLMS system
 	 * @param lab current lab user is viewing
 	 */
-	public DirectorLabPage(URLMS urlms, Laboratory lab) {
+	public DirectorLabPage(URLMS urlms, Laboratory lab, URLMSController urlmsCont) {
 		this.urlms = urlms;
 		this.currentLab = lab;
+		this.urlmsCont = urlmsCont;
 		setResizable(false);
 		
 		try {
@@ -163,7 +169,7 @@ public class DirectorLabPage extends JFrame{
 		
 	    btnStaff.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		new ManageStaffPage(urlms, currentLab).setVisible(true);;
+	    		new ManageStaffPage(urlms, currentLab, urlmsCont).setVisible(true);;
 	    		setVisible(false);
 	    	}
 	    });
