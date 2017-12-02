@@ -83,8 +83,14 @@ public class AddStaff extends AppCompatActivity {
     }
 
     public void logout(View view) {
-            Intent intent = new Intent(AddStaff.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+        Intent intent = new Intent(AddStaff.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void back(View view) {
+        Intent intent = new Intent(AddStaff.this, LabPage.class);
+        startActivity(intent);
+        finish();
     }
 }
