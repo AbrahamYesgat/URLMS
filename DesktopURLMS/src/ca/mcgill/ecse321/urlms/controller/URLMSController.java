@@ -86,7 +86,7 @@ public class URLMSController {
 	public boolean createDirector(String email, String password, String name) {
 		List<Director> dirs = urlms.getDirectors();
 		for (Director dir : dirs) {
-			if(dir.getEmail().equals(email)) {
+			if(dir.getEmail().equalsIgnoreCase(email)) {
 				return false;
 			}
 		} 
@@ -156,6 +156,18 @@ public class URLMSController {
 		System.out.println("not active user");
 		return false;
 	}
+
+	public boolean addExistingStaff(String email) {
+		if(activeUser instanceof Director){
+			if(Staff.getWithEmail(email) instanceof Staff){
+				Staff member = (Staff)Staff.getWithEmail(email);
+				activeLab.addStaff(member);
+				return PersistenceXStream.saveToXMLwithXStream(urlms);
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Director removes a staff member to the active laboratory. The parameters can be modified by the user within their profile. 
 	 * @param email of the staff member being removed from the system 
