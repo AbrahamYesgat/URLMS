@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.22.0.5146 modeling language!*/
+/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
 
 package ca.mcgill.ecse321.urlms.model;
 import java.util.*;
@@ -52,14 +52,6 @@ public class UserRole
     }
     email = aEmail;
     wasSet = true;
-    if (anOldEmail != null) {
-      userrolesByEmail.remove(anOldEmail);
-    }
-    userrolesByEmail.put(aEmail, this);
-    if (anOldEmail != null) {
-      userrolesByEmail.remove(anOldEmail);
-    }
-    userrolesByEmail.put(aEmail, this);
     if (anOldEmail != null) {
       userrolesByEmail.remove(anOldEmail);
     }
@@ -142,19 +134,15 @@ public class UserRole
   public void delete()
   {
     userrolesByEmail.remove(getEmail());
-    userrolesByEmail.remove(getEmail());
-    userrolesByEmail.remove(getEmail());
   }
 
 
   public String toString()
   {
-	  String outputString = "";
     return super.toString() + "["+
             "email" + ":" + getEmail()+ "," +
             "password" + ":" + getPassword()+ "," +
             "name" + ":" + getName()+ "," +
-            "currentlyAssigned" + ":" + getCurrentlyAssigned()+ "]"
-     + outputString;
+            "currentlyAssigned" + ":" + getCurrentlyAssigned()+ "]";
   }
 }

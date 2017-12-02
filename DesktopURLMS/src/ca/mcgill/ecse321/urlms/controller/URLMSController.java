@@ -216,13 +216,40 @@ public class URLMSController {
 			if (currEquipment.getName().compareToIgnoreCase(equipment)==0){
 				result=currEquipment.getQuantity();
 				currEquipment.setQuantity(result + quantity);
-
 			}
 		}
-
-
 		PersistenceXStream.saveToXMLwithXStream(urlms);
-
+	}
+	
+	public boolean removeEquipments(String equipment, int quantity) {
+		if(quantity<=0)
+			return false;
+		
+		int currentQuant = 0;
+		Iterator<Equipment> EquipmentIterator = activeLab.getEquipment().iterator();
+		while (EquipmentIterator.hasNext()) {
+		Equipment currEquipment = EquipmentIterator.next();
+			if (currEquipment.getName().compareToIgnoreCase(equipment)==0){
+				currentQuant=currEquipment.getQuantity();
+					
+					//delete the item if the quantity removed is the total
+					if(currentQuant == quantity) {
+						currEquipment.delete();
+						System.out.println("Equipment deleted from system");
+					}
+					//edit the amount if the quantity is removed is partial
+					else {
+						currEquipment.setQuantity(currentQuant - quantity);
+						System.out.println("Equipment quantity changed in system");
+					}
+				break;
+			}
+		}
+		
+		PersistenceXStream.saveToXMLwithXStream(urlms);
+		
+		return true;
+		
 	}
 	
 	public boolean createSupplies(String supplies, int quantity) {
@@ -267,6 +294,44 @@ public class URLMSController {
 		
 	}
 
+	public boolean removeSupplies(String supplies, int quantity) {
+		if(quantity<=0)
+			return false;
+		
+		int currentQuant = 0;
+		Iterator<Supplies> SuppliesIterator = activeLab.getSupplies().iterator();
+		while (SuppliesIterator.hasNext()) {
+		Supplies currSupplies = SuppliesIterator.next();
+			if (currSupplies.getName().compareToIgnoreCase(supplies)==0){
+				currentQuant=currSupplies.getQuantity();
+					
+					//delete the item if the quantity removed is the total
+					if(currentQuant == quantity) {
+						currSupplies.delete();
+						System.out.println("Equipment deleted from system");
+					}
+					//edit the amount if the quantity is removed is partial
+					else {
+						currSupplies.setQuantity(currentQuant - quantity);
+						System.out.println("Equipment quantity changed in system");
+					}
+				break;
+			}
+		}
+		
+		PersistenceXStream.saveToXMLwithXStream(urlms);
+		
+		return true;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Allows to keep track of the laboratory currently selected by the user. 
