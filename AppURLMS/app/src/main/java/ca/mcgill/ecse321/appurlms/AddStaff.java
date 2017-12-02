@@ -129,7 +129,7 @@ public class AddStaff extends AppCompatActivity {
             addStaffMessage.setText("Successfully added staff member");
 //        }
 //        else{
-//            addStaffMessage.setText("Some error has occured please try again.");
+//            addStaffMessage.setText("Error: This email is associated to a director.");
 //        }
     }
 
