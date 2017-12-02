@@ -14,6 +14,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/labname_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
             <Button
                 android:id="@+id/supplies_button"
                 android:layout_width="248dp"
@@ -33,20 +50,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/lab_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Edit Lab" />
-
-            <Button
-                android:id="@+id/add_staff_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="addStaff"
-                android:text="Manage Staff" />
         </TableRow>
 
         <TableRow
@@ -56,28 +59,21 @@
             <Button
                 android:id="@+id/expense_report_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Generate Expense Report" />
+                android:text="Add Expenses" />
 
             <Button
                 android:id="@+id/progress_report_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="View Weekly Progress Reports" />
+                android:text="Create Weekly Progress Reports" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <Button
-                android:id="@+id/funding_accounts_button"
-                android:layout_width="37dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Manage Funding Accounts" />
 
         </TableRow>
 

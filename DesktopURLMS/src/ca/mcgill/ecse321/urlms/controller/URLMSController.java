@@ -14,6 +14,8 @@ import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
  * @author Group 1
  *
  */
+//CHRIS CAN YOU SEE THIS
+
 public class URLMSController {
 
 	private URLMS urlms;
@@ -86,7 +88,7 @@ public class URLMSController {
 	public boolean createDirector(String email, String password, String name) {
 		List<Director> dirs = urlms.getDirectors();
 		for (Director dir : dirs) {
-			if(dir.getEmail().equals(email)) {
+			if(dir.getEmail().equalsIgnoreCase(email)) {
 				return false;
 			}
 		} 
@@ -129,7 +131,49 @@ public class URLMSController {
 		return false;
 	}
 	
+	public boolean removeFunds(double removeFunds, int accountNumber) {
+		
+		//In case the value passed in is negative, switch it to postivie
+		if(removeFunds < 0)
+			removeFunds = removeFunds*-1;
+				
+		// First check that the user is a director of the current Lab
+		if(activeUser instanceof Director) {
+			// Get the account from the lab
+			FundingAccount currAcct = activeLab.getFundingAccount(accountNumber);
+			// Update the funds of the account 
+			currAcct.setCurrentBalance(currAcct.getCurrentBalance() - removeFunds);
+			return PersistenceXStream.saveToXMLwithXStream(urlms);
+		}
+		
+		return false;
 
+	}
+	
+	
+	
+	
+	public boolean addFunds(double newFunds, int accountNumber) {
+		
+		//Incase the parameter newFunds was negative, return and do not complete
+		if(newFunds<0) {
+			System.out.println("You cannot add a negative amount of funds");
+			return false;
+		}
+	
+		
+		// First check that the user is a director of the current Lab
+		if(activeUser instanceof Director) {
+			// Get the account from the lab
+			FundingAccount currAcct = activeLab.getFundingAccount(accountNumber);
+			// Update the funds of the account 
+			currAcct.setCurrentBalance(currAcct.getCurrentBalance() + newFunds);
+			return PersistenceXStream.saveToXMLwithXStream(urlms);
+		}
+		
+		return false;
+	}
+	
 	/**
 	 * Director adds a staff member to a selected laboratory. The parameters can be modified by the user within their profile. 
 	 * @param name First and/or last name of the new member 
@@ -153,6 +197,18 @@ public class URLMSController {
 		}
 		return false;
 	}
+
+	public boolean addExistingStaff(String email) {
+		if(activeUser instanceof Director){
+			if(Staff.getWithEmail(email) instanceof Staff){
+				Staff member = (Staff)Staff.getWithEmail(email);
+				activeLab.addStaff(member);
+				return PersistenceXStream.saveToXMLwithXStream(urlms);
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Director removes a staff member to the active laboratory. The parameters can be modified by the user within their profile. 
 	 * @param email of the staff member being removed from the system 
