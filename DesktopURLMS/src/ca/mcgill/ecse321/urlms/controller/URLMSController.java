@@ -14,6 +14,8 @@ import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
  * @author Group 1
  *
  */
+//CHRIS CAN YOU SEE THIS
+
 public class URLMSController {
 
 	private URLMS urlms;
@@ -186,16 +188,13 @@ public class URLMSController {
 			for (Laboratory lab : labs) {
 				for (Staff member : lab.getStaffs()) {
 					if(member.getEmail().equalsIgnoreCase(email)) {
-						System.out.println("member exists");
 						return false;	
 					}
 				}
 			}
 			new Staff(email, password, name, role, activeLab);
-			System.out.println("failing at persistence");
 			return PersistenceXStream.saveToXMLwithXStream(urlms);
 		}
-		System.out.println("not active user");
 		return false;
 	}
 
