@@ -1,12 +1,20 @@
 package ca.mcgill.ecse321.appurlms;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import ca.mcgill.ecse321.urlms.model.Staff;
@@ -46,7 +54,7 @@ public class AddStaff extends AppCompatActivity {
                     finish();
                 }
                 else {
-                    addStaffMessage.setText("Email already exists!");
+                    showPopup();
                 }
             }
             else if(!(researchAssistant.isChecked()) && researchAssociate.isChecked()) {
@@ -57,13 +65,30 @@ public class AddStaff extends AppCompatActivity {
                     addStaffMessage.setText("Successfully added staff member");
                 }
                 else {
-                    addStaffMessage.setText("Email already exists!");
+                    showPopup();
                 }
             }
             else {
                 addStaffMessage.setText("Role not indicated correctly!");
             }
         }
+    }
+
+    private PopupWindow pw;
+    private void showPopup() {
+            hideSoftKeyboard(AddStaff.this);
+
+            LayoutInflater inflater = LayoutInflater.from(AddStaff.this);
+            getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.staff_pop_up,
+                    (ViewGroup) findViewById(R.id.popup_1));
+            pw = new PopupWindow(layout, 1000, 600, true);
+            pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
+    }
+
+    public static void hideSoftKeyboard(AppCompatActivity activity) {
+        InputMethodManager inputMethodManager = (InputMethodManager)  activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
     }
 
     private void refreshStaffData() {
@@ -92,5 +117,17 @@ public class AddStaff extends AppCompatActivity {
         Intent intent = new Intent(AddStaff.this, LabPage.class);
         startActivity(intent);
         finish();
+    }
+
+    public void addExistingStaff(View view) {
+        TextView addStaffMessage = (TextView) findViewById(R.id.addStaffMessage);
+        pw.dismiss();
+        refreshStaffData();
+        addStaffMessage.setText("Successfully added staff member");
+    }
+
+    public void cancel(View view) {
+        pw.dismiss();
+        refreshStaffData();
     }
 }
