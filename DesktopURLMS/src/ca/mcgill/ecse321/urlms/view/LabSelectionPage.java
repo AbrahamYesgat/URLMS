@@ -152,7 +152,7 @@ public class LabSelectionPage extends JFrame {
 		createLabBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		JButton logoutBtn = new JButton("Logout");
 		logoutBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
-		logoutBtn.setBackground(new Color(255, 255, 81));
+		logoutBtn.setBackground(new Color(255, 255, 13));
 		
 		
 		
@@ -206,7 +206,7 @@ public class LabSelectionPage extends JFrame {
 			)
 			{public boolean isCellEditable(int row, int column){return false;}}//This causes all cells to be not editable
 		);
-		labSelectionTable.setRowHeight(35);
+		labSelectionTable.setRowHeight(40);
 		initialiseTable(labSelectionTable);
 		scrollPane.setViewportView(labSelectionTable);
 		JTableHeader labSelectionHeader = labSelectionTable.getTableHeader();
@@ -245,8 +245,6 @@ public class LabSelectionPage extends JFrame {
 		
 		
 		
-		// set window size to preferred size of components
-		pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
 		
