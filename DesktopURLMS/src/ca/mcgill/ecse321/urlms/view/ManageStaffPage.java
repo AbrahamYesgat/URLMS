@@ -20,10 +20,14 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 
+import org.jdesktop.swingx.prompt.PromptSupport;
+
 import ca.mcgill.ecse321.urlms.model.URLMS;
 import ca.mcgill.ecse321.urlms.viewhelpers.ButtonEditor;
 import ca.mcgill.ecse321.urlms.viewhelpers.ButtonRenderer;
 import javax.swing.SwingConstants;
+import java.awt.TextField;
+import javax.swing.JTextField;
 
 public class ManageStaffPage extends JFrame{
 	
@@ -35,6 +39,18 @@ public class ManageStaffPage extends JFrame{
 	 * URLMS system
 	 */
 	private URLMS urlms;
+	/**
+	 * Textfield specifying how many staff members are part of the lab
+	 */
+	private JTextField staffQuantity;
+	/**
+	 * Textfield specifying email of new staff member to be added
+	 */
+	private JTextField newStaffEmail;
+	/**
+	 * Textfield specifying name of new staff member to be added
+	 */
+	private JTextField newStaffName;
 	/**
 	 * Constructor of ManageStaffPage frame
 	 * @param urlms current URLMS system
@@ -80,27 +96,59 @@ public class ManageStaffPage extends JFrame{
 		// Initialization of components
 		JLabel lblManageStaff = new JLabel("Manage Staff");
 		lblManageStaff.setHorizontalAlignment(SwingConstants.CENTER);
-		lblManageStaff.setFont(new Font("Modern No. 20", Font.PLAIN, 24));
-		JButton createLabBtn = new JButton("Create Laboratory");
-		createLabBtn.setBackground(new Color(0, 191, 255));
-		createLabBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		lblManageStaff.setFont(new Font("Modern No. 20", Font.PLAIN, 28));
+		JLabel lblStaffQuant = new JLabel("Number of staff members:");
+		lblStaffQuant.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 24));
 		JButton logoutBtn = new JButton("Logout");
 		logoutBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		logoutBtn.setBackground(new Color(255, 255, 13));
+		staffQuantity = new JTextField();
+		staffQuantity.setEditable(false);
+		staffQuantity.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		staffQuantity.setColumns(10);
+		JLabel lblAddStaff = new JLabel("Add staff member: ");
+		lblAddStaff.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 24));
+		newStaffEmail = new JTextField();
+		newStaffEmail.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		newStaffEmail.setColumns(10);
+		PromptSupport.setPrompt("Email", newStaffEmail);
+		newStaffName = new JTextField();
+		newStaffName.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		newStaffName.setColumns(10);
+		PromptSupport.setPrompt("Name", newStaffName);
+		JButton addStaffBtn = new JButton("Add Staff");
+		addStaffBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		addStaffBtn.setBackground(new Color(0, 255, 0));
+		
 		
 		// Initialization of layout
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.CENTER)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 920, GroupLayout.PREFERRED_SIZE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(createLabBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 516, Short.MAX_VALUE)
-							.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblManageStaff, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE))
+							.addContainerGap()
+							.addComponent(lblStaffQuant)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(staffQuantity, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 924, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblAddStaff)
+									.addGap(18)
+									.addComponent(newStaffName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addGap(37)
+									.addComponent(newStaffEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(addStaffBtn)
+										.addComponent(logoutBtn, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)))))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(333)
+							.addComponent(lblManageStaff, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -110,29 +158,41 @@ public class ManageStaffPage extends JFrame{
 					.addComponent(lblManageStaff, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(createLabBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-						.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
-					.addGap(30))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblAddStaff)
+								.addComponent(newStaffName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(newStaffEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(26)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblStaffQuant)
+								.addComponent(staffQuantity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(addStaffBtn))
+					.addGap(42)
+					.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		
 		JTable staffTable = new JTable();
 		staffTable.setShowGrid(true); // adds cell borders
 		staffTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+		staffTable.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		staffTable.setCellSelectionEnabled(true);
 		staffTable.setModel(new DefaultTableModel(
-			new Object[][] { { "name", "email", "role", "Add", "Remove"}
+			new Object[][] { { "name", "email", "role", "Remove"}
 			},
 			new String[] {
-				"Name", "Email", "Role", "Add Staff", "Remove Staff"
+				"Name", "Email", "Role", "Remove Member"
 			}
 			));
 		
-		staffTable.getColumn("Add Staff").setCellRenderer(new ButtonRenderer());
-	    staffTable.getColumn("Add Staff").setCellEditor(new ButtonEditor(new JCheckBox()));
-	    staffTable.getColumn("Remove Staff").setCellRenderer(new ButtonRenderer());
-	    staffTable.getColumn("Remove Staff").setCellEditor(new ButtonEditor(new JCheckBox()));
+		groupLayout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {logoutBtn, addStaffBtn});
+		groupLayout.linkSize(SwingConstants.VERTICAL, new java.awt.Component[] {newStaffEmail, newStaffName, addStaffBtn});
+		
+	    staffTable.getColumn("Remove Member").setCellRenderer(new ButtonRenderer());
+	    staffTable.getColumn("Remove Member").setCellEditor(new ButtonEditor(new JCheckBox()));
 		staffTable.setRowHeight(40);
 		scrollPane.setViewportView(staffTable);
 		JTableHeader staffHeader = staffTable.getTableHeader();
