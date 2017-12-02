@@ -71,7 +71,7 @@ public class LabSelectionPage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LabSelectionPage(URLMS urlms, String email) {
+	public LabSelectionPage(URLMS urlms, String email, URLMSController urlmsCont) {
 		try {
 	           for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
 	               if ("Nimbus".equals(info.getName())) {
@@ -89,7 +89,7 @@ public class LabSelectionPage extends JFrame {
 	           java.util.logging.Logger.getLogger(LabSelectionPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       }
 		this.urlms = urlms;
-		this.urlmsCont = new URLMSController(urlms);
+		this.urlmsCont = urlmsCont;
 		initialiseCurrentUser(email);
 		// initialize page/frame
 		initComponents();
@@ -243,7 +243,7 @@ public class LabSelectionPage extends JFrame {
 			      int column = target.getSelectedColumn();
 			      if(0 <= column && column <= 3){
 			    	  urlmsCont.setActiveLaboratory(labs.get(row));
-			    	  DirectorLabPage labHomePage = new DirectorLabPage(urlms, labs.get(row));
+			    	  DirectorLabPage labHomePage = new DirectorLabPage(urlms, labs.get(row), urlmsCont);
 			    	  labHomePage.setVisible(true);
 			    	  setVisible(false);
 			      }

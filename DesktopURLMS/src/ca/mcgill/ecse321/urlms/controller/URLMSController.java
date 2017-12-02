@@ -140,14 +140,20 @@ public class URLMSController {
 	 */
 	public boolean addStaff(String email, String password, String name, Staff.StaffRole role) {
 		if(activeUser instanceof Director) {
-			if(UserRole.hasWithEmail(email)){
-				return false;
+			List<Laboratory> labs = urlms.getLaboratories();
+			for (Laboratory lab : labs) {
+				for (Staff member : lab.getStaffs()) {
+					if(member.getEmail().equalsIgnoreCase(email)) {
+						System.out.println("member exists");
+						return false;	
+					}
+				}
 			}
-			else {
-				new Staff(email, password, name, role, activeLab); // member does not exist in any labs
-				return PersistenceXStream.saveToXMLwithXStream(urlms);
-			}
+			new Staff(email, password, name, role, activeLab);
+			System.out.println("failing at persistence");
+			return PersistenceXStream.saveToXMLwithXStream(urlms);
 		}
+		System.out.println("not active user");
 		return false;
 	}
 
