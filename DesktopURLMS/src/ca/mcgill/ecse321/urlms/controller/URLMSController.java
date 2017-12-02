@@ -86,7 +86,7 @@ public class URLMSController {
 	public boolean createDirector(String email, String password, String name) {
 		List<Director> dirs = urlms.getDirectors();
 		for (Director dir : dirs) {
-			if(dir.getEmail().equals(email)) {
+			if(dir.getEmail().equalsIgnoreCase(email)) {
 				return false;
 			}
 		} 
@@ -140,25 +140,28 @@ public class URLMSController {
 	 */
 	public boolean addStaff(String email, String password, String name, Staff.StaffRole role) {
 		if(activeUser instanceof Director) {
-			List<Laboratory> labs = urlms.getLaboratories();
-			for (Laboratory lab : labs) {
-				for (Staff member : lab.getStaffs()) {
-					if(member.getEmail().equalsIgnoreCase(email)) {
-						for(Laboratory memberLab: member.getLaboratories()){ // check if member already part of active lab
-							if(memberLab.getName().equalsIgnoreCase(activeLab.getName())){
-								return false; 
-							}
-						}
-						activeLab.addStaff(member); // member exists but is not part of active lab
-						return PersistenceXStream.saveToXMLwithXStream(urlms);
-					}
-				}
+			if(UserRole.hasWithEmail(email)){
+				return false;
 			}
-			new Staff(email, password, name, role, activeLab); // member does not exist in any labs
-			return PersistenceXStream.saveToXMLwithXStream(urlms);
+			else {
+				new Staff(email, password, name, role, activeLab); // member does not exist in any labs
+				return PersistenceXStream.saveToXMLwithXStream(urlms);
+			}
 		}
 		return false;
 	}
+
+	public boolean addExistingStaff(String email) {
+		if(activeUser instanceof Director){
+			if(Staff.getWithEmail(email) instanceof Staff){
+				Staff member = (Staff)Staff.getWithEmail(email);
+				activeLab.addStaff(member);
+				return PersistenceXStream.saveToXMLwithXStream(urlms);
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Director removes a staff member to the active laboratory. The parameters can be modified by the user within their profile. 
 	 * @param email of the staff member being removed from the system 
