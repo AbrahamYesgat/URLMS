@@ -24,7 +24,11 @@
         <activity android:name=".AddStaffActivity" />
         <activity android:name=".HomePage" />
         <activity android:name=".AddStaff" />
-        <activity android:name=".LabPage"></activity>
+        <activity android:name=".LabPage" />
+        <activity android:name=".ManageStaff" />
+        <activity android:name=".ManageSupplies" />
+        <activity android:name=".ManageEquipment" />
+        <activity android:name=".EditLab"></activity>
     </application>
 
 </manifest>

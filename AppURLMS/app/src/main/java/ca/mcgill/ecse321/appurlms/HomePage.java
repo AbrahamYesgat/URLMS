@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
-import ca.mcgill.ecse321.urlms.application.Main;
 import ca.mcgill.ecse321.urlms.model.Director;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.Staff;
@@ -25,16 +25,22 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        String name;
         if(cont.getActiveUser() instanceof Director){
             setContentView(R.layout.dir_home_page);
             Director active = (Director)(cont.getActiveUser());
             labs = active.getLaboratories();
+            name = active.getName();
         }
         else {
             setContentView(R.layout.staff_home_page);
             Staff active = (Staff)(cont.getActiveUser());
             labs = active.getLaboratories();
+            name = active.getName();
         }
+
+        TextView nameMessage = (TextView)findViewById(R.id.dir_name_message);
+        nameMessage.setText("Welcome " + name);
 
         int i= 0;
         String[] labArray = new String[labs.size()];
@@ -44,7 +50,7 @@ public class HomePage extends AppCompatActivity {
         }
 
         ArrayAdapter adapter = new ArrayAdapter<>(this,
-                R.layout.lab_list, labArray);
+                R.layout.list, labArray);
 
         ListView listView = (ListView) findViewById(R.id.labs_list);
         listView.setAdapter(adapter);
