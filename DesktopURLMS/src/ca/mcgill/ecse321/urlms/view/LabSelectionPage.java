@@ -65,6 +65,10 @@ public class LabSelectionPage extends JFrame {
 	 */
 	private URLMSController urlmsCont;
 	/**
+	 * List of labs of active user
+	 */
+	private List<Laboratory> labs;
+	/**
 	 * Create the frame.
 	 */
 	public LabSelectionPage(URLMS urlms, String email) {
@@ -107,7 +111,7 @@ public class LabSelectionPage extends JFrame {
 	 * @param table Table that will contain list of all labs of logged in user.
 	 */
 	private void initialiseTable(JTable table){
-		List<Laboratory> labs = new ArrayList<Laboratory>();
+		labs = new ArrayList<Laboratory>();
 		Director dir = urlmsCont.getDirector(currentUser.getEmail());
 		
 		if(dir != null)
@@ -238,7 +242,8 @@ public class LabSelectionPage extends JFrame {
 			      int row = target.getSelectedRow();
 			      int column = target.getSelectedColumn();
 			      if(0 <= column && column <= 3){
-			    	  DirectorLabPage labHomePage = new DirectorLabPage(urlms);
+			    	  urlmsCont.setActiveLaboratory(labs.get(row));
+			    	  DirectorLabPage labHomePage = new DirectorLabPage(urlms, labs.get(row));
 			    	  labHomePage.setVisible(true);
 			    	  setVisible(false);
 			      }

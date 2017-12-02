@@ -143,12 +143,18 @@ public class URLMSController {
 			List<Laboratory> labs = urlms.getLaboratories();
 			for (Laboratory lab : labs) {
 				for (Staff member : lab.getStaffs()) {
-					if(member.getEmail().equals(email)) {
-						return false;	
+					if(member.getEmail().equalsIgnoreCase(email)) {
+						for(Laboratory memberLab: member.getLaboratories()){ // check if member already part of active lab
+							if(memberLab.getName().equalsIgnoreCase(activeLab.getName())){
+								return false; 
+							}
+						}
+						activeLab.addStaff(member); // member exists but is not part of active lab
+						return PersistenceXStream.saveToXMLwithXStream(urlms);
 					}
 				}
 			}
-			new Staff(email, password, name, role, activeLab);
+			new Staff(email, password, name, role, activeLab); // member does not exist in any labs
 			return PersistenceXStream.saveToXMLwithXStream(urlms);
 		}
 		return false;

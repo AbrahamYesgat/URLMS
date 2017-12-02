@@ -4,12 +4,17 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
@@ -22,6 +27,10 @@ import javax.swing.table.TableCellRenderer;
 
 import org.jdesktop.swingx.prompt.PromptSupport;
 
+import ca.mcgill.ecse321.urlms.controller.URLMSController;
+import ca.mcgill.ecse321.urlms.model.Director;
+import ca.mcgill.ecse321.urlms.model.Laboratory;
+import ca.mcgill.ecse321.urlms.model.Staff;
 import ca.mcgill.ecse321.urlms.model.URLMS;
 import ca.mcgill.ecse321.urlms.viewhelpers.ButtonEditor;
 import ca.mcgill.ecse321.urlms.viewhelpers.ButtonRenderer;
@@ -40,6 +49,14 @@ public class ManageStaffPage extends JFrame{
 	 */
 	private URLMS urlms;
 	/**
+	 * Instance of URLMS controller
+	 */
+	private URLMSController urlmsCont;
+	/**
+	 * Current lab whose staff director is viewing/editing
+	 */
+	private Laboratory currentLab;
+	/**
 	 * Textfield specifying how many staff members are part of the lab
 	 */
 	private JTextField staffQuantity;
@@ -55,8 +72,9 @@ public class ManageStaffPage extends JFrame{
 	 * Constructor of ManageStaffPage frame
 	 * @param urlms current URLMS system
 	 */
-	public ManageStaffPage(URLMS urlms){
+	public ManageStaffPage(URLMS urlms, Laboratory lab){
 		this.urlms = urlms;
+		this.currentLab = lab;
 		setResizable(false);
 		
 		try {
@@ -75,7 +93,28 @@ public class ManageStaffPage extends JFrame{
 	       } catch (javax.swing.UnsupportedLookAndFeelException ex) {
 	           java.util.logging.Logger.getLogger(DirectorLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       }
+		this.urlmsCont = new URLMSController(urlms);
 		initComponents();
+	}
+	
+	/**
+	 * Method used to initialize list of staff members within a particular lab.
+	 * @param table Table that will contain list of all staff members in lab.
+	 */
+	private void initialiseTable(JTable table){
+		List<Staff> labStaff = new ArrayList<Staff>();
+		if(currentLab.hasStaffs()){
+			labStaff = currentLab.getStaffs();
+			for(Staff staff : labStaff){
+				Object[] o = new Object[4];
+				  o[0] = staff.getName();
+				  o[1] = staff.getEmail();
+				  o[2] = staff.getStaffRole();
+				  o[3] = "Remove";
+				  ((DefaultTableModel) table.getModel()).addRow(o);
+			}
+			
+		}
 	}
 	/**
 	 * Method used to initialize ManageStaggPage frame
@@ -181,7 +220,7 @@ public class ManageStaffPage extends JFrame{
 		staffTable.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		staffTable.setCellSelectionEnabled(true);
 		staffTable.setModel(new DefaultTableModel(
-			new Object[][] { { "name", "email", "role", "Remove"}
+			new Object[][] {
 			},
 			new String[] {
 				"Name", "Email", "Role", "Remove Member"
@@ -197,6 +236,26 @@ public class ManageStaffPage extends JFrame{
 		scrollPane.setViewportView(staffTable);
 		JTableHeader staffHeader = staffTable.getTableHeader();
 		staffHeader.setFont(new java.awt.Font("Lucida Grande", 1, 18));
+		initialiseTable(staffTable);
 		getContentPane().setLayout(groupLayout);
+		
+		// addStaff button action listener
+		addStaffBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				staffAddButtonActionPerformed();
+			}
+		});
+	}
+	/**
+	 * Method to add staff member to lab through director's input.
+	 */
+	private void staffAddButtonActionPerformed() {
+		if(urlmsCont.addStaff(newStaffEmail.getText(), "password123", newStaffName.getText(),  Staff.StaffRole.ResearchAssistant)){
+			JOptionPane.showMessageDialog(this, newStaffName.getText() + " was successfully added to the lab!");
+		}
+		else{
+			JOptionPane.showMessageDialog(this, newStaffName.getText() + " is already part of the lab!", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		
 	}
 }
