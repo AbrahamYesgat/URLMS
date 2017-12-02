@@ -131,6 +131,36 @@ public class URLMSController {
 		return false;
 	}
 	
+	public boolean createFundingAccount(double intialFunds, int accountNumber) {
+		
+		//We want to verify that the account being created does not already exist in the system
+		if(activeUser instanceof Director) {
+			if(urlms.hasLaboratories()) {
+				List<Laboratory> labs = urlms.getLaboratories();
+				for(Laboratory lab : labs) {
+					List<FundingAccount> fundAccounts = lab.getFundingAccounts();
+					for(FundingAccount account : fundAccounts) {
+						if(account.getAccountNumber() == accountNumber)
+							return false;
+					}
+				}
+			}
+		}
+		
+		//Make sure that the funds being added are positive
+		if(intialFunds < 0) {
+			System.out.println("Funds entered are negative, must be positive");
+			return false;
+		}
+		//if account number is unique and funds are positive, you may create it
+		new FundingAccount(intialFunds, accountNumber, activeLab);
+		return PersistenceXStream.saveToXMLwithXStream(urlms);
+	
+	}
+	
+	
+	
+	
 	public boolean removeFunds(double removeFunds, int accountNumber) {
 		
 		//In case the value passed in is negative, switch it to postivie
@@ -177,7 +207,7 @@ public class URLMSController {
 	
 	public boolean updateProfile(String email, String password, String name) {
 		
-		//This checks is the email is unchanghed, if so, only update password and Name
+		//This checks is the email is unchanged, if so, only update password and Name
 		if(activeUser.getEmail().equalsIgnoreCase(email)) {
 			activeUser.setPassword(password);
 			activeUser.setName(name);
