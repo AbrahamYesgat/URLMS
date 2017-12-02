@@ -324,7 +324,12 @@ public class URLMSController {
 	 * @return True if the database successfully added the equipment to the XML file, false if it did not work (if the person is not director)
 	 */
 	public boolean createEquipment(String equipment, int quantity){
-
+		
+		if(quantity < 0) {
+			System.out.println("Quantity cannot be negative");
+			return false;
+		}
+		
 		String message = "";
 		URLMS urlms = URLMS.getInstance();
 
@@ -398,6 +403,11 @@ public class URLMSController {
 	}
 	
 	public boolean createSupplies(String supplies, int quantity) {
+		
+		if(quantity < 0) {
+			System.out.println("Quantity cannot be negative");
+			return false;
+		}
 		
 		String message = "";
 		URLMS urlms = URLMS.getInstance();
