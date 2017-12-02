@@ -78,4 +78,10 @@ public class HomePage extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void updateProfile(View view) {
+        Intent intent = new Intent(HomePage.this, UpdateProfile.class);
+        startActivity(intent);
+        finish();
+    }
 }

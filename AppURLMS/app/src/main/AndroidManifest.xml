@@ -28,7 +28,8 @@
         <activity android:name=".ManageStaff" />
         <activity android:name=".ManageSupplies" />
         <activity android:name=".ManageEquipment" />
-        <activity android:name=".EditLab"></activity>
+        <activity android:name=".EditLab" />
+        <activity android:name=".UpdateProfile"></activity>
     </application>
 
 </manifest>
