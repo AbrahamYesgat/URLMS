@@ -14,7 +14,7 @@ import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 
 public class MainActivity extends AppCompatActivity {
 
-    public URLMS urlms;
+    public static URLMS urlms;
     public static URLMSController cont;
 
     protected void onCreate(Bundle savedInstanceState) {
