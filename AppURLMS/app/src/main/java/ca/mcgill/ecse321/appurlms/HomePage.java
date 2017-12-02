@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ca.mcgill.ecse321.urlms.application.Main;
 import ca.mcgill.ecse321.urlms.model.Director;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.Staff;
@@ -51,7 +50,7 @@ public class HomePage extends AppCompatActivity {
         }
 
         ArrayAdapter adapter = new ArrayAdapter<>(this,
-                R.layout.lab_list, labArray);
+                R.layout.list, labArray);
 
         ListView listView = (ListView) findViewById(R.id.labs_list);
         listView.setAdapter(adapter);

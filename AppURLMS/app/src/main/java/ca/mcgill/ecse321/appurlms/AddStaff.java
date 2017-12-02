@@ -114,7 +114,7 @@ public class AddStaff extends AppCompatActivity {
     }
 
     public void back(View view) {
-        Intent intent = new Intent(AddStaff.this, LabPage.class);
+        Intent intent = new Intent(AddStaff.this, ManageStaff.class);
         startActivity(intent);
         finish();
     }

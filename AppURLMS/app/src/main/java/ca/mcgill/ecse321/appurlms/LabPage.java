@@ -30,7 +30,7 @@ public class LabPage extends AppCompatActivity {
     }
 
     public void addStaff(View view) {
-        Intent intent = new Intent(LabPage.this, AddStaff.class);
+        Intent intent = new Intent(LabPage.this, ManageStaff.class);
         startActivity(intent);
         finish();
     }
