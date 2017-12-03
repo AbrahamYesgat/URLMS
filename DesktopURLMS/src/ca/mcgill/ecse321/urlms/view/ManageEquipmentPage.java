@@ -34,7 +34,7 @@ public class ManageEquipmentPage extends JFrame{
 	/**
 	 * Serial ID
 	 */
-	private static final long serialVersionUID = -5490159581461131362L;
+	private static final long serialVersionUID = -5301184125170629276L;
 	/**
 	 * URLMS system
 	 */
