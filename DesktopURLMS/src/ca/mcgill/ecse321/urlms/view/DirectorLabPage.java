@@ -117,11 +117,11 @@ public class DirectorLabPage extends JFrame{
 		btnExpReport.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 	    
 	    JButton backBtn = new JButton("Back");
-	    backBtn.setFont(new Font("Dialog", Font.PLAIN, 16));
+	    backBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 	    backBtn.setBackground(new Color(255, 255, 13));
 	    
 	    JButton lgtButn = new JButton("Logout");
-	    lgtButn.setFont(new Font("Dialog", Font.PLAIN, 16));
+	    lgtButn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 	    lgtButn.setBackground(Color.RED);
 		
 		// Layout
@@ -129,29 +129,32 @@ public class DirectorLabPage extends JFrame{
 	    layout.setHorizontalGroup(
 	    	layout.createParallelGroup(Alignment.TRAILING)
 	    		.addGroup(layout.createSequentialGroup()
-	    			.addGap(67)
-	    			.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-	    				.addComponent(btnSupplies, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	    				.addComponent(btnEquipment, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	    				.addComponent(btnStaff, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-	    			.addGap(122)
 	    			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-	    				.addComponent(btnExpReport)
-	    				.addComponent(btnFundAcc)
-	    				.addComponent(btnProgReport))
-	    			.addContainerGap(30, Short.MAX_VALUE))
-	    		.addGroup(layout.createSequentialGroup()
-	    			.addContainerGap(358, Short.MAX_VALUE)
-	    			.addComponent(welcomeLbl)
-	    			.addGap(289))
-	    		.addGroup(layout.createSequentialGroup()
-	    			.addContainerGap()
-	    			.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
-	    			.addPreferredGap(ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-	    			.addComponent(btneditLab)
-	    			.addGap(48)
-	    			.addComponent(lgtButn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
+	    				.addGroup(layout.createSequentialGroup()
+	    					.addGap(67)
+	    					.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+	    						.addComponent(btnSupplies, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	    						.addComponent(btnEquipment, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	    						.addComponent(btnStaff, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+	    					.addGap(122)
+	    					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+	    						.addComponent(btnExpReport)
+	    						.addComponent(btnFundAcc)
+	    						.addComponent(btnProgReport)))
+	    				.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+	    					.addContainerGap()
+	    					.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
+	    					.addPreferredGap(ComponentPlacement.RELATED, 458, Short.MAX_VALUE)
+	    					.addComponent(lgtButn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)))
 	    			.addContainerGap())
+	    		.addGroup(layout.createSequentialGroup()
+	    			.addContainerGap(319, Short.MAX_VALUE)
+	    			.addComponent(btneditLab)
+	    			.addGap(246))
+	    		.addGroup(layout.createSequentialGroup()
+	    			.addContainerGap(342, Short.MAX_VALUE)
+	    			.addComponent(welcomeLbl)
+	    			.addGap(325))
 	    );
 	    layout.setVerticalGroup(
 	    	layout.createParallelGroup(Alignment.LEADING)
@@ -170,18 +173,15 @@ public class DirectorLabPage extends JFrame{
 	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
 	    				.addComponent(btnStaff, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
 	    				.addComponent(btnExpReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
-	    			.addGap(32)
-	    			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-	    				.addGroup(layout.createSequentialGroup()
-	    					.addComponent(btneditLab, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-	    					.addGap(29))
-	    				.addGroup(layout.createSequentialGroup()
-	    					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-	    						.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-	    						.addComponent(lgtButn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
-	    					.addContainerGap())))
+	    			.addGap(27)
+	    			.addComponent(btneditLab, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    			.addGap(79)
+	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+	    				.addComponent(lgtButn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+	    				.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
+	    			.addContainerGap())
 	    );
-	    layout.linkSize(SwingConstants.HORIZONTAL, new Component[] {btnFundAcc, btnProgReport, btneditLab, btnExpReport, btnStaff, btnEquipment});
+	    layout.linkSize(SwingConstants.HORIZONTAL, new Component[] {btnStaff, btnEquipment, btnFundAcc, btnProgReport, btneditLab, btnExpReport});
 	    getContentPane().setLayout(layout);
 	    layout.setAutoCreateGaps(true);
 	    layout.setAutoCreateContainerGaps(true);
@@ -205,7 +205,7 @@ public class DirectorLabPage extends JFrame{
 	    btnSupplies.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		dispose();
-	    		new ManageSupplyPage(urlms).setVisible(true);
+	    		new ManageSupplyPage(urlms, currentLab, urlmsCont).setVisible(true);
 	    		//setVisible(false);
 	    	}
 	    });
@@ -215,7 +215,6 @@ public class DirectorLabPage extends JFrame{
 	    		dispose();
 	    		//Need to fix, only works if you're a director
 	    		new LabSelectionPage(urlms,currentLab.getDirector().getEmail(), urlmsCont).setVisible(true);
-	    		//setVisible(false);
 	    	}
 	    });
 	

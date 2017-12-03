@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -31,6 +32,7 @@ import ca.mcgill.ecse321.urlms.controller.URLMSController;
 import ca.mcgill.ecse321.urlms.model.Director;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.Staff;
+import ca.mcgill.ecse321.urlms.model.Staff.StaffRole;
 import ca.mcgill.ecse321.urlms.model.URLMS;
 import ca.mcgill.ecse321.urlms.viewhelpers.ButtonEditor;
 import ca.mcgill.ecse321.urlms.viewhelpers.ButtonRenderer;
@@ -70,6 +72,14 @@ public class ManageStaffPage extends JFrame{
 	 */
 	private JTextField newStaffName;
 	/**
+	 * Dropdown specifying role of new staff member to be added
+	 */
+	private JComboBox<StaffRole> newStaffRole;
+	/**
+	 * Table containing all staff memebrs of active lab
+	 */
+	private JTable staffTable;
+	/**
 	 * Constructor of ManageStaffPage frame
 	 * @param urlms current URLMS system
 	 */
@@ -87,15 +97,14 @@ public class ManageStaffPage extends JFrame{
 	               }
 	           }
 	       } catch (ClassNotFoundException ex) {
-	           java.util.logging.Logger.getLogger(DirectorLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(ManageStaffPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (InstantiationException ex) {
-	           java.util.logging.Logger.getLogger(DirectorLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(ManageStaffPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (IllegalAccessException ex) {
-	           java.util.logging.Logger.getLogger(DirectorLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(ManageStaffPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	           java.util.logging.Logger.getLogger(DirectorLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(ManageStaffPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       }
-		this.urlmsCont = urlmsCont;
 		initComponents();
 	}
 	
@@ -119,14 +128,13 @@ public class ManageStaffPage extends JFrame{
 		}
 	}
 	/**
-	 * Method used to initialize ManageStaggPage frame
+	 * Method used to initialize ManageStaffPage frame
 	 */
 	private void initComponents(){
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Manage Staff Page");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds(new java.awt.Rectangle(0, 0, screenSize.width/2, screenSize.height/2));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -137,30 +145,35 @@ public class ManageStaffPage extends JFrame{
 		lblManageStaff.setHorizontalAlignment(SwingConstants.CENTER);
 		lblManageStaff.setFont(new Font("Modern No. 20", Font.PLAIN, 28));
 		JLabel lblStaffQuant = new JLabel("Number of staff members:");
-		lblStaffQuant.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 24));
+		lblStaffQuant.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		JButton lgtBtn = new JButton("Logout");
 		lgtBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		lgtBtn.setBackground(Color.RED);
 		staffQuantity = new JTextField();
 		staffQuantity.setEditable(false);
-		staffQuantity.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		staffQuantity.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		staffQuantity.setColumns(10);
 		JLabel lblAddStaff = new JLabel("Add staff member: ");
-		lblAddStaff.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 24));
+		lblAddStaff.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		newStaffEmail = new JTextField();
-		newStaffEmail.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		newStaffEmail.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		newStaffEmail.setColumns(10);
 		PromptSupport.setPrompt("Email", newStaffEmail);
 		newStaffName = new JTextField();
-		newStaffName.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		newStaffName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		newStaffName.setColumns(10);
 		PromptSupport.setPrompt("Name", newStaffName);
 		JButton addStaffBtn = new JButton("Add Staff");
 		addStaffBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		addStaffBtn.setBackground(new Color(0, 255, 0));
 		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font("Dialog", Font.PLAIN, 16));
+		btnBack.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		btnBack.setBackground(new Color(255, 255, 13));
+		newStaffRole = new JComboBox<StaffRole>();
+		newStaffRole.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+		newStaffRole.addItem(StaffRole.ResearchAssistant);
+		newStaffRole.addItem(StaffRole.ResearchAssociate);
+		
 		
 		
 		// Initialization of layout
@@ -183,11 +196,13 @@ public class ManageStaffPage extends JFrame{
 										.addGroup(groupLayout.createSequentialGroup()
 											.addComponent(lblAddStaff)
 											.addGap(18)
-											.addComponent(newStaffName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addGap(37)
-											.addComponent(newStaffEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+											.addComponent(newStaffName, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE))
 										.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+									.addGap(18)
+									.addComponent(newStaffEmail, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+									.addGap(47)
+									.addComponent(newStaffRole, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(addStaffBtn)
 										.addComponent(lgtBtn, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)))))
@@ -209,7 +224,8 @@ public class ManageStaffPage extends JFrame{
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblAddStaff)
 								.addComponent(newStaffName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(newStaffEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(newStaffEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(newStaffRole, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(26)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblStaffQuant)
@@ -224,7 +240,7 @@ public class ManageStaffPage extends JFrame{
 		groupLayout.linkSize(SwingConstants.VERTICAL, new Component[] {newStaffEmail, newStaffName, addStaffBtn});
 		groupLayout.linkSize(SwingConstants.HORIZONTAL, new Component[] {lgtBtn, addStaffBtn});
 		
-		JTable staffTable = new JTable();
+		staffTable = new JTable();
 		staffTable.setShowGrid(true); // adds cell borders
 		staffTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		staffTable.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
@@ -235,7 +251,8 @@ public class ManageStaffPage extends JFrame{
 			new String[] {
 				"Name", "Email", "Role", "Remove Member"
 			}
-			));
+			){public boolean isCellEditable(int row, int column){return false;}}//This causes all cells to be not editable)
+		);
 		
 	    staffTable.getColumn("Remove Member").setCellRenderer(new ButtonRenderer());
 	    staffTable.getColumn("Remove Member").setCellEditor(new ButtonEditor(new JCheckBox()));
@@ -244,6 +261,7 @@ public class ManageStaffPage extends JFrame{
 		JTableHeader staffHeader = staffTable.getTableHeader();
 		staffHeader.setFont(new java.awt.Font("Lucida Grande", 1, 18));
 		initialiseTable(staffTable);
+		staffQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfStaffs()));
 		getContentPane().setLayout(groupLayout);
 		
 		
@@ -283,8 +301,14 @@ public class ManageStaffPage extends JFrame{
 	 * Method to add staff member to lab through director's input.
 	 */
 	private void staffAddButtonActionPerformed() {
-		if(urlmsCont.addStaff(newStaffEmail.getText(), "password123", newStaffName.getText(),  Staff.StaffRole.ResearchAssistant)){
+		if(newStaffEmail.getText().isEmpty() || newStaffName.getText().isEmpty()){
+			JOptionPane.showMessageDialog(this, "Name and Email fields cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else if(urlmsCont.addStaff(newStaffEmail.getText(), "password123", newStaffName.getText(), (StaffRole) newStaffRole.getSelectedItem())){
 			JOptionPane.showMessageDialog(this, newStaffName.getText() + " was successfully added to the lab!");
+			Object[] o = {newStaffName.getText(), newStaffEmail.getText(), newStaffRole.getSelectedItem(),"Remove"};
+			  ((DefaultTableModel) staffTable.getModel()).addRow(o);
+			  staffQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfStaffs()));
 		}
 		else{
 			JOptionPane.showMessageDialog(this, newStaffName.getText() + " is already part of the lab!", "Error", JOptionPane.ERROR_MESSAGE);

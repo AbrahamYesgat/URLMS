@@ -19,6 +19,7 @@
         </laboratories>
         <uRLMS reference="1"/>
       </director>
+<<<<<<< HEAD
       <supplies id="9"/>
       <staffs id="10">
         <staff id="11">
@@ -71,6 +72,21 @@
     </lab>
   </laboratories>
   <directors id="25">
+=======
+      <supplies id="9">
+        <supplies id="10">
+          <name>TestSupply</name>
+          <quantity>26</quantity>
+          <laboratory reference="3"/>
+        </supplies>
+      </supplies>
+      <staffs id="11"/>
+      <progressUpdates id="12"/>
+      <fundingAccounts id="13"/>
+    </lab>
+  </laboratories>
+  <directors id="14">
+>>>>>>> c702fa656c1fb75ce2e4f14f64a26220ef6f2c98
     <director reference="7"/>
   </directors>
 </ca.mcgill.ecse321.urlms.model.URLMS>

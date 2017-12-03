@@ -195,7 +195,9 @@ public class LabSelectionPage extends JFrame {
 				Component c = super.prepareRenderer(renderer, row, column);
 				if (column == 0 && c instanceof JComponent) {
 					JComponent jc = (JComponent) c;
-					jc.setToolTipText("Double click to view lab: " + (String) getValueAt(row, column));
+					 String hovermssg ="<html><p><font color=\"#800080\" " +"size=\"4\" face=\"Segoe UI Semibold\">Double click to view lab " +
+					"</font></p></html>";
+					jc.setToolTipText(hovermssg);
 				}
 				return c;
 			}
