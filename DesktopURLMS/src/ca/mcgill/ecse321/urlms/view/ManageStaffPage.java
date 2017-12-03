@@ -75,6 +75,7 @@ public class ManageStaffPage extends JFrame{
 	public ManageStaffPage(URLMS urlms, Laboratory lab, URLMSController urlmsCont){
 		this.urlms = urlms;
 		this.currentLab = lab;
+		this.urlmsCont = urlmsCont;
 		setResizable(false);
 		
 		try {
@@ -236,6 +237,22 @@ public class ManageStaffPage extends JFrame{
 		staffHeader.setFont(new java.awt.Font("Lucida Grande", 1, 18));
 		initialiseTable(staffTable);
 		getContentPane().setLayout(groupLayout);
+		
+		
+		
+		// logout button action listener
+		logoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				urlmsCont.logout();
+				dispose();
+				new LoginPage(urlms).setVisible(true);
+			}
+		});
+		
+		
+		
+		
+		
 		
 		pack();
 		// makes window appear in center of screen
