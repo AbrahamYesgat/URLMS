@@ -204,6 +204,20 @@ public class URLMSController {
 		return false;
 	}
 	
+	//Need to figure out how expenses will work
+	public boolean addExpenses(double expenses) {
+		
+		if(expenses < 0)
+			expenses = expenses * (-1.0);
+		
+		
+		
+		return false;
+	}
+	
+	
+	
+	
 	
 	public boolean updateProfile(String email, String password, String name) {
 		
@@ -241,7 +255,9 @@ public class URLMSController {
 	 * @return True if the database successfully saved the laboratory. False if it did not and if a staff user tried to add a laboratory.
 	 */
 	public boolean addStaff(String email, String password, String name, Staff.StaffRole role) {
+		
 		if(activeUser instanceof Director) {
+			// First we verify that the email address does not exist for a current staff member in the system
 			List<Laboratory> labs = urlms.getLaboratories();
 			for (Laboratory lab : labs) {
 				for (Staff member : lab.getStaffs()) {
@@ -250,6 +266,13 @@ public class URLMSController {
 					}
 				}
 			}
+			// Secondly we verify that the email address does not belong to a current director
+			List <Director> directors= urlms.getDirectors();
+			for(Director director : directors) {
+				if(director.getEmail().equalsIgnoreCase(email))
+					return false;
+			}
+			// It is a unique email address, therefore we can create the new staff
 			new Staff(email, password, name, role, activeLab);
 			return PersistenceXStream.saveToXMLwithXStream(urlms);
 		}
@@ -301,7 +324,12 @@ public class URLMSController {
 	 * @return True if the database successfully added the equipment to the XML file, false if it did not work (if the person is not director)
 	 */
 	public boolean createEquipment(String equipment, int quantity){
-
+		
+		if(quantity < 0) {
+			System.out.println("Quantity cannot be negative");
+			return false;
+		}
+		
 		String message = "";
 		URLMS urlms = URLMS.getInstance();
 
@@ -321,7 +349,7 @@ public class URLMSController {
 		
 		//add to system
 		equipment = equipment.toUpperCase();
-		Equipment AnEquip = new Equipment(equipment, quantity, activeLab);
+		new Equipment(equipment, quantity, activeLab);
 		PersistenceXStream.saveToXMLwithXStream(urlms);
 		return true;
 		}
@@ -375,6 +403,11 @@ public class URLMSController {
 	}
 	
 	public boolean createSupplies(String supplies, int quantity) {
+		
+		if(quantity < 0) {
+			System.out.println("Quantity cannot be negative");
+			return false;
+		}
 		
 		String message = "";
 		URLMS urlms = URLMS.getInstance();
@@ -463,7 +496,7 @@ public class URLMSController {
 	 * @return director If user is a director, director is returned.
 	 */
 	public Director getDirector(String email){
-		List<Laboratory> labs = urlms.getLaboratories();
+	
 		List<Director> dirs = urlms.getDirectors();
 		for (Director dir : dirs) {
 			if(dir.getEmail().equals(email)) {
