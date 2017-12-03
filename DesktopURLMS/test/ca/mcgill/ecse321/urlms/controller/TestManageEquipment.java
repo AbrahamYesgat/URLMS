@@ -48,7 +48,7 @@ public class TestManageEquipment {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws InvalidInputException {
 		URLMSController sysC = new URLMSController(urlms);
 		Laboratory activeLab=sysC.getActiveLaboratory();
 		
@@ -56,11 +56,14 @@ public class TestManageEquipment {
 		sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
 	
 		
-		sysC.createEquipment("Computer", 6);
-		sysC.createEquipment("ComPUTER", 6);
-		sysC.modifyEquipment("ComPuter", 4);
+		sysC.createEquipment("Computer", 3);
+	//	sysC.createEquipment("ComPUTER", 6);
+		//sysC.modifyEquipment("Cangaroo", 3);
+		sysC.modifyEquipment("ComPuter", -1);
+		sysC.modifyEquipment("ComPuter", -1);
+
 //		sysC.addEquipments("Computer", 4);
-		sysC.modifyEquipment("Computer", -1);
+	//	sysC.modifyEquipment("Computer", -1);
 //		sysC.createEquipmentType("computer");
 
 
