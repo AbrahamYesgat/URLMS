@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.appurlms;
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.After;
@@ -14,6 +15,7 @@ import ca.mcgill.ecse321.urlms.model.Director;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.Staff;
 import ca.mcgill.ecse321.urlms.model.URLMS;
+import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 
 import static org.junit.Assert.assertEquals;
 
@@ -34,6 +36,10 @@ public class TestCreateSupply {
     @Before
     public void setUp() {
         urlms = URLMS.getInstance();
+
+        // Create data file
+        PersistenceXStream.initializeURLMS(InstrumentationRegistry.getTargetContext().getApplicationContext().getFilesDir().getAbsolutePath()+"/data.xml");
+        PersistenceXStream.saveToXMLwithXStream(urlms);
     }
 
     @After
@@ -43,6 +49,35 @@ public class TestCreateSupply {
 
     @Test
     public void test() {
+        URLMSController sysC = new URLMSController(urlms);
+        sysC.createDirector(testEmail,testPassword,testName);
+        sysC.login(testEmail, testPassword);
+        sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
+        sysC.addStaff(testStaffEmail, testStaffPassword, testStaffName, role);
 
+        //Case 1: Successful create supply
+        assertEquals(true, sysC.createSupplies("supply", 10));
+
+        //Case 2: Create equipment with same name
+        assertEquals(false, sysC.createSupplies("supply", 10));
+        assertEquals(false, sysC.createSupplies("Supply", 10));
+        assertEquals(false, sysC.createSupplies("SUPPLY", 10));
+
+        //Case 3: Create equipment with 0 quantity
+        assertEquals(true, sysC.createSupplies("supply1", 0));
+
+        //Case 4: Create equipment with negative quantity
+        assertEquals(false, sysC.createSupplies("supply2", -1));
+
+        //Case 5: Create equipment with large quantity
+        assertEquals(true, sysC.createSupplies("supply3", 999999999));
+
+        sysC.logout();
+        sysC.login(testStaffEmail, testStaffPassword);
+        Laboratory test = urlms.getLaboratory(0);
+        sysC.setActiveLaboratory(test);
+
+        //Case 6: Staff creates an equipment
+        assertEquals(true, sysC.createSupplies("supply4", 10));
     }
 }
