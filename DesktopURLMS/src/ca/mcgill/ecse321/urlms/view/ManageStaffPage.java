@@ -97,15 +97,14 @@ public class ManageStaffPage extends JFrame{
 	               }
 	           }
 	       } catch (ClassNotFoundException ex) {
-	           java.util.logging.Logger.getLogger(DirectorLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(ManageStaffPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (InstantiationException ex) {
-	           java.util.logging.Logger.getLogger(DirectorLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(ManageStaffPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (IllegalAccessException ex) {
-	           java.util.logging.Logger.getLogger(DirectorLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(ManageStaffPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	           java.util.logging.Logger.getLogger(DirectorLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(ManageStaffPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       }
-		this.urlmsCont = urlmsCont;
 		initComponents();
 	}
 	
@@ -129,14 +128,13 @@ public class ManageStaffPage extends JFrame{
 		}
 	}
 	/**
-	 * Method used to initialize ManageStaggPage frame
+	 * Method used to initialize ManageStaffPage frame
 	 */
 	private void initComponents(){
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Manage Staff Page");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds(new java.awt.Rectangle(0, 0, screenSize.width/2, screenSize.height/2));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
