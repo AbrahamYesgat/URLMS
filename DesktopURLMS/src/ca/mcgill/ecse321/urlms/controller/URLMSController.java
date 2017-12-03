@@ -153,7 +153,7 @@ public class URLMSController {
 			return false;
 		}
 		//if account number is unique and funds are positive, you may create it
-		activeLab.addFundingAccount(new FundingAccount(intialFunds, accountNumber, activeLab));
+		activeLab.addFundingAccount(intialFunds, accountNumber);
 		
 		return PersistenceXStream.saveToXMLwithXStream(urlms);
 	
