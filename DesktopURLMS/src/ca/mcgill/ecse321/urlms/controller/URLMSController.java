@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.urlms.controller;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Iterator;
 import java.io.*;
@@ -324,48 +325,56 @@ public class URLMSController {
 	 * @param String of the equipment name 
 	 * @return True if the database successfully added the equipment to the XML file, false if it did not work (if the person is not director)
 	 */
-	public boolean createEquipment(String equipment, int quantity){
-		
+	public boolean createEquipment(String equipment, int quantity) throws InvalidInputException {
+		String message = "";
 		if(quantity < 0) {
-			System.out.println("Quantity cannot be negative");
-			return false;
+			message="Quantity cannot be negative.";
 		}
 		
-		String message = "";
 		URLMS urlms = URLMS.getInstance();
-		
 		List<Equipment> equipments = activeLab.getEquipment();
 		if(activeLab.hasEquipment()) {
 			for(Equipment equip : equipments) {
-			
 				if(equip.getName().equalsIgnoreCase(equipment)) {
-					message = equip.getName() + " was attempted to be added! This equipment type already exists. Please just change the amount needed.";
-					System.out.println(message);
-					return false;
+					message += equip.getName() + " was attempted to be added! This equipment type already exists. Please just change the amount needed.";
 				}
 			}
 		}	
 		equipment = equipment.trim();
-			
 		activeLab.addEquipment(equipment, quantity);
+		if(message.length()>0) throw new InvalidInputException(message);
 		return PersistenceXStream.saveToXMLwithXStream(urlms);	
 
 	}
+
+
 	
-	public boolean modifyEquipment(String equipment,int quantity) {
+	public boolean modifyEquipment(String equipment,int quantity) throws InvalidInputException {
+		String message;
 		int result=0;
 		List<Equipment> equipments = activeLab.getEquipment();
 		
 		for(Equipment equip : equipments) {
 			if(equip.getName().equalsIgnoreCase(equipment)) {
-				result=equip.getQuantity();
-				equip.setQuantity(result + quantity);
-				return PersistenceXStream.saveToXMLwithXStream(urlms);
+				result=equip.getQuantity()+quantity;
+				if (result<=0) {
+					equip.setQuantity(0);
+					message="There are no more "+ equip.getName()+"s in this Laboratory!";
+					PersistenceXStream.saveToXMLwithXStream(urlms);
+					throw new InvalidInputException(message);
+				}
+				equip.setQuantity(result);
 			}
+			PersistenceXStream.saveToXMLwithXStream(urlms);
+
+			/* This ensures that you dont simply add number of supplies to a non existing supply */
+			if(! equip.getName().equalsIgnoreCase(equipment)) throw new InvalidInputException("No Equipment type with the name: " + equipment);
 		}
 		
 		return false; 
 	}
+	
+	
 	
 	public boolean removeEquipments(String equipment) {
 		List<Equipment> equipments = activeLab.getEquipment();
@@ -380,43 +389,52 @@ public class URLMSController {
 		return false; 
 	}
 	
-	public boolean createSupplies(String supplies, int quantity) {
-		
+	
+	
+	public boolean createSupplies(String supplies, int quantity) throws InvalidInputException {
+		String message = "";
 		if(quantity < 0) {
-			System.out.println("Quantity cannot be negative");
-			return false;
+			message="Quantity cannot be negative";
 		}
 		
-		String message = "";
 		URLMS urlms = URLMS.getInstance();
-		
 		List<Supplies> supply = activeLab.getSupplies();
 		if(activeLab.hasSupplies()) {
 			for(Supplies sup : supply) {
-			
 				if(sup.getName().equalsIgnoreCase(supplies)) {
-					message = sup.getName() + " was attempted to be added! This equipment type already exists. Please just change the amount needed.";
-					System.out.println(message);
-					return false;
+					message += sup.getName() + " was attempted to be added! This equipment type already exists. Please just change the amount needed.";
 				}
 			}
-		}	
+		}
+		
+	
 		supplies = supplies.trim();
-			
 		activeLab.addSupply(supplies, quantity);
+		if(message.length()>0) throw new InvalidInputException(message);
 		return PersistenceXStream.saveToXMLwithXStream(urlms);	
+
+		
 	}
 
-	public boolean modifySupplies(String supplies, int quantity) {
+	
+	public boolean modifySupplies(String supplies, int quantity) throws InvalidInputException {
+		String message= "";
 		int result=0;
 		List<Supplies> supply = activeLab.getSupplies();
-		
 		for(Supplies sup : supply) {
 			if(sup.getName().equalsIgnoreCase(supplies)) {
-				result=sup.getQuantity();
-				sup.setQuantity(result + quantity);
-				return PersistenceXStream.saveToXMLwithXStream(urlms);
+				result=sup.getQuantity() + quantity;
+				sup.setQuantity(result);
+				if (result<=0) {
+					sup.setQuantity(0);
+					message= "There are no more"+ sup.getName()+"s left in this lab!";
+					PersistenceXStream.saveToXMLwithXStream(urlms);
+					throw new InvalidInputException(message);
+				}
 			}
+			/* This ensures that you dont simply add number of supplies to a non existing supply */
+			if(!sup.getName().equalsIgnoreCase(supplies)) throw new InvalidInputException("No Supply with the name: " + supplies);
+
 		}
 		
 		return false; 
