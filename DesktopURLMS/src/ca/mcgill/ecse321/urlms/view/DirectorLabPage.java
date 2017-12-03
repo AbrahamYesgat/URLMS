@@ -225,8 +225,7 @@ public class DirectorLabPage extends JFrame{
 	    backBtn.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		dispose();
-	    		//Need to fix, only works if you're a director
-	    		new LabSelectionPage(urlms,currentLab.getDirector().getEmail(), urlmsCont).setVisible(true);
+	    		new LabSelectionPage(urlms,urlmsCont.getActiveUser().getEmail(), urlmsCont).setVisible(true);
 	    	}
 	    });
 	
