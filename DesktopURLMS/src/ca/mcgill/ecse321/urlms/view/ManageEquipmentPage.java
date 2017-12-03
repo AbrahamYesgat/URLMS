@@ -233,6 +233,15 @@ public class ManageEquipmentPage extends JFrame{
 		equipmentQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfEquipment()));
 		getContentPane().setLayout(groupLayout);
 		
+		
+		btnBack.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		dispose();
+		new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+			}
+		});
+		
+		
 		pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
