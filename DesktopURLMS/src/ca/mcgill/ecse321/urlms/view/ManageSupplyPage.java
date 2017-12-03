@@ -10,6 +10,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -286,7 +287,11 @@ public class ManageSupplyPage extends JFrame{
 				new LoginPage(urlms).setVisible(true);
 			}
 		});
-		
+		createSupplyBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				createSupply();
+			}
+		});
 		
 		pack();
 		// makes window appear in center of screen
@@ -294,6 +299,12 @@ public class ManageSupplyPage extends JFrame{
 	}
 	private void createSupply() {
 		
-		
+		if(newSupplyName.getText().isEmpty() || txtQuantityCreate.getText().isEmpty()){
+			JOptionPane.showMessageDialog(this, "Supply Name and Quantity fields cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else if(urlmsCont.createSupplies(newSupplyName.getText(), Integer.parseInt(txtQuantityCreate.getText())))
+			JOptionPane.showMessageDialog(this, "Supply Name and Quantity have been updated");
+		else
+			JOptionPane.showMessageDialog(this, "Supply Name already exists");
 	}
 }
