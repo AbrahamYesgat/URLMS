@@ -108,9 +108,12 @@ public class AddStaff extends AppCompatActivity {
     }
 
     public void logout(View view) {
-        Intent intent = new Intent(AddStaff.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        boolean isValid = cont.logout();
+        if(isValid) {
+            Intent intent = new Intent(AddStaff.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void back(View view) {

@@ -49,7 +49,7 @@ public class UpdateProfile extends AppCompatActivity {
                 finish();
             }
             else {
-                updateProfileMessage.setText("Error has occured. Please try again.");
+                updateProfileMessage.setText("This email is already being used. Please choose another one.");
             }
         }
     }

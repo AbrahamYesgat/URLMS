@@ -36,9 +36,12 @@ public class LabPage extends AppCompatActivity {
     }
 
     public void logout(View view) {
-        Intent intent = new Intent(LabPage.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        boolean isValid = cont.logout();
+        if(isValid) {
+            Intent intent = new Intent(LabPage.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void back(View view) {
