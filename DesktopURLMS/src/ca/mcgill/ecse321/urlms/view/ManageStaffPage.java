@@ -37,6 +37,7 @@ import ca.mcgill.ecse321.urlms.viewhelpers.ButtonRenderer;
 import javax.swing.SwingConstants;
 import java.awt.TextField;
 import javax.swing.JTextField;
+import java.awt.Component;
 
 public class ManageStaffPage extends JFrame{
 	
@@ -137,9 +138,9 @@ public class ManageStaffPage extends JFrame{
 		lblManageStaff.setFont(new Font("Modern No. 20", Font.PLAIN, 28));
 		JLabel lblStaffQuant = new JLabel("Number of staff members:");
 		lblStaffQuant.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 24));
-		JButton logoutBtn = new JButton("Logout");
-		logoutBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
-		logoutBtn.setBackground(new Color(255, 255, 13));
+		JButton lgtBtn = new JButton("Logout");
+		lgtBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		lgtBtn.setBackground(Color.RED);
 		staffQuantity = new JTextField();
 		staffQuantity.setEditable(false);
 		staffQuantity.setFont(new Font("Tahoma", Font.PLAIN, 24));
@@ -157,6 +158,9 @@ public class ManageStaffPage extends JFrame{
 		JButton addStaffBtn = new JButton("Add Staff");
 		addStaffBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		addStaffBtn.setBackground(new Color(0, 255, 0));
+		JButton btnBack = new JButton("Back");
+		btnBack.setFont(new Font("Dialog", Font.PLAIN, 16));
+		btnBack.setBackground(new Color(255, 255, 13));
 		
 		
 		// Initialization of layout
@@ -173,17 +177,20 @@ public class ManageStaffPage extends JFrame{
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 924, Short.MAX_VALUE)
+								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 948, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblAddStaff)
-									.addGap(18)
-									.addComponent(newStaffName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addGap(37)
-									.addComponent(newStaffEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(lblAddStaff)
+											.addGap(18)
+											.addComponent(newStaffName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addGap(37)
+											.addComponent(newStaffEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE))
 									.addPreferredGap(ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(addStaffBtn)
-										.addComponent(logoutBtn, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)))))
+										.addComponent(lgtBtn, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(333)
 							.addComponent(lblManageStaff, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)))
@@ -209,9 +216,13 @@ public class ManageStaffPage extends JFrame{
 								.addComponent(staffQuantity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addComponent(addStaffBtn))
 					.addGap(42)
-					.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lgtBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
+		groupLayout.linkSize(SwingConstants.VERTICAL, new Component[] {newStaffEmail, newStaffName, addStaffBtn});
+		groupLayout.linkSize(SwingConstants.HORIZONTAL, new Component[] {lgtBtn, addStaffBtn});
 		
 		JTable staffTable = new JTable();
 		staffTable.setShowGrid(true); // adds cell borders
@@ -226,9 +237,6 @@ public class ManageStaffPage extends JFrame{
 			}
 			));
 		
-		groupLayout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {logoutBtn, addStaffBtn});
-		groupLayout.linkSize(SwingConstants.VERTICAL, new java.awt.Component[] {newStaffEmail, newStaffName, addStaffBtn});
-		
 	    staffTable.getColumn("Remove Member").setCellRenderer(new ButtonRenderer());
 	    staffTable.getColumn("Remove Member").setCellEditor(new ButtonEditor(new JCheckBox()));
 		staffTable.setRowHeight(40);
@@ -241,7 +249,7 @@ public class ManageStaffPage extends JFrame{
 		
 		
 		// logout button action listener
-		logoutBtn.addActionListener(new ActionListener() {
+		lgtBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				urlmsCont.logout();
 				dispose();
@@ -249,6 +257,12 @@ public class ManageStaffPage extends JFrame{
 			}
 		});
 		
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+			}
+		});
 		
 		
 		

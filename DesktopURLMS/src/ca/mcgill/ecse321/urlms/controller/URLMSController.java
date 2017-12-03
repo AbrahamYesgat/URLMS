@@ -206,7 +206,7 @@ public class URLMSController {
 	}
 	
 	//Need to figure out how expenses will work
-	public boolean addExpenses(double expenses) {
+	public boolean addExpenses(String data, String note, double expenses) {
 		
 		if(expenses < 0)
 			expenses = expenses * (-1.0);
