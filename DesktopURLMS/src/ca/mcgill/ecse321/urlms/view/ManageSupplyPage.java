@@ -236,7 +236,6 @@ public class ManageSupplyPage extends JFrame{
 		supplyQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfStaffs()));
 		getContentPane().setLayout(groupLayout);
 		
-		//TODO: add pack method here later
 		pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
