@@ -160,50 +160,20 @@ public class URLMSController {
 	
 	}
 	
-	
-	
-	
-	public boolean removeFunds(double removeFunds, int accountNumber) {
+	public boolean modifyFunds(double newFunds, int accountNumber) {
+		String message;
+		double result=0;
+		List<FundingAccount> FundingAccounts = activeLab.getFundingAccounts();
 		
-		//In case the value passed in is negative, switch it to postivie
-		if(removeFunds < 0)
-			removeFunds = removeFunds*-1;
-				
-		// First check that the user is a director of the current Lab
-		if(activeUser instanceof Director) {
-			// Get the account from the lab
-			FundingAccount currAcct = activeLab.getFundingAccount(accountNumber);
-			// Update the funds of the account 
-			currAcct.setCurrentBalance(currAcct.getCurrentBalance() - removeFunds);
-			return PersistenceXStream.saveToXMLwithXStream(urlms);
+		for(FundingAccount FA : FundingAccounts) {
+			if(FA.getAccountNumber()==(accountNumber)) {
+				result=FA.getCurrentBalance() + newFunds;
+				FA.setCurrentBalance(result);
+			}
+			return PersistenceXStream.saveToXMLwithXStream(urlms);		
 		}
 		
-		return false;
-
-	}
-	
-	
-	
-	
-	public boolean addFunds(double newFunds, int accountNumber) {
-		
-		//Incase the parameter newFunds was negative, return and do not complete
-		if(newFunds<0) {
-			System.out.println("You cannot add a negative amount of funds");
-			return false;
-		}
-	
-		
-		// First check that the user is a director of the current Lab
-		if(activeUser instanceof Director) {
-			// Get the account from the lab
-			FundingAccount currAcct = activeLab.getFundingAccount(accountNumber);
-			// Update the funds of the account 
-			currAcct.setCurrentBalance(currAcct.getCurrentBalance() + newFunds);
-			return PersistenceXStream.saveToXMLwithXStream(urlms);
-		}
-		
-		return false;
+		return false; 
 	}
 	
 	//Need to figure out how expenses will work

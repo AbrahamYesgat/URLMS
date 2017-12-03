@@ -110,7 +110,7 @@ public class ManageFundingAccounts extends AppCompatActivity {
             modifyMessage.setText("Please indicate an amount to modify the account balance.");
         }
         else {
-            boolean isValid = cont.addFunds(Double.parseDouble(quantity), accID);
+            boolean isValid = cont.modifyFunds(Double.parseDouble(quantity), accID);
             if(isValid) {
                 finish();
                 startActivity(getIntent());
@@ -131,7 +131,7 @@ public class ManageFundingAccounts extends AppCompatActivity {
             modifyMessage.setText("Please indicate an amount to modify the account balance.");
         }
         else {
-            boolean isValid = cont.removeFunds(Double.parseDouble(quantity), accID);
+            boolean isValid = cont.modifyFunds((-1*Double.parseDouble(quantity)), accID);
             if(isValid) {
                 finish();
                 startActivity(getIntent());
