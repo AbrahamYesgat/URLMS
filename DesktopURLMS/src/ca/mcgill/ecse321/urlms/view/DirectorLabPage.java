@@ -82,7 +82,6 @@ public class DirectorLabPage extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds(new java.awt.Rectangle(0, 0, screenSize.width/2, screenSize.height/2));
 		
 		// Initialization of all buttons and labels
 		JLabel welcomeLbl = new JLabel("Welcome Director");
@@ -91,81 +90,86 @@ public class DirectorLabPage extends JFrame{
 		
 		JButton btnStaff = new JButton("Manage Staff");
 		btnStaff.setBackground(new Color(0, 191, 255));
-		btnStaff.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		btnStaff.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
 		JButton btnEquipment = new JButton("Manage Equipment");
 		btnEquipment.setBackground(new Color(0, 191, 255));
-		btnEquipment.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		btnEquipment.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
 		JButton btnSupplies = new JButton("Manage Supplies");
 		btnSupplies.setBackground(new Color(0, 191, 255));
-		btnSupplies.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		btnSupplies.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
 		JButton btnFundAcc = new JButton("Manage Funding Accounts");
 		btnFundAcc.setBackground(new Color(0, 191, 255));
-		btnFundAcc.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		btnFundAcc.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
 		JButton btnProgReport = new JButton("View Weekly Progress Report");
 		btnProgReport.setBackground(new Color(0, 191, 255));
-		btnProgReport.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		btnProgReport.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
 		JButton btneditLab = new JButton("Edit Lab");
 		btneditLab.setBackground(new Color(0, 191, 255));
-		btneditLab.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		btneditLab.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
 		JButton btnExpReport = new JButton("Generate Expense Report");
 		btnExpReport.setBackground(new Color(0, 191, 255));
-		btnExpReport.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		btnExpReport.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
 		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		btnBack.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		btnBack.setBackground(new Color(255, 255, 0));
 		
 		// Layout
 	    GroupLayout layout = new GroupLayout(getContentPane());
+	    layout.setHorizontalGroup(
+	    	layout.createParallelGroup(Alignment.TRAILING)
+	    		.addGroup(layout.createSequentialGroup()
+	    			.addGap(67)
+	    			.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+	    				.addComponent(btnSupplies, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	    				.addComponent(btnEquipment, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	    				.addComponent(btnStaff, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+	    			.addGap(122)
+	    			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+	    				.addComponent(btnExpReport)
+	    				.addComponent(btnFundAcc)
+	    				.addComponent(btnProgReport))
+	    			.addContainerGap(30, Short.MAX_VALUE))
+	    		.addGroup(layout.createSequentialGroup()
+	    			.addContainerGap(318, Short.MAX_VALUE)
+	    			.addComponent(welcomeLbl)
+	    			.addGap(289))
+	    		.addGroup(layout.createSequentialGroup()
+	    			.addContainerGap(285, Short.MAX_VALUE)
+	    			.addComponent(btneditLab)
+	    			.addGap(235))
+	    );
+	    layout.setVerticalGroup(
+	    	layout.createParallelGroup(Alignment.LEADING)
+	    		.addGroup(layout.createSequentialGroup()
+	    			.addContainerGap()
+	    			.addComponent(welcomeLbl)
+	    			.addGap(33)
+	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+	    				.addComponent(btnSupplies, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    				.addComponent(btnProgReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
+	    			.addGap(29)
+	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+	    				.addComponent(btnEquipment, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    				.addComponent(btnFundAcc, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
+	    			.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+	    				.addComponent(btnStaff, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    				.addComponent(btnExpReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
+	    			.addGap(28)
+	    			.addComponent(btneditLab, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    			.addGap(29))
+	    );
+	    layout.linkSize(SwingConstants.HORIZONTAL, new Component[] {btnStaff, btnEquipment, btnFundAcc, btnProgReport, btneditLab, btnExpReport});
 	    getContentPane().setLayout(layout);
 	    layout.setAutoCreateGaps(true);
 	    layout.setAutoCreateContainerGaps(true);
-	    
-	    layout.setHorizontalGroup(
-	    	layout.createParallelGroup()
-	    		.addGroup(layout.createSequentialGroup()
-    				.addGap(screenSize.width/5)
-    				.addComponent(welcomeLbl))
-	    		.addGroup(layout.createSequentialGroup()
-	    				.addGap((screenSize.width/2)/4)
-	    				.addComponent(btnSupplies)
-    					.addComponent(btnProgReport))
-	    		.addGroup(layout.createSequentialGroup()
-	    				.addGap((screenSize.width/2)/4)
-	    				.addComponent(btnEquipment)
-    					.addComponent(btneditLab))
-	    		.addGroup(layout.createSequentialGroup()
-	    				.addGap((screenSize.width/2)/4)
-	    				.addComponent(btnStaff)
-    					.addComponent(btnExpReport))
-	    		.addGroup(layout.createSequentialGroup()
-	    				.addGap((screenSize.width/2)/4)
-	    				.addComponent(btnFundAcc))
-	    );
-	    layout.setVerticalGroup(
-	    	layout.createSequentialGroup()
-	    		.addComponent(welcomeLbl)
-	    		.addGap((screenSize.height/2)/5)
-	    		.addGroup(layout.createParallelGroup()
-	    				.addComponent(btnSupplies)
-    					.addComponent(btnProgReport))
-	    		.addGroup(layout.createParallelGroup()
-	    				.addComponent(btnEquipment)
-    					.addComponent(btneditLab))
-	    		.addGroup(layout.createParallelGroup()
-	    				.addComponent(btnStaff)
-    					.addComponent(btnExpReport)
-    					)
-	    		.addComponent(btnFundAcc)
-	    );
-	    
-	    layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {btnProgReport, btneditLab, btnExpReport, btnSupplies, btnEquipment, btnStaff, btnFundAcc});
 		
 	    btnStaff.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
@@ -195,6 +199,7 @@ public class DirectorLabPage extends JFrame{
 	    		setVisible(false);
 	    	}
 	    });*/
+	    pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
 	}

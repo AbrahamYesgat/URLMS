@@ -91,6 +91,7 @@ public class LabSelectionPage extends JFrame {
 		this.urlms = urlms;
 		this.urlmsCont = urlmsCont;
 		initialiseCurrentUser(email);
+		setResizable(false);
 		// initialize page/frame
 		initComponents();
 		
@@ -166,12 +167,12 @@ public class LabSelectionPage extends JFrame {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblExistingLaboratories, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
 						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 978, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(createLabBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED, 570, Short.MAX_VALUE)
-							.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblExistingLaboratories, GroupLayout.PREFERRED_SIZE, 447, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -252,7 +253,7 @@ public class LabSelectionPage extends JFrame {
 			});
 		
 		
-		
+		pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
 		

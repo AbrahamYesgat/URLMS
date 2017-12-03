@@ -38,6 +38,7 @@ public class LoginPage extends JFrame{
 	 */
 	public LoginPage(URLMS urlms) {
 		this.urlms = urlms;
+		setResizable(false);
 		 try {
 	           for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
 	               if ("Nimbus".equals(info.getName())) {

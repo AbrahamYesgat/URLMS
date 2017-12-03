@@ -125,8 +125,6 @@ public class ManageStaffPage extends JFrame{
 		setTitle("Manage Staff Page");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(new java.awt.Rectangle(0, 0, screenSize.width/2, screenSize.height/2));
-		// makes window appear in center of screen
-		this.setLocationRelativeTo(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -238,6 +236,10 @@ public class ManageStaffPage extends JFrame{
 		staffHeader.setFont(new java.awt.Font("Lucida Grande", 1, 18));
 		initialiseTable(staffTable);
 		getContentPane().setLayout(groupLayout);
+		
+		pack();
+		// makes window appear in center of screen
+		this.setLocationRelativeTo(null);
 		
 		// addStaff button action listener
 		addStaffBtn.addActionListener(new ActionListener() {
