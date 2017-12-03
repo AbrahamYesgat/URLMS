@@ -2,6 +2,7 @@
 *.launch
 .settings/
 .loadpath
+.project
 
 
 # Compiled class file

@@ -115,10 +115,14 @@ public class DirectorLabPage extends JFrame{
 		JButton btnExpReport = new JButton("Generate Expense Report");
 		btnExpReport.setBackground(new Color(0, 191, 255));
 		btnExpReport.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		
-		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		btnBack.setBackground(new Color(255, 255, 0));
+	    
+	    JButton backBtn = new JButton("Back");
+	    backBtn.setFont(new Font("Dialog", Font.PLAIN, 16));
+	    backBtn.setBackground(new Color(255, 255, 13));
+	    
+	    JButton lgtButn = new JButton("Logout");
+	    lgtButn.setFont(new Font("Dialog", Font.PLAIN, 16));
+	    lgtButn.setBackground(Color.RED);
 		
 		// Layout
 	    GroupLayout layout = new GroupLayout(getContentPane());
@@ -137,13 +141,17 @@ public class DirectorLabPage extends JFrame{
 	    				.addComponent(btnProgReport))
 	    			.addContainerGap(30, Short.MAX_VALUE))
 	    		.addGroup(layout.createSequentialGroup()
-	    			.addContainerGap(318, Short.MAX_VALUE)
+	    			.addContainerGap(358, Short.MAX_VALUE)
 	    			.addComponent(welcomeLbl)
 	    			.addGap(289))
 	    		.addGroup(layout.createSequentialGroup()
-	    			.addContainerGap(285, Short.MAX_VALUE)
+	    			.addContainerGap()
+	    			.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
+	    			.addPreferredGap(ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
 	    			.addComponent(btneditLab)
-	    			.addGap(235))
+	    			.addGap(48)
+	    			.addComponent(lgtButn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
+	    			.addContainerGap())
 	    );
 	    layout.setVerticalGroup(
 	    	layout.createParallelGroup(Alignment.LEADING)
@@ -162,41 +170,67 @@ public class DirectorLabPage extends JFrame{
 	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
 	    				.addComponent(btnStaff, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
 	    				.addComponent(btnExpReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
-	    			.addGap(28)
-	    			.addComponent(btneditLab, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-	    			.addGap(29))
+	    			.addGap(32)
+	    			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+	    				.addGroup(layout.createSequentialGroup()
+	    					.addComponent(btneditLab, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    					.addGap(29))
+	    				.addGroup(layout.createSequentialGroup()
+	    					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+	    						.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+	    						.addComponent(lgtButn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
+	    					.addContainerGap())))
 	    );
-	    layout.linkSize(SwingConstants.HORIZONTAL, new Component[] {btnStaff, btnEquipment, btnFundAcc, btnProgReport, btneditLab, btnExpReport});
+	    layout.linkSize(SwingConstants.HORIZONTAL, new Component[] {btnFundAcc, btnProgReport, btneditLab, btnExpReport, btnStaff, btnEquipment});
 	    getContentPane().setLayout(layout);
 	    layout.setAutoCreateGaps(true);
 	    layout.setAutoCreateContainerGaps(true);
 		
 	    btnStaff.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
+	    		dispose();
 	    		new ManageStaffPage(urlms, currentLab, urlmsCont).setVisible(true);;
-	    		setVisible(false);
+	    		//setVisible(false);
 	    	}
 	    });
 	
 	    btnEquipment.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
+	    		dispose();
 	    		new ManageEquipmentPage(urlms).setVisible(true);
-	    		setVisible(false);
+	    		//setVisible(false);
 	    	}
 	    });
 	
 	    btnSupplies.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
+	    		dispose();
 	    		new ManageSupplyPage(urlms).setVisible(true);
-	    		setVisible(false);
+	    		//setVisible(false);
+	    	}
+	    });
+	    
+	    backBtn.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		dispose();
+	    		//Need to fix, only works if you're a director
+	    		new LabSelectionPage(urlms,currentLab.getDirector().getEmail(), urlmsCont).setVisible(true);
+	    		//setVisible(false);
 	    	}
 	    });
 	
+	    lgtButn.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    	urlmsCont.logout();
+				dispose();
+				new LoginPage(urlms).setVisible(true);
+	    	}
+	    });
 	    /*btnExpReport.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		new LabExpensesPage(urlms);
 	    		LabExpensesPage.f.setVisible(true);
-	    		setVisible(false);
+	    		setVisible(false); backBtn
 	    	}
 	    });*/
 	    pack();

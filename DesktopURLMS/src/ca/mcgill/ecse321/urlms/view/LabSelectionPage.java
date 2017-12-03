@@ -90,6 +90,7 @@ public class LabSelectionPage extends JFrame {
 	       }
 		this.urlms = urlms;
 		this.urlmsCont = urlmsCont;
+		//this.email = email;
 		initialiseCurrentUser(email);
 		setResizable(false);
 		// initialize page/frame
@@ -157,7 +158,7 @@ public class LabSelectionPage extends JFrame {
 		createLabBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		JButton logoutBtn = new JButton("Logout");
 		logoutBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
-		logoutBtn.setBackground(new Color(255, 255, 13));
+		logoutBtn.setBackground(Color.RED);
 		
 		
 		
