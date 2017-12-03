@@ -31,7 +31,9 @@
         <activity android:name=".EditLab" />
         <activity android:name=".UpdateProfile" />
         <activity android:name=".AddSupply" />
-        <activity android:name=".AddEquipment"></activity>
+        <activity android:name=".AddEquipment" />
+        <activity android:name=".ManageFundingAccounts" />
+        <activity android:name=".AddFundingAccount"></activity>
     </application>
 
 </manifest>
