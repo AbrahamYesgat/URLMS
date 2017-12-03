@@ -32,67 +32,12 @@
           </laboratories>
           <progressUpdates id="13"/>
         </staff>
-        <staff id="14">
-          <email></email>
-          <password>password123</password>
-          <name></name>
-          <currentlyAssigned>true</currentlyAssigned>
-          <staffRole>ResearchAssistant</staffRole>
-          <laboratories id="15">
-            <lab reference="3"/>
-          </laboratories>
-          <progressUpdates id="16"/>
-        </staff>
-        <staff id="17">
-          <email>fggfsagfs</email>
-          <password>password123</password>
-          <name>fgsfgfsgsf</name>
-          <currentlyAssigned>true</currentlyAssigned>
-          <staffRole>ResearchAssistant</staffRole>
-          <laboratories id="18">
-            <lab reference="3"/>
-          </laboratories>
-          <progressUpdates id="19"/>
-        </staff>
-        <staff id="20">
-          <email>uiritui</email>
-          <password>password123</password>
-          <name>uiuttuieti</name>
-          <currentlyAssigned>true</currentlyAssigned>
-          <staffRole>ResearchAssistant</staffRole>
-          <laboratories id="21">
-            <lab reference="3"/>
-          </laboratories>
-          <progressUpdates id="22"/>
-        </staff>
-        <staff id="23">
-          <email>alextorabi@hotmail.com</email>
-          <password>password123</password>
-          <name>Alexander Torabi</name>
-          <currentlyAssigned>true</currentlyAssigned>
-          <staffRole>ResearchAssistant</staffRole>
-          <laboratories id="24">
-            <lab reference="3"/>
-          </laboratories>
-          <progressUpdates id="25"/>
-        </staff>
-        <staff id="26">
-          <email>lextorabi@hotmail.com</email>
-          <password>password123</password>
-          <name>Alexander Torabi</name>
-          <currentlyAssigned>true</currentlyAssigned>
-          <staffRole>ResearchAssistant</staffRole>
-          <laboratories id="27">
-            <lab reference="3"/>
-          </laboratories>
-          <progressUpdates id="28"/>
-        </staff>
       </staffs>
-      <progressUpdates id="29"/>
-      <fundingAccounts id="30"/>
+      <progressUpdates id="14"/>
+      <fundingAccounts id="15"/>
     </lab>
   </laboratories>
-  <directors id="31">
+  <directors id="16">
     <director reference="7"/>
   </directors>
 </ca.mcgill.ecse321.urlms.model.URLMS>
