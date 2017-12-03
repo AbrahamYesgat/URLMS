@@ -58,9 +58,9 @@ public class TestManageEquipment {
 		
 		sysC.createEquipment("Computer", 6);
 		sysC.createEquipment("ComPUTER", 6);
-		sysC.addEquipments("ComPuter", 4);
+		sysC.modifyEquipment("ComPuter", 4);
 //		sysC.addEquipments("Computer", 4);
-		sysC.addEquipments("Computer", -1);
+		sysC.modifyEquipment("Computer", -1);
 //		sysC.createEquipmentType("computer");
 
 
