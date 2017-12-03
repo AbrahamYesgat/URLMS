@@ -1,6 +1,9 @@
 package ca.mcgill.ecse321.urlms.controller;
 
+
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.IllegalFormatException;
 import java.util.List;
@@ -69,6 +72,7 @@ public class URLMSController {
 				for (Staff member : lab.getStaffs()) {
 					if(member.getEmail().equals(email) && member.getPassword().equals(password)) {
 						activeUser = member;
+						
 						return true;	
 					}
 				}
