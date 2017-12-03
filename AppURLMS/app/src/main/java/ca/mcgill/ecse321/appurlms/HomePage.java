@@ -74,9 +74,12 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void logout(View view) {
-        Intent intent = new Intent(HomePage.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        boolean isValid = cont.logout();
+        if(isValid) {
+            Intent intent = new Intent(HomePage.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void updateProfile(View view) {

@@ -82,9 +82,12 @@ public class ManageStaff extends AppCompatActivity {
     }
 
     public void logout(View view) {
-        Intent intent = new Intent(ManageStaff.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        boolean isValid = cont.logout();
+        if(isValid) {
+            Intent intent = new Intent(ManageStaff.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void cancel(View view) {

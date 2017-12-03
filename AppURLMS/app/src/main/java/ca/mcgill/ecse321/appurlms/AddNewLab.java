@@ -59,9 +59,12 @@ public class AddNewLab extends AppCompatActivity {
     }
 
     public void logout(View view) {
-        Intent intent = new Intent(AddNewLab.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        boolean isValid = cont.logout();
+        if(isValid) {
+            Intent intent = new Intent(AddNewLab.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void addDate(View view) {
