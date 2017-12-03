@@ -9,6 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import ca.mcgill.ecse321.urlms.model.Director;
@@ -37,6 +40,7 @@ public class HomePage extends AppCompatActivity {
             Staff active = (Staff)(cont.getActiveUser());
             labs = active.getLaboratories();
             name = active.getName();
+            active.setLastLogin(getDateTime());
         }
 
         TextView nameMessage = (TextView)findViewById(R.id.dir_name_message);
@@ -86,5 +90,11 @@ public class HomePage extends AppCompatActivity {
         Intent intent = new Intent(HomePage.this, UpdateProfile.class);
         startActivity(intent);
         finish();
+    }
+
+    private String getDateTime() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }
