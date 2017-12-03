@@ -412,82 +412,52 @@ public class URLMSController {
 		String message = "";
 		URLMS urlms = URLMS.getInstance();
 		
-		Iterator<Supplies> SuppliesIterator = activeLab.getSupplies().iterator();
-		while(SuppliesIterator.hasNext()) {
-			Supplies currSupplies = SuppliesIterator.next();
+		List<Supplies> supply = activeLab.getSupplies();
+		if(activeLab.hasSupplies()) {
+			for(Supplies sup : supply) {
 			
-			if(currSupplies.getName().compareToIgnoreCase(supplies)==0) {
-				message = currSupplies.getName() + " was attempted to be added! This equipment type already exists. Please just change the amount needed.";
-				System.out.println(message);
-				return false;
+				if(sup.getName().equalsIgnoreCase(supplies)) {
+					message = sup.getName() + " was attempted to be added! This equipment type already exists. Please just change the amount needed.";
+					System.out.println(message);
+					return false;
+				}
 			}
+		}	
+		supplies = supplies.trim();
 			
-			supplies = supplies.trim();
-			
-			supplies = supplies.toUpperCase();
-			new Supplies(supplies, quantity, activeLab);
-			PersistenceXStream.saveToXMLwithXStream(urlms);
-			return true;
-		}
-			
-		return false;
-		
+		activeLab.addSupply(supplies, quantity);
+		return PersistenceXStream.saveToXMLwithXStream(urlms);	
 	}
 
-	public void addSupplies(String supplies, int quantity) {
+	public boolean modifySupplies(String supplies, int quantity) {
 		int result=0;
-		Iterator<Supplies> SuppliesIterator = activeLab.getSupplies().iterator();
-		while(SuppliesIterator.hasNext()) {
-			Supplies currSupplies = SuppliesIterator.next();
-			if(currSupplies.getName().compareToIgnoreCase(supplies)==0) {
-				result=currSupplies.getQuantity();
-				currSupplies.setQuantity(result + quantity);
+		List<Supplies> supply = activeLab.getSupplies();
+		
+		for(Supplies sup : supply) {
+			if(sup.getName().equalsIgnoreCase(supplies)) {
+				result=sup.getQuantity();
+				sup.setQuantity(result + quantity);
+				return PersistenceXStream.saveToXMLwithXStream(urlms);
 			}
 		}
 		
-		PersistenceXStream.saveToXMLwithXStream(urlms);
-		
+		return false; 
 	}
 
-	public boolean removeSupplies(String supplies, int quantity) {
-		if(quantity<=0)
-			return false;
+	public boolean removeSupplies(String supplies) {
+		List<Supplies> supply = activeLab.getSupplies();
 		
-		int currentQuant = 0;
-		Iterator<Supplies> SuppliesIterator = activeLab.getSupplies().iterator();
-		while (SuppliesIterator.hasNext()) {
-		Supplies currSupplies = SuppliesIterator.next();
-			if (currSupplies.getName().compareToIgnoreCase(supplies)==0){
-				currentQuant=currSupplies.getQuantity();
-					
-					//delete the item if the quantity removed is the total
-					if(currentQuant == quantity) {
-						currSupplies.delete();
-						System.out.println("Equipment deleted from system");
-					}
-					//edit the amount if the quantity is removed is partial
-					else {
-						currSupplies.setQuantity(currentQuant - quantity);
-						System.out.println("Equipment quantity changed in system");
-					}
-				break;
+		for(Supplies sup : supply) {
+			if(sup.getName().equalsIgnoreCase(supplies)) {
+				sup.delete();
+				return PersistenceXStream.saveToXMLwithXStream(urlms);
 			}
 		}
 		
-		PersistenceXStream.saveToXMLwithXStream(urlms);
-		
-		return true;
-		
+		return false; 	
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Allows to keep track of the laboratory currently selected by the user. 
 	 * @param lab The laboratory selected

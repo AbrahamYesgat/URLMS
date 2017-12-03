@@ -29,7 +29,8 @@
         <activity android:name=".ManageSupplies" />
         <activity android:name=".ManageEquipment" />
         <activity android:name=".EditLab" />
-        <activity android:name=".UpdateProfile"></activity>
+        <activity android:name=".UpdateProfile" />
+        <activity android:name=".AddSupply"></activity>
     </application>
 
 </manifest>
