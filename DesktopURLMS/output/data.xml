@@ -19,19 +19,25 @@
         </laboratories>
         <uRLMS reference="1"/>
       </director>
-      <supplies id="9">
-        <supplies id="10">
-          <name>TestSupply</name>
-          <quantity>26</quantity>
-          <laboratory reference="3"/>
-        </supplies>
-      </supplies>
-      <staffs id="11"/>
-      <progressUpdates id="12"/>
-      <fundingAccounts id="13"/>
+      <supplies id="9"/>
+      <staffs id="10">
+        <staff id="11">
+          <email>staff@urlms.ca</email>
+          <password>password1</password>
+          <name>Director</name>
+          <currentlyAssigned>true</currentlyAssigned>
+          <staffRole>ResearchAssociate</staffRole>
+          <laboratories id="12">
+            <lab reference="3"/>
+          </laboratories>
+          <progressUpdates id="13"/>
+        </staff>
+      </staffs>
+      <progressUpdates id="14"/>
+      <fundingAccounts id="15"/>
     </lab>
   </laboratories>
-  <directors id="14">
+  <directors id="16">
     <director reference="7"/>
   </directors>
 </ca.mcgill.ecse321.urlms.model.URLMS>
