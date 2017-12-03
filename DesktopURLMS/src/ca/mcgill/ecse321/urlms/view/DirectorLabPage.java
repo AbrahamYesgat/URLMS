@@ -225,13 +225,7 @@ public class DirectorLabPage extends JFrame{
 				new LoginPage(urlms).setVisible(true);
 	    	}
 	    });
-	    /*btnExpReport.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    		new LabExpensesPage(urlms);
-	    		LabExpensesPage.f.setVisible(true);
-	    		setVisible(false); backBtn
-	    	}
-	    });*/
+	   
 	    pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
