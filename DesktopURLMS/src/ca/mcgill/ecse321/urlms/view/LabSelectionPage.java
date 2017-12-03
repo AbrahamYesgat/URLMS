@@ -233,6 +233,7 @@ public class LabSelectionPage extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				urlmsCont.logout();
 				dispose();
+				new LoginPage(urlms).setVisible(true);
 			}
 		});
 		// lab selection table mouse listener used to redirect to selected lab's home page
