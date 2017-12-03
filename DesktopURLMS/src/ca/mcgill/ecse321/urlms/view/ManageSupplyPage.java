@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.urlms.view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -25,6 +26,8 @@ import org.jdesktop.swingx.prompt.PromptSupport;
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.URLMS;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ManageSupplyPage extends JFrame{
 	
@@ -56,6 +59,10 @@ public class ManageSupplyPage extends JFrame{
 	 * Table containing all supply of active lab
 	 */
 	private JTable supplyTable;
+	/**
+	 * Textfield specifying name of old supply to remove
+	 */
+	private JTextField oldSupplyName;
 	/**
 	 * Constructor of ManageStaffPage frame
 	 * @param urlms current URLMS system
@@ -113,45 +120,100 @@ public class ManageSupplyPage extends JFrame{
 		newSupplyName = new JTextField();
 		newSupplyName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		newSupplyName.setColumns(10);
-		PromptSupport.setPrompt("Name", newSupplyName);
-		JButton addStaffBtn = new JButton("Add Staff");
-		addStaffBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
-		addStaffBtn.setBackground(new Color(0, 255, 0));
+		PromptSupport.setPrompt("Supply Name", newSupplyName);
+		JButton addSupplyBtn = new JButton("Add Supply");
+		addSupplyBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		addSupplyBtn.setBackground(new Color(0, 255, 0));
 		JButton btnBack = new JButton("Back");
 		btnBack.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		btnBack.setBackground(new Color(255, 255, 13));
+		JLabel lblRemoveSupply = new JLabel("Remove supply: ");
+		lblRemoveSupply.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+		oldSupplyName = new JTextField();
+		oldSupplyName.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		oldSupplyName.setColumns(10);
+		PromptSupport.setPrompt("Supply Name", oldSupplyName);
+		JButton btnRemoveSupply = new JButton("Remove Supply");
+		btnRemoveSupply.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		btnRemoveSupply.setBackground(Color.RED);
+		
 		
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
-					.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 978, Short.MAX_VALUE)
-							.addGroup(groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 846, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED, 570, Short.MAX_VALUE)
-								.addComponent(lgtBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE))
-							.addComponent(lblManageSupply, GroupLayout.PREFERRED_SIZE, 447, GroupLayout.PREFERRED_SIZE))
-						.addContainerGap())
-			);
-			groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
-					.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(lblManageSupply, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 297, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lgtBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
-						.addGap(30))
-			);
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblRemoveSupply)
+										.addComponent(lblAddSupply)
+										.addComponent(lblSupplyQuant))
+									.addGap(19)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(oldSupplyName, GroupLayout.PREFERRED_SIZE, 287, GroupLayout.PREFERRED_SIZE)
+										.addComponent(newSupplyName, GroupLayout.PREFERRED_SIZE, 287, GroupLayout.PREFERRED_SIZE)
+										.addComponent(supplyQuantity, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))))
+							.addPreferredGap(ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnRemoveSupply, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addComponent(addSupplyBtn, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lgtBtn, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE))))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(192)
+							.addComponent(lblManageSupply, GroupLayout.PREFERRED_SIZE, 447, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblManageSupply, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 224, GroupLayout.PREFERRED_SIZE)
+					.addGap(16)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblAddSupply)
+							.addGap(14))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(newSupplyName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(addSupplyBtn))
+							.addPreferredGap(ComponentPlacement.UNRELATED)))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(4)
+							.addComponent(lblRemoveSupply)
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblSupplyQuant)
+								.addComponent(supplyQuantity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+							.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(oldSupplyName, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(13)
+									.addComponent(btnRemoveSupply, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
+							.addPreferredGap(ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+							.addComponent(lgtBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
+		);
 		
-		
-		
+		//groupLayout.linkSize(SwingConstants.VERTICAL, new Component[] {lgtBtn, addStaffBtn});
+		//groupLayout.linkSize(SwingConstants.HORIZONTAL, new Component[] {lgtBtn, addStaffBtn});
 		supplyTable = new JTable();
 		supplyTable.setShowGrid(true); // adds cell borders
 		supplyTable.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -175,9 +237,8 @@ public class ManageSupplyPage extends JFrame{
 		getContentPane().setLayout(groupLayout);
 		
 		//TODO: add pack method here later
+		pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
 	}
-	
-
 }

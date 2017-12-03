@@ -205,7 +205,7 @@ public class DirectorLabPage extends JFrame{
 	    btnSupplies.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		dispose();
-	    		new ManageSupplyPage(urlms).setVisible(true);
+	    		new ManageSupplyPage(urlms, currentLab, urlmsCont).setVisible(true);
 	    		//setVisible(false);
 	    	}
 	    });
@@ -215,7 +215,6 @@ public class DirectorLabPage extends JFrame{
 	    		dispose();
 	    		//Need to fix, only works if you're a director
 	    		new LabSelectionPage(urlms,currentLab.getDirector().getEmail(), urlmsCont).setVisible(true);
-	    		//setVisible(false);
 	    	}
 	    });
 	
