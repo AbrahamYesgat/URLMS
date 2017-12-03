@@ -45,11 +45,19 @@ public class TestCreateDirector {
 	@Test
 	public void test() {
 		URLMSController sysC = new URLMSController(urlms);
+
+		//Case 1: Successful Director sign up.
 		assertEquals(true, sysC.createDirector(testEmail, testPassword, testName));
 		assertEquals(true, sysC.login(testEmail, testPassword));
+
+		//Case 2: Sign up with existing email
 		assertEquals(false, sysC.createDirector(testEmail, testPassword, testName));
 		assertEquals(false, sysC.createDirector(testEmail, "test", "test"));
+
+		//Case 3: Sign up with existing fields that do not matter.
 		assertEquals(true, sysC.createDirector("email", testPassword, testName));
+
+
 		urlms.delete();
 	    // Load model
 	    urlms = (URLMS) PersistenceXStream.loadFromXMLwithXStream();

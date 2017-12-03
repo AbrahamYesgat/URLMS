@@ -55,11 +55,18 @@ public class TestAddStaff {
 		URLMSController sysC = new URLMSController(urlms);
 		sysC.login(testEmail, testPassword);
 		sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
+
+		//Case 1: Successfully adding a new staff member to the active lab.
 		assertEquals(true, sysC.addStaff(testStaffEmail, testStaffPassword, testName, role));
+
+		//Case 2: Conflicting email with another staff member.
 		assertEquals(false, sysC.addStaff(testStaffEmail, testStaffPassword, testName, role));
+
+		//Case 3: Conflicting email with a director email.
+		assertEquals(false, sysC.addStaff(testEmail, testStaffPassword, testName, role));
 		sysC.logout();
 		
-		//Tests unsuccessful addStaff (if staff tries to add staff)
+		//Case 4: Staff member tries to add a new staff.
 		sysC.login(testStaffEmail, testStaffPassword);
 		assertEquals(false, sysC.addStaff("value", "value", "value", role));
 	}
