@@ -129,7 +129,7 @@ public class DirectorLabPage extends JFrame{
 	    lgtButn.setBackground(Color.RED);
 	    
 	    JButton button = new JButton("Edit Lab");
-	    button.setFont(new Font("Dialog", Font.PLAIN, 20));
+	    button.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 	    button.setBackground(new Color(0, 191, 255));
 		
 		// Layout
