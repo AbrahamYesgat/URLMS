@@ -352,49 +352,32 @@ public class URLMSController {
 
 	}
 	
-	public void addEquipments(String equipment,int quantity) {
-		//if quantity > 0; add the amount, if quantity<0 take off that amount
+	public boolean modifyEquipment(String equipment,int quantity) {
 		int result=0;
-		Iterator<Equipment> EquipmentIterator = activeLab.getEquipment().iterator();
-		while (EquipmentIterator.hasNext()) {
-			Equipment currEquipment = EquipmentIterator.next();
-			if (currEquipment.getName().compareToIgnoreCase(equipment)==0){
-				result=currEquipment.getQuantity();
-				currEquipment.setQuantity(result + quantity);
+		List<Equipment> equipments = activeLab.getEquipment();
+		
+		for(Equipment equip : equipments) {
+			if(equip.getName().equalsIgnoreCase(equipment)) {
+				result=equip.getQuantity();
+				equip.setQuantity(result + quantity);
+				return PersistenceXStream.saveToXMLwithXStream(urlms);
 			}
 		}
-		PersistenceXStream.saveToXMLwithXStream(urlms);
+		
+		return false; 
 	}
 	
-	public boolean removeEquipments(String equipment, int quantity) {
-		if(quantity<=0)
-			return false;
+	public boolean removeEquipments(String equipment) {
+		List<Equipment> equipments = activeLab.getEquipment();
 		
-		int currentQuant = 0;
-		Iterator<Equipment> EquipmentIterator = activeLab.getEquipment().iterator();
-		while (EquipmentIterator.hasNext()) {
-		Equipment currEquipment = EquipmentIterator.next();
-			if (currEquipment.getName().compareToIgnoreCase(equipment)==0){
-				currentQuant=currEquipment.getQuantity();
-					
-					//delete the item if the quantity removed is the total
-					if(currentQuant == quantity) {
-						currEquipment.delete();
-						System.out.println("Equipment deleted from system");
-					}
-					//edit the amount if the quantity is removed is partial
-					else {
-						currEquipment.setQuantity(currentQuant - quantity);
-						System.out.println("Equipment quantity changed in system");
-					}
-				break;
+		for(Equipment equip : equipments) {
+			if(equip.getName().equalsIgnoreCase(equipment)) {
+				equip.delete();
+				return PersistenceXStream.saveToXMLwithXStream(urlms);
 			}
 		}
 		
-		PersistenceXStream.saveToXMLwithXStream(urlms);
-		
-		return true;
-		
+		return false; 
 	}
 	
 	public boolean createSupplies(String supplies, int quantity) {

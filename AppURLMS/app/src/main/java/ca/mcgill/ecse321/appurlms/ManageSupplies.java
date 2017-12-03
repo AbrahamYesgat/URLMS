@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ca.mcgill.ecse321.urlms.model.Staff;
 import ca.mcgill.ecse321.urlms.model.Supplies;
 
 import static ca.mcgill.ecse321.appurlms.AddStaff.hideSoftKeyboard;
@@ -108,12 +106,12 @@ public class ManageSupplies extends AppCompatActivity {
 
     public void modify(View view) {
         pw.dismiss();
-        setContentView(R.layout.modify_supply);
+        setContentView(R.layout.modify);
     }
 
     public void addAmount(View view) {
         EditText value = (EditText) findViewById(R.id.delta_change);
-        TextView modifySupplyMessage = (TextView) findViewById(R.id.modify_supply_message);
+        TextView modifySupplyMessage = (TextView) findViewById(R.id.modify_message);
         String quantity = value.getText().toString();
 
         if(quantity.isEmpty()){
@@ -133,7 +131,7 @@ public class ManageSupplies extends AppCompatActivity {
 
     public void removeAmount(View view) {
         EditText value = (EditText) findViewById(R.id.delta_change);
-        TextView modifySupplyMessage = (TextView) findViewById(R.id.modify_supply_message);
+        TextView modifySupplyMessage = (TextView) findViewById(R.id.modify_message);
         String quantity = value.getText().toString();
 
         if(quantity.isEmpty()){
