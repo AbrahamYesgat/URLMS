@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse321.urlms.model;
 
-// line 52 "../../../../../URLMS.ump"
+// line 53 "../../../../../URLMS.ump"
 public class ProgressUpdate
 {
 
@@ -19,7 +19,7 @@ public class ProgressUpdate
 
   //ProgressUpdate Attributes
   private String title;
-  private String reportingPeriod;
+  private String report;
 
   //Autounique Attributes
   private int id;
@@ -32,10 +32,10 @@ public class ProgressUpdate
   // CONSTRUCTOR
   //------------------------
 
-  public ProgressUpdate(String aTitle, String aReportingPeriod, Laboratory aLaboratory, Staff aStaff)
+  public ProgressUpdate(String aTitle, String aReport, Laboratory aLaboratory, Staff aStaff)
   {
     title = aTitle;
-    reportingPeriod = aReportingPeriod;
+    report = aReport;
     id = nextId++;
     boolean didAddLaboratory = setLaboratory(aLaboratory);
     if (!didAddLaboratory)
@@ -61,10 +61,10 @@ public class ProgressUpdate
     return wasSet;
   }
 
-  public boolean setReportingPeriod(String aReportingPeriod)
+  public boolean setReport(String aReport)
   {
     boolean wasSet = false;
-    reportingPeriod = aReportingPeriod;
+    report = aReport;
     wasSet = true;
     return wasSet;
   }
@@ -74,9 +74,9 @@ public class ProgressUpdate
     return title;
   }
 
-  public String getReportingPeriod()
+  public String getReport()
   {
-    return reportingPeriod;
+    return report;
   }
 
   public int getId()
@@ -148,7 +148,7 @@ public class ProgressUpdate
     return super.toString() + "["+
             "id" + ":" + getId()+ "," +
             "title" + ":" + getTitle()+ "," +
-            "reportingPeriod" + ":" + getReportingPeriod()+ "]" + System.getProperties().getProperty("line.separator") +
+            "report" + ":" + getReport()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "laboratory = "+(getLaboratory()!=null?Integer.toHexString(System.identityHashCode(getLaboratory())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "staff = "+(getStaff()!=null?Integer.toHexString(System.identityHashCode(getStaff())):"null");
   }

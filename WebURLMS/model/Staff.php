@@ -11,6 +11,7 @@ class Staff extends UserRole
 
   //Staff Attributes
   private $staffRole;
+  private $lastLogin;
 
   //Staff Associations
   private $laboratories;
@@ -24,6 +25,7 @@ class Staff extends UserRole
   {
     parent::__construct($aEmail, $aPassword, $aName);
     $this->staffRole = $aStaffRole;
+    $this->lastLogin = NULL;
     $this->laboratories = array();
     $didAddLaboratories = $this->setLaboratories($allLaboratories);
     if (!$didAddLaboratories)
@@ -45,9 +47,22 @@ class Staff extends UserRole
     return $wasSet;
   }
 
+  public function setLastLogin($aLastLogin)
+  {
+    $wasSet = false;
+    $this->lastLogin = $aLastLogin;
+    $wasSet = true;
+    return $wasSet;
+  }
+
   public function getStaffRole()
   {
     return $this->staffRole;
+  }
+
+  public function getLastLogin()
+  {
+    return $this->lastLogin;
   }
 
   public function getLaboratory_index($index)
@@ -275,9 +290,9 @@ class Staff extends UserRole
     return 0;
   }
 
-  public function addProgressUpdateVia($aTitle, $aReportingPeriod, $aLaboratory)
+  public function addProgressUpdateVia($aTitle, $aReport, $aLaboratory)
   {
-    return new ProgressUpdate($aTitle, $aReportingPeriod, $aLaboratory, $this);
+    return new ProgressUpdate($aTitle, $aReport, $aLaboratory, $this);
   }
 
   public function addProgressUpdate($aProgressUpdate)
