@@ -90,6 +90,7 @@ public class LabSelectionPage extends JFrame {
 	       }
 		this.urlms = urlms;
 		this.urlmsCont = urlmsCont;
+		//this.email = email;
 		initialiseCurrentUser(email);
 		setResizable(false);
 		// initialize page/frame
@@ -157,7 +158,7 @@ public class LabSelectionPage extends JFrame {
 		createLabBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		JButton logoutBtn = new JButton("Logout");
 		logoutBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
-		logoutBtn.setBackground(new Color(255, 255, 13));
+		logoutBtn.setBackground(Color.RED);
 		
 		
 		
@@ -194,7 +195,9 @@ public class LabSelectionPage extends JFrame {
 				Component c = super.prepareRenderer(renderer, row, column);
 				if (column == 0 && c instanceof JComponent) {
 					JComponent jc = (JComponent) c;
-					jc.setToolTipText("Double click to view lab: " + (String) getValueAt(row, column));
+					 String hovermssg ="<html><p><font color=\"#800080\" " +"size=\"4\" face=\"Segoe UI Semibold\">Double click to view lab " +
+					"</font></p></html>";
+					jc.setToolTipText(hovermssg);
 				}
 				return c;
 			}
