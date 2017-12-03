@@ -20,6 +20,7 @@ public class Staff extends UserRole
 
   //Staff Attributes
   private StaffRole staffRole;
+  private String lastLogin;
 
   //Staff Associations
   private List<Laboratory> laboratories;
@@ -33,6 +34,7 @@ public class Staff extends UserRole
   {
     super(aEmail, aPassword, aName);
     staffRole = aStaffRole;
+    lastLogin = null;
     laboratories = new ArrayList<Laboratory>();
     boolean didAddLaboratories = setLaboratories(allLaboratories);
     if (!didAddLaboratories)
@@ -54,9 +56,22 @@ public class Staff extends UserRole
     return wasSet;
   }
 
+  public boolean setLastLogin(String aLastLogin)
+  {
+    boolean wasSet = false;
+    lastLogin = aLastLogin;
+    wasSet = true;
+    return wasSet;
+  }
+
   public StaffRole getStaffRole()
   {
     return staffRole;
+  }
+
+  public String getLastLogin()
+  {
+    return lastLogin;
   }
 
   public Laboratory getLaboratory(int index)
@@ -258,9 +273,9 @@ public class Staff extends UserRole
     return 0;
   }
 
-  public ProgressUpdate addProgressUpdate(String aTitle, String aReportingPeriod, Laboratory aLaboratory)
+  public ProgressUpdate addProgressUpdate(String aTitle, String aReport, Laboratory aLaboratory)
   {
-    return new ProgressUpdate(aTitle, aReportingPeriod, aLaboratory, this);
+    return new ProgressUpdate(aTitle, aReport, aLaboratory, this);
   }
 
   public boolean addProgressUpdate(ProgressUpdate aProgressUpdate)
@@ -344,7 +359,8 @@ public class Staff extends UserRole
 
   public String toString()
   {
-    return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
+    return super.toString() + "["+
+            "lastLogin" + ":" + getLastLogin()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "staffRole" + "=" + (getStaffRole() != null ? !getStaffRole().equals(this)  ? getStaffRole().toString().replaceAll("  ","    ") : "this" : "null");
   }
 }

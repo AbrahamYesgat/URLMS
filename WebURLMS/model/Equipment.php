@@ -11,7 +11,6 @@ class Equipment
 
   //Equipment Attributes
   private $name;
-  private $type;
   private $quantity;
 
   //Equipment Associations
@@ -21,10 +20,9 @@ class Equipment
   // CONSTRUCTOR
   //------------------------
 
-  public function __construct($aName, $aType, $aQuantity, $aLaboratory)
+  public function __construct($aName, $aQuantity, $aLaboratory)
   {
     $this->name = $aName;
-    $this->type = $aType;
     $this->quantity = $aQuantity;
     $didAddLaboratory = $this->setLaboratory($aLaboratory);
     if (!$didAddLaboratory)
@@ -45,14 +43,6 @@ class Equipment
     return $wasSet;
   }
 
-  public function setType($aType)
-  {
-    $wasSet = false;
-    $this->type = $aType;
-    $wasSet = true;
-    return $wasSet;
-  }
-
   public function setQuantity($aQuantity)
   {
     $wasSet = false;
@@ -64,11 +54,6 @@ class Equipment
   public function getName()
   {
     return $this->name;
-  }
-
-  public function getType()
-  {
-    return $this->type;
   }
 
   public function getQuantity()

@@ -54,12 +54,16 @@ public class TestAddLaboratory {
 	public void test() {
 		URLMSController sysC = new URLMSController(urlms);
 		sysC.login(testEmail, testPassword);
+
+		//Case 1: Simple add lab
 		assertEquals(true, sysC.addLaboratory("name", "study", new Date(2017, 10, 10)));
+
+		//Case 2: Conflicting lab names.
 		assertEquals(false, sysC.addLaboratory("name", "study", new Date(2017, 10, 10)));
 		sysC.addStaff(testStaffName, testStaffEmail, testStaffPassword, role);
 		sysC.logout();
 
-
+		//Case 3: Add lab by staff member.
 		sysC.login(testStaffEmail, testStaffPassword);
 		assertEquals(false, sysC.addLaboratory("value", "value", new Date(2017, 10, 10)));
 	}
