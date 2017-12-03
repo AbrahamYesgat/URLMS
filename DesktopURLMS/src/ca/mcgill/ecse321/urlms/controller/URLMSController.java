@@ -332,28 +332,22 @@ public class URLMSController {
 		
 		String message = "";
 		URLMS urlms = URLMS.getInstance();
-
-		//checks the list if the item has already been create
-		Iterator<Equipment> EquipmentIterator = activeLab.getEquipment().iterator();
-		while (EquipmentIterator.hasNext()) {
-			Equipment currEquipment = EquipmentIterator.next();
-			if (currEquipment.getName().compareToIgnoreCase(equipment)==0){
-				message = currEquipment.getName() + " was attempted to be added! This equipment type already exists. Please just change the amount needed.";
-				System.out.println(message);
-				return false;
+		
+		List<Equipment> equipments = activeLab.getEquipment();
+		if(activeLab.hasEquipment()) {
+			for(Equipment equip : equipments) {
+			
+				if(equip.getName().equalsIgnoreCase(equipment)) {
+					message = equip.getName() + " was attempted to be added! This equipment type already exists. Please just change the amount needed.";
+					System.out.println(message);
+					return false;
+				}
 			}
-		
-		
+		}	
 		equipment = equipment.trim();
-
-		
-		//add to system
-		equipment = equipment.toUpperCase();
-		new Equipment(equipment, quantity, activeLab);
-		PersistenceXStream.saveToXMLwithXStream(urlms);
-		return true;
-		}
-	return false;
+			
+		activeLab.addEquipment(equipment, quantity);
+		return PersistenceXStream.saveToXMLwithXStream(urlms);	
 
 	}
 	
