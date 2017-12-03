@@ -197,7 +197,7 @@ public class DirectorLabPage extends JFrame{
 	    btnEquipment.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		dispose();
-	    		new ManageEquipmentPage(urlms).setVisible(true);
+	    		new ManageEquipmentPage(urlms, currentLab, urlmsCont).setVisible(true);
 	    		//setVisible(false);
 	    	}
 	    });
