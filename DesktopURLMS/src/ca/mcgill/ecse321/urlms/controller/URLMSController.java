@@ -325,10 +325,9 @@ public class URLMSController {
 	 * @param String of the equipment name 
 	 * @return True if the database successfully added the equipment to the XML file, false if it did not work (if the person is not director)
 	 */
-	public boolean createEquipment(String equipment, int quantity) throws InvalidInputException {
-		String message = "";
+	public boolean createEquipment(String equipment, int quantity) {
 		if(quantity < 0) {
-			message="Quantity cannot be negative.";
+			return false;
 		}
 		
 		URLMS urlms = URLMS.getInstance();
@@ -336,21 +335,19 @@ public class URLMSController {
 		if(activeLab.hasEquipment()) {
 			for(Equipment equip : equipments) {
 				if(equip.getName().equalsIgnoreCase(equipment)) {
-					message += equip.getName() + " was attempted to be added! This equipment type already exists. Please just change the amount needed.";
+					return false;
 				}
 			}
 		}	
 		equipment = equipment.trim();
 		activeLab.addEquipment(equipment, quantity);
-		if(message.length()>0) throw new InvalidInputException(message);
 		return PersistenceXStream.saveToXMLwithXStream(urlms);	
 
 	}
 
 
 	
-	public boolean modifyEquipment(String equipment,int quantity) throws InvalidInputException {
-		String message;
+	public boolean modifyEquipment(String equipment,int quantity) {
 		int result=0;
 		List<Equipment> equipments = activeLab.getEquipment();
 		
@@ -359,16 +356,11 @@ public class URLMSController {
 				result=equip.getQuantity()+quantity;
 				if (result<=0) {
 					equip.setQuantity(0);
-					message="There are no more "+ equip.getName()+"s in this Laboratory!";
-					PersistenceXStream.saveToXMLwithXStream(urlms);
-					throw new InvalidInputException(message);
+					return PersistenceXStream.saveToXMLwithXStream(urlms);
 				}
 				equip.setQuantity(result);
+				return PersistenceXStream.saveToXMLwithXStream(urlms);
 			}
-			PersistenceXStream.saveToXMLwithXStream(urlms);
-
-			/* This ensures that you dont simply add number of supplies to a non existing supply */
-			if(! equip.getName().equalsIgnoreCase(equipment)) throw new InvalidInputException("No Equipment type with the name: " + equipment);
 		}
 		
 		return false; 
