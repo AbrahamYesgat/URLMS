@@ -383,10 +383,10 @@ public class URLMSController {
 	
 	
 	
-	public boolean createSupplies(String supplies, int quantity) throws InvalidInputException {
-		String message = "";
+	public boolean createSupplies(String supplies, int quantity) {
+		
 		if(quantity < 0) {
-			message="Quantity cannot be negative";
+			return false;
 		}
 		
 		URLMS urlms = URLMS.getInstance();
@@ -394,23 +394,18 @@ public class URLMSController {
 		if(activeLab.hasSupplies()) {
 			for(Supplies sup : supply) {
 				if(sup.getName().equalsIgnoreCase(supplies)) {
-					message += sup.getName() + " was attempted to be added! This equipment type already exists. Please just change the amount needed.";
+					return false;
 				}
 			}
 		}
 		
-	
 		supplies = supplies.trim();
 		activeLab.addSupply(supplies, quantity);
-		if(message.length()>0) throw new InvalidInputException(message);
 		return PersistenceXStream.saveToXMLwithXStream(urlms);	
-
-		
 	}
 
 	
-	public boolean modifySupplies(String supplies, int quantity) throws InvalidInputException {
-		String message= "";
+	public boolean modifySupplies(String supplies, int quantity) {
 		int result=0;
 		List<Supplies> supply = activeLab.getSupplies();
 		for(Supplies sup : supply) {
@@ -419,16 +414,11 @@ public class URLMSController {
 				sup.setQuantity(result);
 				if (result<=0) {
 					sup.setQuantity(0);
-					message= "There are no more"+ sup.getName()+"s left in this lab!";
-					PersistenceXStream.saveToXMLwithXStream(urlms);
-					throw new InvalidInputException(message);
+					return PersistenceXStream.saveToXMLwithXStream(urlms);
 				}
+				return PersistenceXStream.saveToXMLwithXStream(urlms);
 			}
-			/* This ensures that you dont simply add number of supplies to a non existing supply */
-			if(!sup.getName().equalsIgnoreCase(supplies)) throw new InvalidInputException("No Supply with the name: " + supplies);
-
 		}
-		
 		return false; 
 	}
 

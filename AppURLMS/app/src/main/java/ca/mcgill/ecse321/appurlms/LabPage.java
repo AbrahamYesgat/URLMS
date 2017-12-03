@@ -67,4 +67,10 @@ public class LabPage extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void manageAccount(View view) {
+        Intent intent = new Intent(LabPage.this, ManageFundingAccounts.class);
+        startActivity(intent);
+        finish();
+    }
 }
