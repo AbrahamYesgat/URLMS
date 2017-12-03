@@ -54,12 +54,23 @@
           </laboratories>
           <progressUpdates id="19"/>
         </staff>
+        <staff id="20">
+          <email>uiritui</email>
+          <password>password123</password>
+          <name>uiuttuieti</name>
+          <currentlyAssigned>true</currentlyAssigned>
+          <staffRole>ResearchAssistant</staffRole>
+          <laboratories id="21">
+            <lab reference="3"/>
+          </laboratories>
+          <progressUpdates id="22"/>
+        </staff>
       </staffs>
-      <progressUpdates id="20"/>
-      <fundingAccounts id="21"/>
+      <progressUpdates id="23"/>
+      <fundingAccounts id="24"/>
     </lab>
   </laboratories>
-  <directors id="22">
+  <directors id="25">
     <director reference="7"/>
   </directors>
 </ca.mcgill.ecse321.urlms.model.URLMS>
