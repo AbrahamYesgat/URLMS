@@ -233,7 +233,7 @@ public class ManageSupplyPage extends JFrame{
 		JTableHeader supplyHeader = supplyTable.getTableHeader();
 		supplyHeader.setFont(new java.awt.Font("Lucida Grande", 1, 18));
 		//TODO: call initialize table method here
-		supplyQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfStaffs()));
+		supplyQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfSupplies()));
 		getContentPane().setLayout(groupLayout);
 		
 		pack();
