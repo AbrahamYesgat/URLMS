@@ -292,5 +292,8 @@ public class ManageSupplyPage extends JFrame{
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
 	}
-	
+	private void createSupply() {
+		
+		
+	}
 }

@@ -121,24 +121,24 @@ public class TestManageSupplies {
 //			assertEquals(randA+randB, activeLab.getSupply(0).getQuantity());
 //			
 //		}
-		@Test
-		public void testARemoveSupplies() throws InvalidInputException{
-			String error="";
-			URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
-			UCon.login(testEmail, testPassword);
-			UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
-			Laboratory activeLab = UCon.getActiveLaboratory(); 
-			 /* Test Begins Here*/
-			assertEquals(false, activeLab.hasSupplies());//ensures there are no supplies to begin with
-			String Supply = "TestSupply";
-			Random rand= new Random();
-			int randA=rand.nextInt(50);
-			int randB=rand.nextInt(randA-1);
-			UCon.createSupplies(Supply,randA);
-			UCon.modifySupplies(Supply, -randB);
-			assertEquals(randA-randB, activeLab.getSupply(0).getQuantity());
-			
-		}
+//		@Test
+//		public void testARemoveSupplies() throws InvalidInputException{
+//			String error="";
+//			URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+//			UCon.login(testEmail, testPassword);
+//			UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
+//			Laboratory activeLab = UCon.getActiveLaboratory(); 
+//			 /* Test Begins Here*/
+//			assertEquals(false, activeLab.hasSupplies());//ensures there are no supplies to begin with
+//			String Supply = "TestSupply";
+//			Random rand= new Random();
+//			int randA=rand.nextInt(50);
+//			int randB=rand.nextInt(randA-1);
+//			UCon.createSupplies(Supply,randA);
+//			UCon.modifySupplies(Supply, -randB);
+//			assertEquals(randA-randB, activeLab.getSupply(0).getQuantity());
+//			
+//		}
 		
 		  
 	}
