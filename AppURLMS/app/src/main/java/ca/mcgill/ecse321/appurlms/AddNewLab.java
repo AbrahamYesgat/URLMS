@@ -43,7 +43,7 @@ public class AddNewLab extends AppCompatActivity {
         else {
             setContentView(R.layout.add_lab);
             TextView addLabMessage = (TextView) findViewById(R.id.addLabMessage);
-            addLabMessage.setText("Laboratory name already exists!");
+            addLabMessage.setText("Cannot create the lab with the name specified!");
         }
     }
 

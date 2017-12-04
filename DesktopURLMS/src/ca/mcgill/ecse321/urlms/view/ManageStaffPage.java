@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,6 +82,10 @@ public class ManageStaffPage extends JFrame{
 	 */
 	private JTable staffTable;
 	/**
+	 *  List containing all staff members of active lab
+	 */
+	List<Staff> labStaff;
+	/**
 	 * Constructor of ManageStaffPage frame
 	 * @param urlms current URLMS system
 	 */
@@ -113,7 +119,7 @@ public class ManageStaffPage extends JFrame{
 	 * @param table Table that will contain list of all staff members in lab.
 	 */
 	private void initialiseTable(JTable table){
-		List<Staff> labStaff = new ArrayList<Staff>();
+		labStaff = new ArrayList<Staff>();
 		if(currentLab.hasStaffs()){
 			labStaff = currentLab.getStaffs();
 			for(Staff staff : labStaff){
@@ -255,7 +261,7 @@ public class ManageStaffPage extends JFrame{
 		);
 		
 	    staffTable.getColumn("Remove Member").setCellRenderer(new ButtonRenderer());
-	    staffTable.getColumn("Remove Member").setCellEditor(new ButtonEditor(new JCheckBox()));
+	    staffTable.getColumn("Remove Member").setCellEditor(new ButtonEditor(new JCheckBox(), staffTable, labStaff, urlmsCont));
 		staffTable.setRowHeight(40);
 		scrollPane.setViewportView(staffTable);
 		JTableHeader staffHeader = staffTable.getTableHeader();
@@ -296,7 +302,33 @@ public class ManageStaffPage extends JFrame{
 				staffAddButtonActionPerformed();
 			}
 		});
+		
+		// staff table mouse listener used to remove staff member
+		staffTable.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				staffRemoveActionPerformed(e);
+			}
+		});
 	}
+	private void staffRemoveActionPerformed(MouseEvent e) {
+		if (e.getClickCount() == 2) {
+			JTable target = (JTable)e.getSource();
+			int row = target.getSelectedRow();
+			int column = target.getSelectedColumn();
+			System.out.print((String)target.getValueAt(row, column-2));
+			if(column == 3){
+				if(urlmsCont.removeStaff((String)target.getValueAt(row, column-2))){
+					((DefaultTableModel) staffTable.getModel()).removeRow(row);
+					 staffQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfStaffs()));
+				}
+				else{
+					JOptionPane.showMessageDialog(this, "Sorry, an error occurred! Please try again later.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
+		
+	}
+
 	/**
 	 * Method to add staff member to lab through director's input.
 	 */
@@ -309,6 +341,12 @@ public class ManageStaffPage extends JFrame{
 			Object[] o = {newStaffName.getText(), newStaffEmail.getText(), newStaffRole.getSelectedItem(),"Remove"};
 			  ((DefaultTableModel) staffTable.getModel()).addRow(o);
 			  staffQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfStaffs()));
+		}
+		else if(urlmsCont.addExistingStaff(newStaffEmail.getText())){
+			JOptionPane.showMessageDialog(this, newStaffName.getText() + " is an existing user and was successfully added to the lab!");
+			Object[] o = {newStaffName.getText(), newStaffEmail.getText(), newStaffRole.getSelectedItem(),"Remove"};
+			((DefaultTableModel) staffTable.getModel()).addRow(o);
+			staffQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfStaffs()));
 		}
 		else{
 			JOptionPane.showMessageDialog(this, newStaffName.getText() + " is already part of the lab!", "Error", JOptionPane.ERROR_MESSAGE);

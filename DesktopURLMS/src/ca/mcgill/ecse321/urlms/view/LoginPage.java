@@ -160,13 +160,9 @@ public class LoginPage extends JFrame{
 	    // Action listener for login button
 	    loginButton.addActionListener(new java.awt.event.ActionListener() {
 	        public void actionPerformed(java.awt.event.ActionEvent evt) {
-	        //	java.sql.Date timeNow = (java.sql.Date) new Date(Calendar.getInstance().getTimeInMillis());
 	        	java.util.Calendar sqlDate = java.util.Calendar.getInstance();
-	        java.util.Date utilDate = sqlDate.getTime();
-	       // 	java.sql.Date sqlDate = (java.sql.Date) new Date(utilDate.getTime());
-	        	System.out.println(utilDate);
-	        	
-	            loginButtonActionPerformed();
+	        	java.util.Date utilDate = sqlDate.getTime();
+	        	loginButtonActionPerformed();
 	        }
 	    });
 	}

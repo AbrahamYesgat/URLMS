@@ -199,21 +199,16 @@ public class URLMSController {
 	}
 	
 	
-public boolean createWeeklyProgressReport(String Title, String report, Date date) {
+	public boolean createWeeklyProgressReport(String Title, String report, Date date) {
 		String reportPeriod = date.toString();
 		Title += " " + reportPeriod; 
 		if (activeUser instanceof Staff) {
-		ProgressUpdate WPR= new ProgressUpdate(Title, report, activeLab, (Staff)activeUser);
-		activeLab.addProgressUpdate(WPR);
-		return true;
+			activeLab.addProgressUpdate(Title, report, (Staff)activeUser);
+			return PersistenceXStream.saveToXMLwithXStream(urlms);
 		}
-		else {
-			System.out.println("User is not a Staff Member!");
-			return false;
-		}
-
-		
-}
+		System.out.println("User is not a Staff Member!");
+		return false;
+	}
 	
 	public String viewWeeklyProgressReport(int idNumber) {
 		String message;
@@ -223,11 +218,8 @@ public boolean createWeeklyProgressReport(String Title, String report, Date date
 			if(PU.getId()==(idNumber)) {
 				return PU.getReport();
 			}
-
 		}
 		return "Requested Weekly Progress Report cannot be found!";
-		
-
 	}
 	
 	
@@ -268,7 +260,8 @@ public boolean createWeeklyProgressReport(String Title, String report, Date date
 		
 		if(activeUser instanceof Director) {
 			if(urlms.hasLaboratories()) {
-				List<Laboratory> labs = urlms.getLaboratories();
+				Director director = (Director)activeUser;
+				List<Laboratory> labs = director.getLaboratories();
 				for (Laboratory lab : labs) {
 					if(lab.getName().equals(name)){
 						return false;
@@ -318,16 +311,27 @@ public boolean createWeeklyProgressReport(String Title, String report, Date date
 	}
 
 	public boolean addExistingStaff(String email) {
+		boolean validAdd = false;
+		Staff validStaff = null;
         if(activeUser instanceof Director) {
             List<Laboratory> labs = urlms.getLaboratories();
             for (Laboratory lab : labs) {
                 for (Staff member : lab.getStaffs()) {
-                    if(member.getEmail().equalsIgnoreCase(email)) {
-                        activeLab.addStaff(member);
-                        return PersistenceXStream.saveToXMLwithXStream(urlms);
+                    if(member.getEmail().equalsIgnoreCase(email)) { 
+                    	if(lab.getName().equalsIgnoreCase(activeLab.getName())){ // below ensures existing user does not exist in active lab
+                    		return false;
+                    	}
+                    	else{
+                    		validAdd = true;
+                    		validStaff = member;
+                    	}
                     }
                 }
             }
+        }
+        if(validAdd && validStaff != null){
+        	activeLab.addStaff(validStaff);
+            return PersistenceXStream.saveToXMLwithXStream(urlms);
         }
         return false;
 	}
@@ -475,18 +479,15 @@ public boolean createWeeklyProgressReport(String Title, String report, Date date
 	}
 	public boolean deleteLab(Director Dir, Laboratory Lab) {
 		if (activeUser instanceof Director) {
-		List<Laboratory>DLabs=Dir.getLaboratories();
-		for( Laboratory lab : DLabs) {
-			if(lab.getName().equalsIgnoreCase(Lab.getName())){
-				lab.delete();
-				return true;
+			List<Laboratory>DLabs=Dir.getLaboratories();
+			for( Laboratory lab : DLabs) {
+				if(lab.getName().equalsIgnoreCase(Lab.getName())){
+					lab.delete();
+					return PersistenceXStream.saveToXMLwithXStream(urlms);
+				}	
 			}
-				
-		}
-	
 		}
 		return false;
-		
 	}
 
 	/**
