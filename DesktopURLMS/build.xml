@@ -7,9 +7,9 @@
     <property name="dist.dir" location="dist" />
     <property name="docs.dir" location="docs" />
 
-	 <path id="classpath">
-        <fileset dir="lib"/>
-    </path>
+	<path id="classpath">
+        	<fileset dir="lib"/>
+    	</path>
 
     <!-- Deletes the existing build, docs and dist directory-->
     <target name="clean">
@@ -24,13 +24,6 @@
         <javac srcdir="${src.dir}" destdir="${build.dir}">
         </javac>
     </target>
-	
-    <!-- Define which files / directory should get included, we include all -->
-             <fileset dir="${src.dir}">
-                <include name="**" />
-             </fileset>
-        </javadoc>
-    </target>
 
     <!--Creates the deployable jar file  -->
     <target name="jar" depends="compile">
@@ -44,5 +37,4 @@
     <target name="main" depends="compile, jar, docs">
         <description>Main target</description>
     </target>
-</project>
 </project>
