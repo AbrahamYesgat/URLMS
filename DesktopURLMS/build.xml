@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="URLMS" default="init" basedir=".">
    <!-- Sets variables which can later be used. -->
@@ -46,5 +45,4 @@
         <description>Main target</description>
     </target>
 
-</project>
 </project>
