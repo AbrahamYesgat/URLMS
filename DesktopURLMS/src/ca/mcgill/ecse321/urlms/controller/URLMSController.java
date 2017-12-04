@@ -153,7 +153,7 @@ public class URLMSController {
 		}
 		
 		//Make sure that the funds being added are positive
-		if(intialFunds < 0) {
+		if(intialFunds < 0 || accountNumber < 0) {
 			System.out.println("Funds entered are negative, must be positive");
 			return false;
 		}
@@ -220,6 +220,30 @@ public class URLMSController {
 		activeUser.setName(name);
 		return PersistenceXStream.saveToXMLwithXStream(urlms);
 	
+	}
+	
+	public boolean updateLab(String name, Date startDate, boolean isActive) {
+		if(activeLab.getName().equalsIgnoreCase(name)) {
+			activeLab.setActive(isActive);
+			activeLab.setStartDate(startDate);
+			return PersistenceXStream.saveToXMLwithXStream(urlms);
+		}
+		
+		if(activeUser instanceof Director) {
+			if(urlms.hasLaboratories()) {
+				List<Laboratory> labs = urlms.getLaboratories();
+				for (Laboratory lab : labs) {
+					if(lab.getName().equals(name)){
+						return false;
+					}
+				}
+			}
+			activeLab.setName(name);
+			activeLab.setActive(isActive);
+			activeLab.setStartDate(startDate);
+			return PersistenceXStream.saveToXMLwithXStream(urlms);
+		}
+		return false;
 	}
 	
 	/**
