@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import java.sql.Date;
 
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
-import ca.mcgill.ecse321.urlms.model.Director;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.Staff;
 import ca.mcgill.ecse321.urlms.model.URLMS;
@@ -20,7 +19,7 @@ import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
-public class TestDeleteLab {
+public class TestUpdateLab {
     // Set values for test cases
     private static String testEmail ="director@urlms.ca";
     private static String testPassword ="password";
@@ -51,24 +50,29 @@ public class TestDeleteLab {
     public void test() {
         URLMSController sysC = new URLMSController(urlms);
         sysC.createDirector(testEmail,testPassword,testName);
+        sysC.createDirector("second", "second", "second");
         sysC.login(testEmail, testPassword);
         sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
+        sysC.addStaff(testStaffEmail, testStaffPassword, testStaffName, role);
 
-        //Case 1: Successful delete of a directors lab
-        assertEquals(true, sysC.deleteLab((Director) sysC.getActiveUser(), sysC.getActiveLaboratory()));
+        //Case 1: Director successfully changes the lab
+        assertEquals(true, sysC.updateLab("newName", new Date(2017, 10, 10), false));
 
-        //Case 2: Director attempts to delete a non existent lab
-        assertEquals(false, sysC.deleteLab((Director)sysC.getActiveUser(), Laboratory.getWithName("nothing")));
+        //Case 2: Director changes all attributes besides name
+        assertEquals(true, sysC.updateLab("newName", new Date(2018, 11, 11), true));
 
-        sysC.createDirector(testStaffEmail, testStaffPassword, testStaffName);
-        sysC.login(testStaffEmail, testStaffPassword);
-        sysC.addLaboratory("Other", "study", new Date(2017, 10, 10));
-        Laboratory otherLab = ((Director) sysC.getActiveUser()).getLaboratory(0);
+        sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
+        //Case 3: Director tries to change lab's name to another lab's name
+        assertEquals(false, sysC.updateLab("newName", new Date(2017, 10, 10), true ));
+
+
         sysC.logout();
-        sysC.login(testEmail, testPassword);
-        assertEquals(testEmail, sysC.getActiveUser().getEmail());
+        sysC.login(testStaffEmail, testStaffPassword);
+        Laboratory test = urlms.getLaboratory(0);
+        sysC.setActiveLaboratory(test);
 
-        //Case 3: Director tries to delete another directors lab
-        assertEquals(false, sysC.deleteLab((Director)sysC.getActiveUser(), otherLab));
+        //Case 4: Staff tries to change the lab's name
+        assertEquals(false, sysC.updateLab("anything", new Date(2017, 10, 10), true ));
+
     }
 }
