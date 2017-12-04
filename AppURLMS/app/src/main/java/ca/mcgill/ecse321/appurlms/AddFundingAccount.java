@@ -35,7 +35,7 @@ public class AddFundingAccount extends AppCompatActivity {
                 finish();
             }
             else {
-                addAccountMessage.setText("This account number already exists. Please just change the balance.");
+                addAccountMessage.setText("This account number cannot be used!");
             }
         }
         else {
@@ -46,7 +46,7 @@ public class AddFundingAccount extends AppCompatActivity {
                 finish();
             }
             else {
-                addAccountMessage.setText("This account number already exists. Please just change the amount needed.");
+                addAccountMessage.setText("This account number cannot be used!");
             }
         }
     }

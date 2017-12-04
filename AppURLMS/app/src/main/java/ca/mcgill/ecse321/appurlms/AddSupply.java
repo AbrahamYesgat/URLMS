@@ -52,7 +52,7 @@ public class AddSupply extends AppCompatActivity {
                 finish();
             }
             else {
-                addSupplyMessage.setText("This supply type already exists. Please just change the amount needed.");
+                addSupplyMessage.setText("This supply type cannot be created!");
             }
             }
         else {
@@ -63,7 +63,7 @@ public class AddSupply extends AppCompatActivity {
                 finish();
             }
             else {
-                addSupplyMessage.setText("This supply type already exists. Please just change the amount needed.");
+                addSupplyMessage.setText("This supply type cannot be created!");
             }
         }
     }

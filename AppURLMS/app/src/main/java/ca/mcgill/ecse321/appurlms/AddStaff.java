@@ -131,7 +131,7 @@ public class AddStaff extends AppCompatActivity {
             addStaffMessage.setText("Successfully added staff member");
         }
         else{
-            addStaffMessage.setText("Error: This email is associated to a director.");
+            addStaffMessage.setText("Could not find user with the specified email!");
        }
     }
 
