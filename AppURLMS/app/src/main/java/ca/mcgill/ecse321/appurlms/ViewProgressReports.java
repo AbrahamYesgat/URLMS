@@ -22,6 +22,9 @@ public class ViewProgressReports extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_progress_reports);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         TextView progressReportMessage = (TextView)findViewById(R.id.lab_progress_message);
         progressReportMessage.setText("Progress Reports for " + cont.getActiveLaboratory().getName());

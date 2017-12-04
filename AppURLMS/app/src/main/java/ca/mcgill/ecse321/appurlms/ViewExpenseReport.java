@@ -23,6 +23,9 @@ public class ViewExpenseReport extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_expense_report);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         TextView progressReportMessage = (TextView)findViewById(R.id.lab_expense_message);
         progressReportMessage.setText("Expense Reports for " + cont.getActiveLaboratory().getName());

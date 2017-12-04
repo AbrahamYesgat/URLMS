@@ -17,6 +17,10 @@ public class LabPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         String labName;
         if(cont.getActiveUser() instanceof Director){
             setContentView(R.layout.dir_lab_page);

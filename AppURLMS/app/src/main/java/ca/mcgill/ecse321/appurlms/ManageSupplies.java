@@ -30,6 +30,9 @@ public class ManageSupplies extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_supplies);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         TextView nameMessage = (TextView)findViewById(R.id.supply_message);
         nameMessage.setText("Supplies for " + cont.getActiveLaboratory().getName());
