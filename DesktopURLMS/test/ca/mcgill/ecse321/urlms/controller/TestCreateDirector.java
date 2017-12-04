@@ -60,7 +60,7 @@ public class TestCreateDirector {
 	
 	@Test
 	//Case 3: The user successfully creates a director 
-	public void testCrreateDir() {
+	public void testCreateDir() {
 		URLMSController sysC = new URLMSController(urlms);
 		assertEquals(false, urlms.hasDirectors());
 		assertEquals(true, sysC.createDirector(testEmail, testPassword, testName));

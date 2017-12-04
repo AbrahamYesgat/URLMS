@@ -474,7 +474,21 @@ public boolean createWeeklyProgressReport(String Title, String report, Date date
 		
 		return false; 	
 	}
+	public boolean deleteLab(Director Dir, Laboratory Lab) {
+		if (activeUser instanceof Director) {
+		List<Laboratory>DLabs=Dir.getLaboratories();
+		for( Laboratory lab : DLabs) {
+			if(lab.getName().equalsIgnoreCase(Lab.getName())){
+				lab.delete();
+				return true;
+			}
+				
+		}
 	
+		}
+		return false;
+		
+	}
 
 	/**
 	 * Allows to keep track of the laboratory currently selected by the user. 
