@@ -111,5 +111,17 @@ public class LabPage extends AppCompatActivity {
     }
 
     public void deleteLab(View view) {
+        if(cont.getActiveUser() instanceof Director) {
+            boolean isValid = cont.deleteLab((Director)cont.getActiveUser(), cont.getActiveLaboratory());
+            if(isValid){
+                Intent intent = new Intent(LabPage.this, HomePage.class);
+                startActivity(intent);
+                finish();
+            }
+            else{
+                TextView labMessage = (TextView) findViewById(R.id.lab_message);
+                labMessage.setText("Could not delete the lab!");
+            }
+        }
     }
 }
