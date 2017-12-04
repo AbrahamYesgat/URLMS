@@ -94,6 +94,7 @@ public class RegisterPage extends JFrame {
 	private void initComponents() {
 		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Register Page");
 		setBounds(100, 100, 898, 589);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
@@ -130,9 +131,10 @@ public class RegisterPage extends JFrame {
 		btnSignUp.setForeground(Color.WHITE);
 		btnSignUp.setBackground(new Color(241, 57, 83));
 		btnSignUp.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		btnSignUp.setBounds(441, 468, 405, 55);
+		btnSignUp.setBounds(441, 468, 189, 55);
 		contentPane.add(btnSignUp);
 		fieldName = new JTextField();
+		fieldName.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		fieldName.setBounds(441, 58, 405, 55);
 		contentPane.add(fieldName);
 		fieldName.setColumns(10);
@@ -147,6 +149,7 @@ public class RegisterPage extends JFrame {
 		contentPane.add(lblName);
 		
 		fieldEmail = new JTextField();
+		fieldEmail.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		fieldEmail.setColumns(10);
 		fieldEmail.setBounds(441, 171, 405, 55);
 		contentPane.add(fieldEmail);
@@ -170,6 +173,7 @@ public class RegisterPage extends JFrame {
 		contentPane.add(lblPassword);
 		
 		passwordField = new JPasswordField();
+		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		passwordField.setBounds(441, 284, 405, 55);
 		contentPane.add(passwordField);
 		
@@ -179,8 +183,16 @@ public class RegisterPage extends JFrame {
 		contentPane.add(lblRepeatPassword);
 		
 		repPasswordField = new JPasswordField();
+		repPasswordField.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		repPasswordField.setBounds(441, 394, 405, 55);
 		contentPane.add(repPasswordField);
+		
+		Button btnBack = new Button("Back");
+		btnBack.setForeground(Color.WHITE);
+		btnBack.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+		btnBack.setBackground(Color.YELLOW);
+		btnBack.setBounds(650, 468, 195, 55);
+		contentPane.add(btnBack);
 		
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
