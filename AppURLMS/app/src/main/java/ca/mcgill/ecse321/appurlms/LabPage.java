@@ -124,4 +124,16 @@ public class LabPage extends AppCompatActivity {
             }
         }
     }
+
+    public void createExpenseReport(View view) {
+        if(cont.getActiveLaboratory().getActive()) {
+            Intent intent = new Intent(LabPage.this, ViewExpenseReport.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            TextView labMessage = (TextView) findViewById(R.id.lab_message);
+            labMessage.setText("Cannot do this because the lab is inactive.");
+        }
+    }
 }
