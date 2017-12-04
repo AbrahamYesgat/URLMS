@@ -175,7 +175,7 @@ public class RegisterPage extends JFrame {
 		
 		JLabel lblRepeatPassword = new JLabel("Repeat Password");
 		lblRepeatPassword.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		lblRepeatPassword.setBounds(441, 355, 157, 26);
+		lblRepeatPassword.setBounds(441, 355, 220, 26);
 		contentPane.add(lblRepeatPassword);
 		
 		repPasswordField = new JPasswordField();
