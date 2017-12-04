@@ -11,7 +11,7 @@
       <director id="7">
         <email>director@urlms.ca</email>
         <password>password</password>
-        <name>AlexanderTorabi</name>
+        <name>Alexander Torabi</name>
         <currentlyAssigned>true</currentlyAssigned>
         <labManaged>0</labManaged>
         <laboratories id="8">
@@ -22,9 +22,9 @@
       <supplies id="9"/>
       <staffs id="10">
         <staff id="11">
-          <email>staff@urlms.ca</email>
+          <email>sadhvi@urlms.ca</email>
           <password>password1</password>
-          <name>Director</name>
+          <name>Sadhvi Mehta</name>
           <currentlyAssigned>true</currentlyAssigned>
           <staffRole>ResearchAssociate</staffRole>
           <laboratories id="12">
@@ -32,12 +32,34 @@
           </laboratories>
           <progressUpdates id="13"/>
         </staff>
+        <staff id="14">
+          <email>alex@urlms.ca</email>
+          <password>password123</password>
+          <name>Alexander Torabi</name>
+          <currentlyAssigned>true</currentlyAssigned>
+          <staffRole>ResearchAssistant</staffRole>
+          <laboratories id="15">
+            <lab reference="3"/>
+          </laboratories>
+          <progressUpdates id="16"/>
+        </staff>
+        <staff id="17">
+          <email>chris@urlms.ca</email>
+          <password>password123</password>
+          <name>Chris Panaritis</name>
+          <currentlyAssigned>true</currentlyAssigned>
+          <staffRole>ResearchAssociate</staffRole>
+          <laboratories id="18">
+            <lab reference="3"/>
+          </laboratories>
+          <progressUpdates id="19"/>
+        </staff>
       </staffs>
-      <progressUpdates id="14"/>
-      <fundingAccounts id="15"/>
+      <progressUpdates id="20"/>
+      <fundingAccounts id="21"/>
     </lab>
   </laboratories>
-  <directors id="16">
+  <directors id="22">
     <director reference="7"/>
   </directors>
 </ca.mcgill.ecse321.urlms.model.URLMS>
