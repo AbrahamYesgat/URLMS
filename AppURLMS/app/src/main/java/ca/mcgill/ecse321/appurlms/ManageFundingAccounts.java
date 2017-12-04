@@ -29,6 +29,9 @@ public class ManageFundingAccounts extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_funding_accounts);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         TextView nameMessage = (TextView)findViewById(R.id.accounts_message);
         nameMessage.setText("Funding Accounts for " + cont.getActiveLaboratory().getName());

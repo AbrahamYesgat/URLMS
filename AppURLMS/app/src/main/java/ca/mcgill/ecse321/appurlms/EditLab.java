@@ -20,6 +20,12 @@ public class EditLab extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_lab);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
+        labName = (EditText) findViewById(R.id.lab_name);
+        labName.setText(cont.getActiveLaboratory().getName());
     }
 
     public void logout(View view) {

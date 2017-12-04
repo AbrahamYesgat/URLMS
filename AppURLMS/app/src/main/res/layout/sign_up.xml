@@ -13,6 +13,13 @@
         tools:layout_editor_absoluteX="145dp"
         tools:layout_editor_absoluteY="0dp">
 
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            app:srcCompat="@mipmap/logo" />
+
         <EditText
             android:id="@+id/dir_email"
             android:layout_width="match_parent"
