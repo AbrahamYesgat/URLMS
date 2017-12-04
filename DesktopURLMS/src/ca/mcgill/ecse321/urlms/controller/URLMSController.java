@@ -209,10 +209,11 @@ public class URLMSController {
 		return "Requested Weekly Progress Report cannot be found!";
 	}
 	
-	public boolean createExpenseReport(String expenseReport, int day, int month, int year) {
+	public boolean createExpenseReport(String expenseReport, double price, int day, int month, int year) {
 		String report = "Expenses for " + Integer.toString(day) + "/" + Integer.toString(month) + "/" + Integer.toString(year) 
 						+ System.lineSeparator() + expenseReport;
-		activeLab.addExpenseReport(report);
+		ExpenseReport expense = activeLab.addExpenseReport(report); 
+		expense.setAmount(price);
 		return PersistenceXStream.saveToXMLwithXStream(urlms);
 	}
 	

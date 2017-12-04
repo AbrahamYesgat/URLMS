@@ -18,7 +18,8 @@ public class ExpenseReport
   //------------------------
 
   //ExpenseReport Attributes
-  private String expensePeriod;
+  private String expense;
+  private double amount;
 
   //Autounique Attributes
   private int id;
@@ -30,9 +31,10 @@ public class ExpenseReport
   // CONSTRUCTOR
   //------------------------
 
-  public ExpenseReport(String aExpensePeriod, Laboratory aLaboratory)
+  public ExpenseReport(String aExpense, Laboratory aLaboratory)
   {
-    expensePeriod = aExpensePeriod;
+    expense = aExpense;
+    amount = 0;
     id = nextId++;
     boolean didAddLaboratory = setLaboratory(aLaboratory);
     if (!didAddLaboratory)
@@ -45,17 +47,30 @@ public class ExpenseReport
   // INTERFACE
   //------------------------
 
-  public boolean setExpensePeriod(String aExpensePeriod)
+  public boolean setExpense(String aExpense)
   {
     boolean wasSet = false;
-    expensePeriod = aExpensePeriod;
+    expense = aExpense;
     wasSet = true;
     return wasSet;
   }
 
-  public String getExpensePeriod()
+  public boolean setAmount(double aAmount)
   {
-    return expensePeriod;
+    boolean wasSet = false;
+    amount = aAmount;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public String getExpense()
+  {
+    return expense;
+  }
+
+  public double getAmount()
+  {
+    return amount;
   }
 
   public int getId()
@@ -99,7 +114,8 @@ public class ExpenseReport
   {
     return super.toString() + "["+
             "id" + ":" + getId()+ "," +
-            "expensePeriod" + ":" + getExpensePeriod()+ "]" + System.getProperties().getProperty("line.separator") +
+            "expense" + ":" + getExpense()+ "," +
+            "amount" + ":" + getAmount()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "laboratory = "+(getLaboratory()!=null?Integer.toHexString(System.identityHashCode(getLaboratory())):"null");
   }
 }
