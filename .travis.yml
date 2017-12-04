@@ -7,7 +7,7 @@ before_install:
   cd ./DesktopURLMS
 java:
   script:
-    ant build
+    ant test
 
 # language: android
 # jdk: openjdk8
