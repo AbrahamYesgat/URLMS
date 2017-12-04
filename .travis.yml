@@ -6,8 +6,6 @@ branches:
 before_install:
   cd ./DesktopURLMS
 java:
-  script:
-    ant test
 
 # language: android
 # jdk: openjdk8
