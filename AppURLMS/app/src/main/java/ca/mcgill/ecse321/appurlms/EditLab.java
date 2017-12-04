@@ -44,7 +44,7 @@ public class EditLab extends AppCompatActivity {
         CheckBox isActive = (CheckBox)findViewById(R.id.active_checkbox);
 
         if(TextUtils.isEmpty(labName.getText().toString())) {
-            labMessage.setText("Cannot set the lab name to nothing!");
+            labMessage.setText("Cannot change lab name to specified name!");
         }
         else {
             active = isActive.isChecked();
@@ -68,7 +68,7 @@ public class EditLab extends AppCompatActivity {
         else {
             setContentView(R.layout.edit_lab);
             TextView addLabMessage = (TextView) findViewById(R.id.modifyLabMessage);
-            addLabMessage.setText("Laboratory name already exists!");
+            addLabMessage.setText("Cannot change lab name to specified name!");
         }
     }
 }

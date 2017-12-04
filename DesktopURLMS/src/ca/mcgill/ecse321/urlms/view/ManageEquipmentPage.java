@@ -10,6 +10,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -25,8 +26,12 @@ import org.jdesktop.swingx.prompt.PromptSupport;
 
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
+import ca.mcgill.ecse321.urlms.model.Staff;
+import ca.mcgill.ecse321.urlms.model.Equipment;
 import ca.mcgill.ecse321.urlms.model.URLMS;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class ManageEquipmentPage extends JFrame{
@@ -44,15 +49,15 @@ public class ManageEquipmentPage extends JFrame{
 	 */
 	private URLMSController urlmsCont;
 	/**
-	 * Current lab whose equipment director is viewing/editing
+	 * Current lab whose Equipment director is viewing/editing
 	 */
 	private Laboratory currentLab;
 	/**
-	 * Textfield specifying quantity of equipment of the lab
+	 * Textfield specifying quantity of Equipment of the lab
 	 */
 	private JTextField equipmentQuantity;
 	/**
-	 * Textfield specifying name of new equipment to be added
+	 * Textfield specifying name of new Equipment to be added
 	 */
 	private JTextField newEquipmentName;
 	/**
@@ -63,6 +68,18 @@ public class ManageEquipmentPage extends JFrame{
 	 * Textfield specifying name of old Equipment to remove
 	 */
 	private JTextField oldEquipmentName;
+	/**
+	 * Textfield specifying how much quantity of new Equipment to create
+	 */
+	private JTextField txtQuantityCreate;
+	/**
+	 * Textfield specifying how much quantity of existing Equipment to modify
+	 */
+	private JTextField txtQuantityModify;
+	/**
+	 *  List containing all Equipment of active lab
+	 */
+	private List<Equipment> labEquipment;
 	/**
 	 * Constructor of ManageStaffPage frame
 	 * @param urlms current URLMS system
@@ -91,6 +108,24 @@ public class ManageEquipmentPage extends JFrame{
 	       }
 		initComponents();
 	}
+	
+	/**
+	 * Method used to initialize list of Equipment within active lab.
+	 * @param table Table that will contain list of all Equipment in active lab.
+	 */
+	private void initialiseTable(JTable table){
+		labEquipment = new ArrayList<Equipment>();
+		if(currentLab.hasEquipment()){
+			labEquipment = currentLab.getEquipment();
+			for(Equipment equipment : labEquipment){
+				Object[] o = new Object[4];
+				  o[0] = equipment.getName();
+				  o[1] = equipment.getQuantity();
+				  ((DefaultTableModel) table.getModel()).addRow(o);
+			}
+			
+		}
+	}
 	/**
 	 * Method used to initialize ManageEquipmentPage frame
 	 */
@@ -106,7 +141,7 @@ public class ManageEquipmentPage extends JFrame{
 		JLabel lblManageEquipment = new JLabel("Manage Equipment");
 		lblManageEquipment.setHorizontalAlignment(SwingConstants.CENTER);
 		lblManageEquipment.setFont(new Font("Modern No. 20", Font.PLAIN, 28));
-		JLabel lblEquipmentQuant = new JLabel("Total quantity of Equipment:");
+		JLabel lblEquipmentQuant = new JLabel("Total quantity of equipment:");
 		lblEquipmentQuant.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		JButton lgtBtn = new JButton("Logout");
 		lgtBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
@@ -115,28 +150,43 @@ public class ManageEquipmentPage extends JFrame{
 		equipmentQuantity.setEditable(false);
 		equipmentQuantity.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		equipmentQuantity.setColumns(10);
-		JLabel lblAddEquipment = new JLabel("Add Equipment: ");
-		lblAddEquipment.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+		JLabel lblCreateEquipment = new JLabel("Create Equipment: ");
+		lblCreateEquipment.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		newEquipmentName = new JTextField();
+		newEquipmentName.setBackground(Color.WHITE);
 		newEquipmentName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		newEquipmentName.setColumns(10);
 		PromptSupport.setPrompt("Equipment Name", newEquipmentName);
-		JButton addEquipmentBtn = new JButton("Add Equipment");
-		addEquipmentBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
-		addEquipmentBtn.setBackground(new Color(0, 255, 0));
+		JButton createEquipmentBtn = new JButton("Create");
+		createEquipmentBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		createEquipmentBtn.setBackground(Color.BLUE);
 		JButton btnBack = new JButton("Back");
 		btnBack.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		btnBack.setBackground(new Color(255, 255, 13));
-		JLabel lblRemoveEquipment = new JLabel("Remove Equipment: ");
-		lblRemoveEquipment.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+		JLabel lblModifyEquipment = new JLabel("Modify Equipment: ");
+		lblModifyEquipment.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		oldEquipmentName = new JTextField();
+		oldEquipmentName.setBackground(Color.WHITE);
 		oldEquipmentName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		oldEquipmentName.setColumns(10);
 		PromptSupport.setPrompt("Equipment Name", oldEquipmentName);
-		JButton btnRemoveEquipment = new JButton("Remove Equipment");
-		btnRemoveEquipment.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
-		btnRemoveEquipment.setBackground(Color.RED);
+		JButton btnUpdateEquipment = new JButton("Update");
+		btnUpdateEquipment.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		btnUpdateEquipment.setBackground(Color.GREEN);
 		
+		JButton btnDelete = new JButton("Remove");
+		btnDelete.setFont(new Font("Dialog", Font.PLAIN, 16));
+		btnDelete.setBackground(Color.RED);
+		
+		txtQuantityCreate = new JTextField();
+		txtQuantityCreate.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtQuantityCreate.setColumns(10);
+		
+		txtQuantityModify = new JTextField();
+		txtQuantityModify.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtQuantityModify.setColumns(10);
+		PromptSupport.setPrompt("Quantity", txtQuantityCreate);
+		PromptSupport.setPrompt("Quantity", txtQuantityModify);
 		
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
@@ -146,31 +196,43 @@ public class ManageEquipmentPage extends JFrame{
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 846, Short.MAX_VALUE))
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 858, Short.MAX_VALUE))
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblRemoveEquipment)
-										.addComponent(lblAddEquipment)
-										.addComponent(lblEquipmentQuant))
-									.addGap(19)
+										.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(lblCreateEquipment)
+											.addGap(18)
+											.addComponent(newEquipmentName, GroupLayout.PREFERRED_SIZE, 287, GroupLayout.PREFERRED_SIZE))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(lblModifyEquipment)
+											.addGap(18)
+											.addComponent(oldEquipmentName, GroupLayout.PREFERRED_SIZE, 287, GroupLayout.PREFERRED_SIZE)))
+									.addGap(47)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(oldEquipmentName, GroupLayout.PREFERRED_SIZE, 287, GroupLayout.PREFERRED_SIZE)
-										.addComponent(newEquipmentName, GroupLayout.PREFERRED_SIZE, 287, GroupLayout.PREFERRED_SIZE)
-										.addComponent(equipmentQuantity, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))))
-							.addPreferredGap(ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnRemoveEquipment, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addComponent(addEquipmentBtn, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lgtBtn, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE))))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(192)
-							.addComponent(lblManageEquipment, GroupLayout.PREFERRED_SIZE, 447, GroupLayout.PREFERRED_SIZE)))
+										.addComponent(txtQuantityCreate, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtQuantityModify, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lgtBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(btnUpdateEquipment)
+												.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
+											.addComponent(createEquipmentBtn, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE))))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblEquipmentQuant)
+									.addGap(19)
+									.addComponent(equipmentQuantity, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)))))
 					.addContainerGap())
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(220, Short.MAX_VALUE)
+					.addComponent(lblManageEquipment, GroupLayout.PREFERRED_SIZE, 447, GroupLayout.PREFERRED_SIZE)
+					.addGap(203))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -180,37 +242,35 @@ public class ManageEquipmentPage extends JFrame{
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 224, GroupLayout.PREFERRED_SIZE)
 					.addGap(16)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblAddEquipment)
-							.addGap(14))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(newEquipmentName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(addEquipmentBtn))
-							.addPreferredGap(ComponentPlacement.UNRELATED)))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblCreateEquipment)
+						.addComponent(newEquipmentName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(createEquipmentBtn)
+						.addComponent(txtQuantityCreate, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(4)
-							.addComponent(lblRemoveEquipment)
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblEquipmentQuant)
-								.addComponent(equipmentQuantity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-							.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(14)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(oldEquipmentName, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(13)
-									.addComponent(btnRemoveEquipment, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
-							.addPreferredGap(ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-							.addComponent(lgtBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
+									.addGap(4)
+									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblModifyEquipment)
+										.addComponent(oldEquipmentName, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnUpdateEquipment, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+									.addGap(18)
+									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblEquipmentQuant)
+										.addComponent(equipmentQuantity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+									.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lgtBtn, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(txtQuantityModify, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)))
+					.addGap(18))
 		);
+		
 		equipmentTable = new JTable();
 		equipmentTable.setShowGrid(true); // adds cell borders
 		equipmentTable.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -227,23 +287,56 @@ public class ManageEquipmentPage extends JFrame{
 		
 		equipmentTable.setRowHeight(40);
 		scrollPane.setViewportView(equipmentTable);
-		JTableHeader EquipmentHeader = equipmentTable.getTableHeader();
-		EquipmentHeader.setFont(new java.awt.Font("Lucida Grande", 1, 18));
-		//TODO: call initialize table method here
+		JTableHeader equipmentHeader = equipmentTable.getTableHeader();
+		equipmentHeader.setFont(new java.awt.Font("Lucida Grande", 1, 18));
+		initialiseTable(equipmentTable);
 		equipmentQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfEquipment()));
 		getContentPane().setLayout(groupLayout);
 		
 		
+		//Add all action listners here
 		btnBack.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-		dispose();
-		new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
 			}
 		});
 		
+		lgtBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				urlmsCont.logout();
+				dispose();
+				new LoginPage(urlms).setVisible(true);
+			}
+		});
+		createEquipmentBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				createEquipment();
+			}
+		});
 		
 		pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
+	}
+	/**
+	 * Method to add new type of Equipment to lab
+	 */
+	private void createEquipment() {
+		
+		if(newEquipmentName.getText().isEmpty() || txtQuantityCreate.getText().isEmpty()){
+			JOptionPane.showMessageDialog(this, "Equipment Name and Quantity fields cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else if(Integer.parseInt(txtQuantityCreate.getText()) <= 0){
+			JOptionPane.showMessageDialog(this, "Please enter a valid quantity!", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else if(urlmsCont.createEquipment(newEquipmentName.getText(), Integer.parseInt(txtQuantityCreate.getText()))){
+			JOptionPane.showMessageDialog(this, txtQuantityCreate.getText() + " " + newEquipmentName.getText() + " have been successfully added to the lab!");
+			Object[] o = {newEquipmentName.getText(), txtQuantityCreate.getText()};
+			((DefaultTableModel) equipmentTable.getModel()).addRow(o);
+			equipmentQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfEquipment()));
+		}
+			else
+			JOptionPane.showMessageDialog(this, newEquipmentName.getText() + " already exists!", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 }

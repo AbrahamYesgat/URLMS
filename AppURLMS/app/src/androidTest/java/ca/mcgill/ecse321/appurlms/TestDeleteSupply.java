@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.appurlms;
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.After;
@@ -14,6 +15,7 @@ import ca.mcgill.ecse321.urlms.model.Director;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.Staff;
 import ca.mcgill.ecse321.urlms.model.URLMS;
+import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 
 import static org.junit.Assert.assertEquals;
 
@@ -34,6 +36,10 @@ public class TestDeleteSupply {
     @Before
     public void setUp() {
         urlms = URLMS.getInstance();
+
+        // Create data file
+        PersistenceXStream.initializeURLMS(InstrumentationRegistry.getTargetContext().getApplicationContext().getFilesDir().getAbsolutePath()+"/data.xml");
+        PersistenceXStream.saveToXMLwithXStream(urlms);
     }
 
     @After
@@ -43,6 +49,29 @@ public class TestDeleteSupply {
 
     @Test
     public void test() {
+        URLMSController sysC = new URLMSController(urlms);
+        sysC.createDirector(testEmail,testPassword,testName);
+        sysC.login(testEmail, testPassword);
+        sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
+        sysC.addStaff(testStaffEmail, testStaffPassword, testStaffName, role);
 
+        //Case 1: Director successful delete
+        sysC.createSupplies("supply", 10);
+        assertEquals(true, sysC.removeSupplies("supply"));
+
+        //Case 2: Director delete non existent supply
+        assertEquals(false, sysC.removeSupplies("supply"));
+
+        sysC.logout();
+        sysC.login(testStaffEmail, testStaffPassword);
+        Laboratory test = urlms.getLaboratory(0);
+        sysC.setActiveLaboratory(test);
+
+        //Case 3: Staff successful delete
+        sysC.createSupplies("supply", 10);
+        assertEquals(true, sysC.removeSupplies("supply"));
+
+        //Case 4: Staff delete non existent supply
+        assertEquals(false, sysC.removeSupplies("supply"));
     }
 }

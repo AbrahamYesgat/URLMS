@@ -137,10 +137,6 @@ public class LabSelectionPage extends JFrame {
 	 * Method used to initialize page
 	 */
 	private void initComponents(){
-		
-		for(Laboratory lab : ((Director)this.currentUser).getLaboratories()){
-			
-		}
 		// Initialization of scroll pane for table
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Lab Selection Page");
@@ -246,11 +242,18 @@ public class LabSelectionPage extends JFrame {
 			      JTable target = (JTable)e.getSource();
 			      int row = target.getSelectedRow();
 			      int column = target.getSelectedColumn();
-			      if(0 <= column && column <= 3){
+			      	if(0 <= column && column <= 3){
 			    	  urlmsCont.setActiveLaboratory(labs.get(row));
-			    	  DirectorLabPage labHomePage = new DirectorLabPage(urlms, labs.get(row), urlmsCont);
-			    	  labHomePage.setVisible(true);
-			    	  setVisible(false);
+			    	  if(urlmsCont.getActiveUser() instanceof Director){
+			    		  DirectorLabPage labHomePage = new DirectorLabPage(urlms, labs.get(row), urlmsCont);
+				    	  labHomePage.setVisible(true);
+				    	  setVisible(false);
+			    	  }
+			    	  else{
+			    		  StaffLabPage labHomePage = new StaffLabPage(urlms, labs.get(row), urlmsCont);
+			    		  labHomePage.setVisible(true);
+			    		  setVisible(false);
+			    	  }
 			      }
 			     }
 			  }

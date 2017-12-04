@@ -11,7 +11,7 @@
       <director id="7">
         <email>director@urlms.ca</email>
         <password>password</password>
-        <name>Alexander Torabi</name>
+        <name>Director</name>
         <currentlyAssigned>true</currentlyAssigned>
         <labManaged>0</labManaged>
         <laboratories id="8">
@@ -22,9 +22,9 @@
       <supplies id="9"/>
       <staffs id="10">
         <staff id="11">
-          <email>sadhvi@urlms.ca</email>
-          <password>password1</password>
-          <name>Sadhvi Mehta</name>
+          <email>Member</email>
+          <password>staff@urlms.ca</password>
+          <name>password1</name>
           <currentlyAssigned>true</currentlyAssigned>
           <staffRole>ResearchAssociate</staffRole>
           <laboratories id="12">

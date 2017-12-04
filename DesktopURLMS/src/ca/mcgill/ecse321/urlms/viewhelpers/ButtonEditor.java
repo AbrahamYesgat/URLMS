@@ -8,6 +8,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
+import ca.mcgill.ecse321.urlms.controller.URLMSController;
+import ca.mcgill.ecse321.urlms.model.Staff;
 
 import javax.swing.*;
 
@@ -20,16 +26,23 @@ public class ButtonEditor extends DefaultCellEditor {
 	protected JButton button;
 
 	private String label;
-
+	
+	private JTable myTable;
+	
+	private List<Staff> labStaff;
+	
 	private boolean isPushed;
 
-	  public ButtonEditor(JCheckBox checkBox) {
+	  public ButtonEditor(JCheckBox checkBox, JTable table, List<Staff> labStaff, URLMSController urlmsCont) {
 	    super(checkBox);
 	    button = new JButton();
+	    myTable = table;
 	    //button.setOpaque(true);
 	    button.addActionListener(new ActionListener() {
 	      public void actionPerformed(ActionEvent e) {
 	        fireEditingStopped();
+	        
+	       
 	      }
 	    });
 	  }
@@ -60,7 +73,7 @@ public class ButtonEditor extends DefaultCellEditor {
 	  }
 
 	  public Object getCellEditorValue() {
-	    isPushed = false;
+        isPushed = false;
 	    return new String(label);
 	  }
 
