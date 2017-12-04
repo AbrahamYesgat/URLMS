@@ -1,20 +1,32 @@
-language: android
+language: java
 jdk: openjdk8
+install: ant deps
 branches:
   except:
     - android
 before_install:
-  cd ./AppURLMS
-android:
-  licenses:
-    - 'android-sdk-preview-license-52d11cd2'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
-  components:
-    - tools
-    - build-tools-26.0.2
-    - tools
-    - platform-tools
-    - android-25
-    - extra-google-m2repository
-    - extra-android-m2repository
+  cd ./DesktopURLMS
+java:
+  script:
+    ant test
+
+# language: android
+# jdk: openjdk8
+# branches:
+#  except:
+#    - android
+# before_install:
+#  cd ./AppURLMS
+# android:
+#  licenses:
+#    - 'android-sdk-preview-license-52d11cd2'
+#    - 'android-sdk-license-.+'
+#    - 'google-gdk-license-.+'
+# components:
+#    - tools
+#    - build-tools-26.0.2
+#    - tools
+#    - platform-tools
+#    - android-25
+#    - extra-google-m2repository
+#    - extra-android-m2repository
