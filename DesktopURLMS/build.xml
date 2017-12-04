@@ -11,12 +11,6 @@
         	<fileset dir="lib"/>
     	</path>
 <target name="test">
-    <!-- Deletes the existing build, docs and dist directory-->
-    <target name="clean">
-        <delete dir="${docs.dir}" />
-        <delete dir="${dist.dir}" />
-    </target>
-
 
     <!-- Compiles the java code (including the usage of library for JUnit -->
     <target name="compile" depends="clean, makedir">
