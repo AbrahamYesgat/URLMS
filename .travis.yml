@@ -3,10 +3,9 @@ jdk: oraclejdk8
 branches:
   except:
     - android
-java:
-  script:
-    cd ./DesktopURLMS
-    ant build
+script:
+  cd ./DesktopURLMS
+  ant build
 # language: android
 # jdk: openjdk8
 # branches:
