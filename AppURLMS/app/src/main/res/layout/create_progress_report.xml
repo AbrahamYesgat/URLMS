@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ca.mcgill.ecse321.appurlms.EditLab">
+    tools:context="ca.mcgill.ecse321.appurlms.CreateProgressReport">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,19 +14,20 @@
         tools:layout_editor_absoluteY="0dp">
 
         <EditText
-            android:id="@+id/lab_name"
+            android:id="@+id/report_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Lab Name"
+            android:hint="Progress Report Title"
             android:inputType="textPersonName" />
 
-        <CheckBox
-            android:id="@+id/active_checkbox"
+        <EditText
+            android:id="@+id/report_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="Active Lab" />
+            android:ems="10"
+            android:hint="Report"
+            android:inputType="textMultiLine" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="returnToPrevious"
+                android:onClick="back"
                 android:text="Back" />
 
             <Button
@@ -69,7 +70,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/modifyLabMessage"
+                android:id="@+id/createReportMessage"
                 android:layout_width="228dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

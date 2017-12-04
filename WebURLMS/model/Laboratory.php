@@ -404,9 +404,9 @@ class Laboratory
     return 0;
   }
 
-  public function addEquipmentVia($aName, $aType, $aQuantity)
+  public function addEquipmentVia($aName, $aQuantity)
   {
-    return new Equipment($aName, $aType, $aQuantity, $this);
+    return new Equipment($aName, $aQuantity, $this);
   }
 
   public function addEquipment($aEquipment)
@@ -588,9 +588,9 @@ class Laboratory
     return 0;
   }
 
-  public function addSupplyVia($aName, $aType, $aQuantity)
+  public function addSupplyVia($aName, $aQuantity)
   {
-    return new Supplies($aName, $aType, $aQuantity, $this);
+    return new Supplies($aName, $aQuantity, $this);
   }
 
   public function addSupply($aSupply)
@@ -745,9 +745,9 @@ class Laboratory
     return 0;
   }
 
-  public function addProgressUpdateVia($aTitle, $aReportingPeriod, $aStaff)
+  public function addProgressUpdateVia($aTitle, $aReport, $aStaff)
   {
-    return new ProgressUpdate($aTitle, $aReportingPeriod, $this, $aStaff);
+    return new ProgressUpdate($aTitle, $aReport, $this, $aStaff);
   }
 
   public function addProgressUpdate($aProgressUpdate)

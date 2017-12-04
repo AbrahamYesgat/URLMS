@@ -85,6 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="viewProgressReport"
                 android:text="View Weekly Progress Reports" />
         </TableRow>
 
@@ -94,11 +95,25 @@
 
             <Button
                 android:id="@+id/funding_accounts_button"
-                android:layout_width="37dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="manageAccount"
                 android:text="Manage Funding Accounts" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/delete_lab_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="deleteLab"
+                android:text="Delete Lab" />
 
         </TableRow>
 
@@ -123,6 +138,21 @@
                 android:text="Logout" />
 
         </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/lab_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+        </TableRow>
+
     </TableLayout>
 
 </android.support.constraint.ConstraintLayout>

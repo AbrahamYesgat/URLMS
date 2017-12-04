@@ -31,7 +31,7 @@ import ca.mcgill.ecse321.urlms.model.URLMS;
  * @author Group 1
  *
  */
-public class DirectorLabPage extends JFrame{
+public class StaffLabPage extends JFrame{
 
 	/**
 	 * Serial ID
@@ -54,11 +54,13 @@ public class DirectorLabPage extends JFrame{
 	 * @param urlms current URLMS system
 	 * @param lab current lab user is viewing
 	 */
-	public DirectorLabPage(URLMS urlms, Laboratory lab, URLMSController urlmsCont) {
+	public StaffLabPage(URLMS urlms, Laboratory lab, URLMSController urlmsCont) {
 		setResizable(false);
 		this.urlms = urlms;
 		this.currentLab = lab;
 		this.urlmsCont = urlmsCont;
+		urlmsCont.getStaffMember(urlmsCont.getActiveUser().getEmail()).setLastLogin(getDateTime());
+		
 		
 		try {
 	           for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -249,6 +251,14 @@ public class DirectorLabPage extends JFrame{
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
 	}
+	private String getDateTime() {
+		//HI ABE
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+	
+
 	
 
 }

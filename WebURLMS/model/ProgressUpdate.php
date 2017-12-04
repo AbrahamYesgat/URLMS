@@ -17,7 +17,7 @@ class ProgressUpdate
 
   //ProgressUpdate Attributes
   private $title;
-  private $reportingPeriod;
+  private $report;
 
   //Autounique Attributes
   private $id;
@@ -30,10 +30,10 @@ class ProgressUpdate
   // CONSTRUCTOR
   //------------------------
 
-  public function __construct($aTitle, $aReportingPeriod, $aLaboratory, $aStaff)
+  public function __construct($aTitle, $aReport, $aLaboratory, $aStaff)
   {
     $this->title = $aTitle;
-    $this->reportingPeriod = $aReportingPeriod;
+    $this->report = $aReport;
     $this->id = self::$nextId++;
     $didAddLaboratory = $this->setLaboratory($aLaboratory);
     if (!$didAddLaboratory)
@@ -59,10 +59,10 @@ class ProgressUpdate
     return $wasSet;
   }
 
-  public function setReportingPeriod($aReportingPeriod)
+  public function setReport($aReport)
   {
     $wasSet = false;
-    $this->reportingPeriod = $aReportingPeriod;
+    $this->report = $aReport;
     $wasSet = true;
     return $wasSet;
   }
@@ -72,9 +72,9 @@ class ProgressUpdate
     return $this->title;
   }
 
-  public function getReportingPeriod()
+  public function getReport()
   {
-    return $this->reportingPeriod;
+    return $this->report;
   }
 
   public function getId()

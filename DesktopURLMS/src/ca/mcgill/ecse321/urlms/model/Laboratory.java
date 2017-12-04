@@ -676,9 +676,9 @@ public class Laboratory
     return 0;
   }
 
-  public ProgressUpdate addProgressUpdate(String aTitle, String aReportingPeriod, Staff aStaff)
+  public ProgressUpdate addProgressUpdate(String aTitle, String aReport, Staff aStaff)
   {
-    return new ProgressUpdate(aTitle, aReportingPeriod, this, aStaff);
+    return new ProgressUpdate(aTitle, aReport, this, aStaff);
   }
 
   public boolean addProgressUpdate(ProgressUpdate aProgressUpdate)

@@ -49,9 +49,8 @@ public class AddStaff extends AppCompatActivity {
                 isValid = cont.addStaff(tv1.getText().toString(), tv2.getText().toString(),
                         tv3.getText().toString(), Staff.StaffRole.ResearchAssistant);
                 if(isValid) {
-                    Intent intent = new Intent(AddStaff.this, LabPage.class);
-                    startActivity(intent);
-                    finish();
+                    refreshStaffData();
+                    addStaffMessage.setText("Successfully added staff member");
                 }
                 else {
                     showPopup();
@@ -132,7 +131,7 @@ public class AddStaff extends AppCompatActivity {
             addStaffMessage.setText("Successfully added staff member");
         }
         else{
-            addStaffMessage.setText("Error: This email is associated to a director.");
+            addStaffMessage.setText("Could not find user with the specified email!");
        }
     }
 

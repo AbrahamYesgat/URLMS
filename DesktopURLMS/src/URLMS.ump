@@ -46,6 +46,7 @@ class Staff
   isA UserRole;
   enum StaffRole {ResearchAssociate, ResearchAssistant};
   StaffRole staffRole;
+  lazy lastLogin;
    * -<@> 1..* Laboratory;
 }
 
@@ -53,7 +54,7 @@ class ProgressUpdate
 {
   autounique id;
   title;
-  reportingPeriod;
+  report;
   * -- 1 Laboratory;
   * -- 1 Staff;
 }

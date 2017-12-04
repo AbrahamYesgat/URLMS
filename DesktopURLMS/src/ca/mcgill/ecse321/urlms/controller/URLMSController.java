@@ -1,6 +1,9 @@
 package ca.mcgill.ecse321.urlms.controller;
 
+
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.IllegalFormatException;
 import java.util.List;
@@ -69,6 +72,7 @@ public class URLMSController {
 				for (Staff member : lab.getStaffs()) {
 					if(member.getEmail().equals(email) && member.getPassword().equals(password)) {
 						activeUser = member;
+						
 						return true;	
 					}
 				}
@@ -81,18 +85,22 @@ public class URLMSController {
 
 	/**
 	 * Is used for a director to sign up to the system. Creates a director account
-	 * @param email Desired email account (@urlms.ca by convention)
+	 * @param email Desired email account (@ urlms.ca by convention)
 	 * @param password Desired password. No restrictions.
 	 * @param name First and/or last name can be inputed.
 	 * @return True if the database successfully saved the data. False for a saving error. 
 	 */
 	public boolean createDirector(String email, String password, String name) {
+		email=email.trim();
+		name=name.trim();
 		List<Director> dirs = urlms.getDirectors();
 		for (Director dir : dirs) {
 			if(dir.getEmail().equalsIgnoreCase(email)) {
 				return false;
 			}
 		} 
+		if(email.equals(" ")|| email.equals("")) return false;
+		
 		urlms.addDirector(email, password, name);
 		return PersistenceXStream.saveToXMLwithXStream(urlms);
 	}
@@ -117,6 +125,8 @@ public class URLMSController {
 	 * @return True if the database successfully saved the laboratory. False if it did not and if a staff user tried to add a laboratory. 
 	 */
 	public boolean addLaboratory(String name, String fieldOfStudy, Date startDate) {
+		name=name.trim();
+		if(name.equals(" ") || name.equals("") );
 		if(activeUser instanceof Director) {
 			if(urlms.hasLaboratories()) {
 				List<Laboratory> labs = urlms.getLaboratories();
@@ -145,19 +155,18 @@ public class URLMSController {
 							return false;
 					}
 				}
+				//Make sure that the funds being added are positive
+				if(intialFunds < 0 || accountNumber < 0) {
+					System.out.println("Funds entered are negative, must be positive");
+					return false;
+				}
+				//if account number is unique and funds are positive, you may create it
+				activeLab.addFundingAccount(intialFunds, accountNumber);
+				return PersistenceXStream.saveToXMLwithXStream(urlms);
 			}
 		}
 		
-		//Make sure that the funds being added are positive
-		if(intialFunds < 0) {
-			System.out.println("Funds entered are negative, must be positive");
-			return false;
-		}
-		//if account number is unique and funds are positive, you may create it
-		activeLab.addFundingAccount(intialFunds, accountNumber);
-		
-		return PersistenceXStream.saveToXMLwithXStream(urlms);
-	
+		return false; 
 	}
 	
 	public boolean modifyFunds(double newFunds, int accountNumber) {
@@ -165,12 +174,14 @@ public class URLMSController {
 		double result=0;
 		List<FundingAccount> FundingAccounts = activeLab.getFundingAccounts();
 		
-		for(FundingAccount FA : FundingAccounts) {
-			if(FA.getAccountNumber()==(accountNumber)) {
-				result=FA.getCurrentBalance() + newFunds;
-				FA.setCurrentBalance(result);
+		if(activeUser instanceof Director){
+			for(FundingAccount FA : FundingAccounts) {
+				if(FA.getAccountNumber()==(accountNumber)) {
+					result=FA.getCurrentBalance() + newFunds;
+					FA.setCurrentBalance(result);
+					return PersistenceXStream.saveToXMLwithXStream(urlms);
+				}
 			}
-			return PersistenceXStream.saveToXMLwithXStream(urlms);		
 		}
 		
 		return false; 
@@ -188,6 +199,28 @@ public class URLMSController {
 	}
 	
 	
+	public boolean createWeeklyProgressReport(String Title, String report, Date date) {
+		String reportPeriod = date.toString();
+		Title += " " + reportPeriod; 
+		if (activeUser instanceof Staff) {
+			activeLab.addProgressUpdate(Title, report, (Staff)activeUser);
+			return PersistenceXStream.saveToXMLwithXStream(urlms);
+		}
+		System.out.println("User is not a Staff Member!");
+		return false;
+	}
+	
+	public String viewWeeklyProgressReport(int idNumber) {
+		String message;
+		double result=0;
+		List<ProgressUpdate> ProUps = activeLab.getProgressUpdates();
+		for(ProgressUpdate PU : ProUps) {
+			if(PU.getId()==(idNumber)) {
+				return PU.getReport();
+			}
+		}
+		return "Requested Weekly Progress Report cannot be found!";
+	}
 	
 	
 	
@@ -218,6 +251,30 @@ public class URLMSController {
 	
 	}
 	
+	public boolean updateLab(String name, Date startDate, boolean isActive) {
+		if(activeLab.getName().equalsIgnoreCase(name)) {
+			activeLab.setActive(isActive);
+			activeLab.setStartDate(startDate);
+			return PersistenceXStream.saveToXMLwithXStream(urlms);
+		}
+		
+		if(activeUser instanceof Director) {
+			if(urlms.hasLaboratories()) {
+				List<Laboratory> labs = urlms.getLaboratories();
+				for (Laboratory lab : labs) {
+					if(lab.getName().equals(name)){
+						return false;
+					}
+				}
+			}
+			activeLab.setName(name);
+			activeLab.setActive(isActive);
+			activeLab.setStartDate(startDate);
+			return PersistenceXStream.saveToXMLwithXStream(urlms);
+		}
+		return false;
+	}
+	
 	/**
 	 * Director adds a staff member to a selected laboratory. The parameters can be modified by the user within their profile. 
 	 * @param name First and/or last name of the new member 
@@ -227,7 +284,8 @@ public class URLMSController {
 	 * @return True if the database successfully saved the laboratory. False if it did not and if a staff user tried to add a laboratory.
 	 */
 	public boolean addStaff(String email, String password, String name, Staff.StaffRole role) {
-		
+		email=email.trim();
+		if (email.equals(" ") || email.equals("")) return false;
 		if(activeUser instanceof Director) {
 			// First we verify that the email address does not exist for a current staff member in the system
 			List<Laboratory> labs = urlms.getLaboratories();
@@ -299,7 +357,9 @@ public class URLMSController {
 		if(quantity < 0) {
 			return false;
 		}
-		
+		equipment=equipment.trim();
+		if (equipment.equals(" ") || equipment.equals("")) return false;
+
 		URLMS urlms = URLMS.getInstance();
 		List<Equipment> equipments = activeLab.getEquipment();
 		if(activeLab.hasEquipment()) {
@@ -358,6 +418,9 @@ public class URLMSController {
 		if(quantity < 0) {
 			return false;
 		}
+		supplies=supplies.trim();
+		if (supplies.equals(" ") || supplies.equals("")) return false;
+
 		
 		URLMS urlms = URLMS.getInstance();
 		List<Supplies> supply = activeLab.getSupplies();
@@ -369,7 +432,6 @@ public class URLMSController {
 			}
 		}
 		
-		supplies = supplies.trim();
 		activeLab.addSupply(supplies, quantity);
 		return PersistenceXStream.saveToXMLwithXStream(urlms);	
 	}
@@ -404,7 +466,21 @@ public class URLMSController {
 		
 		return false; 	
 	}
+	public boolean deleteLab(Director Dir, Laboratory Lab) {
+		if (activeUser instanceof Director) {
+		List<Laboratory>DLabs=Dir.getLaboratories();
+		for( Laboratory lab : DLabs) {
+			if(lab.getName().equalsIgnoreCase(Lab.getName())){
+				lab.delete();
+				return true;
+			}
+				
+		}
 	
+		}
+		return false;
+		
+	}
 
 	/**
 	 * Allows to keep track of the laboratory currently selected by the user. 

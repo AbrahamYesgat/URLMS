@@ -54,7 +54,8 @@ public class TestLogout {
 	@Test
 	public void test() {
 		URLMSController sysC = new URLMSController(urlms);
-		// Tests if the director logout works
+
+		//Case 1: Director logout
 		sysC.login(testEmail, testPassword);
 	  	assertEquals(true, sysC.logout());
 	  	assertEquals(null, sysC.getActiveUser());
@@ -64,7 +65,8 @@ public class TestLogout {
 	  	sysC.setActiveUser(member);
 	  	sysC.setActiveLaboratory(lab);
 	  	sysC.login(testStaffEmail, testStaffPassword);
-	  	//Tests if the staff logout works
+
+	  	//Case 2: Staff logout.
 	  	assertEquals(member, sysC.getActiveUser());
 	  	assertEquals(lab, sysC.getActiveLaboratory());
 	  	assertEquals(true, sysC.logout());
