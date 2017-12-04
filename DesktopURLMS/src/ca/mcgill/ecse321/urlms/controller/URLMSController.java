@@ -193,21 +193,16 @@ public class URLMSController {
 	}
 	
 	
-public boolean createWeeklyProgressReport(String Title, String report, Date date) {
+	public boolean createWeeklyProgressReport(String Title, String report, Date date) {
 		String reportPeriod = date.toString();
 		Title += " " + reportPeriod; 
 		if (activeUser instanceof Staff) {
-		ProgressUpdate WPR= new ProgressUpdate(Title, report, activeLab, (Staff)activeUser);
-		activeLab.addProgressUpdate(WPR);
-		return true;
+			activeLab.addProgressUpdate(Title, report, (Staff)activeUser);
+			return PersistenceXStream.saveToXMLwithXStream(urlms);
 		}
-		else {
-			System.out.println("User is not a Staff Member!");
-			return false;
-		}
-
-		
-}
+		System.out.println("User is not a Staff Member!");
+		return false;
+	}
 	
 	public String viewWeeklyProgressReport(int idNumber) {
 		String message;
@@ -215,13 +210,10 @@ public boolean createWeeklyProgressReport(String Title, String report, Date date
 		List<ProgressUpdate> ProUps = activeLab.getProgressUpdates();
 		for(ProgressUpdate PU : ProUps) {
 			if(PU.getId()==(idNumber)) {
-				return PU.getReportingPeriod();
+				return PU.getReport();
 			}
-
 		}
 		return "Requested Weekly Progress Report cannot be found!";
-		
-
 	}
 	
 	
