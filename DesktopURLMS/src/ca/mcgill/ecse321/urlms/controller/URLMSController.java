@@ -155,19 +155,18 @@ public class URLMSController {
 							return false;
 					}
 				}
+				//Make sure that the funds being added are positive
+				if(intialFunds < 0 || accountNumber < 0) {
+					System.out.println("Funds entered are negative, must be positive");
+					return false;
+				}
+				//if account number is unique and funds are positive, you may create it
+				activeLab.addFundingAccount(intialFunds, accountNumber);
+				return PersistenceXStream.saveToXMLwithXStream(urlms);
 			}
 		}
 		
-		//Make sure that the funds being added are positive
-		if(intialFunds < 0 || accountNumber < 0) {
-			System.out.println("Funds entered are negative, must be positive");
-			return false;
-		}
-		//if account number is unique and funds are positive, you may create it
-		activeLab.addFundingAccount(intialFunds, accountNumber);
-		
-		return PersistenceXStream.saveToXMLwithXStream(urlms);
-	
+		return false; 
 	}
 	
 	public boolean modifyFunds(double newFunds, int accountNumber) {
@@ -175,12 +174,14 @@ public class URLMSController {
 		double result=0;
 		List<FundingAccount> FundingAccounts = activeLab.getFundingAccounts();
 		
-		for(FundingAccount FA : FundingAccounts) {
-			if(FA.getAccountNumber()==(accountNumber)) {
-				result=FA.getCurrentBalance() + newFunds;
-				FA.setCurrentBalance(result);
+		if(activeUser instanceof Director){
+			for(FundingAccount FA : FundingAccounts) {
+				if(FA.getAccountNumber()==(accountNumber)) {
+					result=FA.getCurrentBalance() + newFunds;
+					FA.setCurrentBalance(result);
+					return PersistenceXStream.saveToXMLwithXStream(urlms);
+				}
 			}
-			return PersistenceXStream.saveToXMLwithXStream(urlms);		
 		}
 		
 		return false; 
