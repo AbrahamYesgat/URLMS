@@ -372,7 +372,6 @@ public class URLMSController {
 		equipment=equipment.trim();
 		if (equipment.equals(" ") || equipment.equals("")) return false;
 
-		URLMS urlms = URLMS.getInstance();
 		List<Equipment> equipments = activeLab.getEquipment();
 		if(activeLab.hasEquipment()) {
 			for(Equipment equip : equipments) {
