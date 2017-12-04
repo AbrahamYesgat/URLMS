@@ -79,7 +79,7 @@ public class ManageSupplyPage extends JFrame{
 	/**
 	 *  List containing all supplies of active lab
 	 */
-	List<Supplies> labSupply;
+	private List<Supplies> labSupply;
 	/**
 	 * Constructor of ManageStaffPage frame
 	 * @param urlms current URLMS system
@@ -131,7 +131,7 @@ public class ManageSupplyPage extends JFrame{
 	 */
 	private void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Manage Staff Page");
+		setTitle("Manage Supply Page");
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -158,10 +158,6 @@ public class ManageSupplyPage extends JFrame{
 		newSupplyName.setColumns(10);
 		PromptSupport.setPrompt("Supply Name", newSupplyName);
 		JButton createSupplyBtn = new JButton("Create");
-		createSupplyBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		createSupplyBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		createSupplyBtn.setBackground(Color.BLUE);
 		JButton btnBack = new JButton("Back");
@@ -175,10 +171,6 @@ public class ManageSupplyPage extends JFrame{
 		oldSupplyName.setColumns(10);
 		PromptSupport.setPrompt("Supply Name", oldSupplyName);
 		JButton btnUpdateSupply = new JButton("Update");
-		btnUpdateSupply.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnUpdateSupply.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		btnUpdateSupply.setBackground(Color.GREEN);
 		
@@ -337,9 +329,16 @@ public class ManageSupplyPage extends JFrame{
 		if(newSupplyName.getText().isEmpty() || txtQuantityCreate.getText().isEmpty()){
 			JOptionPane.showMessageDialog(this, "Supply Name and Quantity fields cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
 		}
-		else if(urlmsCont.createSupplies(newSupplyName.getText(), Integer.parseInt(txtQuantityCreate.getText())))
-			JOptionPane.showMessageDialog(this, "Supply Name and Quantity have been updated");
-		else
-			JOptionPane.showMessageDialog(this, "Supply Name already exists");
+		else if(Integer.parseInt(txtQuantityCreate.getText()) <= 0){
+			JOptionPane.showMessageDialog(this, "Please enter a valid quantity!", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else if(urlmsCont.createSupplies(newSupplyName.getText(), Integer.parseInt(txtQuantityCreate.getText()))){
+			JOptionPane.showMessageDialog(this, txtQuantityCreate.getText() + " " + newSupplyName.getText() + " have been successfully added to the lab!");
+			Object[] o = {newSupplyName.getText(), txtQuantityCreate.getText()};
+			((DefaultTableModel) supplyTable.getModel()).addRow(o);
+			supplyQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfSupplies()));
+		}
+			else
+			JOptionPane.showMessageDialog(this, newSupplyName.getText() + " already exists!", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 }
