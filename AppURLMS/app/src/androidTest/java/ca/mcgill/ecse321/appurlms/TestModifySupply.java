@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.appurlms;
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.After;
@@ -14,6 +15,7 @@ import ca.mcgill.ecse321.urlms.model.Director;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.Staff;
 import ca.mcgill.ecse321.urlms.model.URLMS;
+import ca.mcgill.ecse321.urlms.persistence.PersistenceXStream;
 
 import static org.junit.Assert.assertEquals;
 
@@ -34,6 +36,10 @@ public class TestModifySupply {
     @Before
     public void setUp() {
         urlms = URLMS.getInstance();
+
+        // Create data file
+        PersistenceXStream.initializeURLMS(InstrumentationRegistry.getTargetContext().getApplicationContext().getFilesDir().getAbsolutePath()+"/data.xml");
+        PersistenceXStream.saveToXMLwithXStream(urlms);
     }
 
     @After
@@ -43,6 +49,45 @@ public class TestModifySupply {
 
     @Test
     public void test() {
+        URLMSController sysC = new URLMSController(urlms);
+        sysC.createDirector(testEmail,testPassword,testName);
+        sysC.login(testEmail, testPassword);
+        sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
+        sysC.addStaff(testStaffEmail, testStaffPassword, testStaffName, role);
+        sysC.createSupplies("supply", 10);
 
+        //Case 1: Director add supply of the same type
+        assertEquals(true, sysC.modifySupplies("supply", 10));
+
+        //Case 2: Director remove supply of the same type
+        assertEquals(true, sysC.modifySupplies("supply", -5));
+
+        //Case 3: Director add/remove supply of a non existent type.
+        assertEquals(false, sysC.modifySupplies("wrong", 10));
+        assertEquals(false, sysC.modifySupplies("wrong", -10));
+
+        //Case 4: Director removes more than total amount of supply
+        assertEquals(true, sysC.modifySupplies("supply", -50));
+        assertEquals(0, sysC.getActiveLaboratory().getSupply(0).getQuantity());
+
+        sysC.logout();
+        sysC.login(testStaffEmail, testStaffPassword);
+        Laboratory test = urlms.getLaboratory(0);
+        sysC.setActiveLaboratory(test);
+
+        //Case 5: Repeat all cases with staff member.
+        //Case 5.1: Staff add supply of the same type
+        assertEquals(true, sysC.modifySupplies("supply", 10));
+
+        //Case 5.2: Staff remove supply of the same type
+        assertEquals(true, sysC.modifySupplies("supply", -5));
+
+        //Case 5.3: Staff add/remove supply of a non existent type.
+        assertEquals(false, sysC.modifySupplies("wrong", 10));
+        assertEquals(false, sysC.modifySupplies("wrong", -10));
+
+        //Case 5.4: Staff removes more than total amount of supply
+        assertEquals(true, sysC.modifySupplies("supply", -50));
+        assertEquals(0, sysC.getActiveLaboratory().getSupply(0).getQuantity());
     }
 }
