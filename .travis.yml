@@ -1,6 +1,5 @@
 language: java
 jdk: openjdk8
-install: ant deps
 branches:
   except:
     - android
