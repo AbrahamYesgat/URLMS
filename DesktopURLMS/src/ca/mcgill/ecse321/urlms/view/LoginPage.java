@@ -115,66 +115,6 @@ public class LoginPage extends JFrame{
 	 * The layout of the UI. 
 	 */
 	private void initComponents() {
-	    // Elements for login page
-	    /*emailLoginTextField = new JTextField();
-	    emailLoginLabel = new JLabel();
-	    passwordLoginTextField = new JPasswordField();
-	    passwordLoginLabel = new JLabel();
-	    loginButton = new JButton();
-	    registerButton = new JButton();
-
-	    // Global settings and listeners
-	    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	    setTitle("Log in URLMS");
-
-	    emailLoginLabel.setText("Email:");
-	    passwordLoginLabel.setText("Password:");
-	    loginButton.setText("Sign in");
-	    registerButton.setText("Register");
-
-	    // Layout
-	    GroupLayout layout = new GroupLayout(getContentPane());
-	    getContentPane().setLayout(layout);
-	    layout.setAutoCreateGaps(true);
-	    layout.setAutoCreateContainerGaps(true);
-	    
-	    layout.setVerticalGroup(
-		        layout.createSequentialGroup()
-		        .addGroup(layout.createParallelGroup()
-		    	        .addComponent(emailLoginLabel)
-		    	        .addComponent(emailLoginTextField, 30, 30, 100))
-		    	.addGroup(layout.createParallelGroup()
-		    	    	.addComponent(passwordLoginLabel)
-		    	    	.addGroup(layout.createSequentialGroup()
-		    	    			.addComponent(passwordLoginTextField, 30,30, 100)
-		    	    			.addGroup(layout.createParallelGroup()
-		    	    					.addComponent(registerButton)
-		    	    					.addComponent(loginButton)
-		    	    					)))
-		        );
-		    
-	    layout.setHorizontalGroup(
-	    	layout.createParallelGroup()
-	    	.addGroup(layout.createSequentialGroup()
-	    			.addComponent(emailLoginLabel)
-	    			.addComponent(emailLoginTextField, 200, 200, 400))
-	    	.addGroup(layout.createSequentialGroup()
-	    			.addComponent(passwordLoginLabel)
-	    			.addGroup(layout.createParallelGroup()
-	    					.addComponent(passwordLoginTextField, 200, 200, 400)
-	    					.addGroup(layout.createSequentialGroup()
-	    							.addComponent(registerButton)
-	    							.addComponent(loginButton)
-	    							)))
-	        );
-	    
-	    layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {emailLoginLabel, passwordLoginLabel});
-	    layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {emailLoginTextField, passwordLoginTextField});
-	    layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {loginButton, registerButton});
-
-	    pack();
-	    // makes window appear in center of screen
-	 	this.setLocationRelativeTo(null); */
 		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Login Page");
