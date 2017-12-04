@@ -1,8 +1,11 @@
 package ca.mcgill.ecse321.urlms.controller;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.sql.Date;
 import java.util.Iterator;
+import java.util.Random;
 
 import org.junit.After;
 import org.junit.Before;
@@ -46,31 +49,83 @@ public class TestManageEquipment {
 	public void tearDown() throws Exception {
 		urlms.delete();
 	}
+//Case 1: equipement attempted to be created 
+	public void testCreateEquipment(){
+		URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+		UCon.login(testEmail, testPassword);
+		UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
+		Laboratory activeLab = UCon.getActiveLaboratory(); 
+		
+		/* Test Begins here*/
+		assertEquals(false, activeLab.hasSupplies());//ensures there are no supplies to begin with
+		String Equipment = "TestEquipment";
+		UCon.createEquipment(Equipment,1);
+		assertEquals(1,activeLab.getEquipment().size());
+		assertEquals(Equipment ,activeLab.getSupply(0).getName());
+		assertEquals(activeLab.hasEquipment(),true);
+		UCon.logout();
+	}
+	
+	
+	//Case 2: Subtract equipments, make sure we never get negative equipments 
+	@Test
+	public void testNegativeModifyEquipment() {
+		String error="";
+		URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+		UCon.login(testEmail, testPassword);
+		UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
+		Laboratory activeLab = UCon.getActiveLaboratory(); 
+		
+		/* Test Begins here*/
+		assertEquals(false, activeLab.hasEquipment());//ensures there are no supplies to begin with
+		String Equipment = "TestEquip";
+		UCon.createEquipment(Equipment,1);
+		UCon.modifyEquipment(Equipment, -2);
+		assertEquals(0,activeLab.getEquipment(0).getQuantity());		
+	}
 
-//	@Test
-//	public void test() throws InvalidInputException {
-//		URLMSController sysC = new URLMSController(urlms);
-//		Laboratory activeLab=sysC.getActiveLaboratory();
-//		
-//		sysC.login(testEmail, testPassword);
-//		sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
-//	
-//		
-//		sysC.createEquipment("Computer", 3);
-//	//	sysC.createEquipment("ComPUTER", 6);
-//		//sysC.modifyEquipment("Cangaroo", 3);
-//		sysC.modifyEquipment("ComPuter", -1);
-//		sysC.modifyEquipment("ComPuter", -1);
-//
-////		sysC.addEquipments("Computer", 4);
-//	//	sysC.modifyEquipment("Computer", -1);
-////		sysC.createEquipmentType("computer");
-//
-//
-//		sysC.logout();
-//
-//
-//	}
-
+//Case 3: adding amounts of equipments
+	@Test 
+	public void testAddSupplies(){
+		String error="";
+		URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+		UCon.login(testEmail, testPassword);
+		UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
+		Laboratory activeLab = UCon.getActiveLaboratory(); 
+		
+		 /* Test Begins Here*/
+		assertEquals(false, activeLab.hasEquipment());//ensures there are no supplies to begin with
+		String Equip = "TestEquip";
+		Random rand= new Random();
+		int randA=rand.nextInt(50);
+		int randB=rand.nextInt(50);
+		UCon.createEquipment(Equip,randA);
+		UCon.modifyEquipment(Equip, randB);
+		assertEquals(randA+randB, activeLab.getEquipment(0).getQuantity());
+		
+	}
+	
+	// Case 4: This test makes sure that we can remove supply amounts from one lab for any random number
+	 
+	@Test
+	public void testRemoveEquipments(){
+		String error="";
+		URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+		UCon.login(testEmail, testPassword);
+		UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
+		Laboratory activeLab = UCon.getActiveLaboratory(); 
+		
+		 /* Test Begins Here*/
+		assertEquals(false, activeLab.hasSupplies());//ensures there are no supplies to begin with
+		String Equip = "TestEquip";
+		Random rand= new Random();
+		int randA=rand.nextInt(50);
+		int randB=rand.nextInt(randA-1);
+		UCon.createEquipment(Equip,randA);
+		UCon.modifyEquipment(Equip, -randB);
+		assertEquals(randA-randB, activeLab.getSupply(0).getQuantity());
+		
+	}
+	
 	  
 }

@@ -50,13 +50,13 @@ public class TestRemoveStaff {
 	@Test
 	public void test() {
 		URLMSController sysC = new URLMSController(urlms);
-		//Tests successful addStaff
+		//Tests successful removeStaff
 		sysC.login(testEmail, testPassword);
 		sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
 		assertEquals(true, sysC.removeStaff(testStaffEmail));
 		sysC.logout();
 
-		//Tests unsuccessful addStaff (if staff tries to add staff)
+		//Tests unsuccessful removeStaff (if staff tries to add staff)
 		sysC.login(testStaffEmail, testStaffPassword);
 		assertEquals(false, sysC.addStaff("value", "value", "value", role));
 	}

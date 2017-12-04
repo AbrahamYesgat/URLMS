@@ -39,20 +39,35 @@ public class TestCreateDirector {
 	}
 
 	@Test
-	public void test() {
+	//Case 1: The User inputs a email or Name that is simply a space i.e. an empty string 
+	public void testCreateDirectorNULL() {
 		URLMSController sysC = new URLMSController(urlms);
-		assertEquals(true, sysC.createDirector(testEmail, testPassword, testName));
-		assertEquals(true, sysC.login(testEmail, testPassword));
-		assertEquals(false, sysC.createDirector(testEmail, testPassword, testName));
-		assertEquals(false, sysC.createDirector(testEmail, "test", "test"));
-		assertEquals(true, sysC.createDirector("email", testPassword, testName));
+		assertEquals(false, sysC.createDirector("", testPassword, testName));
+		assertEquals(false, urlms.hasDirectors());
 		urlms.delete();
-	    // Load model
-	    urlms = (URLMS) PersistenceXStream.loadFromXMLwithXStream();
-	    if (urlms == null)
-	        fail("Could not load file.");
-	    sysC.setURLMS(urlms);
-	    assertEquals(true, sysC.login(testEmail, testPassword));
 	}
-
+	
+	@Test
+	//Case 2: The user attempts to create a director that is already in the system 
+	public void testAddExistingDirector() {
+		URLMSController sysC = new URLMSController(urlms);
+		assertEquals(false, urlms.hasDirectors());
+		assertEquals(true, sysC.createDirector(testEmail, testPassword, testName));
+		assertEquals(false, sysC.createDirector(testEmail, testPassword, testName));
+		assertEquals(true, urlms.hasDirectors());
+		urlms.delete();
+	}
+	
+	@Test
+	//Case 3: The user successfully creates a director 
+	public void testCrreateDir() {
+		URLMSController sysC = new URLMSController(urlms);
+		assertEquals(false, urlms.hasDirectors());
+		assertEquals(true, sysC.createDirector(testEmail, testPassword, testName));
+		assertEquals(false, sysC.createDirector(testEmail, testPassword, testName));
+		assertEquals(true, urlms.hasDirectors());
+		urlms.delete();
+	}
+	
+	
 }
