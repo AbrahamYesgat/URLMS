@@ -187,17 +187,6 @@ public class URLMSController {
 		return false; 
 	}
 	
-	//Need to figure out how expenses will work
-	public boolean addExpenses(String data, String note, double expenses) {
-		
-		if(expenses < 0)
-			expenses = expenses * (-1.0);
-		
-		
-		
-		return false;
-	}
-	
 	
 	public boolean createWeeklyProgressReport(String Title, String report, Date date) {
 		String reportPeriod = date.toString();
