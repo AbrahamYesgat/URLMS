@@ -342,6 +342,12 @@ public class ManageStaffPage extends JFrame{
 			  ((DefaultTableModel) staffTable.getModel()).addRow(o);
 			  staffQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfStaffs()));
 		}
+		else if(urlmsCont.addExistingStaff(newStaffEmail.getText())){
+			JOptionPane.showMessageDialog(this, newStaffName.getText() + " is an existing user and was successfully added to the lab!");
+			Object[] o = {newStaffName.getText(), newStaffEmail.getText(), newStaffRole.getSelectedItem(),"Remove"};
+			((DefaultTableModel) staffTable.getModel()).addRow(o);
+			staffQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfStaffs()));
+		}
 		else{
 			JOptionPane.showMessageDialog(this, newStaffName.getText() + " is already part of the lab!", "Error", JOptionPane.ERROR_MESSAGE);
 		}

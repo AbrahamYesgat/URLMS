@@ -311,16 +311,27 @@ public class URLMSController {
 	}
 
 	public boolean addExistingStaff(String email) {
+		boolean validAdd = false;
+		Staff validStaff = null;
         if(activeUser instanceof Director) {
             List<Laboratory> labs = urlms.getLaboratories();
             for (Laboratory lab : labs) {
                 for (Staff member : lab.getStaffs()) {
-                    if(member.getEmail().equalsIgnoreCase(email)) {
-                        activeLab.addStaff(member);
-                        return PersistenceXStream.saveToXMLwithXStream(urlms);
+                    if(member.getEmail().equalsIgnoreCase(email)) { 
+                    	if(lab.getName().equalsIgnoreCase(activeLab.getName())){ // below ensures existing user does not exist in active lab
+                    		return false;
+                    	}
+                    	else{
+                    		validAdd = true;
+                    		validStaff = member;
+                    	}
                     }
                 }
             }
+        }
+        if(validAdd && validStaff != null){
+        	activeLab.addStaff(validStaff);
+            return PersistenceXStream.saveToXMLwithXStream(urlms);
         }
         return false;
 	}
