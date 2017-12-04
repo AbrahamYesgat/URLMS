@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.urlms.view;
 
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +34,7 @@ public class LoginPage extends JFrame{
 	private JButton registerButton;
 	private URLMS urlms;
 	private List<Director> dirs;
+	private URLMSController urlmsCont;
 	
 	/**
 	 * "constructor" for the UI.
@@ -40,6 +42,7 @@ public class LoginPage extends JFrame{
 	 */
 	public LoginPage(URLMS urlms) {
 		this.urlms = urlms;
+		urlmsCont = new URLMSController(urlms);
 		setResizable(false);
 		 try {
 	           for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -76,9 +79,7 @@ public class LoginPage extends JFrame{
 	 *  Updates the UI accordingly to the result of the login method. 
 	 */
 	private void loginButtonActionPerformed() {
-		// Create and call the controller
-		URLMSController urlmsController = new URLMSController(urlms);
-		boolean isValidUser = urlmsController.login(emailLoginTextField.getText(), passwordLoginTextField.getText());
+		boolean isValidUser = urlmsCont.login(emailLoginTextField.getText(), passwordLoginTextField.getText());
 		if(!isValidUser){
 			// Unsuccessful login
 			JOptionPane.showMessageDialog(this, "Invalid email address or password!", "Incorrect credentials", JOptionPane.WARNING_MESSAGE);
@@ -86,7 +87,7 @@ public class LoginPage extends JFrame{
 		}
 		else {
 			// Successful login
-			LabSelectionPage labSelection = new LabSelectionPage(urlms, emailLoginTextField.getText(), urlmsController);
+			LabSelectionPage labSelection = new LabSelectionPage(urlms, emailLoginTextField.getText(), urlmsCont);
 			labSelection.setVisible(true);
 			this.dispose();
 		}
@@ -163,6 +164,14 @@ public class LoginPage extends JFrame{
 	        	java.util.Calendar sqlDate = java.util.Calendar.getInstance();
 	        	java.util.Date utilDate = sqlDate.getTime();
 	        	loginButtonActionPerformed();
+	        }
+	    });
+	    
+	    registerButton.addActionListener(new ActionListener(){
+	    	public void actionPerformed(java.awt.event.ActionEvent evt) {
+	        	RegisterPage registerPage = new RegisterPage(urlms, urlmsCont);
+	        	registerPage.setVisible(true);
+	        	dispose();
 	        }
 	    });
 	}
