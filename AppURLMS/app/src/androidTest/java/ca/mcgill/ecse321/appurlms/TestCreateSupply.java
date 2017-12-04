@@ -77,7 +77,7 @@ public class TestCreateSupply {
         Laboratory test = urlms.getLaboratory(0);
         sysC.setActiveLaboratory(test);
 
-        //Case 6: Staff creates an supply
+        //Case 6: Staff creates a supply
         assertEquals(true, sysC.createSupplies("supply4", 10));
     }
 }
