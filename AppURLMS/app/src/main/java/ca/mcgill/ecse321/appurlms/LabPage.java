@@ -97,4 +97,7 @@ public class LabPage extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void deleteLab(View view) {
+    }
 }
