@@ -10,6 +10,7 @@
 	<path id="classpath">
         	<fileset dir="lib"/>
     	</path>
+<target name="test">
     <!-- Deletes the existing build, docs and dist directory-->
     <target name="clean">
         <delete dir="${docs.dir}" />
@@ -35,4 +36,5 @@
     <target name="main" depends="compile, jar, docs">
         <description>Main target</description>
     </target>
+	</target>
 </project>
