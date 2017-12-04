@@ -160,50 +160,22 @@ public class URLMSController {
 	
 	}
 	
-	
-	
-	
-	public boolean removeFunds(double removeFunds, int accountNumber) {
-		
-		//In case the value passed in is negative, switch it to postivie
-		if(removeFunds < 0)
-			removeFunds = removeFunds*-1;
-				
-		// First check that the user is a director of the current Lab
-		if(activeUser instanceof Director) {
-			// Get the account from the lab
-			FundingAccount currAcct = activeLab.getFundingAccount(accountNumber);
-			// Update the funds of the account 
-			currAcct.setCurrentBalance(currAcct.getCurrentBalance() - removeFunds);
-			return PersistenceXStream.saveToXMLwithXStream(urlms);
-		}
-		
-		return false;
 
-	}
-	
-	
-	
-	
-	public boolean addFunds(double newFunds, int accountNumber) {
+	public boolean modifyFunds(double newFunds, int accountNumber) {
+		String message;
+		double result=0;
+		List<FundingAccount> FundingAccounts = activeLab.getFundingAccounts();
 		
-		//Incase the parameter newFunds was negative, return and do not complete
-		if(newFunds<0) {
-			System.out.println("You cannot add a negative amount of funds");
-			return false;
+		for(FundingAccount FA : FundingAccounts) {
+			if(FA.getAccountNumber()==(accountNumber)) {
+				result=FA.getCurrentBalance() + newFunds;
+				FA.setCurrentBalance(result);
+			}
+			return PersistenceXStream.saveToXMLwithXStream(urlms);		
 		}
-	
+		if (result==0) System.out.println("No account with this number!");
 		
-		// First check that the user is a director of the current Lab
-		if(activeUser instanceof Director) {
-			// Get the account from the lab
-			FundingAccount currAcct = activeLab.getFundingAccount(accountNumber);
-			// Update the funds of the account 
-			currAcct.setCurrentBalance(currAcct.getCurrentBalance() + newFunds);
-			return PersistenceXStream.saveToXMLwithXStream(urlms);
-		}
-		
-		return false;
+		return false; 
 	}
 	
 	//Need to figure out how expenses will work
@@ -216,8 +188,47 @@ public class URLMSController {
 		
 		return false;
 	}
+
 	
+public boolean createWeeklyProgressReport(String Title, String report, Date date) {
+		String reportPeriod = date.toString();
+		Title += " " + reportPeriod; 
+		if (activeUser instanceof Staff) {
+		ProgressUpdate WPR= new ProgressUpdate(Title, report, activeLab, (Staff)activeUser);
+		activeLab.addProgressUpdate(WPR);
+		return true;
+		}
+		else {
+			System.out.println("Fdgdfgfd");
+			return false;
+		}
+//		if (activeUser instanceof Staff) {
+//			activeLab.addProgressUpdate(Title, report, (Staff)activeUser);
+//			return PersistenceXStream.saveToXMLwithXStream(urlms);		
+//		}
+//		if (activeUser instanceof Director) {
+//			System.out.println("EFEFE");
+//			return false;		
+//		}
+//		return true;
+//
+//		
+}
 	
+	public String viewWeeklyProgressReport(int idNumber) {
+		String message;
+		double result=0;
+		List<ProgressUpdate> ProUps = activeLab.getProgressUpdates();
+		for(ProgressUpdate PU : ProUps) {
+			if(PU.getId()==(idNumber)) {
+				return PU.getReportingPeriod();
+			}
+
+		}
+		return "Requested Weekly Progress Report cannot be found!";
+		
+
+	}
 	
 	
 	
@@ -432,9 +443,6 @@ public class URLMSController {
 					throw new InvalidInputException(message);
 				}
 			}
-			/* This ensures that you dont simply add number of supplies to a non existing supply */
-			if(!sup.getName().equalsIgnoreCase(supplies)) throw new InvalidInputException("No Supply with the name: " + supplies);
-
 		}
 		
 		return false; 

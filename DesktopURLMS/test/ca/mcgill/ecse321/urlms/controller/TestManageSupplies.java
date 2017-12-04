@@ -62,22 +62,22 @@ public class TestManageSupplies {
 			urlms.delete();
 		}
 
-//		@Test
-//		public void testCreateSupply() throws InvalidInputException {
-//			URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
-//			UCon.login(testEmail, testPassword);
-//			UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
-//			Laboratory activeLab = UCon.getActiveLaboratory(); 
-//			
-//			/* Test Begins here*/
-//			assertEquals(false, activeLab.hasSupplies());//ensures there are no supplies to begin with
-//			String Supply = "TestSupply";
-//			UCon.createSupplies(Supply,1);
-//			assertEquals(1,activeLab.getSupplies().size());
-//			assertEquals(Supply ,activeLab.getSupply(0).getName());
-//			UCon.logout();
-//
-//		}
+		@Test
+		public void testCreateSupply() throws InvalidInputException {
+			URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+			UCon.login(testEmail, testPassword);
+			UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
+			Laboratory activeLab = UCon.getActiveLaboratory(); 
+			
+			/* Test Begins here*/
+			assertEquals(false, activeLab.hasSupplies());//ensures there are no supplies to begin with
+			String Supply = "TestSupply";
+			UCon.createSupplies(Supply,1);
+			assertEquals(1,activeLab.getSupplies().size());
+			assertEquals(Supply ,activeLab.getSupply(0).getName());
+			UCon.logout();
+
+		}
 		
 		@Test
 		public void testNegativeSupplyAmount() throws InvalidInputException {
@@ -101,45 +101,64 @@ public class TestManageSupplies {
 			assertEquals(0,activeLab.getSupply(0).getQuantity());		
 			
 		}
-//
-//		@Test
-//		public void testAddSupplies() throws InvalidInputException{
-//			String error="";
-//			URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
-//			UCon.login(testEmail, testPassword);
-//			UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
-//			Laboratory activeLab = UCon.getActiveLaboratory(); 
+
+		@Test
+		public void testAddSupplies() throws InvalidInputException{
+			String error="";
+			URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+			UCon.login(testEmail, testPassword);
+			UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
+			Laboratory activeLab = UCon.getActiveLaboratory(); 
 		
-//			 /* Test Begins Here*/
-//			assertEquals(false, activeLab.hasSupplies());//ensures there are no supplies to begin with
-//			String Supply = "TestSupply";
-//			Random rand= new Random();
-//			int randA=rand.nextInt(50);
-//			int randB=rand.nextInt(50);
-//			UCon.createSupplies(Supply,randA);
-//			UCon.modifySupplies(Supply, randB);
-//			assertEquals(randA+randB, activeLab.getSupply(0).getQuantity());
-//			
-//		}
-//		@Test
-//		public void testSubtractSupplies() throws InvalidInputException{
-//			String error="";
-//			URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
-//			UCon.login(testEmail, testPassword);
-//			UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
-//			Laboratory activeLab = UCon.getActiveLaboratory(); 
-//			 /* Test Begins Here*/
-//			assertEquals(false, activeLab.hasSupplies());//ensures there are no supplies to begin with
-//			String Supply = "TestSupply";
-//			Random rand= new Random();
-//			int randA=rand.nextInt(50);
-//			int randB=rand.nextInt(randA-1);
-//			UCon.createSupplies(Supply,randA);
-//			UCon.modifySupplies(Supply, -randB);
-//			assertEquals(randA-randB, activeLab.getSupply(0).getQuantity());
-//			
-//		}
-//		
+			 /* Test Begins Here*/
+			assertEquals(false, activeLab.hasSupplies());//ensures there are no supplies to begin with
+			String Supply = "TestSupply";
+			Random rand= new Random();
+			int randA=rand.nextInt(50);
+			int randB=rand.nextInt(50);
+			UCon.createSupplies(Supply,randA);
+			UCon.modifySupplies(Supply, randB);
+			assertEquals(randA+randB, activeLab.getSupply(0).getQuantity());
+			
+		}
+		@Test
+		public void testSubtractSupplies() throws InvalidInputException{
+			String error="";
+			URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+			UCon.login(testEmail, testPassword);
+			UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
+			Laboratory activeLab = UCon.getActiveLaboratory(); 
+			 /* Test Begins Here*/
+			assertEquals(false, activeLab.hasSupplies());//ensures there are no supplies to begin with
+			String Supply = "TestSupply";
+			Random rand= new Random();
+			int randA=rand.nextInt(50);
+			int randB=rand.nextInt(randA-1);
+			UCon.createSupplies(Supply,randA);
+			UCon.modifySupplies(Supply, -randB);
+			assertEquals(randA-randB, activeLab.getSupply(0).getQuantity());
+			
+		}
+		@Test
+		public void testRemoveSupplies() throws InvalidInputException{
+			String error="";
+			URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+			UCon.login(testEmail, testPassword);
+			UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
+			Laboratory activeLab = UCon.getActiveLaboratory(); 
+			 /* Test Begins Here*/
+			assertEquals(false, activeLab.hasSupplies());//ensures there are no Equipment to begin with
+			String Supply="TestSupply";
+			Random rand= new Random();
+			int randA = rand.nextInt(50);
+			UCon.createSupplies(Supply,randA);
+			assertEquals(true, activeLab.hasSupplies());//ensures there are no Equipment to begin with
+			UCon.removeSupplies(Supply);
+			assertEquals(0, activeLab.getSupplies().size());	
+
+		}
+		
+	
 		
 		  
 	}

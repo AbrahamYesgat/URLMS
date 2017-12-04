@@ -24,20 +24,30 @@
         <staff id="11">
           <email>staff@urlms.ca</email>
           <password>password1</password>
-          <name>Director</name>
+          <name>Alex</name>
           <currentlyAssigned>true</currentlyAssigned>
           <staffRole>ResearchAssociate</staffRole>
           <laboratories id="12">
             <lab reference="3"/>
           </laboratories>
-          <progressUpdates id="13"/>
+          <progressUpdates id="13">
+            <progress id="14">
+              <title>This week we did the UMPLE MODEL, The software validation 3917-11-10</title>
+              <reportingPeriod>This week we did the UMPLE MODEL, The software validation</reportingPeriod>
+              <id>1</id>
+              <laboratory reference="3"/>
+              <staff reference="11"/>
+            </progress>
+          </progressUpdates>
         </staff>
       </staffs>
-      <progressUpdates id="14"/>
-      <fundingAccounts id="15"/>
+      <progressUpdates id="15">
+        <progress reference="14"/>
+      </progressUpdates>
+      <fundingAccounts id="16"/>
     </lab>
   </laboratories>
-  <directors id="16">
+  <directors id="17">
     <director reference="7"/>
   </directors>
 </ca.mcgill.ecse321.urlms.model.URLMS>
