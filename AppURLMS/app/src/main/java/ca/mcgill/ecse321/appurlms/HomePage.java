@@ -47,9 +47,16 @@ public class HomePage extends AppCompatActivity {
         nameMessage.setText("Welcome " + name);
 
         int i= 0;
+        String active;
         String[] labArray = new String[labs.size()];
         for (Laboratory lab : labs) {
-            labArray[i] = lab.getName();
+            if(lab.getActive()) {
+                active = "is active";
+            }
+            else {
+                active = "is inactive";
+            }
+            labArray[i] = lab.getName() + ": " + active;
             i++;
         }
 
@@ -63,10 +70,18 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Laboratory activelab = labs.get(position);
-                cont.setActiveLaboratory(activelab);
-                Intent intent = new Intent(HomePage.this, LabPage.class);
-                startActivity(intent);
-                finish();
+                if(activelab.getActive()){
+                    cont.setActiveLaboratory(activelab);
+                    Intent intent = new Intent(HomePage.this, LabPage.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else if(cont.getActiveUser() instanceof Director) {
+                    cont.setActiveLaboratory(activelab);
+                    Intent intent = new Intent(HomePage.this, LabPage.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }
