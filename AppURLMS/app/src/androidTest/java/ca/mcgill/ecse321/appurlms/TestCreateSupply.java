@@ -58,18 +58,18 @@ public class TestCreateSupply {
         //Case 1: Successful create supply
         assertEquals(true, sysC.createSupplies("supply", 10));
 
-        //Case 2: Create equipment with same name
+        //Case 2: Create supply with same name
         assertEquals(false, sysC.createSupplies("supply", 10));
         assertEquals(false, sysC.createSupplies("Supply", 10));
         assertEquals(false, sysC.createSupplies("SUPPLY", 10));
 
-        //Case 3: Create equipment with 0 quantity
+        //Case 3: Create supply with 0 quantity
         assertEquals(true, sysC.createSupplies("supply1", 0));
 
-        //Case 4: Create equipment with negative quantity
+        //Case 4: Create supply with negative quantity
         assertEquals(false, sysC.createSupplies("supply2", -1));
 
-        //Case 5: Create equipment with large quantity
+        //Case 5: Create supply with large quantity
         assertEquals(true, sysC.createSupplies("supply3", 999999999));
 
         sysC.logout();
@@ -77,7 +77,7 @@ public class TestCreateSupply {
         Laboratory test = urlms.getLaboratory(0);
         sysC.setActiveLaboratory(test);
 
-        //Case 6: Staff creates an equipment
+        //Case 6: Staff creates an supply
         assertEquals(true, sysC.createSupplies("supply4", 10));
     }
 }

@@ -49,6 +49,39 @@ public class TestCreateFundingAccount {
 
     @Test
     public void test() {
+        URLMSController sysC = new URLMSController(urlms);
+        sysC.createDirector(testEmail,testPassword,testName);
+        sysC.login(testEmail, testPassword);
+        sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
+        sysC.addStaff(testStaffEmail, testStaffPassword, testStaffName, role);
 
+        //Case 1: Successful create funding account
+        assertEquals(true, sysC.createFundingAccount(1000, 10));
+
+        //Case 2: Create funding account with same account number
+        assertEquals(false, sysC.createFundingAccount(100, 10));
+
+        //Case 3: Create funding account with 0 funds
+        assertEquals(true, sysC.createFundingAccount(0, 11));
+
+        //Case 4: Create funding account with negative funds
+        assertEquals(false, sysC.createFundingAccount(-1, 12));
+
+        //Case 5: Create funding account with large funds
+        assertEquals(true, sysC.createFundingAccount(999999999, 13));
+
+        //Case 6: Created funding account with negative ID
+        assertEquals(false, sysC.createFundingAccount(1, -1));
+
+        //Case 7: Create funding account with ID 0
+        assertEquals(true, sysC.createFundingAccount(1, 0));
+
+        sysC.logout();
+        sysC.login(testStaffEmail, testStaffPassword);
+        Laboratory test = urlms.getLaboratory(0);
+        sysC.setActiveLaboratory(test);
+
+        //Case 8: Staff creates an funding account
+        assertEquals(false, sysC.createFundingAccount(1, 14));
     }
 }

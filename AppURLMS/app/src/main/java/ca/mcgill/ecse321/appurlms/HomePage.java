@@ -9,6 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import ca.mcgill.ecse321.urlms.model.Director;
@@ -37,15 +40,23 @@ public class HomePage extends AppCompatActivity {
             Staff active = (Staff)(cont.getActiveUser());
             labs = active.getLaboratories();
             name = active.getName();
+            active.setLastLogin(getDateTime());
         }
 
         TextView nameMessage = (TextView)findViewById(R.id.dir_name_message);
         nameMessage.setText("Welcome " + name);
 
         int i= 0;
+        String active;
         String[] labArray = new String[labs.size()];
         for (Laboratory lab : labs) {
-            labArray[i] = lab.getName();
+            if(lab.getActive()) {
+                active = "is active";
+            }
+            else {
+                active = "is inactive";
+            }
+            labArray[i] = lab.getName() + ": " + active;
             i++;
         }
 
@@ -59,10 +70,18 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Laboratory activelab = labs.get(position);
-                cont.setActiveLaboratory(activelab);
-                Intent intent = new Intent(HomePage.this, LabPage.class);
-                startActivity(intent);
-                finish();
+                if(activelab.getActive()){
+                    cont.setActiveLaboratory(activelab);
+                    Intent intent = new Intent(HomePage.this, LabPage.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else if(cont.getActiveUser() instanceof Director) {
+                    cont.setActiveLaboratory(activelab);
+                    Intent intent = new Intent(HomePage.this, LabPage.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }
@@ -86,5 +105,11 @@ public class HomePage extends AppCompatActivity {
         Intent intent = new Intent(HomePage.this, UpdateProfile.class);
         startActivity(intent);
         finish();
+    }
+
+    private String getDateTime() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }

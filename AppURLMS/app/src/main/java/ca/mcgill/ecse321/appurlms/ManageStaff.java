@@ -38,7 +38,7 @@ public class ManageStaff extends AppCompatActivity {
         int i= 0;
         String[] staffArray = new String[staff.size()];
         for (Staff member : staff) {
-            staffArray[i] = member.getName();
+            staffArray[i] = member.getName() + " last active: " + member.getLastLogin();
             i++;
         }
 

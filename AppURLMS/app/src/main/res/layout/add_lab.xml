@@ -41,7 +41,7 @@
                 android:layout_gravity="end"
                 android:layout_weight="1"
                 android:onClick="addDate"
-                android:text="Add Lab" />
+                android:text="Add Date" />
 
             <Button
                 android:id="@+id/return_button"
