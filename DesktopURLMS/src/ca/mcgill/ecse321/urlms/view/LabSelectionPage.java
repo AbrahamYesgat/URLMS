@@ -246,7 +246,7 @@ public class LabSelectionPage extends JFrame {
 			      JTable target = (JTable)e.getSource();
 			      int row = target.getSelectedRow();
 			      int column = target.getSelectedColumn();
-			      if(0 <= column && column <= 3){
+			      	if(0 <= column && column <= 3){
 			    	  urlmsCont.setActiveLaboratory(labs.get(row));
 			    	  DirectorLabPage labHomePage = new DirectorLabPage(urlms, labs.get(row), urlmsCont);
 			    	  labHomePage.setVisible(true);
