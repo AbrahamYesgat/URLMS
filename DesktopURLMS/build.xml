@@ -10,7 +10,6 @@
 	<path id="classpath">
         	<fileset dir="lib"/>
     	</path>
-<target name="test">
 
     <!-- Compiles the java code (including the usage of library for JUnit -->
     <target name="compile" depends="clean, makedir">
@@ -30,5 +29,4 @@
     <target name="main" depends="compile, jar, docs">
         <description>Main target</description>
     </target>
-	</target>
 </project>
