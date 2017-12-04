@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 setContentView(R.layout.login);
             }
             else {
-                signUpMessage.setText("This email already exists!");
+                signUpMessage.setText("Cannot create account with this email!");
             }
         }
     }

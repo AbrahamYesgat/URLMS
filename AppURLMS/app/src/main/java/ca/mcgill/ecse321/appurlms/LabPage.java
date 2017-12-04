@@ -85,4 +85,31 @@ public class LabPage extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void createProgressReport(View view) {
+        if(cont.getActiveLaboratory().getActive()) {
+            Intent intent = new Intent(LabPage.this, CreateProgressReport.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            TextView labMessage = (TextView) findViewById(R.id.lab_message);
+            labMessage.setText("Cannot do this because the lab is inactive.");
+        }
+    }
+
+    public void viewProgressReport(View view) {
+        if(cont.getActiveLaboratory().getActive()) {
+            Intent intent = new Intent(LabPage.this, ViewProgressReports.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            TextView labMessage = (TextView) findViewById(R.id.lab_message);
+            labMessage.setText("Cannot do this because the lab is inactive.");
+        }
+    }
+
+    public void deleteLab(View view) {
+    }
 }

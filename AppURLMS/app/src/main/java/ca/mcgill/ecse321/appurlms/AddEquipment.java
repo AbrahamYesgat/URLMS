@@ -35,7 +35,7 @@ public class AddEquipment extends AppCompatActivity {
                 finish();
             }
             else {
-                addEquipMessage.setText("This equipment type already exists. Please just change the amount needed.");
+                addEquipMessage.setText("This supply type cannot be created!");
             }
         }
         else {
@@ -46,7 +46,7 @@ public class AddEquipment extends AppCompatActivity {
                 finish();
             }
             else {
-                addEquipMessage.setText("This equipment type already exists. Please just change the amount needed.");
+                addEquipMessage.setText("This supply type cannot be created!");
             }
         }
     }

@@ -33,7 +33,9 @@
         <activity android:name=".AddSupply" />
         <activity android:name=".AddEquipment" />
         <activity android:name=".ManageFundingAccounts" />
-        <activity android:name=".AddFundingAccount"></activity>
+        <activity android:name=".AddFundingAccount" />
+        <activity android:name=".CreateProgressReport" />
+        <activity android:name=".ViewProgressReports"></activity>
     </application>
 
 </manifest>
