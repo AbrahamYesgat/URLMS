@@ -430,7 +430,6 @@ public boolean createWeeklyProgressReport(String Title, String report, Date date
 		if (supplies.equals(" ") || supplies.equals("")) return false;
 
 		
-		URLMS urlms = URLMS.getInstance();
 		List<Supplies> supply = activeLab.getSupplies();
 		if(activeLab.hasSupplies()) {
 			for(Supplies sup : supply) {
