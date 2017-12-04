@@ -63,7 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Add Expenses" />
+                android:onClick="createExpenseReport"
+                android:text="Create Expense Report" />
 
             <Button
                 android:id="@+id/progress_report_button"

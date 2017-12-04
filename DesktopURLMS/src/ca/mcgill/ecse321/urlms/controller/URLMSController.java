@@ -211,8 +211,6 @@ public class URLMSController {
 	}
 	
 	public String viewWeeklyProgressReport(int idNumber) {
-		String message;
-		double result=0;
 		List<ProgressUpdate> ProUps = activeLab.getProgressUpdates();
 		for(ProgressUpdate PU : ProUps) {
 			if(PU.getId()==(idNumber)) {
@@ -222,7 +220,12 @@ public class URLMSController {
 		return "Requested Weekly Progress Report cannot be found!";
 	}
 	
-	
+	public boolean createExpenseReport(String expenseReport, int day, int month, int year) {
+		String report = "Expenses for " + Integer.toString(day) + "/" + Integer.toString(month) + "/" + Integer.toString(year) 
+						+ System.lineSeparator() + expenseReport;
+		activeLab.addExpenseReport(report);
+		return PersistenceXStream.saveToXMLwithXStream(urlms);
+	}
 	
 	public boolean updateProfile(String email, String password, String name) {
 		
