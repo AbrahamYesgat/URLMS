@@ -92,7 +92,7 @@ public class LabPage extends AppCompatActivity {
 
     public void createProgressReport(View view) {
         if(cont.getActiveLaboratory().getActive()) {
-            Intent intent = new Intent(LabPage.this, CreateProgressReport.class);
+            Intent intent = new Intent(LabPage.this, ViewProgressReports.class);
             startActivity(intent);
             finish();
         }

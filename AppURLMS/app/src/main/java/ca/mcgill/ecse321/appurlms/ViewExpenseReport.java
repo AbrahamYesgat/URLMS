@@ -35,7 +35,7 @@ public class ViewExpenseReport extends AppCompatActivity {
         int i= 0;
         String[] reportArray = new String[reports.size()];
         for (ExpenseReport report : reports) {
-            reportArray[i] = Integer.toString(i);
+            reportArray[i] = "Expense report " + Integer.toString(i+1);
             i++;
         }
 
