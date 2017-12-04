@@ -260,7 +260,8 @@ public class URLMSController {
 		
 		if(activeUser instanceof Director) {
 			if(urlms.hasLaboratories()) {
-				List<Laboratory> labs = urlms.getLaboratories();
+				Director director = (Director)activeUser;
+				List<Laboratory> labs = director.getLaboratories();
 				for (Laboratory lab : labs) {
 					if(lab.getName().equals(name)){
 						return false;
