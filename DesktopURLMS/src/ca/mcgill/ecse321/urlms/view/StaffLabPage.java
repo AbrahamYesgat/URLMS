@@ -166,6 +166,7 @@ public class StaffLabPage extends JFrame{
 	    getContentPane().setLayout(layout);
 	    layout.setAutoCreateGaps(true);
 	    layout.setAutoCreateContainerGaps(true);
+	    
 	
 	    btnEquipment.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
@@ -203,7 +204,7 @@ public class StaffLabPage extends JFrame{
 	    	}
 	    });
 	   
-	    //pack();
+	    pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
 	}
