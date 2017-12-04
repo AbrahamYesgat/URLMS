@@ -15,9 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.UtilDateModel;
-
 import javax.swing.JSeparator;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
@@ -76,9 +73,11 @@ public class EditLabPage extends JFrame {
 	}
 
 	private void initComponents() {
+		this.setBackground(Color.WHITE);
 		this.setTitle("University Lab Management System");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		getContentPane().setBackground(new Color(216, 247, 255));
 		JLabel lblEditLab = new JLabel("Edit Lab");
 		lblEditLab.setFont(new Font("Segoe UI Semibold", Font.BOLD, 25));
 		

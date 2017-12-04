@@ -115,6 +115,8 @@ public class StaffLabPage extends JFrame{
 	    lgtButn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 	    lgtButn.setBackground(Color.RED);
 		
+	    getContentPane().setBackground(new Color(216, 247, 255));
+
 		// Layout
 	    GroupLayout layout = new GroupLayout(getContentPane());
 	    layout.setHorizontalGroup(

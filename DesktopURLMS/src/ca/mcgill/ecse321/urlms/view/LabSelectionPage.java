@@ -156,7 +156,8 @@ public class LabSelectionPage extends JFrame {
 		logoutBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		logoutBtn.setBackground(Color.RED);
 		
-		
+	    getContentPane().setBackground(new Color(216, 247, 255));
+
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -217,6 +218,7 @@ public class LabSelectionPage extends JFrame {
 		JTableHeader labSelectionHeader = labSelectionTable.getTableHeader();
 		labSelectionHeader.setFont(new java.awt.Font("Lucida Grande", 1, 18));
 		getContentPane().setLayout(groupLayout);
+		scrollPane.getViewport().setBackground(new Color(216, 247, 255));
 		
 		
 		
@@ -231,7 +233,7 @@ public class LabSelectionPage extends JFrame {
 		logoutBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				urlmsCont.logout();
-				dispose();
+				setVisible(false);
 				new LoginPage(urlms).setVisible(true);
 			}
 		});

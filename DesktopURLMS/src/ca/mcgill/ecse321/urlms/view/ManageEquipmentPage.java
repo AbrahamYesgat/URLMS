@@ -188,7 +188,8 @@ public class ManageEquipmentPage extends JFrame{
 		PromptSupport.setPrompt("Quantity", txtQuantityCreate);
 		PromptSupport.setPrompt("Quantity", txtQuantityModify);
 		
-		
+	    getContentPane().setBackground(new Color(216, 247, 255));
+
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -292,12 +293,12 @@ public class ManageEquipmentPage extends JFrame{
 		initialiseTable(equipmentTable);
 		equipmentQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfEquipment()));
 		getContentPane().setLayout(groupLayout);
-		
+		scrollPane.getViewport().setBackground(new Color(216, 247, 255));
 		
 		//Add all action listners here
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				setVisible(false);
 				new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
 			}
 		});
@@ -305,7 +306,7 @@ public class ManageEquipmentPage extends JFrame{
 		lgtBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				urlmsCont.logout();
-				dispose();
+				setVisible(false);
 				new LoginPage(urlms).setVisible(true);
 			}
 		});

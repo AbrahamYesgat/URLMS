@@ -107,7 +107,7 @@ public class LoginPage extends JFrame{
 			// Successful login
 			LabSelectionPage labSelection = new LabSelectionPage(urlms, fieldEmail.getText(), urlmsCont);
 			labSelection.setVisible(true);
-			this.dispose();
+			this.setVisible(false);
 		}
 	}
 	
@@ -209,7 +209,7 @@ public class LoginPage extends JFrame{
 	    	public void actionPerformed(java.awt.event.ActionEvent evt) {
 	        	RegisterPage registerPage = new RegisterPage(urlms, urlmsCont);
 	        	registerPage.setVisible(true);
-	        	dispose();
+	        	setVisible(false);
 	        }
 	    });
 	}
