@@ -432,9 +432,6 @@ public class URLMSController {
 		}
 		supplies=supplies.trim();
 		if (supplies.equals(" ") || supplies.equals("")) return false;
-
-		
-		URLMS urlms = URLMS.getInstance();
 		List<Supplies> supply = activeLab.getSupplies();
 		if(activeLab.hasSupplies()) {
 			for(Supplies sup : supply) {

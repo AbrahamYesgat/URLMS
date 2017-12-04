@@ -26,8 +26,12 @@ import org.jdesktop.swingx.prompt.PromptSupport;
 
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
+import ca.mcgill.ecse321.urlms.model.Staff;
+import ca.mcgill.ecse321.urlms.model.Supplies;
 import ca.mcgill.ecse321.urlms.model.URLMS;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class ManageSupplyPage extends JFrame{
@@ -64,8 +68,18 @@ public class ManageSupplyPage extends JFrame{
 	 * Textfield specifying name of old supply to remove
 	 */
 	private JTextField oldSupplyName;
+	/**
+	 * Textfield specifying how much quantity of new supply to create
+	 */
 	private JTextField txtQuantityCreate;
+	/**
+	 * Textfield specifying how much quantity of existing supply to modify
+	 */
 	private JTextField txtQuantityModify;
+	/**
+	 *  List containing all supplies of active lab
+	 */
+	List<Supplies> labSupply;
 	/**
 	 * Constructor of ManageStaffPage frame
 	 * @param urlms current URLMS system
@@ -93,6 +107,24 @@ public class ManageSupplyPage extends JFrame{
 	           java.util.logging.Logger.getLogger(ManageSupplyPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       }
 		initComponents();
+	}
+	
+	/**
+	 * Method used to initialize list of supplies within active lab.
+	 * @param table Table that will contain list of all supplies in active lab.
+	 */
+	private void initialiseTable(JTable table){
+		labSupply = new ArrayList<Supplies>();
+		if(currentLab.hasSupplies()){
+			labSupply = currentLab.getSupplies();
+			for(Supplies supply : labSupply){
+				Object[] o = new Object[4];
+				  o[0] = supply.getName();
+				  o[1] = supply.getQuantity();
+				  ((DefaultTableModel) table.getModel()).addRow(o);
+			}
+			
+		}
 	}
 	/**
 	 * Method used to initialize ManageSupplyPage frame
@@ -267,7 +299,7 @@ public class ManageSupplyPage extends JFrame{
 		scrollPane.setViewportView(supplyTable);
 		JTableHeader supplyHeader = supplyTable.getTableHeader();
 		supplyHeader.setFont(new java.awt.Font("Lucida Grande", 1, 18));
-		//TODO: call initialize table method here
+		initialiseTable(supplyTable);
 		supplyQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfSupplies()));
 		getContentPane().setLayout(groupLayout);
 		
@@ -297,6 +329,9 @@ public class ManageSupplyPage extends JFrame{
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
 	}
+	/**
+	 * Method to add new type of supply to lab
+	 */
 	private void createSupply() {
 		
 		if(newSupplyName.getText().isEmpty() || txtQuantityCreate.getText().isEmpty()){
