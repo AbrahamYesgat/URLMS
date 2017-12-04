@@ -468,18 +468,15 @@ public class URLMSController {
 	}
 	public boolean deleteLab(Director Dir, Laboratory Lab) {
 		if (activeUser instanceof Director) {
-		List<Laboratory>DLabs=Dir.getLaboratories();
-		for( Laboratory lab : DLabs) {
-			if(lab.getName().equalsIgnoreCase(Lab.getName())){
-				lab.delete();
-				return true;
+			List<Laboratory>DLabs=Dir.getLaboratories();
+			for( Laboratory lab : DLabs) {
+				if(lab.getName().equalsIgnoreCase(Lab.getName())){
+					lab.delete();
+					return PersistenceXStream.saveToXMLwithXStream(urlms);
+				}	
 			}
-				
-		}
-	
 		}
 		return false;
-		
 	}
 
 	/**
