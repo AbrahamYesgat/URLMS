@@ -223,8 +223,8 @@ public class RegisterPage extends JFrame {
 		if(fieldName.getText().isEmpty() || fieldEmail.getText().isEmpty() || passwordField.getPassword().length == 0 || repPasswordField.getPassword().length == 0 ) {
 			JOptionPane.showMessageDialog(this, "Fields cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
 			return false;}
-		else if (passwordField.getPassword().equals(repPasswordField.getPassword())) {
-			JOptionPane.showMessageDialog(this, "Password are not identical", "Error", JOptionPane.ERROR_MESSAGE);
+		else if ((passwordField.getText().equals(repPasswordField.getText())) == false) {
+			JOptionPane.showMessageDialog(this, "Passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
 			passwordField.setText("");
 			repPasswordField.setText("");
 			return false;

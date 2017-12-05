@@ -39,5 +39,23 @@
   </laboratories>
   <directors id="16">
     <director reference="7"/>
+    <director id="17">
+      <email>toriabi@urlms.ca</email>
+      <password>1234354kjnklmk</password>
+      <name>Torabi</name>
+      <currentlyAssigned>true</currentlyAssigned>
+      <labManaged>0</labManaged>
+      <laboratories id="18"/>
+      <uRLMS reference="1"/>
+    </director>
+    <director id="19">
+      <email>torabi@urlms.ca</email>
+      <password>pass</password>
+      <name>alex</name>
+      <currentlyAssigned>true</currentlyAssigned>
+      <labManaged>0</labManaged>
+      <laboratories id="20"/>
+      <uRLMS reference="1"/>
+    </director>
   </directors>
 </ca.mcgill.ecse321.urlms.model.URLMS>
