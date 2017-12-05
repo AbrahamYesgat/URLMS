@@ -17,6 +17,10 @@ public class LabPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         String labName;
         if(cont.getActiveUser() instanceof Director){
             setContentView(R.layout.dir_lab_page);
@@ -88,7 +92,7 @@ public class LabPage extends AppCompatActivity {
 
     public void createProgressReport(View view) {
         if(cont.getActiveLaboratory().getActive()) {
-            Intent intent = new Intent(LabPage.this, CreateProgressReport.class);
+            Intent intent = new Intent(LabPage.this, ViewProgressReports.class);
             startActivity(intent);
             finish();
         }
@@ -122,6 +126,18 @@ public class LabPage extends AppCompatActivity {
                 TextView labMessage = (TextView) findViewById(R.id.lab_message);
                 labMessage.setText("Could not delete the lab!");
             }
+        }
+    }
+
+    public void createExpenseReport(View view) {
+        if(cont.getActiveLaboratory().getActive()) {
+            Intent intent = new Intent(LabPage.this, ViewExpenseReport.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            TextView labMessage = (TextView) findViewById(R.id.lab_message);
+            labMessage.setText("Cannot do this because the lab is inactive.");
         }
     }
 }

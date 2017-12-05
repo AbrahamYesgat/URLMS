@@ -115,6 +115,8 @@ public class StaffLabPage extends JFrame{
 	    lgtButn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 	    lgtButn.setBackground(Color.RED);
 		
+	    getContentPane().setBackground(new Color(216, 247, 255));
+
 		// Layout
 	    GroupLayout layout = new GroupLayout(getContentPane());
 	    layout.setHorizontalGroup(
@@ -166,6 +168,7 @@ public class StaffLabPage extends JFrame{
 	    getContentPane().setLayout(layout);
 	    layout.setAutoCreateGaps(true);
 	    layout.setAutoCreateContainerGaps(true);
+	    
 	
 	    btnEquipment.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
@@ -203,7 +206,7 @@ public class StaffLabPage extends JFrame{
 	    	}
 	    });
 	   
-	    //pack();
+	    pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
 	}

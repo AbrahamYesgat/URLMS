@@ -17,7 +17,8 @@ class Laboratory
 class ExpenseReport
 {
   autounique id;
-  expensePeriod;
+  expense;
+  lazy Double amount;
   * -- 1 Laboratory;
 }
 

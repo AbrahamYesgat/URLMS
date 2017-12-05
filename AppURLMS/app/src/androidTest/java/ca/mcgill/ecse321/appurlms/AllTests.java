@@ -10,6 +10,7 @@ import org.junit.runners.Suite.SuiteClasses;
                 TestLogout.class, TestCreateDirector.class, TestCreateEquipment.class, TestCreateFundingAccount.class,
                 TestCreateSupply.class, TestDeleteEquipment.class, TestDeleteStaff.class, TestDeleteSupply.class,
                 TestUpdateProfile.class, TestModifyEquipment.class, TestModifyFunds.class, TestModifySupply.class,
-                TestDeleteLab.class, TestUpdateLab.class, TestCreateProgressReport.class, TestAddExistingStaff.class})
+                TestDeleteLab.class, TestUpdateLab.class, TestCreateProgressReport.class, TestAddExistingStaff.class,
+                TestCreateExpenseReport.class})
 public class AllTests {
 }

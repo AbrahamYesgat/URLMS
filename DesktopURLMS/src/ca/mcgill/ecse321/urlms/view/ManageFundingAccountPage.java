@@ -123,6 +123,9 @@ public class ManageFundingAccountPage extends JFrame{
 		fundAccQuantity.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		fundAccQuantity.setColumns(10);
 		
+	    getContentPane().setBackground(new Color(216, 247, 255));
+	    scrollPane.getViewport().setBackground(new Color(216, 247, 255));
+		
 	}
 
 }

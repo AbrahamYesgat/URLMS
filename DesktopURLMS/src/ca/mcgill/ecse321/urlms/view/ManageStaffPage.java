@@ -180,7 +180,7 @@ public class ManageStaffPage extends JFrame{
 		newStaffRole.addItem(StaffRole.ResearchAssistant);
 		newStaffRole.addItem(StaffRole.ResearchAssociate);
 		
-		
+	    getContentPane().setBackground(new Color(216, 247, 255));
 		
 		// Initialization of layout
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
@@ -269,6 +269,7 @@ public class ManageStaffPage extends JFrame{
 		initialiseTable(staffTable);
 		staffQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfStaffs()));
 		getContentPane().setLayout(groupLayout);
+		scrollPane.getViewport().setBackground(new Color(216, 247, 255));
 		
 		
 		
@@ -276,14 +277,14 @@ public class ManageStaffPage extends JFrame{
 		lgtBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				urlmsCont.logout();
-				dispose();
+				setVisible(false);
 				new LoginPage(urlms).setVisible(true);
 			}
 		});
 		
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				setVisible(false);
 				new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
 			}
 		});

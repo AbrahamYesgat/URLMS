@@ -4,7 +4,7 @@
 package ca.mcgill.ecse321.urlms.model;
 import java.util.*;
 
-// line 44 "../../../../../URLMS.ump"
+// line 45 "../../../../../URLMS.ump"
 public class Staff extends UserRole
 {
 

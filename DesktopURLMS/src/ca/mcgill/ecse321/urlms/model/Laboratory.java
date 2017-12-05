@@ -431,9 +431,9 @@ public class Laboratory
     return 0;
   }
 
-  public ExpenseReport addExpenseReport(String aExpensePeriod)
+  public ExpenseReport addExpenseReport(String aExpense)
   {
-    return new ExpenseReport(aExpensePeriod, this);
+    return new ExpenseReport(aExpense, this);
   }
 
   public boolean addExpenseReport(ExpenseReport aExpenseReport)

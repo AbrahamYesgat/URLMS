@@ -29,6 +29,9 @@ public class ManageStaff extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_staff);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         TextView nameMessage = (TextView)findViewById(R.id.lab_staff_message);
         nameMessage.setText("Staff for " + cont.getActiveLaboratory().getName());

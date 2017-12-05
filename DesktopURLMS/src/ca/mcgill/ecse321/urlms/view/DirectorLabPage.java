@@ -131,10 +131,12 @@ public class DirectorLabPage extends JFrame{
 	    lgtButn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 	    lgtButn.setBackground(Color.RED);
 	    
-	    JButton button = new JButton("Edit Lab");
-	    button.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-	    button.setBackground(new Color(0, 191, 255));
+	    JButton editButton = new JButton("Edit Lab");
+	    editButton.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+	    editButton.setBackground(new Color(0, 191, 255));
 		
+	    getContentPane().setBackground(new Color(216, 247, 255));
+	    
 		// Layout
 	    GroupLayout layout = new GroupLayout(getContentPane());
 	    layout.setHorizontalGroup(
@@ -149,7 +151,7 @@ public class DirectorLabPage extends JFrame{
 	    								.addComponent(btnStaff, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 	    								.addComponent(btnEquipment, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 	    								.addComponent(btnSupplies, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	    								.addComponent(button, GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
+	    								.addComponent(editButton, GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
 	    							.addGap(122)
 	    							.addGroup(layout.createParallelGroup(Alignment.TRAILING)
 	    								.addGroup(layout.createParallelGroup(Alignment.LEADING)
@@ -186,7 +188,7 @@ public class DirectorLabPage extends JFrame{
 	    				.addComponent(btnExpReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
 	    			.addGap(27)
 	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-	    				.addComponent(button, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    				.addComponent(editButton, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
 	    				.addComponent(updateProfileBtn, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
 	    			.addGap(85)
 	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
@@ -200,7 +202,7 @@ public class DirectorLabPage extends JFrame{
 		
 	    btnStaff.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		dispose();
+	    		setVisible(false);
 	    		new ManageStaffPage(urlms, currentLab, urlmsCont).setVisible(true);;
 	    		//setVisible(false);
 	    	}
@@ -208,7 +210,7 @@ public class DirectorLabPage extends JFrame{
 	
 	    btnEquipment.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		dispose();
+	    		setVisible(false);
 	    		new ManageEquipmentPage(urlms, currentLab, urlmsCont).setVisible(true);
 	    		//setVisible(false);
 	    	}
@@ -216,7 +218,7 @@ public class DirectorLabPage extends JFrame{
 	
 	    btnSupplies.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		dispose();
+	    		setVisible(false);
 	    		new ManageSupplyPage(urlms, currentLab, urlmsCont).setVisible(true);
 	    		//setVisible(false);
 	    	}
@@ -224,7 +226,7 @@ public class DirectorLabPage extends JFrame{
 	    
 	    backBtn.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		dispose();
+	    		setVisible(false);
 	    		new LabSelectionPage(urlms,urlmsCont.getActiveUser().getEmail(), urlmsCont).setVisible(true);
 	    	}
 	    });
@@ -232,8 +234,20 @@ public class DirectorLabPage extends JFrame{
 	    lgtButn.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    	urlmsCont.logout();
-				dispose();
+				setVisible(false);
 				new LoginPage(urlms).setVisible(true);
+				//java.util.Calendar sqlDate = java.util.Calendar.getInstance();
+		      //  java.util.Date utilDate = sqlDate.getTime();
+		       // System.out.println(getDateTime());
+		      //  urlmsCont.getActiveUser().setName(getDateTime());
+		       // System.out.println(urlmsCont.getActiveUser().getName());
+	    	}
+	    });
+	    
+	    editButton.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				new EditLabPage(urlms, currentLab, urlmsCont).setVisible(true);
 				//java.util.Calendar sqlDate = java.util.Calendar.getInstance();
 		      //  java.util.Date utilDate = sqlDate.getTime();
 		       // System.out.println(getDateTime());
