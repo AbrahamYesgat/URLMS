@@ -10,19 +10,19 @@ matrix:
         - ant compile
         - ant clean
         
-    - language: android
-      jdk: oraclejdk8
-      before_install:
-        cd ./AppURLMS
-      licenses:
-        - 'android-sdk-preview-license-52d11cd2'
-        - 'android-sdk-license-.+'
-        - 'google-gdk-license-.+'
-      components:
-        - tools
-        - platform-tools
-        - tools
-        - build-tools-26.0.2
-        - android-25
-        - extra-google-m2repository
-        - extra-android-m2repository
+#    - language: android
+#      jdk: oraclejdk8
+ #     before_install:
+  #      cd ./AppURLMS
+   #   licenses:
+    #    - 'android-sdk-preview-license-52d11cd2'
+#        - 'android-sdk-license-.+'
+ #       - 'google-gdk-license-.+'
+  #    components:
+   #     - tools
+    #    - platform-tools
+     #   - tools
+      #  - build-tools-26.0.2
+       # - android-25
+#        - extra-google-m2repository
+ #       - extra-android-m2repository
