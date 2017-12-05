@@ -6,3 +6,4 @@ branches:
 script:
   - cd ./DesktopURLMS
   - ant compile
+  - ant clean

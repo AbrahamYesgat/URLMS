@@ -13,7 +13,7 @@
 	
 	<target name="init">
 	    <!-- Create the build directory structure used by compile -->
-	    <mkdir dir="${build}"/>
+	    <mkdir dir="${build.dir}"/>
 	  </target>
 	
     <!-- Compiles the java code (including the usage of library for JUnit -->
