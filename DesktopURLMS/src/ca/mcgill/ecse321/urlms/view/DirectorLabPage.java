@@ -112,10 +112,6 @@ public class DirectorLabPage extends JFrame{
 		btnProgReport.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
 		JButton updateProfileBtn = new JButton("Update Profile");
-		updateProfileBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		updateProfileBtn.setBackground(new Color(0, 191, 255));
 		updateProfileBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
@@ -202,60 +198,53 @@ public class DirectorLabPage extends JFrame{
 		
 	    btnStaff.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		setVisible(false);
 	    		new ManageStaffPage(urlms, currentLab, urlmsCont).setVisible(true);;
-	    		//setVisible(false);
+	    		setVisible(false);
 	    	}
 	    });
 	
 	    btnEquipment.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		setVisible(false);
 	    		new ManageEquipmentPage(urlms, currentLab, urlmsCont).setVisible(true);
-	    		//setVisible(false);
+	    		setVisible(false);
 	    	}
 	    });
 	
 	    btnSupplies.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		setVisible(false);
 	    		new ManageSupplyPage(urlms, currentLab, urlmsCont).setVisible(true);
-	    		//setVisible(false);
+	    		setVisible(false);
 	    	}
 	    });
 	    
 	    backBtn.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		setVisible(false);
 	    		new LabSelectionPage(urlms,urlmsCont.getActiveUser().getEmail(), urlmsCont).setVisible(true);
+	    		setVisible(false);
 	    	}
 	    });
 	
 	    lgtButn.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    	urlmsCont.logout();
-				setVisible(false);
 				new LoginPage(urlms).setVisible(true);
-				//java.util.Calendar sqlDate = java.util.Calendar.getInstance();
-		      //  java.util.Date utilDate = sqlDate.getTime();
-		       // System.out.println(getDateTime());
-		      //  urlmsCont.getActiveUser().setName(getDateTime());
-		       // System.out.println(urlmsCont.getActiveUser().getName());
+				setVisible(false);
 	    	}
 	    });
 	    
 	    editButton.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-				setVisible(false);
 				new EditLabPage(urlms, currentLab, urlmsCont).setVisible(true);
-				//java.util.Calendar sqlDate = java.util.Calendar.getInstance();
-		      //  java.util.Date utilDate = sqlDate.getTime();
-		       // System.out.println(getDateTime());
-		      //  urlmsCont.getActiveUser().setName(getDateTime());
-		       // System.out.println(urlmsCont.getActiveUser().getName());
+				setVisible(false);
 	    	}
 	    });
 	   
+	    btnFundAcc.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent e) {
+				new ManageFundingAccountPage(urlms, currentLab, urlmsCont).setVisible(true);
+				setVisible(false);
+	    	}
+	    });
 	    pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
