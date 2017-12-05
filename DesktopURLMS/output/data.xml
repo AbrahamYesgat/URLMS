@@ -7,18 +7,18 @@
       <active>true</active>
       <equipment id="5">
         <equipment id="6">
-          <name>alexander</name>
-          <quantity>2</quantity>
-          <laboratory reference="3"/>
-        </equipment>
-        <equipment id="7">
           <name>alexander3</name>
           <quantity>3</quantity>
           <laboratory reference="3"/>
         </equipment>
-        <equipment id="8">
+        <equipment id="7">
           <name>alexander33</name>
           <quantity>3</quantity>
+          <laboratory reference="3"/>
+        </equipment>
+        <equipment id="8">
+          <name>alexander</name>
+          <quantity>6</quantity>
           <laboratory reference="3"/>
         </equipment>
       </equipment>
@@ -83,5 +83,14 @@
   </laboratories>
   <directors id="26">
     <director reference="10"/>
+    <director id="27">
+      <email>alex@urlms.ca</email>
+      <password>alex</password>
+      <name>Alexander</name>
+      <currentlyAssigned>true</currentlyAssigned>
+      <labManaged>0</labManaged>
+      <laboratories id="28"/>
+      <uRLMS reference="1"/>
+    </director>
   </directors>
 </ca.mcgill.ecse321.urlms.model.URLMS>

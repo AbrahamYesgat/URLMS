@@ -162,6 +162,7 @@ public class ManageSupplyPage extends JFrame{
 		newSupplyName.setColumns(10);
 		PromptSupport.setPrompt("Supply Name", newSupplyName);
 		JButton createSupplyBtn = new JButton("Create");
+		createSupplyBtn.setForeground(Color.WHITE);
 		createSupplyBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		createSupplyBtn.setBackground(Color.BLUE);
 		JButton btnBack = new JButton("Back");

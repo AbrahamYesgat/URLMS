@@ -162,6 +162,7 @@ public class ManageEquipmentPage extends JFrame{
 		newEquipmentName.setColumns(10);
 		PromptSupport.setPrompt("Equipment Name", newEquipmentName);
 		JButton createEquipmentBtn = new JButton("Create");
+		createEquipmentBtn.setForeground(Color.WHITE);
 		createEquipmentBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		createEquipmentBtn.setBackground(Color.BLUE);
 		JButton btnBack = new JButton("Back");
@@ -302,16 +303,18 @@ public class ManageEquipmentPage extends JFrame{
 		//Add all action listners here
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
+				//setVisible(false);
 				new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+				dispose();
 			}
 		});
 		
 		lgtBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				urlmsCont.logout();
-				setVisible(false);
+				//setVisible(false);
 				new LoginPage(urlms).setVisible(true);
+				dispose();
 			}
 		});
 		createEquipmentBtn.addActionListener(new ActionListener() {
@@ -355,6 +358,7 @@ public class ManageEquipmentPage extends JFrame{
 		}
 			else
 			JOptionPane.showMessageDialog(this, newEquipmentName.getText() + " already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+			emptyTextField();
 	}
 	private void updateEquipment() {
 		if(oldEquipmentName.getText().isEmpty() || txtQuantityModify.getText().isEmpty())

@@ -130,7 +130,7 @@ public class RegisterPage extends JFrame {
 		panel.add(lblManagementSystem);
 		
 		Button btnSignUp = new Button("Sign Up");
-		btnSignUp.setForeground(Color.WHITE);
+		btnSignUp.setForeground(Color.BLACK);
 		btnSignUp.setBackground(new Color(241, 57, 83));
 		btnSignUp.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		btnSignUp.setBounds(441, 468, 189, 55);
@@ -190,7 +190,7 @@ public class RegisterPage extends JFrame {
 		contentPane.add(repPasswordField);
 		
 		Button btnBack = new Button("Back");
-		btnBack.setForeground(Color.WHITE);
+		btnBack.setForeground(Color.BLACK);
 		btnBack.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		btnBack.setBackground(Color.YELLOW);
 		btnBack.setBounds(650, 468, 195, 55);
@@ -202,13 +202,39 @@ public class RegisterPage extends JFrame {
 		// sign up button action listener
 		btnSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			if(registerUser()) {
+				new LabSelectionPage(urlms,fieldEmail.getText(), urlmsCont).setVisible(true);
+				dispose();
+			}
+			
+			}
+		});
+		
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			new LoginPage(urlms).setVisible(true);
+			dispose();
 			}
 		});
 	}
 	
-	public void registerUser() {
+	public boolean registerUser() {
 		
-		if(fieldName.getText().isEmpty() || fieldEmail.getText().isEmpty() || passwordField.getPassword().toString().length() == 0 || repPasswordField.getPassword().toString().length() ==0 )
-			JOptionPane.showMessageDialog(this, "Supply Name field cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
+		if(fieldName.getText().isEmpty() || fieldEmail.getText().isEmpty() || passwordField.getPassword().length == 0 || repPasswordField.getPassword().length == 0 ) {
+			JOptionPane.showMessageDialog(this, "Fields cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
+			return false;}
+		else if (passwordField.getPassword().equals(repPasswordField.getPassword())) {
+			JOptionPane.showMessageDialog(this, "Password are not identical", "Error", JOptionPane.ERROR_MESSAGE);
+			passwordField.setText("");
+			repPasswordField.setText("");
+			return false;
+		}
+		else if (urlmsCont.createDirector(fieldEmail.getText(), String.copyValueOf(passwordField.getPassword()), fieldName.getText())) {
+			JOptionPane.showMessageDialog(this, "Welcome " +  fieldName.getText() + ", you have sucesfully signed up to URLMS.");
+			return true;}
+		else {
+			JOptionPane.showMessageDialog(this, "A director is already using your email address, please use another one", "Error", JOptionPane.ERROR_MESSAGE);
+			return false;}
 	}
+	
 }
