@@ -20,12 +20,24 @@
         <uRLMS reference="1"/>
       </director>
       <supplies id="9"/>
-      <staffs id="10"/>
-      <progressUpdates id="11"/>
-      <fundingAccounts id="12"/>
+      <staffs id="10">
+        <staff id="11">
+          <email>Member</email>
+          <password>staff@urlms.ca</password>
+          <name>password1</name>
+          <currentlyAssigned>true</currentlyAssigned>
+          <staffRole>ResearchAssociate</staffRole>
+          <laboratories id="12">
+            <lab reference="3"/>
+          </laboratories>
+          <progressUpdates id="13"/>
+        </staff>
+      </staffs>
+      <progressUpdates id="14"/>
+      <fundingAccounts id="15"/>
     </lab>
   </laboratories>
-  <directors id="13">
+  <directors id="16">
     <director reference="7"/>
   </directors>
 </ca.mcgill.ecse321.urlms.model.URLMS>
