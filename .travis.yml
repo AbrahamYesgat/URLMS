@@ -4,5 +4,6 @@ branches:
   except:
     - android
 script:
-  cd ./DesktopURLMS
-  ant build
+  - cd ./DesktopURLMS
+  - ant compile
+  - ant clean
