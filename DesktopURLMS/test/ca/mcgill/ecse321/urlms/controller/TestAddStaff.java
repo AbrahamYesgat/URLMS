@@ -47,7 +47,7 @@ public class TestAddStaff {
 	}
 
 	@Test
-	public void test() {
+	public void addNewStaff() {
 		URLMSController sysC = new URLMSController(urlms);
 		Laboratory activeLab=sysC.getActiveLaboratory();
 		
@@ -62,6 +62,24 @@ public class TestAddStaff {
 		//Tests unsuccessful addStaff (if staff tries to add staff)
 		sysC.login(testStaffEmail, testStaffPassword);
 		assertEquals(false, sysC.addStaff("value", "value", "value", role));
+	}
+	public void addExistingStaff() {
+	URLMSController sysC = new URLMSController(urlms);
+	sysC.login(testEmail, testPassword);
+	sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
+	sysC.addStaff(testStaffEmail, testStaffPassword, testName, role);
+	sysC.addLaboratory("other", "study",new Date(2017, 10, 10) );
+	sysC.addStaff("other", "other", "other", role);
+	assertEquals("other", sysC.getActiveLaboratory().getName());
+
+	//Case 1: Successfully adding a staff member to the active lab.
+	assertEquals(true, sysC.addExistingStaff(testStaffEmail));
+
+	//Case 2: Adding a director as a staff member.
+	assertEquals(false, sysC.addExistingStaff(testEmail));
+
+	//Case 3: Adding a staff member already part of the lab.
+	assertEquals(false, sysC.addExistingStaff("other"));
 	}
 
 }
