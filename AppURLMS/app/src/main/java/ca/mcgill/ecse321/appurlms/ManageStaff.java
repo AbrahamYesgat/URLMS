@@ -22,6 +22,10 @@ import ca.mcgill.ecse321.urlms.model.Staff;
 import static ca.mcgill.ecse321.appurlms.AddStaff.hideSoftKeyboard;
 import static ca.mcgill.ecse321.appurlms.MainActivity.cont;
 
+/**
+ * This page is set when the user selects the manage funding accounts button from the lab page.
+ * This is only allowed for the director of the current lab.
+ */
 public class ManageStaff extends AppCompatActivity {
 
     private Staff removeStaff;
@@ -29,15 +33,18 @@ public class ManageStaff extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_staff);
+        //This sets the logo in the bar at the top of the screen.
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
+        //Displays the lab name on top of the screen
         TextView nameMessage = (TextView)findViewById(R.id.lab_staff_message);
         nameMessage.setText("Staff for " + cont.getActiveLaboratory().getName());
 
         List<Staff> staff = cont.getActiveLaboratory().getStaffs();
 
+        //Displays a list of all the staff members of the lab and their last login.
         int i= 0;
         String[] staffArray = new String[staff.size()];
         for (Staff member : staff) {
@@ -54,6 +61,7 @@ public class ManageStaff extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                //If a staff member from the list is selected, open the pop up.
                 removeStaff = cont.getActiveLaboratory().getStaff(position);
                 showPopup();
             }
@@ -61,6 +69,12 @@ public class ManageStaff extends AppCompatActivity {
     }
 
     private PopupWindow pw;
+
+    /**
+     * This is used to have the associated pop up message page to appear on the screen.
+     * It indicated whether the user wants remove the staff member from the current lab.
+     * Cancel button to dismiss the pop up.
+     */
     private void showPopup() {
         hideSoftKeyboard(ManageStaff.this);
 
@@ -72,12 +86,23 @@ public class ManageStaff extends AppCompatActivity {
         pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
     }
 
+    /**
+     * Action listener for the add new staff member button.
+     * Changes the page to the add new staff member activity.
+     * @see AddStaff
+     * @param view
+     */
     public void addStaff(View view) {
         Intent intent = new Intent(ManageStaff.this, AddStaff.class);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * Action listener for the back button associated to the manage staff page.
+     * Restarts the activity to go back to the initial page.
+     * @param view
+     */
     public void back(View view) {
         Intent intent = new Intent(ManageStaff.this, LabPage.class);
         startActivity(intent);
@@ -85,7 +110,7 @@ public class ManageStaff extends AppCompatActivity {
     }
 
     /**
-     * Action listener for the logout button for both the director and the staff home page.
+     * Action listener for the logout button.
      * Logs the user out of the system and sets the activity to the login page
      * @see MainActivity
      * @param view
@@ -99,10 +124,20 @@ public class ManageStaff extends AppCompatActivity {
         }
     }
 
+    /**
+     * Action listener associated to the pop up cancel button.
+     * Dismisses the pop up.
+     * @param view
+     */
     public void cancel(View view) {
         pw.dismiss();
     }
 
+    /**
+     * Action listener for the remove button associated to the pop up.
+     * Removes the selected staff member from the lab.
+     * @param view
+     */
     public void removeStaff(View view) {
         boolean isValid = cont.removeStaff(removeStaff.getEmail());
         if(isValid) {

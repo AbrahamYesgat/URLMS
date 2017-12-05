@@ -22,6 +22,10 @@ import ca.mcgill.ecse321.urlms.model.FundingAccount;
 import static ca.mcgill.ecse321.appurlms.AddStaff.hideSoftKeyboard;
 import static ca.mcgill.ecse321.appurlms.MainActivity.cont;
 
+/**
+ * This page is set when the user selects the manage funding accounts button from the lab page.
+ * This is only allowed for the director of the current lab.
+ */
 public class ManageFundingAccounts extends AppCompatActivity {
     FundingAccount modifyAccount;
 
@@ -29,15 +33,18 @@ public class ManageFundingAccounts extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_funding_accounts);
+        //This sets the logo in the bar at the top of the screen.
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
+        //Displays the lab name on top of the screen
         TextView nameMessage = (TextView)findViewById(R.id.accounts_message);
         nameMessage.setText("Funding Accounts for " + cont.getActiveLaboratory().getName());
 
         List<FundingAccount> accounts = cont.getActiveLaboratory().getFundingAccounts();
 
+        //Displays a list of all the funding accounts and their current balances.
         int i= 0;
         String[] accountArray = new String[accounts.size()];
         for (FundingAccount account : accounts) {
@@ -54,6 +61,7 @@ public class ManageFundingAccounts extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                //If a funding account from the list is selected, open the pop up.
                 modifyAccount = cont.getActiveLaboratory().getFundingAccount(position);
                 showPopup();
             }
@@ -62,6 +70,12 @@ public class ManageFundingAccounts extends AppCompatActivity {
     }
 
     private PopupWindow pw;
+
+    /**
+     * This is used to have the associated pop up message page to appear on the screen.
+     * It indicated whether the user wants to modify the selected funding account.
+     * Cancel button to dismiss the pop up.
+     */
     private void showPopup() {
         hideSoftKeyboard(ManageFundingAccounts.this);
 
@@ -73,6 +87,12 @@ public class ManageFundingAccounts extends AppCompatActivity {
         pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
     }
 
+    /**
+     * Action listener for the back button.
+     * Brings the user back to the lab page.
+     * @see LabPage
+     * @param view
+     */
     public void back(View view) {
         Intent intent = new Intent(ManageFundingAccounts.this, LabPage.class);
         startActivity(intent);
@@ -80,7 +100,7 @@ public class ManageFundingAccounts extends AppCompatActivity {
     }
 
     /**
-     * Action listener for the logout button for both the director and the staff home page.
+     * Action listener for the logout button.
      * Logs the user out of the system and sets the activity to the login page
      * @see MainActivity
      * @param view
@@ -94,27 +114,50 @@ public class ManageFundingAccounts extends AppCompatActivity {
         }
     }
 
+    /**
+     * Action listener for the add new funding account button.
+     * Changes the page to the add funding account activity.
+     * @see AddFundingAccount
+     * @param view
+     */
     public void addAccount(View view) {
         Intent intent = new Intent(ManageFundingAccounts.this, AddFundingAccount.class);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * Action listener for the modify funding account balance button associated to the pop up.
+     * Changes the page to the modify funds page.
+     * @param view
+     */
     public void modifyAccount(View view) {
         pw.dismiss();
         setContentView(R.layout.modify_funds);
     }
 
+    /**
+     * Action listener associated to the pop up cancel button.
+     * Dismisses the pop up.
+     * @param view
+     */
     public void cancel(View view) {
         pw.dismiss();
     }
 
+    /**
+     * Action listener for the add funds button associated to the modify funds page.
+     * Adds the specified amount to the funding account balance.
+     * If successful then restarts this activity in order to update the list.
+     * @param view
+     */
     public void addFunds(View view) {
         EditText value = (EditText) findViewById(R.id.funds_change);
         TextView modifyMessage = (TextView) findViewById(R.id.modify_message);
         String quantity = value.getText().toString();
         int accID = modifyAccount.getAccountNumber();
 
+        //Checks empty fields
         if(quantity.isEmpty()){
             modifyMessage.setText("Please indicate an amount to modify the account balance.");
         }
@@ -130,12 +173,19 @@ public class ManageFundingAccounts extends AppCompatActivity {
         }
     }
 
+    /**
+     * Action listener for the remove funds button associated to the modify funds page.
+     * Removes the specified amount from the funding account balance.
+     * If successful then restarts this activity in order to update the list.
+     * @param view
+     */
     public void removeFunds(View view) {
         EditText value = (EditText) findViewById(R.id.funds_change);
         TextView modifyMessage = (TextView) findViewById(R.id.modify_message);
         String quantity = value.getText().toString();
         int accID = modifyAccount.getAccountNumber();
 
+        //Checks for empty fields.
         if(quantity.isEmpty()){
             modifyMessage.setText("Please indicate an amount to modify the account balance.");
         }
@@ -151,6 +201,11 @@ public class ManageFundingAccounts extends AppCompatActivity {
         }
     }
 
+    /**
+     * Action listener for the back button associated to the modify funds page.
+     * Restarts the activity to go back to the initial page.
+     * @param view
+     */
     public void previous(View view) {
         finish();
         startActivity(getIntent());
