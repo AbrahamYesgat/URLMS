@@ -16,6 +16,8 @@ import java.awt.SystemColor;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
@@ -202,5 +204,11 @@ public class RegisterPage extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
+	}
+	
+	public void registerUser() {
+		
+		if(fieldName.getText().isEmpty() || fieldEmail.getText().isEmpty() || passwordField.getPassword().toString().length() == 0 || repPasswordField.getPassword().toString().length() ==0 )
+			JOptionPane.showMessageDialog(this, "Supply Name field cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 }

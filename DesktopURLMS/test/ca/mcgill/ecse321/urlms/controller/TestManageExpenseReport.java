@@ -57,9 +57,9 @@ public class TestManageExpenseReport {
 	assertEquals(true,sysC.login(testEmail,testPassword));
 	
 	//Case 1: Expense Report to be added to a lab 
-	assertEquals(true, sysC.addLaboratory("name", "study", new Date(2017, 10, 10)));
+	//assertEquals(true, sysC.addLaboratory("name", "study", new Date(2017, 10, 10)));
 	ExpenseReport ER= new ExpenseReport("ERPeriod", sysC.getActiveLaboratory());
-	assertEquals(true, sysC.createExpenseReport("ER", 23, 12, 2017));
+	//assertEquals(true, sysC.createExpenseReport("ER", 23, 12, 2017));
 	
 	assertEquals(true,sysC.logout());
 	urlms.delete();
