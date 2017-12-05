@@ -35,7 +35,7 @@ public class TestCreateDirector {
 
 	@After
 	public void tearDown() throws Exception {
-		//urlms.delete();
+		urlms.delete();
 	}
 
 	@Test

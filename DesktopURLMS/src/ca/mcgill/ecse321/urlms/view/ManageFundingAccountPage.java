@@ -318,14 +318,11 @@ public class ManageFundingAccountPage extends JFrame{
 		if(newFundNumber.getText().isEmpty() || txtQuantityCreate.getText().isEmpty()){
 			JOptionPane.showMessageDialog(this, "Account Number and Balance fields cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
 		}
-		else if(Double.parseDouble(txtQuantityCreate.getText()) < 0){
-			JOptionPane.showMessageDialog(this, "Please enter a valid balance!", "Error", JOptionPane.ERROR_MESSAGE);
-		}
 		else if (!(newFundNumber.getText().matches("[0-9]+") && newFundNumber.getText().length() > 2)) {
 			JOptionPane.showMessageDialog(this, "Account number must only contain numbers!", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		else if(!(txtQuantityCreate.getText().matches("[0-9.]*"))){
-			JOptionPane.showMessageDialog(this, "Balance must only contain numbers and periods!", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Balance must only contain numbers/periods and cannot be negative!", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		else if(urlmsCont.createFundingAccount(Double.parseDouble(txtQuantityCreate.getText()), Integer.parseInt(newFundNumber.getText()))){
 			JOptionPane.showMessageDialog(this, "Account has been successfully added to the lab!");
