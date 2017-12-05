@@ -4,16 +4,25 @@ import javax.swing.JFrame;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
+import ca.mcgill.ecse321.urlms.model.Director;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.URLMS;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import org.jdesktop.swingx.prompt.PromptSupport;
 
 import javax.swing.JSeparator;
 import javax.swing.JCheckBox;
@@ -84,7 +93,7 @@ public class EditLabPage extends JFrame {
 		nameField = new JTextField();
 		nameField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
 		nameField.setColumns(10);
-		
+		PromptSupport.setPrompt(currentLab.getName(), nameField);
 		JLabel lblActiveLab = new JLabel("Active Lab?");
 		lblActiveLab.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
@@ -99,6 +108,7 @@ public class EditLabPage extends JFrame {
 		JCheckBox chckbxNo = new JCheckBox("No");
 		chckbxNo.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
 		
+		chckbxNo.getModel().isPressed();
 		JLabel lblStartDate = new JLabel("Start Date");
 		lblStartDate.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
@@ -113,6 +123,11 @@ public class EditLabPage extends JFrame {
 		JDateChooser dateChooser = new JDateChooser();
 		
 		JButton saveBtn = new JButton("Save Changes");
+		saveBtn.setForeground(Color.WHITE);
+		saveBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		saveBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		saveBtn.setBackground(new Color(23, 52, 240));
 		
@@ -188,7 +203,85 @@ public class EditLabPage extends JFrame {
 					.addContainerGap())
 		);
 		getContentPane().setLayout(groupLayout);
+		
+		logoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				urlmsCont.logout();
+				
+				new LoginPage(urlms).setVisible(true);
+				dispose();
+			}
+		});
+		
+		backBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if(urlmsCont.getActiveUser() instanceof Director) {
+					new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+					dispose();}
+				else
+					new StaffLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+					dispose();
+			}
+		});
+		
+		saveBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				java.sql.Date date = currentLab.getStartDate();;
+				Boolean active = currentLab.getActive();;
+				String labName = currentLab.getName();;
+				int i = 0;
+				
+				String s = ((JTextField)dateChooser.getDateEditor().getUiComponent()).getText();
+				if(s.equals("")) {
+					date = currentLab.getStartDate();
+				}
+				else {
+					date = new java.sql.Date(dateChooser.getDate().getTime());
+				}
+				
+				if(chckbxNo.isSelected() && chckbxYes.isSelected()) {
+					chckbxNo.setSelected(false);
+					chckbxYes.setSelected(false);
+					activeLabError();
+					i = 1;
+				}
+				else if(chckbxYes.isSelected())
+					active = true;
+				else if(chckbxNo.isSelected())
+					active = false;
+				else
+					active = currentLab.getActive();
+				
+				
+				if(nameField.getText().equals(""))
+					labName = currentLab.getName();
+				else
+					labName = nameField.getText();
+				
+				
+				if(urlmsCont.updateLab(labName, date, active) && i == 0)
+					labSucess();
+				else if(i ==1)
+					i = 0;
+				else
+					labError();
+
+			}
+		});
+	
 		pack();
 		this.setLocationRelativeTo(null);
 	}
+	
+	private void activeLabError() {
+		JOptionPane.showMessageDialog(this, "You are only allowed to check one box", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	private void labSucess() {
+		JOptionPane.showMessageDialog(this, "Lab information was updated!");
+	}
+	private void labError() {
+		JOptionPane.showMessageDialog(this, "Lab name entered already exists, please use another one", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
 }
