@@ -21,7 +21,6 @@ matrix:
       components:
         - tools
         - build-tools-26.0.2
-        - tools
         - platform-tools
         - android-25
         - extra-google-m2repository
