@@ -17,6 +17,10 @@ matrix:
       branches:
         except:
           - android
+      licenses:
+        - 'android-sdk-preview-license-52d11cd2'
+        - 'android-sdk-license-.+'
+        - 'google-gdk-license-.+'
       components:
         - tools
         - build-tools-26.0.2
