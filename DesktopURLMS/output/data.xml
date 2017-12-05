@@ -11,42 +11,33 @@
           <quantity>2</quantity>
           <laboratory reference="3"/>
         </equipment>
+        <equipment id="7">
+          <name>alexander3</name>
+          <quantity>3</quantity>
+          <laboratory reference="3"/>
+        </equipment>
+        <equipment id="8">
+          <name>alexander33</name>
+          <quantity>3</quantity>
+          <laboratory reference="3"/>
+        </equipment>
       </equipment>
       <uRLMS reference="1"/>
-<<<<<<< HEAD
-      <expenseReports id="7"/>
-      <director id="8">
+      <expenseReports id="9"/>
+      <director id="10">
         <email>director@urlms.ca</email>
         <password>password</password>
         <name>Director</name>
-=======
-      <expenseReports id="6"/>
-      <director id="7">
-        <email>NewEmail</email>
-        <password>NewPassword</password>
-        <name>NewName</name>
->>>>>>> 934ab2daefc63f7115a21d0790ec4e5f982e97c5
         <currentlyAssigned>true</currentlyAssigned>
         <labManaged>0</labManaged>
-        <laboratories id="9">
+        <laboratories id="11">
           <lab reference="3"/>
         </laboratories>
         <uRLMS reference="1"/>
       </director>
-<<<<<<< HEAD
-      <supplies id="10">
-        <supplies id="11">
-          <name>alexander`</name>
-          <quantity>14</quantity>
-          <laboratory reference="3"/>
-        </supplies>
-        <supplies id="12">
-          <name>alexrfq`</name>
-          <quantity>34</quantity>
-          <laboratory reference="3"/>
-        </supplies>
+      <supplies id="12">
         <supplies id="13">
-          <name>alexander</name>
+          <name>alexrfq`</name>
           <quantity>34</quantity>
           <laboratory reference="3"/>
         </supplies>
@@ -56,14 +47,6 @@
           <email>Member</email>
           <password>staff@urlms.ca</password>
           <name>password1</name>
-=======
-      <supplies id="9"/>
-      <staffs id="10">
-        <staff id="11">
-          <email>staff@urlms.ca</email>
-          <password>NewPassword</password>
-          <name>NewName</name>
->>>>>>> 934ab2daefc63f7115a21d0790ec4e5f982e97c5
           <currentlyAssigned>true</currentlyAssigned>
           <staffRole>ResearchAssociate</staffRole>
           <laboratories id="16">
@@ -71,7 +54,6 @@
           </laboratories>
           <progressUpdates id="17"/>
         </staff>
-<<<<<<< HEAD
         <staff id="18">
           <email>alex@urlms.ca</email>
           <password>password123</password>
@@ -100,15 +82,6 @@
     </lab>
   </laboratories>
   <directors id="26">
-    <director reference="8"/>
-=======
-      </staffs>
-      <progressUpdates id="14"/>
-      <fundingAccounts id="15"/>
-    </lab>
-  </laboratories>
-  <directors id="16">
-    <director reference="7"/>
->>>>>>> 934ab2daefc63f7115a21d0790ec4e5f982e97c5
+    <director reference="10"/>
   </directors>
 </ca.mcgill.ecse321.urlms.model.URLMS>
