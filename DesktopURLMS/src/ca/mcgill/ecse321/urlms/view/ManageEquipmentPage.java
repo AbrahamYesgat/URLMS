@@ -126,6 +126,10 @@ public class ManageEquipmentPage extends JFrame{
 			
 		}
 	}
+	
+	private void removeTable(JTable table) {
+		((DefaultTableModel) table.getModel()).setRowCount(0);
+	}
 	/**
 	 * Method used to initialize ManageEquipmentPage frame
 	 */
@@ -158,6 +162,7 @@ public class ManageEquipmentPage extends JFrame{
 		newEquipmentName.setColumns(10);
 		PromptSupport.setPrompt("Equipment Name", newEquipmentName);
 		JButton createEquipmentBtn = new JButton("Create");
+		createEquipmentBtn.setForeground(Color.WHITE);
 		createEquipmentBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		createEquipmentBtn.setBackground(Color.BLUE);
 		JButton btnBack = new JButton("Back");
@@ -298,16 +303,18 @@ public class ManageEquipmentPage extends JFrame{
 		//Add all action listners here
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
+				//setVisible(false);
 				new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+				dispose();
 			}
 		});
 		
 		lgtBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				urlmsCont.logout();
-				setVisible(false);
+				//setVisible(false);
 				new LoginPage(urlms).setVisible(true);
+				dispose();
 			}
 		});
 		createEquipmentBtn.addActionListener(new ActionListener() {
@@ -315,6 +322,18 @@ public class ManageEquipmentPage extends JFrame{
 				createEquipment();
 			}
 		});
+		
+		btnUpdateEquipment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				updateEquipment();
+			}
+		});
+		
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				deleteEquipment();
+			}
+			});
 		
 		pack();
 		// makes window appear in center of screen
@@ -339,5 +358,41 @@ public class ManageEquipmentPage extends JFrame{
 		}
 			else
 			JOptionPane.showMessageDialog(this, newEquipmentName.getText() + " already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+			emptyTextField();
+	}
+	private void updateEquipment() {
+		if(oldEquipmentName.getText().isEmpty() || txtQuantityModify.getText().isEmpty())
+			JOptionPane.showMessageDialog(this, "Supply Name and Quantity fields cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
+		else if(urlmsCont.modifyEquipment(oldEquipmentName.getText(), Integer.parseInt(txtQuantityModify.getText()))) {
+			JOptionPane.showMessageDialog(this, txtQuantityModify.getText() + " " + oldEquipmentName.getText() + " has been updated.");
+			removeTable(equipmentTable);
+			initialiseTable(equipmentTable);
+		}
+		else
+			JOptionPane.showMessageDialog(this, oldEquipmentName.getText() + " does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+			
+		emptyTextField();
+	}
+	
+	private void deleteEquipment() {
+		if(oldEquipmentName.getText().isEmpty())
+			JOptionPane.showMessageDialog(this, "Supply Name field cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
+		else if(urlmsCont.removeEquipments(oldEquipmentName.getText())) {
+			JOptionPane.showMessageDialog(this, oldEquipmentName.getText() + " has been sucesfully deleted.");
+			removeTable(equipmentTable);
+			initialiseTable(equipmentTable);
+		}
+		else
+			JOptionPane.showMessageDialog(this, oldEquipmentName.getText() + " does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+		emptyTextField();
+		equipmentQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfEquipment()));
+		
+	}
+	
+	private void emptyTextField() {
+		oldEquipmentName.setText("");
+		txtQuantityModify.setText("");
+		newEquipmentName.setText("");
+		txtQuantityCreate.setText("");
 	}
 }

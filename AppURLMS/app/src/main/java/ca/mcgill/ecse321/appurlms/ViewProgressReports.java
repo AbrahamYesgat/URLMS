@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import ca.mcgill.ecse321.urlms.model.Director;
 import ca.mcgill.ecse321.urlms.model.ProgressUpdate;
 import ca.mcgill.ecse321.urlms.model.Staff;
 
@@ -21,7 +22,12 @@ public class ViewProgressReports extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_progress_reports);
+        if(cont.getActiveUser() instanceof Director) {
+            setContentView(R.layout.view_progress_reports);
+        }
+        else {
+            setContentView(R.layout.view_staff_progress_reports);
+        }
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
@@ -73,5 +79,11 @@ public class ViewProgressReports extends AppCompatActivity {
     public void previous(View view) {
         finish();
         startActivity(getIntent());
+    }
+
+    public void createReport(View view) {
+        Intent intent = new Intent(ViewProgressReports.this, CreateProgressReport.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -35,7 +35,7 @@ public class ViewExpenseReport extends AppCompatActivity {
         int i= 0;
         String[] reportArray = new String[reports.size()];
         for (ExpenseReport report : reports) {
-            reportArray[i] = Integer.toString(i);
+            reportArray[i] = "Expense report " + Integer.toString(i+1);
             i++;
         }
 
@@ -52,7 +52,7 @@ public class ViewExpenseReport extends AppCompatActivity {
                     ExpenseReport viewReport = cont.getActiveLaboratory().getExpenseReport(position);
                     setContentView(R.layout.view_report);
                     TextView actualReport = (TextView) findViewById(R.id.actual_report);
-                    actualReport.setText(viewReport.getExpensePeriod());
+                    actualReport.setText(viewReport.getExpense() + " amount spent: " + Double.toString(viewReport.getAmount()) + "$");
                 }
             }
         });

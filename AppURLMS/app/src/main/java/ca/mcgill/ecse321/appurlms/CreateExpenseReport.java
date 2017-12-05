@@ -23,14 +23,16 @@ public class CreateExpenseReport extends AppCompatActivity {
 
     public void addExpense(View view) {
         EditText expenseReport = (EditText) findViewById(R.id.expense_report);
+        EditText amount = (EditText) findViewById(R.id.expense_amount);
         DatePicker labStartDate = (DatePicker) findViewById(R.id.expense_date);
         int day = labStartDate.getDayOfMonth();
         int month = labStartDate.getMonth() + 1;
         int year = labStartDate.getYear();
         String report = expenseReport.getText().toString();
+        String value = amount.getText().toString();
 
-        if(!(TextUtils.isEmpty(expenseReport.getText().toString()))) {
-            boolean isValid = cont.createExpenseReport(report, day, month, year);
+        if(!(TextUtils.isEmpty(expenseReport.getText().toString()) || TextUtils.isEmpty(amount.getText().toString()))) {
+            boolean isValid = cont.createExpenseReport(report, Double.parseDouble(value), day, month, year);
             if(isValid) {
                 Intent intent = new Intent(CreateExpenseReport.this, ViewExpenseReport.class);
                 startActivity(intent);

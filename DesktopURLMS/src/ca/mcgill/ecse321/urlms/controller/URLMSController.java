@@ -187,17 +187,6 @@ public class URLMSController {
 		return false; 
 	}
 	
-	//Need to figure out how expenses will work
-	public boolean addExpenses(String data, String note, double expenses) {
-		
-		if(expenses < 0)
-			expenses = expenses * (-1.0);
-		
-		
-		
-		return false;
-	}
-	
 	
 	public boolean createWeeklyProgressReport(String Title, String report, Date date) {
 		String reportPeriod = date.toString();
@@ -220,10 +209,14 @@ public class URLMSController {
 		return "Requested Weekly Progress Report cannot be found!";
 	}
 	
-	public boolean createExpenseReport(String expenseReport, int day, int month, int year) {
+	public boolean createExpenseReport(String expenseReport, double price, int day, int month, int year) {
+		if(price < 0){
+			return false;
+		}
 		String report = "Expenses for " + Integer.toString(day) + "/" + Integer.toString(month) + "/" + Integer.toString(year) 
 						+ System.lineSeparator() + expenseReport;
-		activeLab.addExpenseReport(report);
+		ExpenseReport expense = activeLab.addExpenseReport(report); 
+		expense.setAmount(price);
 		return PersistenceXStream.saveToXMLwithXStream(urlms);
 	}
 	

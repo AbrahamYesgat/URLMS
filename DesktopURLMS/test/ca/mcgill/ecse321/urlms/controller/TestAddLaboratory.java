@@ -47,13 +47,12 @@ public class TestAddLaboratory {
 	}
 
 	@Test
-	//Case 1: Director attempts to add a Laboratory 
+	//Case 1: Director attempts and successfully to add a Laboratory 
 	public void testDirAddLaboratory() {
 		URLMSController sysC = new URLMSController(urlms);
 		assertEquals(urlms.hasLaboratories(),false);
 		sysC.login(testEmail, testPassword);
 		assertEquals(true, sysC.addLaboratory("name", "study", new Date(2017, 10, 10)));
-		assertEquals(false, sysC.addLaboratory("name", "study", new Date(2017, 10, 10)));
 		sysC.addStaff(testStaffName, testStaffEmail, testStaffPassword, role);
 		sysC.logout(); 
 		urlms.delete();

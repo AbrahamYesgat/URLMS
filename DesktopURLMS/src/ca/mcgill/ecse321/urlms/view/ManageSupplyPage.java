@@ -118,13 +118,17 @@ public class ManageSupplyPage extends JFrame{
 		if(currentLab.hasSupplies()){
 			labSupply = currentLab.getSupplies();
 			for(Supplies supply : labSupply){
-				Object[] o = new Object[4];
+				Object[] o = new Object[2];
 				  o[0] = supply.getName();
 				  o[1] = supply.getQuantity();
 				  ((DefaultTableModel) table.getModel()).addRow(o);
 			}
 			
 		}
+	}
+	
+	private void removeTable(JTable table) {
+		((DefaultTableModel) table.getModel()).setRowCount(0);
 	}
 	/**
 	 * Method used to initialize ManageSupplyPage frame
@@ -158,6 +162,7 @@ public class ManageSupplyPage extends JFrame{
 		newSupplyName.setColumns(10);
 		PromptSupport.setPrompt("Supply Name", newSupplyName);
 		JButton createSupplyBtn = new JButton("Create");
+		createSupplyBtn.setForeground(Color.WHITE);
 		createSupplyBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		createSupplyBtn.setBackground(Color.BLUE);
 		JButton btnBack = new JButton("Back");
@@ -318,6 +323,17 @@ public class ManageSupplyPage extends JFrame{
 			}
 		});
 		
+		btnUpdateSupply.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				updateSupply();
+			}
+		});
+		
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				deleteSupply();
+			}
+		});
 		pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
@@ -330,7 +346,7 @@ public class ManageSupplyPage extends JFrame{
 		if(newSupplyName.getText().isEmpty() || txtQuantityCreate.getText().isEmpty()){
 			JOptionPane.showMessageDialog(this, "Supply Name and Quantity fields cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
 		}
-		else if(Integer.parseInt(txtQuantityCreate.getText()) <= 0){
+		else if(Integer.parseInt(txtQuantityCreate.getText()) < 0){
 			JOptionPane.showMessageDialog(this, "Please enter a valid quantity!", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		else if(urlmsCont.createSupplies(newSupplyName.getText(), Integer.parseInt(txtQuantityCreate.getText()))){
@@ -341,5 +357,42 @@ public class ManageSupplyPage extends JFrame{
 		}
 			else
 			JOptionPane.showMessageDialog(this, newSupplyName.getText() + " already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+		emptyTextField();
+	}
+	
+	private void updateSupply() {
+		if(oldSupplyName.getText().isEmpty() || txtQuantityModify.getText().isEmpty())
+			JOptionPane.showMessageDialog(this, "Supply Name and Quantity fields cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
+		else if(urlmsCont.modifySupplies(oldSupplyName.getText(), Integer.parseInt(txtQuantityModify.getText()))) {
+			JOptionPane.showMessageDialog(this, txtQuantityModify.getText() + " " + oldSupplyName.getText() + " has been updated.");
+			removeTable(supplyTable);
+			initialiseTable(supplyTable);
+		}
+		else
+			JOptionPane.showMessageDialog(this, oldSupplyName.getText() + " does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+			
+		emptyTextField();
+	}
+	
+	private void deleteSupply() {
+		if(oldSupplyName.getText().isEmpty())
+			JOptionPane.showMessageDialog(this, "Supply Name field cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
+		else if(urlmsCont.removeSupplies(oldSupplyName.getText())) {
+			JOptionPane.showMessageDialog(this, oldSupplyName.getText() + " has been sucesfully deleted.");
+			removeTable(supplyTable);
+			initialiseTable(supplyTable);
+		}
+		else
+			JOptionPane.showMessageDialog(this, oldSupplyName.getText() + " does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+		emptyTextField();
+		supplyQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfSupplies()));
+		
+	}
+	
+	private void emptyTextField() {
+		oldSupplyName.setText("");
+		txtQuantityModify.setText("");
+		newSupplyName.setText("");
+		txtQuantityCreate.setText("");
 	}
 }
