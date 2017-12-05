@@ -11,14 +11,61 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import ca.mcgill.ecse321.urlms.controller.URLMSController;
+import ca.mcgill.ecse321.urlms.model.Laboratory;
+import ca.mcgill.ecse321.urlms.model.URLMS;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class SelectProgressRepPage extends JFrame{
-	private JTextField textField;
-	public SelectProgressRepPage() {
-		
+	/**
+	 * Serial ID
+	 */
+	private static final long serialVersionUID = 2088529096348585529L;
+	/**
+	 * ID of progress report user wishes to view
+	 */
+	private JTextField idField;
+	/**
+	 * URLMS system
+	 */
+	private URLMS urlms;
+	/**
+	 * URLMS controller
+	 */
+	private URLMSController urlmsCont;
+	/**
+	 * Lab that user has currently clicked on
+	 */
+	private Laboratory currentLab;
+	public SelectProgressRepPage(URLMS urlms, Laboratory currentLab, URLMSController urlmsCont) {
+		setResizable(false);
+		this.urlms = urlms;
+		this.currentLab = currentLab;
+		this.urlmsCont = urlmsCont;
+		try {
+	           for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+	               if ("Nimbus".equals(info.getName())) {
+	                   javax.swing.UIManager.setLookAndFeel(info.getClassName());
+	                   break;
+	               }
+	           }
+	       } catch (ClassNotFoundException ex) {
+	           java.util.logging.Logger.getLogger(SelectProgressRepPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	       } catch (InstantiationException ex) {
+	           java.util.logging.Logger.getLogger(SelectProgressRepPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	       } catch (IllegalAccessException ex) {
+	           java.util.logging.Logger.getLogger(SelectProgressRepPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	       } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+	           java.util.logging.Logger.getLogger(SelectProgressRepPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	       }
+		initComponents();
+	}
+	
+	private void initComponents(){
 		this.setTitle("Select Progress Report");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel headerPanel = new JPanel();
@@ -32,13 +79,13 @@ public class SelectProgressRepPage extends JFrame{
 		btnViewReport.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		btnViewReport.setBackground(new Color(14, 96, 131));
 		
-		JButton button = new JButton("Back");
-		button.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		button.setBackground(new Color(255, 255, 13));
+		JButton backBtn = new JButton("Back");
+		backBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+		backBtn.setBackground(new Color(255, 255, 13));
 		
-		JButton button_1 = new JButton("Logout");
-		button_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		button_1.setBackground(Color.RED);
+		JButton logoutBtn = new JButton("Logout");
+		logoutBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+		logoutBtn.setBackground(Color.RED);
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -46,9 +93,9 @@ public class SelectProgressRepPage extends JFrame{
 				.addComponent(headerPanel, GroupLayout.DEFAULT_SIZE, 822, Short.MAX_VALUE)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(button, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+					.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 452, Short.MAX_VALUE)
-					.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+					.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(269)
@@ -69,8 +116,8 @@ public class SelectProgressRepPage extends JFrame{
 					.addComponent(btnViewReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(button, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-						.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
+						.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+						.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		centerPanel.setLayout(new BorderLayout(0, 0));
@@ -81,11 +128,11 @@ public class SelectProgressRepPage extends JFrame{
 		lblP.setForeground(Color.WHITE);
 		centerPanel.add(lblP, BorderLayout.NORTH);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(textField, BorderLayout.CENTER);
-		textField.setColumns(10);
+		idField = new JTextField();
+		idField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		idField.setHorizontalAlignment(SwingConstants.CENTER);
+		centerPanel.add(idField, BorderLayout.CENTER);
+		idField.setColumns(10);
 		headerPanel.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel = new JLabel("Weekly Progress Reports");
