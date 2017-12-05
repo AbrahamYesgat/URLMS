@@ -210,6 +210,9 @@ public class URLMSController {
 	}
 	
 	public boolean createExpenseReport(String expenseReport, double price, int day, int month, int year) {
+		if(price < 0){
+			return false;
+		}
 		String report = "Expenses for " + Integer.toString(day) + "/" + Integer.toString(month) + "/" + Integer.toString(year) 
 						+ System.lineSeparator() + expenseReport;
 		ExpenseReport expense = activeLab.addExpenseReport(report); 
