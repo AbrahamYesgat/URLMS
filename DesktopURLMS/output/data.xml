@@ -7,42 +7,44 @@
       <active>false</active>
       <equipment id="5">
         <equipment id="6">
-          <name>alexander3</name>
-          <quantity>3</quantity>
+          <name>Computer</name>
+          <quantity>10</quantity>
           <laboratory reference="3"/>
         </equipment>
         <equipment id="7">
-          <name>alexander33</name>
+          <name>Computer 3</name>
           <quantity>3</quantity>
-          <laboratory reference="3"/>
-        </equipment>
-        <equipment id="8">
-          <name>alexander</name>
-          <quantity>6</quantity>
           <laboratory reference="3"/>
         </equipment>
       </equipment>
       <uRLMS reference="1"/>
-      <expenseReports id="9"/>
-      <director id="10">
+      <expenseReports id="8"/>
+      <director id="9">
         <email>director@urlms.ca</email>
         <password>password</password>
         <name>Director</name>
         <currentlyAssigned>true</currentlyAssigned>
         <labManaged>0</labManaged>
-        <laboratories id="11">
+        <laboratories id="10">
           <lab reference="3"/>
         </laboratories>
         <uRLMS reference="1"/>
       </director>
+<<<<<<< HEAD
       <supplies id="12"/>
       <staffs id="13">
         <staff id="14">
+=======
+      <supplies id="11"/>
+      <staffs id="12">
+        <staff id="13">
+>>>>>>> d756ae76a54818638b7b1bf5ff274cda14b72aa3
           <email>Member</email>
           <password>staff@urlms.ca</password>
           <name>password1</name>
           <currentlyAssigned>true</currentlyAssigned>
           <staffRole>ResearchAssociate</staffRole>
+<<<<<<< HEAD
           <laboratories id="15">
             <lab reference="3"/>
           </laboratories>
@@ -86,5 +88,19 @@
       <laboratories id="27"/>
       <uRLMS reference="1"/>
     </director>
+=======
+          <laboratories id="14">
+            <lab reference="3"/>
+          </laboratories>
+          <progressUpdates id="15"/>
+        </staff>
+      </staffs>
+      <progressUpdates id="16"/>
+      <fundingAccounts id="17"/>
+    </lab>
+  </laboratories>
+  <directors id="18">
+    <director reference="9"/>
+>>>>>>> d756ae76a54818638b7b1bf5ff274cda14b72aa3
   </directors>
 </ca.mcgill.ecse321.urlms.model.URLMS>

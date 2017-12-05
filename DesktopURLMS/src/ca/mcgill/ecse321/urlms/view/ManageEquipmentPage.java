@@ -347,6 +347,9 @@ public class ManageEquipmentPage extends JFrame{
 		if(newEquipmentName.getText().isEmpty() || txtQuantityCreate.getText().isEmpty()){
 			JOptionPane.showMessageDialog(this, "Equipment Name and Quantity fields cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
 		}
+		else if (!(txtQuantityCreate.getText().matches("[0-9]+"))) { // quantity contains non-numbers
+			JOptionPane.showMessageDialog(this, "Quantity must only contain numbers!", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 		else if(Integer.parseInt(txtQuantityCreate.getText()) <= 0){
 			JOptionPane.showMessageDialog(this, "Please enter a valid quantity!", "Error", JOptionPane.ERROR_MESSAGE);
 		}
