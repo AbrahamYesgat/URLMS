@@ -11,29 +11,20 @@
         	<fileset dir="lib"/>
     	</path>
 	
-    <!-- Deletes the existing build, docs and dist directory-->
-    <target name="clean">
-        <delete dir="${build.dir}" />
-        <delete dir="${docs.dir}" />
-        <delete dir="${dist.dir}" />
-    </target>
+	<target name="init">
+	    <!-- Create the build directory structure used by compile -->
+	    <mkdir dir="${build}"/>
+	  </target>
 	
     <!-- Compiles the java code (including the usage of library for JUnit -->
-    <target name="compile" depends="clean">
+    <target name="compile" depends="init">
         <javac srcdir="${src.dir}" destdir="${build.dir}">
         </javac>
     </target>
 
-    <!--Creates the deployable jar file  -->
-    <target name="jar" depends="compile">
-        <jar destfile="${dist.dir}\de.vogella.build.test.ant.jar" basedir="${build.dir}">
-            <manifest>
-                <attribute name="Main-Class" value="test.Main" />
-            </manifest>
-        </jar>
-    </target>
-
-    <target name="main" depends="compile, jar">
-        <description>Main target</description>
-    </target>
+	<target name="clean" depends="compile">
+	        <delete dir="${build.dir}" />
+	        <delete dir="${docs.dir}" />
+	        <delete dir="${dist.dir}" />
+	    </target>
 </project>
