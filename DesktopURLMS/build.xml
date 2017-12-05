@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="URLMS" default="init" basedir=".">
+<project name="URLMS" default="compile" basedir=".">
    <!-- Sets variables which can later be used. -->
     <!-- The value of a property is accessed via ${} -->
     <property name="src.dir" location="src" />
@@ -19,7 +19,7 @@
     </target>
 	
     <!-- Compiles the java code (including the usage of library for JUnit -->
-    <target name="compile" depends="clean, makedir">
+    <target name="compile" depends="clean">
         <javac srcdir="${src.dir}" destdir="${build.dir}">
         </javac>
     </target>
@@ -33,7 +33,7 @@
         </jar>
     </target>
 
-    <target name="main" depends="compile, jar, docs">
+    <target name="main" depends="compile, jar">
         <description>Main target</description>
     </target>
 </project>
