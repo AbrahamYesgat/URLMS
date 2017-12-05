@@ -5,5 +5,4 @@ branches:
     - android
 script:
   - cd ./DesktopURLMS
-  - ant clean
   - ant compile
