@@ -34,8 +34,7 @@ public class TestManageEquipment {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		urlms = URLMS.getInstance();
-		// Create participants
-		Director dr = new Director(testEmail, testPassword, testName, urlms); 
+
 		// Create data file
 		PersistenceXStream.initializeURLMS("output"+File.separator+"data.xml");
 		PersistenceXStream.saveToXMLwithXStream(urlms);
@@ -49,31 +48,36 @@ public class TestManageEquipment {
 	public void tearDown() throws Exception {
 		urlms.delete();
 	}
+	
+	@Test
 //Case 1: equipement attempted to be created 
 	public void testCreateEquipment(){
 		URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+		Director dr = new Director(testEmail, testPassword, testName, urlms);
 		UCon.login(testEmail, testPassword);
 		UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
 		Laboratory activeLab = UCon.getActiveLaboratory(); 
 		
 		/* Test Begins here*/
-		assertEquals(false, activeLab.hasSupplies());//ensures there are no supplies to begin with
+		assertEquals(false, activeLab.hasEquipment());//ensures there are no supplies to begin with
 		String Equipment = "TestEquipment";
 		UCon.createEquipment(Equipment,1);
 		assertEquals(1,activeLab.getEquipment().size());
-		assertEquals(Equipment ,activeLab.getSupply(0).getName());
+		assertEquals(Equipment ,activeLab.getEquipment(0).getName());
 		assertEquals(activeLab.hasEquipment(),true);
+
 		UCon.logout();
+		urlms.delete();
 	}
 	
 	
 	//Case 2: Subtract equipments, make sure we never get negative equipments 
 	@Test
 	public void testNegativeModifyEquipment() {
-		String error="";
 		URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+		Director dr = new Director(testEmail, testPassword, testName, urlms);
 		UCon.login(testEmail, testPassword);
-		UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
+		UCon.addLaboratory("name2", "study", new Date(2017, 10, 10));
 		Laboratory activeLab = UCon.getActiveLaboratory(); 
 		
 		/* Test Begins here*/
@@ -81,14 +85,17 @@ public class TestManageEquipment {
 		String Equipment = "TestEquip";
 		UCon.createEquipment(Equipment,1);
 		UCon.modifyEquipment(Equipment, -2);
-		assertEquals(0,activeLab.getEquipment(0).getQuantity());		
+		assertEquals(0,activeLab.getEquipment(0).getQuantity());	
+		UCon.logout();
+		urlms.delete();
 	}
-
-//Case 3: adding amounts of equipments
-	@Test 
+	
+//
+////Case 3: adding amounts of equipments
+//	@Test 
 	public void testAddSupplies(){
-		String error="";
 		URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+		Director dr = new Director(testEmail, testPassword, testName, urlms);
 		UCon.login(testEmail, testPassword);
 		UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
 		Laboratory activeLab = UCon.getActiveLaboratory(); 
@@ -102,15 +109,17 @@ public class TestManageEquipment {
 		UCon.createEquipment(Equip,randA);
 		UCon.modifyEquipment(Equip, randB);
 		assertEquals(randA+randB, activeLab.getEquipment(0).getQuantity());
+		UCon.logout();
+		urlms.delete();
 		
 	}
 	
-	// Case 4: This test makes sure that we can remove supply amounts from one lab for any random number
+	// Case 4: This test makes sure that we can remove Equip amounts from one lab for any random number
 	 
 	@Test
 	public void testRemoveEquipments(){
-		String error="";
 		URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+		Director dr = new Director(testEmail, testPassword, testName, urlms);
 		UCon.login(testEmail, testPassword);
 		UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
 		Laboratory activeLab = UCon.getActiveLaboratory(); 
@@ -123,7 +132,9 @@ public class TestManageEquipment {
 		int randB=rand.nextInt(randA-1);
 		UCon.createEquipment(Equip,randA);
 		UCon.modifyEquipment(Equip, -randB);
-		assertEquals(randA-randB, activeLab.getSupply(0).getQuantity());
+		assertEquals(randA-randB, activeLab.getEquipment(0).getQuantity());
+		UCon.logout();
+		urlms.delete();
 		
 	}
 	

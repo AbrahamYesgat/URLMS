@@ -53,7 +53,10 @@ public class TestRemoveStaff {
 		//Tests successful removeStaff
 		sysC.login(testEmail, testPassword);
 		sysC.addLaboratory("name", "study", new Date(2017, 10, 10));
+		assertEquals(true, sysC.addStaff(testStaffEmail,testStaffPassword,"name",role));
+		assertEquals(true, sysC.getActiveLaboratory().hasStaffs());
 		assertEquals(true, sysC.removeStaff(testStaffEmail));
+		assertEquals(false, sysC.getActiveLaboratory().hasStaffs());
 		sysC.logout();
 
 		//Tests unsuccessful removeStaff (if staff tries to add staff)

@@ -1,35 +1,39 @@
 <ca.mcgill.ecse321.urlms.model.URLMS id="1">
   <laboratories id="2">
     <lab id="3">
-      <name>alex</name>
+      <name>newName</name>
       <fieldOfStudy>study</fieldOfStudy>
-      <startDate id="4">2017-12-03</startDate>
-      <active>false</active>
-      <equipment id="5">
-        <equipment id="6">
-          <name>Computer</name>
-          <quantity>10</quantity>
-          <laboratory reference="3"/>
-        </equipment>
-        <equipment id="7">
-          <name>Computer 3</name>
-          <quantity>3</quantity>
-          <laboratory reference="3"/>
-        </equipment>
-      </equipment>
+      <startDate id="4">3918-12-11</startDate>
+      <active>true</active>
+      <equipment id="5"/>
       <uRLMS reference="1"/>
-      <expenseReports id="8"/>
-      <director id="9">
+      <expenseReports id="6"/>
+      <director id="7">
         <email>director@urlms.ca</email>
         <password>password</password>
         <name>Director</name>
         <currentlyAssigned>true</currentlyAssigned>
         <labManaged>0</labManaged>
-        <laboratories id="10">
+        <laboratories id="8">
           <lab reference="3"/>
+          <lab id="9">
+            <name>name</name>
+            <fieldOfStudy>study</fieldOfStudy>
+            <startDate id="10">3917-11-10</startDate>
+            <active>true</active>
+            <equipment id="11"/>
+            <uRLMS reference="1"/>
+            <expenseReports id="12"/>
+            <director reference="7"/>
+            <supplies id="13"/>
+            <staffs id="14"/>
+            <progressUpdates id="15"/>
+            <fundingAccounts id="16"/>
+          </lab>
         </laboratories>
         <uRLMS reference="1"/>
       </director>
+<<<<<<< HEAD
       <supplies id="12"/>
       <staffs id="13">
         <staff id="14">
@@ -39,46 +43,36 @@
           <currentlyAssigned>true</currentlyAssigned>
           <staffRole>ResearchAssociate</staffRole>
           <laboratories id="15">
-            <lab reference="3"/>
-          </laboratories>
-          <progressUpdates id="16"/>
-        </staff>
-        <staff id="17">
-          <email>alex@urlms.ca</email>
-          <password>password123</password>
-          <name>Alexander Torabi</name>
-          <currentlyAssigned>true</currentlyAssigned>
-          <staffRole>ResearchAssistant</staffRole>
-          <laboratories id="18">
-            <lab reference="3"/>
-          </laboratories>
-          <progressUpdates id="19"/>
-        </staff>
-        <staff id="20">
-          <email>chris@urlms.ca</email>
-          <password>password123</password>
-          <name>Chris Panaritis</name>
+=======
+      <supplies id="17"/>
+      <staffs id="18">
+        <staff id="19">
+          <email>staff@urlms.ca</email>
+          <password>password1</password>
+          <name>Member</name>
           <currentlyAssigned>true</currentlyAssigned>
           <staffRole>ResearchAssociate</staffRole>
-          <laboratories id="21">
+          <laboratories id="20">
+>>>>>>> 82abbd329884312387b479d14b9ebe4a9889702f
             <lab reference="3"/>
           </laboratories>
-          <progressUpdates id="22"/>
+          <progressUpdates id="21"/>
         </staff>
       </staffs>
-      <progressUpdates id="23"/>
-      <fundingAccounts id="24"/>
+      <progressUpdates id="22"/>
+      <fundingAccounts id="23"/>
     </lab>
+    <lab reference="9"/>
   </laboratories>
-  <directors id="25">
-    <director reference="10"/>
-    <director id="26">
-      <email>alex@urlms.ca</email>
-      <password>alex</password>
-      <name>Alexander</name>
+  <directors id="24">
+    <director reference="7"/>
+    <director id="25">
+      <email>second</email>
+      <password>second</password>
+      <name>second</name>
       <currentlyAssigned>true</currentlyAssigned>
       <labManaged>0</labManaged>
-      <laboratories id="27"/>
+      <laboratories id="26"/>
       <uRLMS reference="1"/>
     </director>
   </directors>
