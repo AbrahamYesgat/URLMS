@@ -142,6 +142,13 @@ public class URLMSController {
 		return false;
 	}
 	
+
+	/**
+	 * Director creates a funding account for the lab he/she is currently managing. 
+	 * @param initialFunds The initial funds that are to be added into this funding account
+	 * @param accountNumber Unique funding account number that will be assigned an account number
+	 * @return True if the account has been created with the correct input values, false if the inputed amount is either negative or if the account number has already been assigned elsewhere
+	 */
 	public boolean createFundingAccount(double intialFunds, int accountNumber) {
 		
 		//We want to verify that the account being created does not already exist in the system
@@ -169,6 +176,12 @@ public class URLMSController {
 		return false; 
 	}
 	
+	/**
+	 * Director can modify the funds in an existing funding account in the active lab 
+	 * @param newFunds The initial funds that have been created in the lab are changed based on the value of the newFunds parameter. If newFunds is positive, funds are added and if newfunds are negative, funds are subtracted
+	 * @param accountNumber Unique funding account number that will determine which funding account is being modified
+	 * @return True if the account funds has been modified properly , false otherwise
+	 */
 	public boolean modifyFunds(double newFunds, int accountNumber) {
 		String message;
 		double result=0;
@@ -187,6 +200,13 @@ public class URLMSController {
 		return false; 
 	}
 	
+	/**
+	 * Staff has the capability of creating a weekly summary of what happened in the previous week (i.e. a weekly progress report) 
+	 * @param Title The title of the weekly progress report
+	 * @param report The actual report that the staff writes
+	 * @param date The date that the staff is writing the weekly progress report
+	 * @return True if the progress report was successfully created, false otherwise
+	 */
 	
 	public boolean createWeeklyProgressReport(String Title, String report, Date date) {
 		String reportPeriod = date.toString();
@@ -199,6 +219,11 @@ public class URLMSController {
 		return false;
 	}
 	
+	/**
+	 * Member of the URLMS is allowed to view any weekly progress report of his/her requested Lab.  
+	 * @param idNumber the progress report unique id Number
+	 * @return The progress report on a success, error message on failure
+	 */
 	public String viewWeeklyProgressReport(int idNumber) {
 		List<ProgressUpdate> ProUps = activeLab.getProgressUpdates();
 		for(ProgressUpdate PU : ProUps) {
@@ -209,6 +234,15 @@ public class URLMSController {
 		return "Requested Weekly Progress Report cannot be found!";
 	}
 	
+	/**
+	 * Member of the URLMS can create an expense report based on the lab expenses 
+	 * @param expenseReport the expense report that the user will write 
+	 * @param price the price of the expense report
+	 * @param day day of the date that the user will create the expense report
+	 * @param month month of the date that the user will create the expense report
+	 * @param year year of the date that the user will create the expense report
+	 * @return The progress report on a success, error message on failure
+	 */
 	public boolean createExpenseReport(String expenseReport, double price, int day, int month, int year) {
 		if(price < 0){
 			return false;
@@ -220,7 +254,13 @@ public class URLMSController {
 		return PersistenceXStream.saveToXMLwithXStream(urlms);
 	}
 	
-	public boolean updateProfile(String email, String password, String name) {
+	/**
+	 * Member of the URLMS can update any piece of information currently in his/her profile
+	 * @param Email the user can update the email of his account 
+	 * @param password the user can update his/her account's password
+	 * @return name the user can update the name in his/her account
+	 */
+	 public boolean updateProfile(String email, String password, String name) {
 		
 		//This checks is the email is unchanged, if so, only update password and Name
 		if(activeUser.getEmail().equalsIgnoreCase(email)) {
@@ -246,8 +286,15 @@ public class URLMSController {
 		return PersistenceXStream.saveToXMLwithXStream(urlms);
 	
 	}
-	
-	public boolean updateLab(String name, Date startDate, boolean isActive) {
+	/**
+	 * A director can update the information currently in his/her laboratory
+	 * @param name the director can update the name of his laboratory 
+	 * @param startDate the user can update his/her laboratory's start date
+	 * @param isActive the user can update if his lab is active or not
+	 * @return true if the lab haas been properly updated, false otherwise
+	 */
+	 
+	 public boolean updateLab(String name, Date startDate, boolean isActive) {
 		if(activeLab.getName().equalsIgnoreCase(name)) {
 			activeLab.setActive(isActive);
 			activeLab.setStartDate(startDate);
@@ -305,7 +352,11 @@ public class URLMSController {
 		}
 		return false;
 	}
-
+	/**
+	 * The director has the power to add/assign a currently existing staff to his/her desired lab
+	 * @param email the user's email that will be added to the lab 
+	 * @return true on a success of adding a staff to a lab, false otherwise
+	 */
 	public boolean addExistingStaff(String email) {
 		boolean validAdd = false;
 		Staff validStaff = null;
@@ -358,7 +409,7 @@ public class URLMSController {
 	
 	/**
 	 * Director is allowed to create equipment types for his labs, which he can later add or remove quantities to
-	 * @param String of the equipment name 
+	 * @param equipment name of the equipment  
 	 * @return True if the database successfully added the equipment to the XML file, false if it did not work (if the person is not director)
 	 */
 	public boolean createEquipment(String equipment, int quantity) {
@@ -382,8 +433,12 @@ public class URLMSController {
 
 	}
 
-
-	
+	/**
+	 * Director is allowed to modify (i.e. add or remove) the amounts of equipment for his labs
+	 * @param equipment name of the equipment  
+	 * @param quantity the amount that the director wants to update the equipment by
+	 * @return True if the database successfully added the equipment to the XML file, false if it did not work (if the person is not director)
+	 */
 	public boolean modifyEquipment(String equipment,int quantity) {
 		int result=0;
 		List<Equipment> equipments = activeLab.getEquipment();
@@ -403,8 +458,11 @@ public class URLMSController {
 		return false; 
 	}
 	
-	
-	
+	/**
+	 * Director is allowed to remove equipment types for his/her labs, meaning remove the entire existing category of that same equipment
+	 * @param String equipment of the equipment name 
+	 * @return True if the database successfully removed the equipment and saved the update to the XML file, false if it did not work.
+	 */	
 	public boolean removeEquipments(String equipment) {
 		List<Equipment> equipments = activeLab.getEquipment();
 		
@@ -418,8 +476,11 @@ public class URLMSController {
 		return false; 
 	}
 	
-	
-	
+	/**
+	 * Director is allowed to create supplies types for his/her labs, which he can later add or remove quantities to
+	 * @param supplies name of the supply  
+	 * @return True if the database successfully added the supply to the XML file, false if it did not work
+	 */
 	public boolean createSupplies(String supplies, int quantity) {
 		
 		if(quantity < 0) {
@@ -440,7 +501,12 @@ public class URLMSController {
 		return PersistenceXStream.saveToXMLwithXStream(urlms);	
 	}
 
-	
+	/**
+	 * Director is allowed to modify (i.e. add or remove) the amounts of Supplies for his/her labs
+	 * @param supplies name of the supplies to be updated  
+	 * @param quantity the amount that the director wants to update the supply amounts by
+	 * @return True if the database successfully added the equipment to the XML file, false if it did not work (if the person is not director)
+	 */
 	public boolean modifySupplies(String supplies, int quantity) {
 		int result=0;
 		List<Supplies> supply = activeLab.getSupplies();
@@ -457,7 +523,12 @@ public class URLMSController {
 		}
 		return false; 
 	}
-
+	
+	/**
+	 * Director is allowed to remove Supply types for his/her labs, meaning remove the entire existing category of that same equipment
+	 * @param supplies name of the supplies that will be removed  
+	 * @return True if the database successfully removed the supplies and saved the update to the XML file, false if it did not work.
+	 */
 	public boolean removeSupplies(String supplies) {
 		List<Supplies> supply = activeLab.getSupplies();
 		
@@ -470,6 +541,13 @@ public class URLMSController {
 		
 		return false; 	
 	}
+	
+	/**
+	 * Director is allowed to delete an entire lab, meaning remove the entire existing lab and all its belongings
+	 * @param director the director
+	 * @param Lab the lab that is wished to be deleted 
+	 * @return True if the database successfully removed the equipment and saved the update to the XML file, false if it did not work.
+	 */
 	public boolean deleteLab(Director Dir, Laboratory Lab) {
 		if (activeUser instanceof Director) {
 			List<Laboratory>DLabs=Dir.getLaboratories();
