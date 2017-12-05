@@ -47,6 +47,12 @@ public class CreateExpenseReport extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Action listener for the logout button for both the director and the staff home page.
+     * Logs the user out of the system and sets the activity to the login page
+     * @see MainActivity
+     * @param view
+     */
     public void logout(View view) {
         boolean isValid = cont.logout();
         if(isValid) {
