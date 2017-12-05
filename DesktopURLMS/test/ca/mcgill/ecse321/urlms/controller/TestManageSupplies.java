@@ -46,8 +46,6 @@ public class TestManageSupplies {
 		@BeforeClass
 		public static void setUpBeforeClass() throws Exception {
 			urlms = URLMS.getInstance();
-			// Create participants
-			Director dr = new Director(testEmail, testPassword, testName, urlms); 
 			// Create data file
 			PersistenceXStream.initializeURLMS("output"+File.separator+"data.xml");
 			PersistenceXStream.saveToXMLwithXStream(urlms);
@@ -66,6 +64,7 @@ public class TestManageSupplies {
 		//Case 1: Create a Supply that does not exist yet
 		public void testCreateSupply(){
 			URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+			Director dr = new Director(testEmail, testPassword, testName, urlms);
 			UCon.login(testEmail, testPassword);
 			UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
 			Laboratory activeLab = UCon.getActiveLaboratory(); 
@@ -86,8 +85,8 @@ public class TestManageSupplies {
 		//Case 2: Ensure that we do not have negative Supplies amounts 
 		@Test
 		public void testNegativeModifySupply() {
-			String error="";
 			URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+			Director dr = new Director(testEmail, testPassword, testName, urlms);
 			UCon.login(testEmail, testPassword);
 			UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
 			Laboratory activeLab = UCon.getActiveLaboratory(); 
@@ -107,8 +106,8 @@ public class TestManageSupplies {
 		// Case 3: Adding Supplies of random amounts
 		@Test 
 		public void testAddSupplies(){
-			String error="";
 			URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+			Director dr = new Director(testEmail, testPassword, testName, urlms);
 			UCon.login(testEmail, testPassword);
 			UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
 			Laboratory activeLab = UCon.getActiveLaboratory(); 
@@ -133,6 +132,7 @@ public class TestManageSupplies {
 		//Case 4: Removing amounts of supplies
 		public void testRemoveSupplies(){
 			URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+			Director dr = new Director(testEmail, testPassword, testName, urlms);
 			UCon.login(testEmail, testPassword);
 			UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
 			Laboratory activeLab = UCon.getActiveLaboratory(); 
@@ -158,6 +158,7 @@ public class TestManageSupplies {
 		
 		public void testAddSuppliesNULL(){
 			URLMSController UCon = new URLMSController(urlms); //controller for the URLMS
+			Director dr = new Director(testEmail, testPassword, testName, urlms);
 			UCon.login(testEmail, testPassword);
 			UCon.addLaboratory("name", "study", new Date(2017, 10, 10));
 			Laboratory activeLab = UCon.getActiveLaboratory(); 
