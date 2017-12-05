@@ -14,9 +14,6 @@ matrix:
       jdk: oraclejdk8
       before_install:
         cd ./AppURLMS
-      branches:
-        except:
-          - android
       licenses:
         - 'android-sdk-preview-license-52d11cd2'
         - 'android-sdk-license-.+'
@@ -27,3 +24,5 @@ matrix:
         - tools
         - platform-tools
         - android-25
+        - extra-google-m2repository
+        - extra-android-m2repository
