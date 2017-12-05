@@ -245,6 +245,13 @@ public class DirectorLabPage extends JFrame{
 				setVisible(false);
 	    	}
 	    });
+	    
+	    updateProfileBtn.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent e) {
+				new UpdateProfilePage(urlms, currentLab, urlmsCont).setVisible(true);
+				setVisible(false);
+	    	}
+	    });
 	    pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);

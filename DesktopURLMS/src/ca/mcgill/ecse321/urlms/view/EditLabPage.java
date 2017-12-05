@@ -124,10 +124,6 @@ public class EditLabPage extends JFrame {
 		
 		JButton saveBtn = new JButton("Save Changes");
 		saveBtn.setForeground(Color.WHITE);
-		saveBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		saveBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		saveBtn.setBackground(new Color(23, 52, 240));
 		
