@@ -321,6 +321,7 @@ public class ManageStaffPage extends JFrame{
 				if(urlmsCont.removeStaff((String)target.getValueAt(row, column-2))){
 					((DefaultTableModel) staffTable.getModel()).removeRow(row);
 					 staffQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfStaffs()));
+					 JOptionPane.showMessageDialog(this, "The staff member has been sucefully deleted!");
 				}
 				else{
 					JOptionPane.showMessageDialog(this, "Sorry, an error occurred! Please try again later.", "Error", JOptionPane.ERROR_MESSAGE);

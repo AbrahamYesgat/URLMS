@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.urlms.view;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -40,6 +41,7 @@ import javax.swing.JComponent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 
 public class LabSelectionPage extends JFrame {
@@ -90,6 +92,15 @@ public class LabSelectionPage extends JFrame {
 	       }
 		this.urlms = urlms;
 		this.urlmsCont = urlmsCont;
+		
+		if( !(urlmsCont.getActiveUser() instanceof Director)) {
+			Calendar cal = Calendar.getInstance();
+	        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+	        String strDate = sdf.format(cal.getTime());
+	        urlmsCont.getStaffMember(currentUser.getEmail()).setLastLogin(strDate);
+	       // System.out.println("Current date in Date Format: " + string);
+;		}
+			
 		//this.email = email;
 		initialiseCurrentUser(email);
 		setResizable(false);
