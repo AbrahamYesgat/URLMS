@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
 
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
+import ca.mcgill.ecse321.urlms.model.Director;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.URLMS;
 
@@ -163,6 +164,25 @@ public class SelectProgressRepPage extends JFrame{
 		btnViewReport.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				viewProgReport();
+			}
+		});
+		
+		backBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(urlmsCont.getActiveUser() instanceof Director){
+					new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+				}
+				else
+					new StaffLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+				setVisible(false);
+			}
+		});
+		
+		logoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				urlmsCont.logout();
+				setVisible(false);
+				new LoginPage(urlms).setVisible(true);
 			}
 		});
 	}
