@@ -3,8 +3,8 @@
     <lab id="3">
       <name>Torabi&apos;s Lab</name>
       <fieldOfStudy>study</fieldOfStudy>
-      <startDate id="4">3917-11-10</startDate>
-      <active>false</active>
+      <startDate id="4">2017-12-01</startDate>
+      <active>true</active>
       <equipment id="5"/>
       <uRLMS reference="1"/>
       <expenseReports id="6"/>
@@ -16,59 +16,89 @@
         <labManaged>0</labManaged>
         <laboratories id="8">
           <lab reference="3"/>
+          <lab id="9">
+            <name>Torabi</name>
+            <fieldOfStudy>Science</fieldOfStudy>
+            <startDate id="10">2017-12-01</startDate>
+            <active>true</active>
+            <equipment id="11"/>
+            <uRLMS reference="1"/>
+            <expenseReports id="12"/>
+            <director reference="7"/>
+            <supplies id="13"/>
+            <staffs id="14"/>
+            <progressUpdates id="15"/>
+            <fundingAccounts id="16"/>
+          </lab>
+          <lab id="17">
+            <name>Torabi1</name>
+            <fieldOfStudy>Science</fieldOfStudy>
+            <startDate id="18">2017-12-06</startDate>
+            <active>true</active>
+            <equipment id="19"/>
+            <uRLMS reference="1"/>
+            <expenseReports id="20"/>
+            <director reference="7"/>
+            <supplies id="21"/>
+            <staffs id="22"/>
+            <progressUpdates id="23"/>
+            <fundingAccounts id="24"/>
+          </lab>
         </laboratories>
         <uRLMS reference="1"/>
       </director>
-      <supplies id="9">
-        <supplies id="10">
+      <supplies id="25">
+        <supplies id="26">
           <name>Computer</name>
           <quantity>0</quantity>
           <laboratory reference="3"/>
         </supplies>
       </supplies>
-      <staffs id="11">
-        <staff id="12">
+      <staffs id="27">
+        <staff id="28">
           <email>sad@urlms.ca</email>
           <password>password123</password>
           <name>Sadhvi</name>
           <currentlyAssigned>true</currentlyAssigned>
           <staffRole>ResearchAssistant</staffRole>
           <lastLogin>06/12/2017 13:40</lastLogin>
-          <laboratories id="13">
+          <laboratories id="29">
             <lab reference="3"/>
           </laboratories>
-          <progressUpdates id="14"/>
+          <progressUpdates id="30"/>
         </staff>
       </staffs>
-      <progressUpdates id="15"/>
-      <fundingAccounts id="16">
-        <fundingAcc id="17">
+      <progressUpdates id="31"/>
+      <fundingAccounts id="32">
+        <fundingAcc id="33">
           <currentBalance>88523.97677</currentBalance>
           <accountNumber>12345</accountNumber>
           <laboratory reference="3"/>
         </fundingAcc>
-        <fundingAcc id="18">
+        <fundingAcc id="34">
           <currentBalance>75858.0</currentBalance>
           <accountNumber>123456</accountNumber>
           <laboratory reference="3"/>
         </fundingAcc>
-        <fundingAcc id="19">
+        <fundingAcc id="35">
           <currentBalance>0.0</currentBalance>
           <accountNumber>1234567</accountNumber>
           <laboratory reference="3"/>
         </fundingAcc>
       </fundingAccounts>
     </lab>
+    <lab reference="9"/>
+    <lab reference="17"/>
   </laboratories>
-  <directors id="20">
+  <directors id="36">
     <director reference="7"/>
-    <director id="21">
+    <director id="37">
       <email>second</email>
       <password>second</password>
       <name>second</name>
       <currentlyAssigned>true</currentlyAssigned>
       <labManaged>0</labManaged>
-      <laboratories id="22"/>
+      <laboratories id="38"/>
       <uRLMS reference="1"/>
     </director>
   </directors>

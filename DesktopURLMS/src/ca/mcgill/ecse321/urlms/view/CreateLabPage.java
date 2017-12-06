@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -53,6 +55,8 @@ public class CreateLabPage extends JFrame {
 	 * Field to enter new lab's field of study
 	 */
 	private JTextField studyField;
+	
+	private JDateChooser dateChooser;
 	
 	/**
 	 * Constructor of CreateLabPage frame
@@ -106,8 +110,8 @@ public class CreateLabPage extends JFrame {
 		JButton logoutBtn = new JButton("Logout");
 		logoutBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		logoutBtn.setBackground(Color.RED);
-		
-		JDateChooser dateChooser = new JDateChooser();
+		Calendar c = Calendar.getInstance();
+		dateChooser = new JDateChooser(c.getTime());
 		
 		JButton saveBtn = new JButton("Save Changes");
 		saveBtn.setForeground(Color.WHITE);
@@ -205,6 +209,17 @@ public class CreateLabPage extends JFrame {
 		
 		saveBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+					java.sql.Date date;
+					
+					date = new java.sql.Date(dateChooser.getDate().getTime());
+					
+					if(studyField.getText().equals("") || nameField.getText().equals(""))
+						labErrorInfo();
+					else if(urlmsCont.addLaboratory(nameField.getText(), studyField.getText(), date))
+						labSucess();
+					else
+						labError();
 			}
 		});
 	
@@ -213,9 +228,19 @@ public class CreateLabPage extends JFrame {
 	}
 	
 	private void labSucess() {
-		JOptionPane.showMessageDialog(this, "Lab information was updated!");
+		JOptionPane.showMessageDialog(this, "Your laboratory was created!");
 	}
 	private void labError() {
 		JOptionPane.showMessageDialog(this, "Lab name entered already exists, please use another one", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	private void labErrorInfo() {
+		JOptionPane.showMessageDialog(this, "Please input all information, fields cannot be left empty", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	private boolean checkDate() {
+		String s = ((JTextField)dateChooser.getDateEditor().getUiComponent()).getText();
+		if(!s.equals(""))
+			return true;
+		
+		return false;
 	}
 }
