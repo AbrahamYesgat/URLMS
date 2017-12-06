@@ -45,7 +45,6 @@ export default {
   name: 'Register',
   methods: {
 	  login(e) {
-		  e.preventDefault()
 	      this.$router.push('login')
 	  }
   }

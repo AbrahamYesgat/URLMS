@@ -1,5 +1,6 @@
 <template>
-  <div class="sidebar">
+<div>
+<div class="sidebar">
     <SidebarHeader/>
     <SidebarForm/>
     <nav class="sidebar-nav">
@@ -35,7 +36,7 @@
             </template>
             <template v-else>
               <li class="nav-item">
-                <SidebarNavLink :name="item.name" :url="item.url" :icon="item.icon" :badge="item.badge"/>
+                <SidebarNavLink @click.native="isSettingsPressed(item.name)" :name="item.name" :url="item.url" :icon="item.icon" :badge="item.badge"/>
               </li>
             </template>
           </template>
@@ -45,6 +46,24 @@
     </nav>
     <SidebarFooter/>
   </div>
+  <b-modal v-model="settingsModal" hide-footer title="Update Lab Settings">
+      <b-form @reset="populateLabSettingsModal">
+      <b-form-group id="nameGroup" label="Name">
+      	<b-form-input id="name" name="name" type="text" v-model="labSettings.name" v-validate="'required|alpha_num_spaces'" :class="{'input': true, 'is-danger': errors.has('name') }" placeholder="Enter name"></b-form-input>
+      	<span class="text-danger" v-if="errors.has('name')">Please enter a valid name</span>
+      </b-form-group>
+      <b-form-group id="fieldGroup" label="Field">
+      	<b-form-input id="field" type="text" name="field" v-model="labSettings.field" v-validate="'required|alpha_spaces'" :class="{'input': true, 'is-danger': errors.has('field') }" placeholder="Enter field"></b-form-input>
+      	<span class="text-danger" v-if="errors.has('field')">Please enter a valid field</span>
+      </b-form-group>
+      <!--  <b-form-group id="dateGroup" label="Start Date">
+      <date-picker v-model="labSettings.startDate" :config="dateConfig"></date-picker>
+      </b-form-group> -->
+     <b-button type="button" variant="primary" @click="updateLabSettings">Save Changes</b-button>
+     <b-button type="button" variant="secondary" @click="settingsModal = false">Close</b-button>
+	</b-form>	
+  </b-modal>
+</div>
 </template>
 <script>
 import SidebarFooter from './SidebarFooter'
@@ -55,6 +74,21 @@ import SidebarNavLink from './SidebarNavLink'
 import SidebarNavTitle from './SidebarNavTitle'
 export default {
   name: 'sidebar',
+  data() {
+	  return {
+		settingsModal: false,
+		labSettings: {
+			name: '',
+			field: '',
+			startDate: '',    
+			active: true	
+		},
+		dateConfig: {
+	          format: 'DD/MM/YYYY',
+	          useCurrent: false,
+	        }  
+	  }
+  },
   props: {
     navItems: {
       type: Array,
@@ -63,17 +97,55 @@ export default {
     }
   },
   components: {
+	datePicker,
     SidebarFooter,
     SidebarForm,
     SidebarHeader,
     SidebarNavDropdown,
     SidebarNavLink,
-    SidebarNavTitle
+    SidebarNavTitle,
   },
   methods: {
     handleClick (e) {
       e.preventDefault()
       e.target.parentElement.classList.toggle('open')
+    },
+    formatDate: function(date) {
+        if (date === null) {
+          return "[null]";
+        } else {
+          return date.format("YYYY-MM-DD");
+        }
+      },
+    isSettingsPressed(name) {
+    		if(name == "Settings") {
+    			this.showLabSettingsModal();
+    		}
+    },
+    populateLabSettingsModal() {
+    		//Fill items
+    },
+    showLabSettingsModal() {
+    		this.populateLabSettingsModal();
+    		this.settingsModal = true;
+    },
+    isValidInput() {
+   	 	this.$validator.validateAll();
+   		
+   	 	if(labSettings.name == '') {
+   	 		errors.add('name');
+   	 		return false;
+   	 	}
+   	 	if(labSettings.field == '') {
+   	 		errors.add('field');
+   	 		return false;
+   	 	}
+    },
+    updateLabSettings() {
+    		if (isValidInput() && !this.errors.any()) {
+			  //Update lab
+			  this.settingsModal = false;
+		 }
     }
   }
 }
