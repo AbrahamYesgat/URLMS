@@ -168,7 +168,7 @@ public class TestManageSupplies {
 			String Supply = "TestSupply";
 			Random rand= new Random();
 			int randA=rand.nextInt(50);
-			int randB=rand.nextInt(randA-1);
+			int randB=rand.nextInt(randA);
 			UCon.createSupplies(" ",randA);
 			assertEquals(false, activeLab.hasSupplies());
 			UCon.removeSupplies(Supply);
