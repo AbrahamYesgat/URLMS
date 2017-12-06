@@ -6,6 +6,7 @@
           <div class="card-group mb-0">
             <div class="card p-4">
               <div class="card-body text-center">
+              <date-picker v-model="labSettings.startDate" :config="dateConfig"></date-picker>
                 <h1>Laboratories</h1>
                 <div style="min-height: 350px;">
 	                <table class="table table-responsive table-striped">
@@ -46,7 +47,27 @@
 </template>
 
 <script>
+//Import required dependencies 
+import 'bootstrap/dist/css/bootstrap.css';
+
+// Import this component
+import datePicker from 'vue-bootstrap-datetimepicker';
+
+// Import date picker css
+import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
+
 export default {
-  name: 'choose_lab'
+  name: 'choose_lab',
+  data() {
+	  return {
+		  dateConfig: {
+			  format: 'DD/MM/YYYY',
+	          useCurrent: true
+		  }
+	  }
+  },
+  components: {
+	  datePicker
+  }
 }
 </script>

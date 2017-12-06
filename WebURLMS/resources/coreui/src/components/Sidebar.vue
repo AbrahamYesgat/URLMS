@@ -49,19 +49,21 @@
   <b-modal v-model="settingsModal" hide-footer title="Update Lab Settings">
       <b-form @reset="populateLabSettingsModal">
       <b-form-group id="nameGroup" label="Name">
-      	<b-form-input id="name" name="name" type="text" v-model="labSettings.name" v-validate="'required|alpha_num_spaces'" :class="{'input': true, 'is-danger': errors.has('name') }" placeholder="Enter name"></b-form-input>
+      	<b-form-input id="name" name="name" type="text" v-model="labSettings.name"  placeholder="Enter name"></b-form-input>
       	<span class="text-danger" v-if="errors.has('name')">Please enter a valid name</span>
       </b-form-group>
       <b-form-group id="fieldGroup" label="Field">
-      	<b-form-input id="field" type="text" name="field" v-model="labSettings.field" v-validate="'required|alpha_spaces'" :class="{'input': true, 'is-danger': errors.has('field') }" placeholder="Enter field"></b-form-input>
+      	<b-form-input id="field" type="text" name="field" v-model="labSettings.field" placeholder="Enter field"></b-form-input>
       	<span class="text-danger" v-if="errors.has('field')">Please enter a valid field</span>
       </b-form-group>
-      <!--  <b-form-group id="dateGroup" label="Start Date">
-      <date-picker v-model="labSettings.startDate" :config="dateConfig"></date-picker>
-      </b-form-group> -->
-     <b-button type="button" variant="primary" @click="updateLabSettings">Save Changes</b-button>
+      <b-form-group id="dateGroup" label="Start Date">
+        <b-form-input id="startDate" type="text" v-model="labSettings.startDate" readonly></b-form-input>
+      </b-form-group>
+      <b-form-radio-group id="activeGroup" v-model="labSettings.active" :options="activeOptions" name="activeGroup">
+    </b-form-radio-group>	
+    <b-button type="button" variant="primary" @click="updateLabSettings">Save Changes</b-button>
      <b-button type="button" variant="secondary" @click="settingsModal = false">Close</b-button>
-	</b-form>	
+    </b-form>
   </b-modal>
 </div>
 </template>
@@ -72,6 +74,7 @@ import SidebarHeader from './SidebarHeader'
 import SidebarNavDropdown from './SidebarNavDropdown'
 import SidebarNavLink from './SidebarNavLink'
 import SidebarNavTitle from './SidebarNavTitle'
+
 export default {
   name: 'sidebar',
   data() {
@@ -80,13 +83,12 @@ export default {
 		labSettings: {
 			name: '',
 			field: '',
-			startDate: '',    
-			active: true	
+			startDate: '12/01/2017',    
+			active: 'Active'
 		},
-		dateConfig: {
-	          format: 'DD/MM/YYYY',
-	          useCurrent: false,
-	        }  
+		activeOptions: [
+			'Active', 'Unactive'
+	    ]
 	  }
   },
   props: {
