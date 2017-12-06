@@ -97,26 +97,18 @@ export default {
     }
   },
   components: {
-	datePicker,
     SidebarFooter,
     SidebarForm,
     SidebarHeader,
     SidebarNavDropdown,
     SidebarNavLink,
-    SidebarNavTitle,
+    SidebarNavTitle
   },
   methods: {
     handleClick (e) {
       e.preventDefault()
       e.target.parentElement.classList.toggle('open')
     },
-    formatDate: function(date) {
-        if (date === null) {
-          return "[null]";
-        } else {
-          return date.format("YYYY-MM-DD");
-        }
-      },
     isSettingsPressed(name) {
     		if(name == "Settings") {
     			this.showLabSettingsModal();
