@@ -46,10 +46,13 @@ public class CreateLabPage extends JFrame {
 	 */
 	private URLMSController urlmsCont;
 	/**
-	 * Field containing updated lab name
+	 * Field to enter new lab's name
 	 */
 	private JTextField nameField;
-	private JTextField textField;
+	/**
+	 * Field to enter new lab's field of study
+	 */
+	private JTextField studyField;
 	
 	/**
 	 * Constructor of CreateLabPage frame
@@ -117,9 +120,9 @@ public class CreateLabPage extends JFrame {
 		JLabel lblField = new JLabel("Field of Study");
 		lblField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
-		textField.setColumns(10);
+		studyField = new JTextField();
+		studyField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
+		studyField.setColumns(10);
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -131,7 +134,7 @@ public class CreateLabPage extends JFrame {
 							.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED, 458, Short.MAX_VALUE)
 							.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 501, GroupLayout.PREFERRED_SIZE)
+						.addComponent(studyField, GroupLayout.PREFERRED_SIZE, 501, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblLabName, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
 						.addComponent(nameField, GroupLayout.PREFERRED_SIZE, 490, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
@@ -162,7 +165,7 @@ public class CreateLabPage extends JFrame {
 					.addGap(31)
 					.addComponent(lblField, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addComponent(studyField, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
 					.addGap(35)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
