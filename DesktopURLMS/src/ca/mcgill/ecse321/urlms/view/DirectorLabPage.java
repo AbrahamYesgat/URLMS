@@ -253,12 +253,12 @@ public class DirectorLabPage extends JFrame{
 	    	}
 	    });
 	    
-	    btnProgReport.addActionListener(new ActionListener(){
-	    	public void actionPerformed(ActionEvent e) {
-				new SelectProgressRepPage(urlms, currentLab, urlmsCont).setVisible(true);
-				setVisible(false);
-	    	}
-	    });
+//	    btnProgReport.addActionListener(new ActionListener(){
+//	    	public void actionPerformed(ActionEvent e) {
+//				new SelectProgressRepPage(urlms, currentLab, urlmsCont).setVisible(true);
+//				setVisible(false);
+//	    	}
+//	    });
 	    pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
