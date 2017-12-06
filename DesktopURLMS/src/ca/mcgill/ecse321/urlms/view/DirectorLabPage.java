@@ -129,7 +129,7 @@ public class DirectorLabPage extends JFrame{
 		
 	    getContentPane().setBackground(new Color(216, 247, 255));
 	    
-	    JButton btnViewExpRep = new JButton("View Expense Report");
+	    JButton btnViewExpRep = new JButton("View Expense Reports");
 	    btnViewExpRep.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 	    btnViewExpRep.setBackground(new Color(0, 191, 255));
 	    
@@ -268,6 +268,12 @@ public class DirectorLabPage extends JFrame{
 	    btnProgReport.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent e) {
 				new SelectProgressRepPage(urlms, currentLab, urlmsCont).setVisible(true);
+				setVisible(false);
+	    	}
+	    });
+	    btnViewExpRep.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent e) {
+				new SelectExpReportPage(urlms, currentLab, urlmsCont).setVisible(true);
 				setVisible(false);
 	    	}
 	    });

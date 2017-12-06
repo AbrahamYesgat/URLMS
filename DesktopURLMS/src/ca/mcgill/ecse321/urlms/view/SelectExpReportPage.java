@@ -32,7 +32,7 @@ public class SelectExpReportPage extends JFrame{
 	/**
 	 * Serial ID
 	 */
-	private static final long serialVersionUID = 2088529096348585529L;
+	private static final long serialVersionUID = 6607820933991403347L;
 	/**
 	 * URLMS system
 	 */
@@ -88,7 +88,7 @@ public class SelectExpReportPage extends JFrame{
 	 * Method used to initialise frame of SelectProgressRetPage
 	 */
 	private void initComponents(){
-		this.setTitle("Select Progress Report");
+		this.setTitle("Select Expense Report");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel headerPanel = new JPanel();
 		headerPanel.setBackground(new Color(14, 96, 131));
@@ -161,7 +161,7 @@ public class SelectExpReportPage extends JFrame{
 		centerPanel.add(comboBoxID, BorderLayout.CENTER);
 		headerPanel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("Weekly Progress Reports");
+		JLabel lblNewLabel = new JLabel("Expense Reports");
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 26));
@@ -175,17 +175,13 @@ public class SelectExpReportPage extends JFrame{
 		
 		btnViewReport.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				viewProgReport();
+				viewExpReport();
 			}
 		});
 		
 		backBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(urlmsCont.getActiveUser() instanceof Director){
-					new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
-				}
-				else
-					new StaffLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+				new DirectorLabPage(urlms, urlmsCont.getActiveLaboratory(), urlmsCont).setVisible(true);
 				setVisible(false);
 			}
 		});
@@ -200,21 +196,12 @@ public class SelectExpReportPage extends JFrame{
 	}
 	
 	/**
-	 * Method responsible for fetching progress report based on ID number of report inputted by user
+	 * Method responsible for fetching expense report based on ID number of report inputted by user
 	 */
-	private void viewProgReport() {
-		String reportContent = urlmsCont.viewWeeklyProgressReport((int) comboBoxID.getSelectedItem());
-		new WeeklyProgressReportPage(urlms, currentLab, urlmsCont, (int) comboBoxID.getSelectedItem(), reportContent).setVisible(true);
-		this.setVisible(false);
-		/*if(idField.getText().isEmpty()){
-			JOptionPane.showMessageDialog(this, "ID number cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-		else if (!(idField.getText().matches("[0-9]+"))) {
-			JOptionPane.showMessageDialog(this, "ID must only contain numbers!", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-		else if(urlmsCont.viewWeeklyProgressReport(Integer.parseInt(idField.getText())).equals("Requested Weekly Progress Report cannot be found!")){
-			JOptionPane.showMessageDialog(this, "No report associated with this ID!", "Error", JOptionPane.ERROR_MESSAGE);
-		}*/
+	private void viewExpReport() {
+		//String reportContent = urlmsCont.viewExpenseReport((int) comboBoxID.getSelectedItem());
+		//new ExpenseReportPage(urlms, currentLab, urlmsCont, (int) comboBoxID.getSelectedItem(), reportContent).setVisible(true);
+		//this.setVisible(false);
 		
 	}
 }
