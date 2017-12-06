@@ -26,6 +26,7 @@ import javax.swing.border.EmptyBorder;
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.URLMS;
+import java.awt.BorderLayout;
 /**
  * UI for the home page of a selected lab.
  * @author Group 1
@@ -86,11 +87,6 @@ public class DirectorLabPage extends JFrame{
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
-		// Initialization of all buttons and labels
-		JLabel welcomeLbl = new JLabel("Welcome Director");
-		welcomeLbl.setFont(new Font("Microsoft JhengHei Light", Font.BOLD, 24));
-		welcomeLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		
 		JButton btnStaff = new JButton("Manage Staff");
 		btnStaff.setBackground(new Color(0, 191, 255));
 		btnStaff.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
@@ -133,65 +129,81 @@ public class DirectorLabPage extends JFrame{
 		
 	    getContentPane().setBackground(new Color(216, 247, 255));
 	    
+	    JButton btnViewExpRep = new JButton("View Expense Report");
+	    btnViewExpRep.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+	    btnViewExpRep.setBackground(new Color(0, 191, 255));
+	    
+	    JPanel headerPanel = new JPanel();
+	    headerPanel.setBackground(new Color(14, 96, 131));
+	    headerPanel.setLayout(new BorderLayout(0, 0));
+	    
 		// Layout
 	    GroupLayout layout = new GroupLayout(getContentPane());
 	    layout.setHorizontalGroup(
-	    	layout.createParallelGroup(Alignment.TRAILING)
+	    	layout.createParallelGroup(Alignment.LEADING)
 	    		.addGroup(layout.createSequentialGroup()
+	    			.addContainerGap()
 	    			.addGroup(layout.createParallelGroup(Alignment.LEADING)
 	    				.addGroup(layout.createSequentialGroup()
-	    					.addContainerGap(217, Short.MAX_VALUE)
+	    					.addGap(18)
+	    					.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+	    						.addComponent(btnSupplies, GroupLayout.PREFERRED_SIZE, 311, GroupLayout.PREFERRED_SIZE)
+	    						.addComponent(btnStaff, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	    						.addComponent(editButton, GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+	    						.addComponent(btnEquipment, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+	    					.addPreferredGap(ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
 	    					.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-	    						.addGroup(layout.createSequentialGroup()
-	    							.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-	    								.addComponent(btnStaff, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	    								.addComponent(btnEquipment, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	    								.addComponent(btnSupplies, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	    								.addComponent(editButton, GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
-	    							.addGap(122)
-	    							.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-	    								.addGroup(layout.createParallelGroup(Alignment.LEADING)
-	    									.addComponent(btnExpReport)
-	    									.addComponent(btnFundAcc)
-	    									.addComponent(btnProgReport))
-	    								.addComponent(updateProfileBtn)))
-	    						.addGroup(layout.createSequentialGroup()
-	    							.addComponent(welcomeLbl)
-	    							.addGap(280))))
+	    						.addComponent(btnExpReport)
+	    						.addComponent(btnViewExpRep, GroupLayout.PREFERRED_SIZE, 311, GroupLayout.PREFERRED_SIZE)
+	    						.addComponent(btnFundAcc)
+	    						.addComponent(btnProgReport))
+	    					.addGap(38))
 	    				.addGroup(layout.createSequentialGroup()
-	    					.addContainerGap()
-	    					.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)))
-	    			.addPreferredGap(ComponentPlacement.RELATED)
-	    			.addComponent(lgtButn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
-	    			.addContainerGap())
+	    					.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
+	    					.addPreferredGap(ComponentPlacement.RELATED, 459, Short.MAX_VALUE)
+	    					.addComponent(lgtButn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
+	    					.addContainerGap())))
+	    		.addComponent(headerPanel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 867, Short.MAX_VALUE)
+	    		.addGroup(layout.createSequentialGroup()
+	    			.addGap(307)
+	    			.addComponent(updateProfileBtn, GroupLayout.PREFERRED_SIZE, 276, GroupLayout.PREFERRED_SIZE)
+	    			.addContainerGap(329, Short.MAX_VALUE))
 	    );
 	    layout.setVerticalGroup(
 	    	layout.createParallelGroup(Alignment.TRAILING)
 	    		.addGroup(layout.createSequentialGroup()
-	    			.addGap(27)
-	    			.addComponent(welcomeLbl)
-	    			.addPreferredGap(ComponentPlacement.UNRELATED)
+	    			.addComponent(headerPanel, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+	    			.addGap(18)
 	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-	    				.addComponent(btnSupplies, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-	    				.addComponent(btnProgReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
-	    			.addGap(29)
+	    				.addComponent(btnProgReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    				.addComponent(btnSupplies, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
+	    			.addGap(28)
 	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-	    				.addComponent(btnEquipment, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-	    				.addComponent(btnFundAcc, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
-	    			.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+	    				.addComponent(btnFundAcc, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    				.addComponent(btnEquipment, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
+	    			.addGap(37)
 	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-	    				.addComponent(btnStaff, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-	    				.addComponent(btnExpReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
-	    			.addGap(27)
+	    				.addComponent(btnExpReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    				.addComponent(btnStaff, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
+	    			.addGap(30)
 	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-	    				.addComponent(editButton, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-	    				.addComponent(updateProfileBtn, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
-	    			.addGap(85)
+	    				.addComponent(btnViewExpRep, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    				.addComponent(editButton, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
+	    			.addGap(56)
+	    			.addComponent(updateProfileBtn, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    			.addGap(42)
 	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
 	    				.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-	    				.addComponent(lgtButn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)))
+	    				.addComponent(lgtButn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
+	    			.addContainerGap())
 	    );
-	    layout.linkSize(SwingConstants.HORIZONTAL, new Component[] {btnExpReport, btnFundAcc, btnProgReport, updateProfileBtn});
+	    
+	    JLabel lblWelcome = new JLabel("Welcome Director");
+	    lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
+	    lblWelcome.setForeground(Color.WHITE);
+	    lblWelcome.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 27));
+	    headerPanel.add(lblWelcome, BorderLayout.CENTER);
+	    layout.linkSize(SwingConstants.HORIZONTAL, new Component[] {btnFundAcc, btnProgReport, btnExpReport});
 	    getContentPane().setLayout(layout);
 	    layout.setAutoCreateGaps(true);
 	    layout.setAutoCreateContainerGaps(true);
@@ -263,6 +275,4 @@ public class DirectorLabPage extends JFrame{
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
 	}
-	
-
 }
