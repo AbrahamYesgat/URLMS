@@ -61,26 +61,92 @@
           <name>Sadhvi</name>
           <currentlyAssigned>true</currentlyAssigned>
           <staffRole>ResearchAssistant</staffRole>
-          <lastLogin>06/12/2017 13:40</lastLogin>
+          <lastLogin>06/12/2017 18:28</lastLogin>
           <laboratories id="29">
             <lab reference="3"/>
           </laboratories>
-          <progressUpdates id="30"/>
+          <progressUpdates id="30">
+            <progress id="31">
+              <title>Alexnader 2017-12-06</title>
+              <report>John</report>
+              <id>1</id>
+              <laboratory reference="3"/>
+              <staff reference="28"/>
+            </progress>
+            <progress id="32">
+              <title>Alex 2017-12-06</title>
+              <report>Did nothing</report>
+              <id>1</id>
+              <laboratory reference="3"/>
+              <staff reference="28"/>
+            </progress>
+            <progress id="33">
+              <title>npnk 2017-12-06</title>
+              <report>pkwmfpwmnf</report>
+              <id>1</id>
+              <laboratory reference="3"/>
+              <staff reference="28"/>
+            </progress>
+            <progress id="34">
+              <title>npnkef 2017-12-06</title>
+              <report>pkwmfpwmnfkwrmfkpm</report>
+              <id>2</id>
+              <laboratory reference="3"/>
+              <staff reference="28"/>
+            </progress>
+            <progress id="35">
+              <title>npnkef 2017-12-06</title>
+              <report>pkwmfpwmnfkwrmfkpm</report>
+              <id>3</id>
+              <laboratory reference="3"/>
+              <staff reference="28"/>
+            </progress>
+            <progress id="36">
+              <title>npnkef 2017-12-06</title>
+              <report>pkwmfpwmnfkwrmfkpm</report>
+              <id>4</id>
+              <laboratory reference="3"/>
+              <staff reference="28"/>
+            </progress>
+            <progress id="37">
+              <title>npnkef 2017-12-06</title>
+              <report>pkwmfpwmnfkwrmfkpm</report>
+              <id>5</id>
+              <laboratory reference="3"/>
+              <staff reference="28"/>
+            </progress>
+            <progress id="38">
+              <title>npnkef 2017-12-06</title>
+              <report>pkwmfpwmnfkwrmfkpm</report>
+              <id>6</id>
+              <laboratory reference="3"/>
+              <staff reference="28"/>
+            </progress>
+          </progressUpdates>
         </staff>
       </staffs>
-      <progressUpdates id="31"/>
-      <fundingAccounts id="32">
-        <fundingAcc id="33">
+      <progressUpdates id="39">
+        <progress reference="31"/>
+        <progress reference="32"/>
+        <progress reference="33"/>
+        <progress reference="34"/>
+        <progress reference="35"/>
+        <progress reference="36"/>
+        <progress reference="37"/>
+        <progress reference="38"/>
+      </progressUpdates>
+      <fundingAccounts id="40">
+        <fundingAcc id="41">
           <currentBalance>88523.97677</currentBalance>
           <accountNumber>12345</accountNumber>
           <laboratory reference="3"/>
         </fundingAcc>
-        <fundingAcc id="34">
+        <fundingAcc id="42">
           <currentBalance>75858.0</currentBalance>
           <accountNumber>123456</accountNumber>
           <laboratory reference="3"/>
         </fundingAcc>
-        <fundingAcc id="35">
+        <fundingAcc id="43">
           <currentBalance>0.0</currentBalance>
           <accountNumber>1234567</accountNumber>
           <laboratory reference="3"/>
@@ -90,15 +156,15 @@
     <lab reference="9"/>
     <lab reference="17"/>
   </laboratories>
-  <directors id="36">
+  <directors id="44">
     <director reference="7"/>
-    <director id="37">
+    <director id="45">
       <email>second</email>
       <password>second</password>
       <name>second</name>
       <currentlyAssigned>true</currentlyAssigned>
       <labManaged>0</labManaged>
-      <laboratories id="38"/>
+      <laboratories id="46"/>
       <uRLMS reference="1"/>
     </director>
   </directors>

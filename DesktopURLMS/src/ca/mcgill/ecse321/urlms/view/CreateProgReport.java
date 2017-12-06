@@ -7,9 +7,13 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.util.Calendar;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
@@ -50,7 +54,12 @@ public class CreateProgReport extends JFrame {
 	/**
 	 * ID of progress report that user is creating
 	 */
+	
+	private JTextArea reportTxtArea;
+	
 	private int reportID;
+	
+	private Calendar cal;
 	
 	/**
 	 * Constructor for WeeklyProgressReportPage which allows staff members to create progress report.
@@ -92,7 +101,7 @@ public class CreateProgReport extends JFrame {
 	private void initComponents() {
 		JPanel headerPanel = new JPanel();
 		
-		JTextArea reportTxtArea = new JTextArea();
+		reportTxtArea = new JTextArea();
 		reportTxtArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
 		
 		JLabel lblTitle = new JLabel("Title:");
@@ -178,6 +187,14 @@ public class CreateProgReport extends JFrame {
 		pack();
 		setLocationRelativeTo(null);
 		
+		saveBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//new StaffLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+				//setVisible(false);
+				saveNewReport();
+			}
+		});
+		
 		backBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new StaffLabPage(urlms, currentLab, urlmsCont).setVisible(true);
@@ -193,6 +210,24 @@ public class CreateProgReport extends JFrame {
 			}
 		});
 		
+		
 	}
+	private void saveNewReport() {
+		
+		
+		java.util.Date utilDate = new java.util.Date();
+	    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	
+	
+		if(titleField.getText().equals("") || reportTxtArea.getText().equals(""))
+			JOptionPane.showMessageDialog(this, "Please fill out all feilds, or else report cannot be saved", "Error", JOptionPane.ERROR_MESSAGE);
+		else if(urlmsCont.createWeeklyProgressReport(titleField.getText(), reportTxtArea.getText(), sqlDate))
+			JOptionPane.showMessageDialog(this, "Your progress report was sucesfully saved");
+		else
+			JOptionPane.showMessageDialog(this, "User is not a staff", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	
+	
 
 }
