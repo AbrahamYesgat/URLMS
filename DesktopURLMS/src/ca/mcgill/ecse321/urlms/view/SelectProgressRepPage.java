@@ -13,27 +13,26 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.SwingConstants;
 
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
 import ca.mcgill.ecse321.urlms.model.Director;
+import ca.mcgill.ecse321.urlms.model.ExpenseReport;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.URLMS;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JComboBox;
 
 public class SelectProgressRepPage extends JFrame{
 	/**
 	 * Serial ID
 	 */
 	private static final long serialVersionUID = 2088529096348585529L;
-	/**
-	 * ID of progress report user wishes to view
-	 */
-	private JTextField idField;
 	/**
 	 * URLMS system
 	 */
@@ -46,6 +45,14 @@ public class SelectProgressRepPage extends JFrame{
 	 * Lab that user has currently clicked on
 	 */
 	private Laboratory currentLab;
+	/**
+	 * List of expense reports associated with the lab
+	 */
+	private List<ExpenseReport> listOfExpReport;
+	/**
+	 * Combo box displaying IDs of all expense reports
+	 */
+	private JComboBox<Integer> comboBoxID;
 	
 	/**
 	 * Constructor for SelectProgressRepPage which allows user to select the progress report they wish to view
@@ -58,6 +65,7 @@ public class SelectProgressRepPage extends JFrame{
 		this.urlms = urlms;
 		this.currentLab = currentLab;
 		this.urlmsCont = urlmsCont;
+		this.listOfExpReport = urlmsCont.getActiveLaboratory().getExpenseReports();
 		try {
 	           for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
 	               if ("Nimbus".equals(info.getName())) {
@@ -136,17 +144,21 @@ public class SelectProgressRepPage extends JFrame{
 		);
 		centerPanel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblP = new JLabel("Please enter the ID of the report you wish to view:");
+		JLabel lblP = new JLabel("Please select the ID of the report you wish to view:");
 		lblP.setHorizontalAlignment(SwingConstants.CENTER);
 		lblP.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		lblP.setForeground(Color.WHITE);
 		centerPanel.add(lblP, BorderLayout.NORTH);
 		
-		idField = new JTextField();
-		idField.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		idField.setHorizontalAlignment(SwingConstants.CENTER);
-		centerPanel.add(idField, BorderLayout.CENTER);
-		idField.setColumns(10);
+		comboBoxID = new JComboBox<Integer>();
+		comboBoxID.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
+		comboBoxID.setBackground(Color.WHITE);
+		if(listOfExpReport != null && listOfExpReport.size() > 0){ // initialization of expense report lists
+			for(int i = 0; i < listOfExpReport.size(); i++){
+				comboBoxID.addItem(listOfExpReport.get(i).getId());
+			}
+		}
+		centerPanel.add(comboBoxID, BorderLayout.CENTER);
 		headerPanel.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel = new JLabel("Weekly Progress Reports");
@@ -191,7 +203,10 @@ public class SelectProgressRepPage extends JFrame{
 	 * Method responsible for fetching progress report based on ID number of report inputted by user
 	 */
 	private void viewProgReport() {
-		if(idField.getText().isEmpty()){
+		String reportContent = urlmsCont.viewWeeklyProgressReport((int) comboBoxID.getSelectedItem());
+		new WeeklyProgressReportPage(urlms, currentLab, urlmsCont, (int) comboBoxID.getSelectedItem(), reportContent).setVisible(true);
+		this.setVisible(false);
+		/*if(idField.getText().isEmpty()){
 			JOptionPane.showMessageDialog(this, "ID number cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		else if (!(idField.getText().matches("[0-9]+"))) {
@@ -199,13 +214,7 @@ public class SelectProgressRepPage extends JFrame{
 		}
 		else if(urlmsCont.viewWeeklyProgressReport(Integer.parseInt(idField.getText())).equals("Requested Weekly Progress Report cannot be found!")){
 			JOptionPane.showMessageDialog(this, "No report associated with this ID!", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-		else{
-			String reportContent = urlmsCont.viewWeeklyProgressReport(Integer.parseInt(idField.getText()));
-			new WeeklyProgressReportPage(urlms, currentLab, urlmsCont, Integer.parseInt(idField.getText()), reportContent).setVisible(true);
-			this.setVisible(false);
-		}
+		}*/
 		
 	}
-
 }
