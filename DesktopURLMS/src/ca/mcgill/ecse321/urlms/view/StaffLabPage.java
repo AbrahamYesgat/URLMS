@@ -235,7 +235,7 @@ public class StaffLabPage extends JFrame{
 	    
 	   btnCreateReport.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent e) {
-				new CreateProgReport(urlms, currentLab, urlmsCont).setVisible(true);
+				new CreateProgReportPage(urlms, currentLab, urlmsCont).setVisible(true);
 				setVisible(false);
 	    	}
 	    });

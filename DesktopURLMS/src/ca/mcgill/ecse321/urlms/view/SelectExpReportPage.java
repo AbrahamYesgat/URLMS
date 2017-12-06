@@ -199,9 +199,8 @@ public class SelectExpReportPage extends JFrame{
 	 * Method responsible for fetching expense report based on ID number of report inputted by user
 	 */
 	private void viewExpReport() {
-		//String reportContent = urlmsCont.viewExpenseReport((int) comboBoxID.getSelectedItem());
-		//new ExpenseReportPage(urlms, currentLab, urlmsCont, (int) comboBoxID.getSelectedItem(), reportContent).setVisible(true);
-		//this.setVisible(false);
-		
+		ExpenseReport expReport = urlmsCont.viewExpenseReport((int) comboBoxID.getSelectedItem());
+		new ExpenseReportPage(urlms, currentLab, urlmsCont, expReport).setVisible(true);
+		this.setVisible(false);
 	}
 }
