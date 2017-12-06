@@ -107,7 +107,7 @@ public class DirectorLabPage extends JFrame{
 		btnFundAcc.setBackground(new Color(0, 191, 255));
 		btnFundAcc.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
-		JButton btnProgReport = new JButton("View Weekly Progress Report");
+		JButton btnProgReport = new JButton("View Weekly Progress Reports");
 		btnProgReport.setBackground(new Color(0, 191, 255));
 		btnProgReport.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
@@ -249,6 +249,13 @@ public class DirectorLabPage extends JFrame{
 	    updateProfileBtn.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent e) {
 				new UpdateProfilePage(urlms, currentLab, urlmsCont).setVisible(true);
+				setVisible(false);
+	    	}
+	    });
+	    
+	    btnProgReport.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent e) {
+				new SelectProgressRepPage(urlms, currentLab, urlmsCont).setVisible(true);
 				setVisible(false);
 	    	}
 	    });

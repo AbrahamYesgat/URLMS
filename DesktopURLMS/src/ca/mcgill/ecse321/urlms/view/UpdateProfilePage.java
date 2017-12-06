@@ -22,6 +22,10 @@ import javax.swing.ImageIcon;
 
 public class UpdateProfilePage extends JFrame {
 	/**
+	 *  Serial ID
+	 */
+	private static final long serialVersionUID = -5942963500936014767L;
+	/**
 	 * URLMS system
 	 */
 	private URLMS urlms;
