@@ -1,9 +1,9 @@
 <ca.mcgill.ecse321.urlms.model.URLMS id="1">
   <laboratories id="2">
     <lab id="3">
-      <name>Torabi&apos;s Lab</name>
+      <name>Torabi</name>
       <fieldOfStudy>study</fieldOfStudy>
-      <startDate id="4">3917-11-10</startDate>
+      <startDate id="4">2017-12-07</startDate>
       <active>false</active>
       <equipment id="5"/>
       <uRLMS reference="1"/>
@@ -33,7 +33,7 @@
           <name>Sadhvi</name>
           <currentlyAssigned>true</currentlyAssigned>
           <staffRole>ResearchAssistant</staffRole>
-          <lastLogin>06/12/2017 13:40</lastLogin>
+          <lastLogin>06/12/2017 16:42</lastLogin>
           <laboratories id="13">
             <lab reference="3"/>
           </laboratories>
