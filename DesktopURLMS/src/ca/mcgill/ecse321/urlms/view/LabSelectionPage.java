@@ -271,9 +271,14 @@ public class LabSelectionPage extends JFrame {
 				    	  setVisible(false);
 			    	  }
 			    	  else{
-			    		  StaffLabPage labHomePage = new StaffLabPage(urlms, labs.get(row), urlmsCont);
-			    		  labHomePage.setVisible(true);
-			    		  setVisible(false);
+			    		  if(labs.get(row).getActive() == true){
+			    			  StaffLabPage labHomePage = new StaffLabPage(urlms, labs.get(row), urlmsCont);
+			    			  labHomePage.setVisible(true);
+			    			  setVisible(false);
+			    		  }
+			    		  else{
+			    			  inactiveError(labs.get(row).getName());
+			    		  }
 			    	  }
 			      }
 			     }
@@ -284,6 +289,11 @@ public class LabSelectionPage extends JFrame {
 		pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
+		
+	}
+	
+	private void inactiveError(String labName) {
+		JOptionPane.showMessageDialog(this, labName + " is inactive!", "Error", JOptionPane.ERROR_MESSAGE);
 		
 	}
 }
