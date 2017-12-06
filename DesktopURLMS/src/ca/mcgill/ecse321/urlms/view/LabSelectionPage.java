@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.urlms.view;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -40,6 +41,7 @@ import javax.swing.JComponent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 
 public class LabSelectionPage extends JFrame {
@@ -90,6 +92,7 @@ public class LabSelectionPage extends JFrame {
 	       }
 		this.urlms = urlms;
 		this.urlmsCont = urlmsCont;
+			
 		//this.email = email;
 		initialiseCurrentUser(email);
 		setResizable(false);
@@ -107,6 +110,12 @@ public class LabSelectionPage extends JFrame {
 			currentUser = dir;
 		else
 			currentUser = urlmsCont.getStaffMember(email);
+		if( !(urlmsCont.getActiveUser() instanceof Director)) {
+			Calendar cal = Calendar.getInstance();
+	        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+	        String strDate = sdf.format(cal.getTime());
+	        urlmsCont.getStaffMember(currentUser.getEmail()).setLastLogin(strDate);
+;		}
 	}
 	/**
 	 * Method used to initialize list of labs of logged in user.
@@ -157,7 +166,10 @@ public class LabSelectionPage extends JFrame {
 		logoutBtn.setBackground(Color.RED);
 		
 	    getContentPane().setBackground(new Color(216, 247, 255));
-
+	    
+	    if(urlmsCont.getActiveUser() instanceof Staff){ // disable create lab button if user is a staff member
+	    	createLabBtn.setEnabled(false);
+	    }
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -235,6 +247,13 @@ public class LabSelectionPage extends JFrame {
 				urlmsCont.logout();
 				setVisible(false);
 				new LoginPage(urlms).setVisible(true);
+			}
+		});
+		
+		createLabBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				new CreateLabPage(urlms, urlmsCont).setVisible(true);
+				setVisible(false);
 			}
 		});
 		// lab selection table mouse listener used to redirect to selected lab's home page

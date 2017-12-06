@@ -26,6 +26,7 @@ import javax.swing.border.EmptyBorder;
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.URLMS;
+import java.awt.BorderLayout;
 /**
  * UI for the home page of a selected lab.
  * @author Group 1
@@ -86,11 +87,6 @@ public class StaffLabPage extends JFrame{
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
-		// Initialization of all buttons and labels
-		JLabel welcomeLbl = new JLabel("Welcome Staff");
-		welcomeLbl.setFont(new Font("Microsoft JhengHei Light", Font.BOLD, 24));
-		welcomeLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		
 		JButton btnEquipment = new JButton("Manage Equipment");
 		btnEquipment.setBackground(new Color(0, 191, 255));
 		btnEquipment.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
@@ -116,55 +112,72 @@ public class StaffLabPage extends JFrame{
 	    lgtButn.setBackground(Color.RED);
 		
 	    getContentPane().setBackground(new Color(216, 247, 255));
+	    
+	    JPanel headerPanel = new JPanel();
+	    headerPanel.setBackground(new Color(14, 96, 131));
+	    
+	    JButton btnCreateReport = new JButton("Create Progress Report");
+	    btnCreateReport.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+	    btnCreateReport.setBackground(new Color(0, 191, 255));
 
 		// Layout
 	    GroupLayout layout = new GroupLayout(getContentPane());
 	    layout.setHorizontalGroup(
-	    	layout.createParallelGroup(Alignment.TRAILING)
+	    	layout.createParallelGroup(Alignment.LEADING)
 	    		.addGroup(layout.createSequentialGroup()
-	    			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-	    				.addGroup(layout.createSequentialGroup()
-	    					.addContainerGap(262, Short.MAX_VALUE)
-	    					.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-	    						.addGroup(layout.createSequentialGroup()
-	    							.addComponent(welcomeLbl)
-	    							.addGap(280))
-	    						.addGroup(layout.createSequentialGroup()
-	    							.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-	    								.addComponent(btnEquipment, GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
-	    								.addComponent(btnSupplies))
-	    							.addGap(122)
-	    							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-	    								.addComponent(btnUpdateProf)
-	    								.addComponent(btnProgReport)))))
-	    				.addGroup(layout.createSequentialGroup()
-	    					.addContainerGap()
-	    					.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)))
-	    			.addPreferredGap(ComponentPlacement.RELATED)
+	    			.addContainerGap()
+	    			.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
+	    			.addPreferredGap(ComponentPlacement.RELATED, 427, Short.MAX_VALUE)
 	    			.addComponent(lgtButn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
 	    			.addContainerGap())
+	    		.addGroup(layout.createSequentialGroup()
+	    			.addComponent(headerPanel, GroupLayout.PREFERRED_SIZE, 822, GroupLayout.PREFERRED_SIZE)
+	    			.addContainerGap(28, Short.MAX_VALUE))
+	    		.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+	    			.addContainerGap()
+	    			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+	    				.addComponent(btnEquipment, GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+	    				.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+	    					.addComponent(btnSupplies)
+	    					.addGap(41)))
+	    			.addGap(53)
+	    			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+	    				.addComponent(btnUpdateProf)
+	    				.addComponent(btnProgReport))
+	    			.addGap(93))
+	    		.addGroup(layout.createSequentialGroup()
+	    			.addGap(266)
+	    			.addComponent(btnCreateReport, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE)
+	    			.addContainerGap(300, Short.MAX_VALUE))
 	    );
 	    layout.setVerticalGroup(
 	    	layout.createParallelGroup(Alignment.TRAILING)
 	    		.addGroup(layout.createSequentialGroup()
-	    			.addGap(27)
-	    			.addComponent(welcomeLbl)
-	    			.addGap(80)
+	    			.addComponent(headerPanel, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+	    			.addGap(51)
 	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-	    				.addComponent(btnProgReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-	    				.addComponent(btnSupplies, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
-	    			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-	    				.addGroup(Alignment.TRAILING, layout.createParallelGroup(Alignment.BASELINE)
-	    					.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-	    					.addComponent(lgtButn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
-	    				.addGroup(layout.createSequentialGroup()
-	    					.addGap(86)
-	    					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-	    						.addComponent(btnEquipment, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-	    						.addComponent(btnUpdateProf, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
-	    					.addContainerGap())))
+	    				.addComponent(btnSupplies, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    				.addComponent(btnProgReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
+	    			.addGap(65)
+	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+	    				.addComponent(btnEquipment, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    				.addComponent(btnUpdateProf, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
+	    			.addGap(65)
+	    			.addComponent(btnCreateReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    			.addPreferredGap(ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+	    				.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+	    				.addComponent(lgtButn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
+	    			.addContainerGap())
 	    );
 	    layout.linkSize(SwingConstants.HORIZONTAL, new Component[] {btnEquipment, btnSupplies, btnUpdateProf, btnProgReport});
+	    headerPanel.setLayout(new BorderLayout(0, 0));
+	    
+	    JLabel lblWelcome = new JLabel("Welcome User");
+	    lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
+	    lblWelcome.setForeground(Color.WHITE);
+	    lblWelcome.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 27));
+	    headerPanel.add(lblWelcome, BorderLayout.CENTER);
 	    getContentPane().setLayout(layout);
 	    layout.setAutoCreateGaps(true);
 	    layout.setAutoCreateContainerGaps(true);
@@ -203,6 +216,27 @@ public class StaffLabPage extends JFrame{
 		       // System.out.println(getDateTime());
 		      //  urlmsCont.getActiveUser().setName(getDateTime());
 		       // System.out.println(urlmsCont.getActiveUser().getName());
+	    	}
+	    });
+	    
+	    btnProgReport.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent e) {
+				new SelectProgressRepPage(urlms, currentLab, urlmsCont).setVisible(true);
+				setVisible(false);
+	    	}
+	    });
+	    
+	    btnUpdateProf.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent e) {
+				new UpdateProfilePage(urlms, currentLab, urlmsCont).setVisible(true);
+				setVisible(false);
+	    	}
+	    });
+	    
+	   btnCreateReport.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent e) {
+				new CreateProgReport(urlms, currentLab, urlmsCont).setVisible(true);
+				setVisible(false);
 	    	}
 	    });
 	   

@@ -127,6 +127,10 @@ public class ManageFundingAccountPage extends JFrame{
 			
 		}
 	}
+	
+	private void removeTable(JTable table) {
+		((DefaultTableModel) table.getModel()).setRowCount(0);
+	}
 	/**
 	 * Method used to initialize ManageFundingAccountPage frame
 	 */
@@ -305,6 +309,11 @@ public class ManageFundingAccountPage extends JFrame{
 				createfundAcc();
 			}
 		});
+		btnUpdatefundAcc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				modifyfundAcc() ;
+			}
+		});
 		
 		pack();
 		// makes window appear in center of screen
@@ -329,8 +338,39 @@ public class ManageFundingAccountPage extends JFrame{
 			Object[] o = {newFundNumber.getText(), txtQuantityCreate.getText()};
 			((DefaultTableModel) fundAccTable.getModel()).addRow(o);
 			fundAccQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfFundingAccounts()));
+			emptyTextField();
 		}
 			else
 			JOptionPane.showMessageDialog(this, "This account already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	private void modifyfundAcc() {
+		if(oldfundAccName.getText().isEmpty() || txtQuantityModify.getText().isEmpty()){
+			JOptionPane.showMessageDialog(this, "Account Number and Balance fields cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else if (!(oldfundAccName.getText().matches("[0-9]+") && oldfundAccName.getText().length() > 2)) {
+			JOptionPane.showMessageDialog(this, "Account number does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else if(!(txtQuantityModify.getText().matches("-?[0-9.]*"))){
+			JOptionPane.showMessageDialog(this, "Balance must only contain numbers/periods", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else if(urlmsCont.modifyFunds(Double.parseDouble(txtQuantityModify.getText()), Integer.parseInt(oldfundAccName.getText()))){
+			JOptionPane.showMessageDialog(this, "Account balance has been successfully updated!");
+			//Object[] o = {newFundNumber.getText(), txtQuantityCreate.getText()};
+			//((DefaultTableModel) fundAccTable.getModel()).addRow(o);
+			//fundAccQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfFundingAccounts()));
+			removeTable(fundAccTable);
+			initialiseTable(fundAccTable);
+			emptyTextField();
+		}
+		else
+			JOptionPane.showMessageDialog(this, "Account number does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	private void emptyTextField() {
+		txtQuantityModify.setText("");
+		oldfundAccName.setText("");
+		newFundNumber.setText("");
+		txtQuantityCreate.setText("");
 	}
 }

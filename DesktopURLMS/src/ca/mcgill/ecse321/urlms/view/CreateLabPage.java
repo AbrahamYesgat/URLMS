@@ -32,7 +32,7 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 
-public class EditLabPage extends JFrame {
+public class CreateLabPage extends JFrame {
 	/**
 	 * Serial ID
 	 */
@@ -42,27 +42,26 @@ public class EditLabPage extends JFrame {
 	 */
 	private URLMS urlms;
 	/**
-	 * Current lab that director is editing
-	 */
-	private Laboratory currentLab;
-	/**
 	 * URLMS Controller
 	 */
 	private URLMSController urlmsCont;
 	/**
-	 * Field containing updated lab name
+	 * Field to enter new lab's name
 	 */
 	private JTextField nameField;
+	/**
+	 * Field to enter new lab's field of study
+	 */
+	private JTextField studyField;
 	
 	/**
-	 * Constructor of EditLabPage frame
+	 * Constructor of CreateLabPage frame
 	 * @param urlms current URLMS system
 	 * @param lab current lab user is viewing
 	 */
-	public EditLabPage(URLMS urlms, Laboratory lab, URLMSController urlmsCont) {
+	public CreateLabPage(URLMS urlms,  URLMSController urlmsCont) {
 		setResizable(false);
 		this.urlms = urlms;
-		this.currentLab = lab;
 		this.urlmsCont = urlmsCont;
 		
 		try {
@@ -73,13 +72,13 @@ public class EditLabPage extends JFrame {
 	               }
 	           }
 	       } catch (ClassNotFoundException ex) {
-	           java.util.logging.Logger.getLogger(EditLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(CreateLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (InstantiationException ex) {
-	           java.util.logging.Logger.getLogger(EditLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(CreateLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (IllegalAccessException ex) {
-	           java.util.logging.Logger.getLogger(EditLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(CreateLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	           java.util.logging.Logger.getLogger(EditLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(CreateLabPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       }
 		initComponents();
 	}
@@ -94,20 +93,9 @@ public class EditLabPage extends JFrame {
 		nameField = new JTextField();
 		nameField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
 		nameField.setColumns(10);
-		PromptSupport.setPrompt(urlmsCont.getActiveLaboratory().getName(), nameField);
-		JLabel lblActiveLab = new JLabel("Active Lab?");
-		lblActiveLab.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
 		JLabel lblLabName = new JLabel("Lab Name");
 		lblLabName.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		
-		JCheckBox chckbxYes = new JCheckBox("Yes");
-		chckbxYes.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
-		
-		JCheckBox chckbxNo = new JCheckBox("No");
-		chckbxNo.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
-		
-		chckbxNo.getModel().isPressed();
 		JLabel lblStartDate = new JLabel("Start Date");
 		lblStartDate.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
@@ -129,6 +117,13 @@ public class EditLabPage extends JFrame {
 		JPanel headerPanel = new JPanel();
 		headerPanel.setBackground(new Color(14, 96, 131));
 		
+		JLabel lblField = new JLabel("Field of Study");
+		lblField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+		
+		studyField = new JTextField();
+		studyField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
+		studyField.setColumns(10);
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -136,31 +131,28 @@ public class EditLabPage extends JFrame {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblActiveLab, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxYes)
-							.addGap(45)
-							.addComponent(chckbxNo, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)))
-							.addPreferredGap(ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-								.addComponent(saveBtn, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-							.addContainerGap())
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(nameField, GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
-							.addGap(370))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblLabName, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(612, Short.MAX_VALUE))))
-				.addComponent(headerPanel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
+							.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 458, Short.MAX_VALUE)
+							.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+						.addComponent(studyField, GroupLayout.PREFERRED_SIZE, 501, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblLabName, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
+						.addComponent(nameField, GroupLayout.PREFERRED_SIZE, 490, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+				.addComponent(headerPanel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblField, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(580, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(375, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(saveBtn, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(643, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -169,20 +161,18 @@ public class EditLabPage extends JFrame {
 					.addGap(28)
 					.addComponent(lblLabName, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(nameField, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addGap(31)
+					.addComponent(lblField, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(studyField, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addGap(35)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(nameField, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblActiveLab, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-								.addComponent(chckbxYes)
-								.addComponent(chckbxNo, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-								.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)))
-						.addComponent(saveBtn, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+						.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+						.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addComponent(saveBtn, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
 						.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
@@ -190,7 +180,7 @@ public class EditLabPage extends JFrame {
 		);
 		headerPanel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel headerLabel = new JLabel("Edit Lab");
+		JLabel headerLabel = new JLabel("Create Laboratory");
 		headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		headerLabel.setForeground(Color.WHITE);
 		headerLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 28));
@@ -208,58 +198,13 @@ public class EditLabPage extends JFrame {
 		
 		backBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				if(urlmsCont.getActiveUser() instanceof Director) {
-					new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
-					dispose();}
-				else
-					new StaffLabPage(urlms, currentLab, urlmsCont).setVisible(true);
-					dispose();
+				new LabSelectionPage(urlms, urlmsCont.getActiveUser().getEmail(), urlmsCont).setVisible(true);
+				setVisible(false);
 			}
 		});
 		
 		saveBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				java.sql.Date date = currentLab.getStartDate();;
-				Boolean active = currentLab.getActive();;
-				String labName = currentLab.getName();;
-				int i = 0;
-				
-				String s = ((JTextField)dateChooser.getDateEditor().getUiComponent()).getText();
-				if(s.equals("")) {
-					date = currentLab.getStartDate();
-				}
-				else {
-					date = new java.sql.Date(dateChooser.getDate().getTime());
-				}
-				
-				if(chckbxNo.isSelected() && chckbxYes.isSelected()) {
-					chckbxNo.setSelected(false);
-					chckbxYes.setSelected(false);
-					activeLabError();
-					i = 1;
-				}
-				else if(chckbxYes.isSelected())
-					active = true;
-				else if(chckbxNo.isSelected())
-					active = false;
-				else
-					active = currentLab.getActive();
-				
-				
-				if(nameField.getText().equals(""))
-					labName = currentLab.getName();
-				else
-					labName = nameField.getText();
-				
-				
-				if(urlmsCont.updateLab(labName, date, active) && i == 0)
-					labSucess();
-				else if(i ==1)
-					i = 0;
-				else
-					labError();
-
 			}
 		});
 	
@@ -267,14 +212,10 @@ public class EditLabPage extends JFrame {
 		this.setLocationRelativeTo(null);
 	}
 	
-	private void activeLabError() {
-		JOptionPane.showMessageDialog(this, "You are only allowed to check one box", "Error", JOptionPane.ERROR_MESSAGE);
-	}
 	private void labSucess() {
 		JOptionPane.showMessageDialog(this, "Lab information was updated!");
 	}
 	private void labError() {
 		JOptionPane.showMessageDialog(this, "Lab name entered already exists, please use another one", "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
 }

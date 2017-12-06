@@ -14,20 +14,32 @@ import java.sql.Date;
 
 import static ca.mcgill.ecse321.appurlms.MainActivity.cont;
 
+/**
+ * This page is set when the user selects to edit the info of the currently selected lab.
+ * This is only allowed for director of the lab.
+ */
 public class EditLab extends AppCompatActivity {
     private EditText labName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_lab);
+        //This sets the logo in the bar at the top of the screen.
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
+        //Sets the name field to the current name of the lab.
         labName = (EditText) findViewById(R.id.lab_name);
         labName.setText(cont.getActiveLaboratory().getName());
     }
 
+    /**
+     * Action listener for the logout button.
+     * Logs the user out of the system and sets the activity to the login page
+     * @see MainActivity
+     * @param view
+     */
     public void logout(View view) {
         boolean isValid = cont.logout();
         if(isValid) {
@@ -37,6 +49,12 @@ public class EditLab extends AppCompatActivity {
         }
     }
 
+    /**
+     * Action listener for the back button.
+     * Brings the user back to the lab page.
+     * @see LabPage
+     * @param view
+     */
     public void returnToPrevious(View view) {
         Intent intent = new Intent(EditLab.this, LabPage.class);
         startActivity(intent);
@@ -44,6 +62,13 @@ public class EditLab extends AppCompatActivity {
     }
 
     private boolean active;
+
+    /**
+     * Action listener for the add date button.
+     * Once the fields of the first page are set up, it changes the page ot the calender picker
+     * in order to allow the user to select a new date the lab will start.
+     * @param view
+     */
     public void addDate(View view) {
         labName = (EditText) findViewById(R.id.lab_name);
         TextView labMessage = (TextView) findViewById(R.id.modifyLabMessage);
@@ -58,6 +83,13 @@ public class EditLab extends AppCompatActivity {
         }
     }
 
+    /**
+     * Action lister for the modify lab info button.
+     * Changes the labs info to that specified in this activity.
+     * Unsuccessfully modifying the lab returns the page to the initial page of this
+     * activity and displays an error message.
+     * @param view
+     */
     public void modifyLab(View view) {
         DatePicker labStartDate = (DatePicker) findViewById(R.id.lab_start_date);
         int day = labStartDate.getDayOfMonth();
@@ -71,6 +103,7 @@ public class EditLab extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+        //Lab name already exists.
         else {
             setContentView(R.layout.edit_lab);
             TextView addLabMessage = (TextView) findViewById(R.id.modifyLabMessage);

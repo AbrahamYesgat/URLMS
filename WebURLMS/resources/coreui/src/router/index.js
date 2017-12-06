@@ -8,10 +8,10 @@ import Full from '../containers/Full'
 import Login from '../views/Login'
 import Register from '../views/Register'
 import Overview from '../views/Overview'
+import ChooseLab from '../views/ChooseLab'
 import LabStaff from '../views/lab/Staff'
 import LabEquipment from '../views/lab/Equipment'
 import LabSupplies from '../views/lab/Supplies'
-import LabSettings from '../views/lab/Settings'
 import AdminSummary from '../views/admin/Summary'
 import AdminWeeklyProgress from '../views/admin/WeeklyProgress'
 import AdminExpenses from '../views/admin/Expenses'
@@ -61,11 +61,6 @@ export default new Router({
 				    	    		path: 'supplies',
 				    	        name: 'Supplies',
 				    	        component: LabSupplies
-				    	    },
-				    	    {
-				    	    		path: 'settings',
-				    	    		name: 'Settings',
-				    	    		component: LabSettings
 				    	    }
 					]
 				},
@@ -100,6 +95,11 @@ export default new Router({
 					]
 				}
 			]
+		},
+		{
+			path: '/choose_lab',
+			name: 'Choose Lab',
+			component: ChooseLab
 		},
 		{
 			path: '/login',

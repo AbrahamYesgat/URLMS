@@ -97,7 +97,7 @@ public class LoginPage extends JFrame{
 	 *  Updates the UI accordingly to the result of the login method. 
 	 */
 	private void loginButtonActionPerformed() {
-		boolean isValidUser = urlmsCont.login(fieldEmail.getText(), passwordField.getText());
+		boolean isValidUser = urlmsCont.login(fieldEmail.getText(), String.copyValueOf(passwordField.getPassword()));
 		if(!isValidUser){
 			// Unsuccessful login
 			JOptionPane.showMessageDialog(this, "Invalid email address or password!", "Incorrect credentials", JOptionPane.WARNING_MESSAGE);

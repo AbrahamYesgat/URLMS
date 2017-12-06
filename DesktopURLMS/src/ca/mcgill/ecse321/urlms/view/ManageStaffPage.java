@@ -84,7 +84,7 @@ public class ManageStaffPage extends JFrame{
 	/**
 	 *  List containing all staff members of active lab
 	 */
-	List<Staff> labStaff;
+	private List<Staff> labStaff;
 	/**
 	 * Constructor of ManageStaffPage frame
 	 * @param urlms current URLMS system
@@ -321,6 +321,7 @@ public class ManageStaffPage extends JFrame{
 				if(urlmsCont.removeStaff((String)target.getValueAt(row, column-2))){
 					((DefaultTableModel) staffTable.getModel()).removeRow(row);
 					 staffQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfStaffs()));
+					 JOptionPane.showMessageDialog(this, "The staff member has been sucefully deleted!");
 				}
 				else{
 					JOptionPane.showMessageDialog(this, "Sorry, an error occurred! Please try again later.", "Error", JOptionPane.ERROR_MESSAGE);

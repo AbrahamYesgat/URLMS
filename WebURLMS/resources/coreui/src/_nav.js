@@ -27,11 +27,6 @@ export default {
     	        name: 'Supplies',
     	        url: '/lab/supplies',
     	        icon: 'icon-paper-clip'
-    	    },
-    	    {
-    	 	   name: 'Settings',
-    	 	   url: '/lab/settings',
-    	 	   icon: 'icon-settings'
     	    }
       ]
     },
@@ -64,6 +59,14 @@ export default {
 	        icon: 'icon-wallet'
 	    }
     	  ]
-    }
+    },
+    {
+    	  divider: true
+    },
+    {
+	 	name: 'Settings',
+	 	url: '#',
+	 	icon: 'icon-settings'
+	 }
   ]
 }
