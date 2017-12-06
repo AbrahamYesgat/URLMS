@@ -291,6 +291,18 @@ public class CreateExpReportPage extends JFrame{
 				setVisible(false);
 			}
 		});
+	    
+	    btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				addExpense();
+			}
+		});
+	}
+	/*
+	 * Method used to dynamically add expense to expense table
+	 */
+	private void addExpense(){
+		
 	}
 
 }
