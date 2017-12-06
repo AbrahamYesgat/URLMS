@@ -25,6 +25,7 @@ import javax.swing.table.JTableHeader;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
+import ca.mcgill.ecse321.urlms.model.Director;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.Staff;
 import ca.mcgill.ecse321.urlms.model.Supplies;
@@ -305,8 +306,11 @@ public class ManageSupplyPage extends JFrame{
 		//Add all action listners here
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+				if(urlmsCont.getActiveUser() instanceof Director)
+					new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+				else
+					new StaffLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+				dispose();
 			}
 		});
 		

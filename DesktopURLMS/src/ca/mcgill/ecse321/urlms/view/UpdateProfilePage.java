@@ -7,11 +7,17 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
+import ca.mcgill.ecse321.urlms.model.Director;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.URLMS;
 
@@ -189,8 +195,63 @@ public class UpdateProfilePage extends JFrame {
 		getContentPane().setLayout(groupLayout);
 	    getContentPane().setBackground(new Color(216, 247, 255));
 	    
+	    logOutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				urlmsCont.logout();
+				//setVisible(false);
+				new LoginPage(urlms).setVisible(true);
+				dispose();
+			}
+		});
+	    
+	    backBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if(urlmsCont.getActiveUser() instanceof Director)
+					new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+				else
+					new StaffLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+				dispose();
+			}
+		});
+	    
+	    saveBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				updateProfile();
+				
+			}
+		});
 	    pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
+	}
+	
+	public void updateProfile() {
+		if(nameField.getText().equals("") && emailField.getText().equals("") && passwordField.getText().equals(""))
+			JOptionPane.showMessageDialog(this, "No information to update!", "Error", JOptionPane.ERROR_MESSAGE);
+		else {
+		
+			String name = urlmsCont.getActiveUser().getName();
+			String email = urlmsCont.getActiveUser().getEmail();
+			String password = urlmsCont.getActiveUser().getPassword();
+			if(!nameField.getText().equals(""))
+				name = nameField.getText();
+			if(!emailField.getText().equals(""))
+				email = emailField.getText();
+			if(!passwordField.getText().equals(""))
+				password = passwordField.getText();
+			
+			if(urlmsCont.updateProfile(email, password, name)) {
+				JOptionPane.showMessageDialog(this, "Your profile has been sucesfully updated!");
+				emptyTextField();
+				}
+			else
+				JOptionPane.showMessageDialog(this, "Email address already exists, please enter another one", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+	private void emptyTextField() {
+		nameField.setText("");
+		passwordField.setText("");
+		emailField.setText("");
 	}
 }
