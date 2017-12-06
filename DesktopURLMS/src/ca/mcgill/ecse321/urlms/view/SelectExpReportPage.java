@@ -19,7 +19,7 @@ import javax.swing.SwingConstants;
 
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
 import ca.mcgill.ecse321.urlms.model.Director;
-import ca.mcgill.ecse321.urlms.model.ProgressUpdate;
+import ca.mcgill.ecse321.urlms.model.ExpenseReport;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.URLMS;
 
@@ -28,7 +28,7 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 
-public class SelectProgressRepPage extends JFrame{
+public class SelectExpReportPage extends JFrame{
 	/**
 	 * Serial ID
 	 */
@@ -46,26 +46,26 @@ public class SelectProgressRepPage extends JFrame{
 	 */
 	private Laboratory currentLab;
 	/**
-	 * List of progress reports associated with the lab
+	 * List of expense reports associated with the lab
 	 */
-	private List<ProgressUpdate> listOfProgReport;
+	private List<ExpenseReport> listOfExpReport;
 	/**
-	 * Combo box displaying IDs of all progress reports
+	 * Combo box displaying IDs of all expense reports
 	 */
 	private JComboBox<Integer> comboBoxID;
 	
 	/**
-	 * Constructor for SelectProgressRepPage which allows user to select the progress report they wish to view
+	 * Constructor for SelectExpReportPage which allows user to select the progress report they wish to view
 	 * @param urlms URLMS system
 	 * @param currentLab Lab that user is currently viewing 
 	 * @param urlmsCont URLMS controller
 	 */
-	public SelectProgressRepPage(URLMS urlms, Laboratory currentLab, URLMSController urlmsCont) {
+	public SelectExpReportPage(URLMS urlms, Laboratory currentLab, URLMSController urlmsCont) {
 		setResizable(false);
 		this.urlms = urlms;
 		this.currentLab = currentLab;
 		this.urlmsCont = urlmsCont;
-		this.listOfProgReport = urlmsCont.getActiveLaboratory().getProgressUpdates();
+		this.listOfExpReport = urlmsCont.getActiveLaboratory().getExpenseReports();
 		try {
 	           for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
 	               if ("Nimbus".equals(info.getName())) {
@@ -74,13 +74,13 @@ public class SelectProgressRepPage extends JFrame{
 	               }
 	           }
 	       } catch (ClassNotFoundException ex) {
-	           java.util.logging.Logger.getLogger(SelectProgressRepPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(SelectExpReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (InstantiationException ex) {
-	           java.util.logging.Logger.getLogger(SelectProgressRepPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(SelectExpReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (IllegalAccessException ex) {
-	           java.util.logging.Logger.getLogger(SelectProgressRepPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(SelectExpReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	           java.util.logging.Logger.getLogger(SelectProgressRepPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(SelectExpReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       }
 		initComponents();
 	}
@@ -153,9 +153,9 @@ public class SelectProgressRepPage extends JFrame{
 		comboBoxID = new JComboBox<Integer>();
 		comboBoxID.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
 		comboBoxID.setBackground(Color.WHITE);
-		if(listOfProgReport != null && listOfProgReport.size() > 0){ // initialization of progress report lists
-			for(int i = 0; i < listOfProgReport.size(); i++){
-				comboBoxID.addItem(listOfProgReport.get(i).getId());
+		if(listOfExpReport != null && listOfExpReport.size() > 0){ // initialization of expense report lists
+			for(int i = 0; i < listOfExpReport.size(); i++){
+				comboBoxID.addItem(listOfExpReport.get(i).getId());
 			}
 		}
 		centerPanel.add(comboBoxID, BorderLayout.CENTER);
