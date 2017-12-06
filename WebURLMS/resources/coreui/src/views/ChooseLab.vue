@@ -61,7 +61,7 @@ export default {
   data() {
 	  return {
 		  dateConfig: {
-			  format: 'DD/MM/YYYY',
+			  format: 'MM/DD/YYYY',
 	          useCurrent: true
 		  }
 	  }

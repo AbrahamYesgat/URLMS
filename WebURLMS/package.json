@@ -28,6 +28,7 @@
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "popper.js": "^1.13.0",
     "vee-validate": "^2.0.0-rc.25",
-    "vue-bootstrap-datetimepicker": "^4.1.0"
+    "vue-bootstrap-datetimepicker": "^4.1.0",
+    "vue-numeric": "^2.2.8"
   }
 }
