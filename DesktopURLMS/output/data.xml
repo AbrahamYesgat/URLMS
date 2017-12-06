@@ -4,7 +4,7 @@
       <name>Torabi&apos;s Lab</name>
       <fieldOfStudy>study</fieldOfStudy>
       <startDate id="4">3917-11-10</startDate>
-      <active>true</active>
+      <active>false</active>
       <equipment id="5"/>
       <uRLMS reference="1"/>
       <expenseReports id="6"/>
@@ -20,20 +20,33 @@
         <uRLMS reference="1"/>
       </director>
       <supplies id="9"/>
-      <staffs id="10"/>
-      <progressUpdates id="11"/>
-      <fundingAccounts id="12">
-        <fundingAcc id="13">
+      <staffs id="10">
+        <staff id="11">
+          <email>sad@urlms.ca</email>
+          <password>password123</password>
+          <name>Sadhvi</name>
+          <currentlyAssigned>true</currentlyAssigned>
+          <staffRole>ResearchAssistant</staffRole>
+          <lastLogin>05/12/2017 20:18</lastLogin>
+          <laboratories id="12">
+            <lab reference="3"/>
+          </laboratories>
+          <progressUpdates id="13"/>
+        </staff>
+      </staffs>
+      <progressUpdates id="14"/>
+      <fundingAccounts id="15">
+        <fundingAcc id="16">
           <currentBalance>88523.97677</currentBalance>
           <accountNumber>12345</accountNumber>
           <laboratory reference="3"/>
         </fundingAcc>
-        <fundingAcc id="14">
+        <fundingAcc id="17">
           <currentBalance>75858.0</currentBalance>
           <accountNumber>123456</accountNumber>
           <laboratory reference="3"/>
         </fundingAcc>
-        <fundingAcc id="15">
+        <fundingAcc id="18">
           <currentBalance>0.0</currentBalance>
           <accountNumber>1234567</accountNumber>
           <laboratory reference="3"/>
@@ -41,15 +54,15 @@
       </fundingAccounts>
     </lab>
   </laboratories>
-  <directors id="16">
+  <directors id="19">
     <director reference="7"/>
-    <director id="17">
+    <director id="20">
       <email>second</email>
       <password>second</password>
       <name>second</name>
       <currentlyAssigned>true</currentlyAssigned>
       <labManaged>0</labManaged>
-      <laboratories id="18"/>
+      <laboratories id="21"/>
       <uRLMS reference="1"/>
     </director>
   </directors>

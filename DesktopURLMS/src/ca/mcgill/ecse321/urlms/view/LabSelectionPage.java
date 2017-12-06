@@ -92,14 +92,6 @@ public class LabSelectionPage extends JFrame {
 	       }
 		this.urlms = urlms;
 		this.urlmsCont = urlmsCont;
-		
-		if( !(urlmsCont.getActiveUser() instanceof Director)) {
-			Calendar cal = Calendar.getInstance();
-	        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-	        String strDate = sdf.format(cal.getTime());
-	        urlmsCont.getStaffMember(currentUser.getEmail()).setLastLogin(strDate);
-	       // System.out.println("Current date in Date Format: " + string);
-;		}
 			
 		//this.email = email;
 		initialiseCurrentUser(email);
@@ -118,6 +110,12 @@ public class LabSelectionPage extends JFrame {
 			currentUser = dir;
 		else
 			currentUser = urlmsCont.getStaffMember(email);
+		if( !(urlmsCont.getActiveUser() instanceof Director)) {
+			Calendar cal = Calendar.getInstance();
+	        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+	        String strDate = sdf.format(cal.getTime());
+	        urlmsCont.getStaffMember(currentUser.getEmail()).setLastLogin(strDate);
+;		}
 	}
 	/**
 	 * Method used to initialize list of labs of logged in user.
