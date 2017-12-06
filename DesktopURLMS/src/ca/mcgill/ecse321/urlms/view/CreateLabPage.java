@@ -195,6 +195,8 @@ public class CreateLabPage extends JFrame {
 		
 		backBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
+				new LabSelectionPage(urlms, urlmsCont.getActiveUser().getEmail(), urlmsCont).setVisible(true);
+				setVisible(false);
 			}
 		});
 		
