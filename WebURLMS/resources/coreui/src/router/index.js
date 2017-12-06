@@ -8,6 +8,7 @@ import Full from '../containers/Full'
 import Login from '../views/Login'
 import Register from '../views/Register'
 import Overview from '../views/Overview'
+import ChooseLab from '../views/ChooseLab'
 import LabStaff from '../views/lab/Staff'
 import LabEquipment from '../views/lab/Equipment'
 import LabSupplies from '../views/lab/Supplies'
@@ -100,6 +101,11 @@ export default new Router({
 					]
 				}
 			]
+		},
+		{
+			path: '/choose_lab',
+			name: 'Choose Lab',
+			component: ChooseLab
 		},
 		{
 			path: '/login',

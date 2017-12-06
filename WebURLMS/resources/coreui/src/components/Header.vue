@@ -8,7 +8,7 @@
         <template slot="button-content">
           <span class="d-md-down-none">Andre</span>
         </template>
-        <b-dropdown-item><i class="fa fa-flask"></i> See labs</b-dropdown-item> 
+        <b-dropdown-item @click="seeLabs"><i class="fa fa-flask"></i> See labs</b-dropdown-item> 
         <b-dropdown-divider></b-dropdown-divider> 
         <b-dropdown-item><i class="fa fa-user"></i> Profile</b-dropdown-item>
         <b-dropdown-item><i class="fa fa-lock"></i> Logout</b-dropdown-item>
@@ -32,6 +32,10 @@ export default {
       e.preventDefault()
       document.body.classList.toggle('sidebar-mobile-show')
     },
+    seeLabs (e) {
+      e.preventDefault()
+      this.$router.push('/choose_lab')
+    }
   }
 }
 </script>
