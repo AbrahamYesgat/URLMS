@@ -272,7 +272,7 @@ public class ManageEquipmentPage extends JFrame{
 		lblManageEquipment.setForeground(Color.WHITE);
 		panel.add(lblManageEquipment, BorderLayout.CENTER);
 		lblManageEquipment.setHorizontalAlignment(SwingConstants.CENTER);
-		lblManageEquipment.setFont(new Font("Modern No. 20", Font.PLAIN, 28));
+		lblManageEquipment.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 28));
 		
 		equipmentTable = new JTable();
 		equipmentTable.setShowGrid(true); // adds cell borders

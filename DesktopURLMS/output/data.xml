@@ -19,34 +19,40 @@
         </laboratories>
         <uRLMS reference="1"/>
       </director>
-      <supplies id="9"/>
-      <staffs id="10">
-        <staff id="11">
+      <supplies id="9">
+        <supplies id="10">
+          <name>Computer</name>
+          <quantity>0</quantity>
+          <laboratory reference="3"/>
+        </supplies>
+      </supplies>
+      <staffs id="11">
+        <staff id="12">
           <email>sad@urlms.ca</email>
           <password>password123</password>
           <name>Sadhvi</name>
           <currentlyAssigned>true</currentlyAssigned>
           <staffRole>ResearchAssistant</staffRole>
-          <lastLogin>05/12/2017 23:04</lastLogin>
-          <laboratories id="12">
+          <lastLogin>06/12/2017 13:33</lastLogin>
+          <laboratories id="13">
             <lab reference="3"/>
           </laboratories>
-          <progressUpdates id="13"/>
+          <progressUpdates id="14"/>
         </staff>
       </staffs>
-      <progressUpdates id="14"/>
-      <fundingAccounts id="15">
-        <fundingAcc id="16">
+      <progressUpdates id="15"/>
+      <fundingAccounts id="16">
+        <fundingAcc id="17">
           <currentBalance>88523.97677</currentBalance>
           <accountNumber>12345</accountNumber>
           <laboratory reference="3"/>
         </fundingAcc>
-        <fundingAcc id="17">
+        <fundingAcc id="18">
           <currentBalance>75858.0</currentBalance>
           <accountNumber>123456</accountNumber>
           <laboratory reference="3"/>
         </fundingAcc>
-        <fundingAcc id="18">
+        <fundingAcc id="19">
           <currentBalance>0.0</currentBalance>
           <accountNumber>1234567</accountNumber>
           <laboratory reference="3"/>
@@ -54,15 +60,15 @@
       </fundingAccounts>
     </lab>
   </laboratories>
-  <directors id="19">
+  <directors id="20">
     <director reference="7"/>
-    <director id="20">
+    <director id="21">
       <email>second</email>
       <password>second</password>
       <name>second</name>
       <currentlyAssigned>true</currentlyAssigned>
       <labManaged>0</labManaged>
-      <laboratories id="21"/>
+      <laboratories id="22"/>
       <uRLMS reference="1"/>
     </director>
   </directors>

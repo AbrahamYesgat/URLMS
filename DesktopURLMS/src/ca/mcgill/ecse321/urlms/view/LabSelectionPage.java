@@ -166,7 +166,10 @@ public class LabSelectionPage extends JFrame {
 		logoutBtn.setBackground(Color.RED);
 		
 	    getContentPane().setBackground(new Color(216, 247, 255));
-
+	    
+	    if(urlmsCont.getActiveUser() instanceof Staff){ // disable create lab button if user is a staff member
+	    	createLabBtn.setEnabled(false);
+	    }
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -244,6 +247,13 @@ public class LabSelectionPage extends JFrame {
 				urlmsCont.logout();
 				setVisible(false);
 				new LoginPage(urlms).setVisible(true);
+			}
+		});
+		
+		createLabBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				new CreateLabPage(urlms, urlmsCont).setVisible(true);
+				setVisible(false);
 			}
 		});
 		// lab selection table mouse listener used to redirect to selected lab's home page
