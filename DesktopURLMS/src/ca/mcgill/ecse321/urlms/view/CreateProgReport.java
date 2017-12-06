@@ -94,7 +94,6 @@ public class CreateProgReport extends JFrame {
 		
 		JTextArea reportTxtArea = new JTextArea();
 		reportTxtArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		reportTxtArea.setEditable(false);
 		
 		JLabel lblTitle = new JLabel("Title:");
 		lblTitle.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
