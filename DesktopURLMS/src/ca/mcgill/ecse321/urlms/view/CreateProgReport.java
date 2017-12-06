@@ -8,19 +8,23 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
+import ca.mcgill.ecse321.urlms.model.Director;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.URLMS;
 import javax.swing.JButton;
 
-public class WeeklyProgressReportPage extends JFrame {
+public class CreateProgReport extends JFrame {
 	/**
-	 * ID of progress report user wishes to view
+	 * ID of progress report user wishes to create
 	 */
 	private JTextField idField;
 	/**
@@ -35,44 +39,33 @@ public class WeeklyProgressReportPage extends JFrame {
 	 * Lab that user has currently clicked on
 	 */
 	private Laboratory currentLab;
-	
-	/**
-	 * Serial ID
-	 */
-	private static final long serialVersionUID = 521020024393179708L;
 	/**
 	 * Field that displays the title of the report
 	 */
 	private JTextField titleField;
 	/**
-	 * Field that displays the ID of the report
-	 */
-	private JTextField fieldID;
-	/**
 	 * Actual content of report as written by staff
 	 */
 	private String reportContent;
 	/**
-	 * ID of progress report that user is viewing
+	 * ID of progress report that user is creating
 	 */
 	private int reportID;
 	
 	/**
-	 * Constructor for WeeklyProgressReportPage which shows users the contents of the progress report they selected to view.
+	 * Constructor for WeeklyProgressReportPage which allows staff members to create progress report.
 	 * @param urlms URLMS system
-	 * @param currentLab Lab that user is currently viewing 
+	 * @param currentLab Lab that user is currently creating 
 	 * @param urlmsCont URLMS controller
 	 * @param reportContent  Actual content of report as written by staff
-	 * @param reportID ID of the report user wishes to view
+	 * @param reportID ID of the report user wishes to create
 	 */
-	public WeeklyProgressReportPage(URLMS urlms, Laboratory currentLab, URLMSController urlmsCont, int reportID, String reportContent) {
+	public CreateProgReport(URLMS urlms, Laboratory currentLab, URLMSController urlmsCont) {
 		
 		setResizable(false);
 		this.urlms = urlms;
 		this.currentLab = currentLab;
 		this.urlmsCont = urlmsCont;
-		this.reportContent = reportContent;
-		this.reportID = reportID;
 		try {
 	           for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
 	               if ("Nimbus".equals(info.getName())) {
@@ -81,19 +74,21 @@ public class WeeklyProgressReportPage extends JFrame {
 	               }
 	           }
 	       } catch (ClassNotFoundException ex) {
-	           java.util.logging.Logger.getLogger(WeeklyProgressReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(CreateProgReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (InstantiationException ex) {
-	           java.util.logging.Logger.getLogger(WeeklyProgressReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(CreateProgReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (IllegalAccessException ex) {
-	           java.util.logging.Logger.getLogger(WeeklyProgressReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(CreateProgReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	           java.util.logging.Logger.getLogger(WeeklyProgressReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(CreateProgReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       }
 		
 		initComponents();
 
 	}
-
+	/**
+	 * Method used to initialise frame for creating progress report
+	 */
 	private void initComponents() {
 		JPanel headerPanel = new JPanel();
 		
@@ -105,83 +100,74 @@ public class WeeklyProgressReportPage extends JFrame {
 		lblTitle.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
 		titleField = new JTextField();
-		titleField.setEditable(false);
 		titleField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		titleField.setColumns(10);
-		
-		JLabel lblID = new JLabel("ID:");
-		lblID.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		
-		fieldID = new JTextField();
-		fieldID.setEditable(false);
-		fieldID.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		fieldID.setColumns(10);
 		
 		JLabel lblContent = new JLabel("Content:");
 		lblContent.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
-		JButton button = new JButton("Back");
-		button.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		button.setBackground(new Color(255, 255, 13));
+		JButton backBtn = new JButton("Back");
+		backBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+		backBtn.setBackground(new Color(255, 255, 13));
 		
-		JButton button_1 = new JButton("Logout");
-		button_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		button_1.setBackground(Color.RED);
+		JButton logoutBtn = new JButton("Logout");
+		logoutBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+		logoutBtn.setBackground(Color.RED);
+		
+		JButton saveBtn = new JButton("Save Report");
+		saveBtn.setForeground(Color.WHITE);
+		saveBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+		saveBtn.setBackground(new Color(14, 96, 131));
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(headerPanel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
+				.addComponent(headerPanel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblTitle, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(titleField, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
-					.addGap(142)
-					.addComponent(lblID)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(fieldID, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(118, Short.MAX_VALUE))
+					.addContainerGap(524, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(reportTxtArea, GroupLayout.DEFAULT_SIZE, 822, Short.MAX_VALUE)
+					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+					.addGap(112)
+					.addComponent(saveBtn, GroupLayout.PREFERRED_SIZE, 217, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
+					.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblContent, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(639, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(reportTxtArea, GroupLayout.DEFAULT_SIZE, 836, Short.MAX_VALUE)
-					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(button, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 502, Short.MAX_VALUE)
-					.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+					.addContainerGap(619, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addComponent(headerPanel, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblTitle, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-							.addComponent(titleField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblID, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-							.addComponent(fieldID, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblTitle, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+						.addComponent(titleField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(7)
 					.addComponent(lblContent, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(18)
 					.addComponent(reportTxtArea, GroupLayout.PREFERRED_SIZE, 252, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(button, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-						.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(saveBtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(backBtn, GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+						.addComponent(logoutBtn, GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		headerPanel.setLayout(new BorderLayout(0, 0));
 		headerPanel.setBackground(new Color(14, 96, 131));
 		
-		JLabel lblWeeklyProgressReport = new JLabel("Weekly Progress Report");
+		JLabel lblWeeklyProgressReport = new JLabel("Create Weekly Progress Report");
 		lblWeeklyProgressReport.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWeeklyProgressReport.setForeground(Color.WHITE);
 		lblWeeklyProgressReport.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 28));
@@ -192,6 +178,21 @@ public class WeeklyProgressReportPage extends JFrame {
 		
 		pack();
 		setLocationRelativeTo(null);
+		
+		backBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new StaffLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+				setVisible(false);
+			}
+		});
+		
+		logoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				urlmsCont.logout();
+				setVisible(false);
+				new LoginPage(urlms).setVisible(true);
+			}
+		});
 		
 	}
 

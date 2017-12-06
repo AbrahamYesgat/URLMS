@@ -232,6 +232,13 @@ public class StaffLabPage extends JFrame{
 				setVisible(false);
 	    	}
 	    });
+	    
+	   btnCreateReport.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent e) {
+				new CreateProgReport(urlms, currentLab, urlmsCont).setVisible(true);
+				setVisible(false);
+	    	}
+	    });
 	   
 	    pack();
 		// makes window appear in center of screen
