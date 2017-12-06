@@ -48,7 +48,7 @@ public class ManageFundingAccounts extends AppCompatActivity {
         int i= 0;
         String[] accountArray = new String[accounts.size()];
         for (FundingAccount account : accounts) {
-            accountArray[i] = Integer.toString(account.getAccountNumber()) +": "+ Double.toString(account.getCurrentBalance()) + "$";
+            accountArray[i] = Integer.toString(account.getAccountNumber()) +": "+ String.format("%.2f",account.getCurrentBalance()) + "$";
             i++;
         }
 
