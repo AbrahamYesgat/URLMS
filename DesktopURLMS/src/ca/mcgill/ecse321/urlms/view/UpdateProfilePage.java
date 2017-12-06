@@ -8,10 +8,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
+import ca.mcgill.ecse321.urlms.model.Director;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.URLMS;
 
@@ -192,5 +196,16 @@ public class UpdateProfilePage extends JFrame {
 	    pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
+		
+		backBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(urlmsCont.getActiveUser() instanceof Director){
+					new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+				}
+				else
+					new StaffLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+				setVisible(false);
+			}
+		});
 	}
 }
