@@ -26,7 +26,7 @@ import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.URLMS;
 import javax.swing.JButton;
 
-public class CreateProgReport extends JFrame {
+public class CreateProgReportPage extends JFrame {
 	/**
 	 * ID of progress report user wishes to create
 	 */
@@ -69,7 +69,7 @@ public class CreateProgReport extends JFrame {
 	 * @param reportContent  Actual content of report as written by staff
 	 * @param reportID ID of the report user wishes to create
 	 */
-	public CreateProgReport(URLMS urlms, Laboratory currentLab, URLMSController urlmsCont) {
+	public CreateProgReportPage(URLMS urlms, Laboratory currentLab, URLMSController urlmsCont) {
 		
 		setResizable(false);
 		this.urlms = urlms;
@@ -83,13 +83,13 @@ public class CreateProgReport extends JFrame {
 	               }
 	           }
 	       } catch (ClassNotFoundException ex) {
-	           java.util.logging.Logger.getLogger(CreateProgReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(CreateProgReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (InstantiationException ex) {
-	           java.util.logging.Logger.getLogger(CreateProgReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(CreateProgReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (IllegalAccessException ex) {
-	           java.util.logging.Logger.getLogger(CreateProgReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(CreateProgReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	           java.util.logging.Logger.getLogger(CreateProgReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(CreateProgReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       }
 		
 		initComponents();
