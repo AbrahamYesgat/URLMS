@@ -52,7 +52,7 @@ public class SelectProgressRepPage extends JFrame{
 	/**
 	 * Combo box displaying IDs of all progress reports
 	 */
-	private JComboBox<Integer> comboBoxID;
+	private JComboBox<String> comboBoxID;
 	
 	/**
 	 * Constructor for SelectProgressRepPage which allows user to select the progress report they wish to view
@@ -150,12 +150,12 @@ public class SelectProgressRepPage extends JFrame{
 		lblP.setForeground(Color.WHITE);
 		centerPanel.add(lblP, BorderLayout.NORTH);
 		
-		comboBoxID = new JComboBox<Integer>();
+		comboBoxID = new JComboBox<String>();
 		comboBoxID.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
 		comboBoxID.setBackground(Color.WHITE);
 		if(listOfProgReport != null && listOfProgReport.size() > 0){ // initialization of progress report lists
 			for(int i = 0; i < listOfProgReport.size(); i++){
-				comboBoxID.addItem(listOfProgReport.get(i).getId());
+				comboBoxID.addItem(listOfProgReport.get(i).getTitle());
 			}
 		}
 		centerPanel.add(comboBoxID, BorderLayout.CENTER);
@@ -203,8 +203,8 @@ public class SelectProgressRepPage extends JFrame{
 	 * Method responsible for fetching progress report based on ID number of report inputted by user
 	 */
 	private void viewProgReport() {
-		String reportContent = urlmsCont.viewWeeklyProgressReport((int) comboBoxID.getSelectedItem());
-		new WeeklyProgressReportPage(urlms, currentLab, urlmsCont, (int) comboBoxID.getSelectedItem(), reportContent).setVisible(true);
+		String reportContent = urlmsCont.viewWeeklyProgressReport(comboBoxID.getSelectedIndex());
+		new WeeklyProgressReportPage(urlms, currentLab, urlmsCont, comboBoxID.getSelectedIndex(), reportContent).setVisible(true);
 		this.setVisible(false);
 		/*if(idField.getText().isEmpty()){
 			JOptionPane.showMessageDialog(this, "ID number cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);

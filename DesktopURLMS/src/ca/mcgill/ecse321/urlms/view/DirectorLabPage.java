@@ -277,6 +277,13 @@ public class DirectorLabPage extends JFrame{
 				setVisible(false);
 	    	}
 	    });
+	    
+	    btnExpReport.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent e) {
+				new CreateExpReportPage(urlms, currentLab, urlmsCont).setVisible(true);
+				setVisible(false);
+	    	}
+	    });
 	    pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
