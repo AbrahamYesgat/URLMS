@@ -234,6 +234,15 @@ public class URLMSController {
 		return "Requested Weekly Progress Report cannot be found!";
 	}
 	
+	public ExpenseReport viewExpenseReport(int idNumber) {
+		List<ExpenseReport> ExRep = activeLab.getExpenseReports();
+		for(ExpenseReport ER : ExRep) {
+			if(ER.getId()==(idNumber)) {
+				return ER;
+			}
+		}
+		return null;
+	}
 	/**
 	 * Member of the URLMS can create an expense report based on the lab expenses 
 	 * @param expenseReport the expense report that the user will write 
