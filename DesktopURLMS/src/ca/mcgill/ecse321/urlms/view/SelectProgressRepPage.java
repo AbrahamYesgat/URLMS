@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.urlms.view;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
@@ -10,6 +11,9 @@ import java.awt.Color;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.SwingConstants;
 
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
@@ -41,6 +45,13 @@ public class SelectProgressRepPage extends JFrame{
 	 * Lab that user has currently clicked on
 	 */
 	private Laboratory currentLab;
+	
+	/**
+	 * Constructor for SelectProgressRepPage which allows user to select the progress report they wish to view
+	 * @param urlms URLMS system
+	 * @param currentLab Lab that user is currently viewing 
+	 * @param urlmsCont URLMS controller
+	 */
 	public SelectProgressRepPage(URLMS urlms, Laboratory currentLab, URLMSController urlmsCont) {
 		setResizable(false);
 		this.urlms = urlms;
@@ -64,7 +75,9 @@ public class SelectProgressRepPage extends JFrame{
 	       }
 		initComponents();
 	}
-	
+	/**
+	 * Method used to initialise frame of SelectProgressRetPage
+	 */
 	private void initComponents(){
 		this.setTitle("Select Progress Report");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -146,6 +159,33 @@ public class SelectProgressRepPage extends JFrame{
 		
 		pack();
 		setLocationRelativeTo(null);
+		
+		btnViewReport.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				viewProgReport();
+			}
+		});
+	}
+	
+	/**
+	 * Method responsible for fetching progress report based on ID number of report inputted by user
+	 */
+	private void viewProgReport() {
+		if(idField.getText().isEmpty()){
+			JOptionPane.showMessageDialog(this, "ID number cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else if (!(idField.getText().matches("[0-9]+"))) {
+			JOptionPane.showMessageDialog(this, "ID must only contain numbers!", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else if(urlmsCont.viewWeeklyProgressReport(Integer.parseInt(idField.getText())).equals("Requested Weekly Progress Report cannot be found!")){
+			JOptionPane.showMessageDialog(this, "No report associated with this ID!", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else{
+			String reportContent = urlmsCont.viewWeeklyProgressReport(Integer.parseInt(idField.getText()));
+			new WeeklyProgressReportPage(urlms, currentLab, urlmsCont, Integer.parseInt(idField.getText()), reportContent).setVisible(true);
+			this.setVisible(false);
+		}
+		
 	}
 
 }

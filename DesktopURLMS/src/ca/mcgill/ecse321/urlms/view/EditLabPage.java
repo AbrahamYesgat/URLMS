@@ -28,6 +28,9 @@ import javax.swing.JSeparator;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.SwingConstants;
 
 public class EditLabPage extends JFrame {
 	/**
@@ -87,8 +90,6 @@ public class EditLabPage extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		getContentPane().setBackground(new Color(216, 247, 255));
-		JLabel lblEditLab = new JLabel("Edit Lab");
-		lblEditLab.setFont(new Font("Segoe UI Semibold", Font.BOLD, 25));
 		
 		nameField = new JTextField();
 		nameField.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
@@ -99,8 +100,6 @@ public class EditLabPage extends JFrame {
 		
 		JLabel lblLabName = new JLabel("Lab Name");
 		lblLabName.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		
-		JSeparator titleSeparator = new JSeparator();
 		
 		JCheckBox chckbxYes = new JCheckBox("Yes");
 		chckbxYes.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
@@ -127,77 +126,75 @@ public class EditLabPage extends JFrame {
 		saveBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		saveBtn.setBackground(new Color(23, 52, 240));
 		
+		JPanel headerPanel = new JPanel();
+		headerPanel.setBackground(new Color(14, 96, 131));
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(titleSeparator, GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(lblEditLab, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(597, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblActiveLab, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(chckbxYes)
-							.addGap(34)
+							.addGap(45)
 							.addComponent(chckbxNo, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap())
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(lblLabName, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(575, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 412, Short.MAX_VALUE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE))
-										.addComponent(nameField, GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
-									.addGap(144)))
-							.addGap(41)
+									.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)))
+							.addPreferredGap(ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
 								.addComponent(saveBtn, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-							.addContainerGap())))
+							.addContainerGap())
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(nameField, GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
+							.addGap(370))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblLabName, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(612, Short.MAX_VALUE))))
+				.addComponent(headerPanel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblEditLab, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(titleSeparator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(headerPanel, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+					.addGap(28)
+					.addComponent(lblLabName, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(26)
-							.addComponent(lblLabName, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(nameField, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblActiveLab, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
 								.addComponent(chckbxYes)
 								.addComponent(chckbxNo, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
-							.addGap(42)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
 								.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(saveBtn, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+						.addComponent(saveBtn, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
 						.addComponent(logoutBtn, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
+		headerPanel.setLayout(new BorderLayout(0, 0));
+		
+		JLabel headerLabel = new JLabel("Edit Lab");
+		headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		headerLabel.setForeground(Color.WHITE);
+		headerLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 28));
+		headerPanel.add(headerLabel, BorderLayout.CENTER);
 		getContentPane().setLayout(groupLayout);
 		
 		logoutBtn.addActionListener(new ActionListener() {
