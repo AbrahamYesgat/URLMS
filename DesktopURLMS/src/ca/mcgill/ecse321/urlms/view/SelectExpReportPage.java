@@ -19,7 +19,7 @@ import javax.swing.SwingConstants;
 
 import ca.mcgill.ecse321.urlms.controller.URLMSController;
 import ca.mcgill.ecse321.urlms.model.Director;
-import ca.mcgill.ecse321.urlms.model.ProgressUpdate;
+import ca.mcgill.ecse321.urlms.model.ExpenseReport;
 import ca.mcgill.ecse321.urlms.model.Laboratory;
 import ca.mcgill.ecse321.urlms.model.URLMS;
 
@@ -28,11 +28,11 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 
-public class SelectProgressRepPage extends JFrame{
+public class SelectExpReportPage extends JFrame{
 	/**
 	 * Serial ID
 	 */
-	private static final long serialVersionUID = 2088529096348585529L;
+	private static final long serialVersionUID = 6607820933991403347L;
 	/**
 	 * URLMS system
 	 */
@@ -46,26 +46,26 @@ public class SelectProgressRepPage extends JFrame{
 	 */
 	private Laboratory currentLab;
 	/**
-	 * List of progress reports associated with the lab
+	 * List of expense reports associated with the lab
 	 */
-	private List<ProgressUpdate> listOfProgReport;
+	private List<ExpenseReport> listOfExpReport;
 	/**
-	 * Combo box displaying IDs of all progress reports
+	 * Combo box displaying IDs of all expense reports
 	 */
 	private JComboBox<Integer> comboBoxID;
 	
 	/**
-	 * Constructor for SelectProgressRepPage which allows user to select the progress report they wish to view
+	 * Constructor for SelectExpReportPage which allows user to select the progress report they wish to view
 	 * @param urlms URLMS system
 	 * @param currentLab Lab that user is currently viewing 
 	 * @param urlmsCont URLMS controller
 	 */
-	public SelectProgressRepPage(URLMS urlms, Laboratory currentLab, URLMSController urlmsCont) {
+	public SelectExpReportPage(URLMS urlms, Laboratory currentLab, URLMSController urlmsCont) {
 		setResizable(false);
 		this.urlms = urlms;
 		this.currentLab = currentLab;
 		this.urlmsCont = urlmsCont;
-		this.listOfProgReport = urlmsCont.getActiveLaboratory().getProgressUpdates();
+		this.listOfExpReport = urlmsCont.getActiveLaboratory().getExpenseReports();
 		try {
 	           for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
 	               if ("Nimbus".equals(info.getName())) {
@@ -74,13 +74,13 @@ public class SelectProgressRepPage extends JFrame{
 	               }
 	           }
 	       } catch (ClassNotFoundException ex) {
-	           java.util.logging.Logger.getLogger(SelectProgressRepPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(SelectExpReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (InstantiationException ex) {
-	           java.util.logging.Logger.getLogger(SelectProgressRepPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(SelectExpReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (IllegalAccessException ex) {
-	           java.util.logging.Logger.getLogger(SelectProgressRepPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(SelectExpReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	           java.util.logging.Logger.getLogger(SelectProgressRepPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	           java.util.logging.Logger.getLogger(SelectExpReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	       }
 		initComponents();
 	}
@@ -88,7 +88,7 @@ public class SelectProgressRepPage extends JFrame{
 	 * Method used to initialise frame of SelectProgressRetPage
 	 */
 	private void initComponents(){
-		this.setTitle("Select Progress Report");
+		this.setTitle("Select Expense Report");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel headerPanel = new JPanel();
 		headerPanel.setBackground(new Color(14, 96, 131));
@@ -153,15 +153,15 @@ public class SelectProgressRepPage extends JFrame{
 		comboBoxID = new JComboBox<Integer>();
 		comboBoxID.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
 		comboBoxID.setBackground(Color.WHITE);
-		if(listOfProgReport != null && listOfProgReport.size() > 0){ // initialization of progress report lists
-			for(int i = 0; i < listOfProgReport.size(); i++){
-				comboBoxID.addItem(listOfProgReport.get(i).getId());
+		if(listOfExpReport != null && listOfExpReport.size() > 0){ // initialization of expense report lists
+			for(int i = 0; i < listOfExpReport.size(); i++){
+				comboBoxID.addItem(listOfExpReport.get(i).getId());
 			}
 		}
 		centerPanel.add(comboBoxID, BorderLayout.CENTER);
 		headerPanel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("Weekly Progress Reports");
+		JLabel lblNewLabel = new JLabel("Expense Reports");
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 26));
@@ -175,17 +175,13 @@ public class SelectProgressRepPage extends JFrame{
 		
 		btnViewReport.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				viewProgReport();
+				viewExpReport();
 			}
 		});
 		
 		backBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(urlmsCont.getActiveUser() instanceof Director){
-					new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
-				}
-				else
-					new StaffLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+				new DirectorLabPage(urlms, urlmsCont.getActiveLaboratory(), urlmsCont).setVisible(true);
 				setVisible(false);
 			}
 		});
@@ -200,21 +196,12 @@ public class SelectProgressRepPage extends JFrame{
 	}
 	
 	/**
-	 * Method responsible for fetching progress report based on ID number of report inputted by user
+	 * Method responsible for fetching expense report based on ID number of report inputted by user
 	 */
-	private void viewProgReport() {
-		String reportContent = urlmsCont.viewWeeklyProgressReport((int) comboBoxID.getSelectedItem());
-		new WeeklyProgressReportPage(urlms, currentLab, urlmsCont, (int) comboBoxID.getSelectedItem(), reportContent).setVisible(true);
-		this.setVisible(false);
-		/*if(idField.getText().isEmpty()){
-			JOptionPane.showMessageDialog(this, "ID number cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-		else if (!(idField.getText().matches("[0-9]+"))) {
-			JOptionPane.showMessageDialog(this, "ID must only contain numbers!", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-		else if(urlmsCont.viewWeeklyProgressReport(Integer.parseInt(idField.getText())).equals("Requested Weekly Progress Report cannot be found!")){
-			JOptionPane.showMessageDialog(this, "No report associated with this ID!", "Error", JOptionPane.ERROR_MESSAGE);
-		}*/
+	private void viewExpReport() {
+		//String reportContent = urlmsCont.viewExpenseReport((int) comboBoxID.getSelectedItem());
+		//new ExpenseReportPage(urlms, currentLab, urlmsCont, (int) comboBoxID.getSelectedItem(), reportContent).setVisible(true);
+		//this.setVisible(false);
 		
 	}
 }

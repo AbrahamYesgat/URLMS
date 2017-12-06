@@ -16,6 +16,6 @@ import ca.mcgill.ecse321.urlms.controller.TestUpdateProfile;
 import ca.mcgill.ecse321.urlms.persistence.TestPersistence;
 // This JUnit test runs all tests at the same time to make sure they can be integrated together.
 @RunWith(Suite.class)
-@SuiteClasses({ TestLogin.class, TestPersistence.class, TestAddStaff.class, TestAddLaboratory.class, TestLogout.class, TestCreateDirector.class, TestAddStaff.class, TestManageExpenseReport.class, TestRemoveStaff.class, TestDeleteLaboratory.class, TestUpdateProfile.class, TestManageSupplies.class, TestManageEquipment.class, TestCreateDirector.class, TestAddLaboratory.class })
+@SuiteClasses({ TestLogin.class, TestPersistence.class, TestAddStaff.class, TestAddLaboratory.class, TestLogout.class, TestCreateDirector.class, TestAddStaff.class, TestManageExpenseReport.class, TestRemoveStaff.class, TestDeleteLaboratory.class, TestUpdateProfile.class, TestManageSupplies.class, TestManageEquipment.class, TestCreateDirector.class, TestAddLaboratory.class, TestFundingAccount.class, TestManageLab.class, TestManageSupplies.class, TestProgressReport.class, TestRemoveStaff.class, TestUpdateProfile.class  })
 public class AllTests {
 }
