@@ -27,17 +27,21 @@ Route::get('/', function () {
  * outputting your Vue code.
  *
  */
-/*
- * Autentification
- */
+
+//Autentification
 Route::post('/login', 'URLMS\MainController@login');
 Route::get('/logout', 'URLMS\MainController@logout');
 Route::post('/register', 'URLMS\MainController@register');
+
+//Labs
 Route::get('/labs/get', 'URLMS\MainController@getLabs');
 Route::post('/labs/add', 'URLMS\MainController@addLab');
 Route::post('/labs/enter', 'URLMS\MainController@enterLab');
-Route::post('/labs/clear', 'URLMS\MainController@clearLabs');
+Route::get('/labs/clear', 'URLMS\MainController@clearLabs');
 Route::post('/labs/delete', 'URLMS\MainController@removeLab');
+
+//User info
+Route::get('/user/info', 'URLMS\MainController@getCurrentUser');
 
 Route::get('/{vue_capture?}', function () {
     return view('coreui');

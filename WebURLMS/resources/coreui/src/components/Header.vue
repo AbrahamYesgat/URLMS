@@ -30,8 +30,9 @@
       	<span class="text-danger" v-if="errors.has('email')">Please enter a valid email</span>
       </b-form-group>
       <b-form-group id="passwordGroup" label="Password">
-      	<b-form-input id="password" name="password" type="password" v-model="profile.password" v-validate="'required|alpha_num'" :class="{'input': true, 'is-danger': errors.has('password') }" placeholder="Enter password"></b-form-input>
-      	<span class="text-danger" v-if="errors.has('password')">Password can only contain letters and numbers</span>
+        <b-form-input id="password" name="password" type="password" v-model="profile.previousPassword" v-validate="'alpha_num'" :class="{'input': true, 'is-danger': errors.has('password') }" placeholder="Enter previous password"></b-form-input>
+      	<b-form-input id="password2" name="password2" type="password" v-model="profile.password" v-validate="'alpha_num'" :class="{'input': true, 'is-danger': errors.has('password') }" placeholder="Enter new password"></b-form-input>
+      	<span class="text-danger" v-if="errors.has('password')">Password can only contain letters and numbers and make sure previous password is good</span>
       </b-form-group>
      <b-button type="button" variant="primary" @click="updateProfile">Save Changes</b-button>
      <b-button type="button" variant="secondary" @click="updateProfileModal = false">Close</b-button>
@@ -46,13 +47,17 @@ export default {
 	  return {
 		  updateProfileModal: false,
 		  profile: {
-			  name: 'Andre',
+			  name: '',
 			  role: null,
-			  email: 'andre@urlms.ca',
+			  email: '',
+			  previousPassword: '',
 			  password: ''
 		  }
 	  }
   },
+  mounted : function(){
+		this.populateProfile();
+	},
   methods: {
     sidebarToggle (e) {
       e.preventDefault()
@@ -69,17 +74,25 @@ export default {
     logoutClicked() {
 	    axios.get('/logout')
 			.then(response => {
-				this.$router.push('/login')
+				this.$router.push('/login');
 			});
     },
     seeLabs (e) {
       this.$router.push('/choose_lab')
     },
     populateProfile() {
-    		//Load elements from php
+    	     axios.get('/user/info')
+			.then(response => {
+				if(response.data['status']) {
+					this.profile.name = response.data['name'],
+					this.profile.role = response.data['role'],
+					this.profile.email = response.data['email']
+				} else {
+					this.$router.push('/login');
+				}
+			});
     },
     showUpdateProfileModal() {
-    		this.populateProfile();
     		this.updateProfileModal = true;
     },
     isValidInput() {
@@ -93,7 +106,7 @@ export default {
    	 		errors.add('email');
    	 		return false;
    	 	}
-   	 	if(profile.password == '') {
+   	 	if((profile.password == '' && profile.previousPassword != '') || (profile.password != '' && profile.previousPassword == '')) {
    	 		errors.add('password');
    	 		return false;
    	 	}
@@ -102,6 +115,7 @@ export default {
     		if (isValidInput() && !this.errors.any()) {
   			  //Update profile
   			  this.updateProfileModal = false;
+  			  this.populateProfile();
   		 }
     }
   }

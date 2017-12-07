@@ -129,14 +129,24 @@ class MainController extends Controller
     /*
      * Action restriction
      */
-    public function getCurrentUserRole(Request $request) {
+    public function getCurrentUser(Request $request) {
         $this->updateCurrent($request);
         if($this->currentUser != null && $this->currentUser instanceof Director) {
-            return response()->json(['status' => true, 'admin' => true]);
+            return response()->json(['status' => true, 
+                                    'admin' => true, 
+                                    'name' => $this->currentUser->getName(),
+                                    'email' => $this->currentUser->getEmail(),
+                                    'role' => null
+            ]);
         }
         
         if($this->currentUser != null && $this->currentUser instanceof Staff) {
-            return response()->json(['status' => true, 'admin' => false]);
+            return response()->json(['status' => true,
+                                    'admin' => true,
+                                    'name' => $this->currentUser->getName(),
+                                    'email' => $this->currentUser->getEmail(),
+                                    'role' => ($this->currentUser->getStaffRole() == ResearchAssociate) ? 'Research Associate' : 'Research Assistant'
+            ]);
         }
         
         return response()->json(['status' => false]);
@@ -275,25 +285,5 @@ class MainController extends Controller
         } else {
             return response()->json(['status' => false]);
         }
-    }
-    
-    /*
-     * Getters and setters
-     */
-    
-    public function setCurrentUser($user) {
-        $this->currentUser = $user;
-    }
-    
-    public function getCurrentUser() {
-        return $this->currentUser;
-    }
-    
-    public function setCurrentLab($lab) {
-        $this->currentLab = $lab;
-    }
-    
-    public function getCurrentLab() {
-        return $this->currentLab;
     }
 }
