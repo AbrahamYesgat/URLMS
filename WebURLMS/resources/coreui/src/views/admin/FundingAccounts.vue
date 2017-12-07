@@ -13,7 +13,7 @@
 	        		</div>
         		<div class="row">
         			<div class="col">
-		        		<table class="table">
+		        		<table class="table table-striped table-hover">
 		        			<thead>
 		        				<tr>
 		        					<td>#</td>

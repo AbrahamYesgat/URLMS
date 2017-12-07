@@ -8,13 +8,13 @@
         		<div class="card-body">
 	        		<div v-if="editable" class="row">
 	        			<div class="col">
-	        				<b-button type="button" variant="success" @click="addStaffModal = !addStaffModal">Add Staff</b-button>
-	        				<b-button type="button" variant="danger" @click="clearStaffModal = !clearStaffModal">Clear Staff</b-button>
+	        				<b-button type="button" variant="success" @click="showAddStaffModal">Add Staff</b-button>
+	        				<b-button type="button" variant="danger" @click="showClearStaffModal">Clear Staff</b-button>
 	        			</div>
 	        		</div>
         		<div class="row">
         			<div class="col">
-		        		<table class="table">
+		        		<table class="table table-striped table-hover">
 		        			<thead>
 		        				<tr>
 		        					<td>#</td>
@@ -110,6 +110,14 @@ export default {
 	  }
   },
   methods: {
+	  showAddStaffModal() {
+		  this.resetAddStaffModal();
+		  this.errors.clear();
+		  this.addStaffModal = true;
+	  },
+	  showClearStaffModal() {
+		  this.clearStaffModal = true;
+	  },
 	  resetAddStaffModal() {
 		  this.form.name = '';
 		  this.form.role = null;
