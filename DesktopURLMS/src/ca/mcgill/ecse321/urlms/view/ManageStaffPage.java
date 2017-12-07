@@ -123,11 +123,12 @@ public class ManageStaffPage extends JFrame{
 		if(currentLab.hasStaffs()){
 			labStaff = currentLab.getStaffs();
 			for(Staff staff : labStaff){
-				Object[] o = new Object[4];
+				Object[] o = new Object[5];
 				  o[0] = staff.getName();
 				  o[1] = staff.getEmail();
 				  o[2] = staff.getStaffRole();
-				  o[3] = "Remove";
+				  o[3] = staff.getLastLogin();
+				  o[4] = "Remove";
 				  ((DefaultTableModel) table.getModel()).addRow(o);
 			}
 			
@@ -255,7 +256,7 @@ public class ManageStaffPage extends JFrame{
 			new Object[][] {
 			},
 			new String[] {
-				"Name", "Email", "Role", "Remove Member"
+				"Name", "Email", "Role", "Last Login", "Remove Member"
 			}
 			){public boolean isCellEditable(int row, int column){return false;}}//This causes all cells to be not editable)
 		);
@@ -316,9 +317,8 @@ public class ManageStaffPage extends JFrame{
 			JTable target = (JTable)e.getSource();
 			int row = target.getSelectedRow();
 			int column = target.getSelectedColumn();
-			System.out.print((String)target.getValueAt(row, column-2));
-			if(column == 3){
-				if(urlmsCont.removeStaff((String)target.getValueAt(row, column-2))){
+			if(column == 4){
+				if(urlmsCont.removeStaff((String)target.getValueAt(row, column-3))){
 					((DefaultTableModel) staffTable.getModel()).removeRow(row);
 					 staffQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfStaffs()));
 					 JOptionPane.showMessageDialog(this, "The staff member has been sucefully deleted!");
@@ -340,13 +340,13 @@ public class ManageStaffPage extends JFrame{
 		}
 		else if(urlmsCont.addStaff(newStaffEmail.getText(), "password123", newStaffName.getText(), (StaffRole) newStaffRole.getSelectedItem())){
 			JOptionPane.showMessageDialog(this, newStaffName.getText() + " was successfully added to the lab!");
-			Object[] o = {newStaffName.getText(), newStaffEmail.getText(), newStaffRole.getSelectedItem(),"Remove"};
+			Object[] o = {newStaffName.getText(), newStaffEmail.getText(), urlmsCont.getStaffMember(newStaffEmail.getText()).getLastLogin(), newStaffRole.getSelectedItem(),"Remove"};
 			  ((DefaultTableModel) staffTable.getModel()).addRow(o);
 			  staffQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfStaffs()));
 		}
 		else if(urlmsCont.addExistingStaff(newStaffEmail.getText())){
 			JOptionPane.showMessageDialog(this, newStaffName.getText() + " is an existing user and was successfully added to the lab!");
-			Object[] o = {newStaffName.getText(), newStaffEmail.getText(), newStaffRole.getSelectedItem(),"Remove"};
+			Object[] o = {newStaffName.getText(), newStaffEmail.getText(), newStaffRole.getSelectedItem(),urlmsCont.getStaffMember(newStaffEmail.getText()).getLastLogin(), "Remove"};
 			((DefaultTableModel) staffTable.getModel()).addRow(o);
 			staffQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfStaffs()));
 		}
