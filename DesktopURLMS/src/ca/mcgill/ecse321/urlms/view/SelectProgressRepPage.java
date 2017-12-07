@@ -203,7 +203,7 @@ public class SelectProgressRepPage extends JFrame{
 	 * Method responsible for fetching progress report based on ID number of report inputted by user
 	 */
 	private void viewProgReport() {
-		String reportContent = urlmsCont.viewWeeklyProgressReport(comboBoxID.getSelectedIndex());
+		String reportContent = urlmsCont.viewWeeklyProgressReport(comboBoxID.getSelectedIndex() + 1);
 		
 		new WeeklyProgressReportPage(urlms, currentLab, urlmsCont, (String)comboBoxID.getSelectedItem(), reportContent).setVisible(true);
 		this.setVisible(false);
