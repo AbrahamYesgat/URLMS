@@ -33,6 +33,11 @@ Route::get('/', function () {
 Route::post('/login', 'URLMS\MainController@login');
 Route::get('/logout', 'URLMS\MainController@logout');
 Route::post('/register', 'URLMS\MainController@register');
+Route::get('/labs/get', 'URLMS\MainController@getLabs');
+Route::post('/labs/add', 'URLMS\MainController@addLab');
+Route::post('/labs/enter', 'URLMS\MainController@enterLab');
+Route::post('/labs/clear', 'URLMS\MainController@clearLabs');
+Route::post('/labs/delete', 'URLMS\MainController@removeLab');
 
 Route::get('/{vue_capture?}', function () {
     return view('coreui');

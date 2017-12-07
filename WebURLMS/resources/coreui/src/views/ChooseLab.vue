@@ -116,18 +116,6 @@ export default {
 			  name: ''
 		  },
 		  labs: [
-			{
-				  name: 'Lab1',
-				  field: 'Physics',
-				  date: Date.now(),
-				  active: 'Active'
-			},
-			{
-				name: 'Lab2',
-				field: 'Chemistry',
-				date: Date.now(),
-				active: 'Unactive'
-			}
 		  ],
 		  activeOptions: [
 			'Active', 'Unactive'  
@@ -137,6 +125,9 @@ export default {
 	          useCurrent: true
 		  }
 	  }
+  },
+  mounted : function(){
+		this.populateLabs();
   },
   components: {
 	  datePicker
@@ -158,7 +149,17 @@ export default {
 	  },
 	  addLab() {
 		  if(this.verifyAddLabInput() && !this.errors.any()) {
-			  this.labs.push({name: this.form.name, field: this.form.field, date: this.form.date, active: this.form.active});
+			  axios.post('/labs/add', {
+				  name: this.form.name,
+				  field: this.form.field,
+				  date: this.form.date,
+				  active: this.form.active
+			  })
+	  			.then(response => {
+	  				if(response.data['status']) {
+	  					this.populateLabs();
+	  				} 
+	  			});
 			  this.closeAddLabModal();
 		  }
 	  },
@@ -188,15 +189,42 @@ export default {
 		  this.addLabModal = false;
 	  },
 	  clearLabs() {
-		  this.labs = [];
-		  this.clearLabsModal = false;
+		  axios.get('/labs/clear')
+  			.then(response => {
+  				if(response.data['status']) {
+  					this.populateLabs();
+  					this.clearLabsModal = false;
+  				} 
+  			});
 	  },
 	  deleteLab() {
-		  this.labs.splice(this.labToBeDeleted.index, 1);
-		  this.deleteLabModal = false;
+		  axios.post('/labs/delete', {
+			  name: this.labToBeDeleted.name
+		  })
+  			.then(response => {
+  				if(response.data['status']) {
+  					this.populateLabs();
+  					this.deleteLabModal = false;
+  				} 
+  			});
 	  },
 	  enterClick(index) {
-		  //enter lab with name this.labs[index].name
+		  axios.post('/labs/enter', {
+			  name: this.labs[index].name
+		  })
+  			.then(response => {
+  				if(response.data['status']) {
+  					this.$router.push('/');
+  				} 
+  			});
+	  },
+	  populateLabs() {
+		  axios.get('/labs/get')
+  			.then(response => {
+  				if(response.data['status']) {
+  					this.labs = response.data['labs'];
+  				} 
+  			});
 	  },
 	  deleteClick(index) {
 		  this.labToBeDeleted.index = index;
