@@ -132,6 +132,7 @@ public class ExpenseReportPage extends JFrame{
 		btnLogout.setBackground(Color.RED);
 		
 		selectedExp = new JTextArea();
+		selectedExp.setFont(new Font("Monospaced", Font.PLAIN, 18));
 		selectedExp.setEditable(false);
 		
 		JLabel lblSelectedRep = new JLabel("Contents of Selected Report:");

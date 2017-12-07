@@ -120,7 +120,7 @@ public class CreateExpReportPage extends JFrame{
 		lblExp.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
 		expField = new JTextArea();
-		expField.setFont(new Font("Monospaced", Font.PLAIN, 14));
+		expField.setFont(new Font("Monospaced", Font.PLAIN, 18));
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

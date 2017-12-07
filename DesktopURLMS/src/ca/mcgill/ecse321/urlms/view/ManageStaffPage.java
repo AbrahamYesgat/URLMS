@@ -340,7 +340,7 @@ public class ManageStaffPage extends JFrame{
 		}
 		else if(urlmsCont.addStaff(newStaffEmail.getText(), "password123", newStaffName.getText(), (StaffRole) newStaffRole.getSelectedItem())){
 			JOptionPane.showMessageDialog(this, newStaffName.getText() + " was successfully added to the lab!");
-			Object[] o = {newStaffName.getText(), newStaffEmail.getText(), urlmsCont.getStaffMember(newStaffEmail.getText()).getLastLogin(), newStaffRole.getSelectedItem(),"Remove"};
+			Object[] o = {newStaffName.getText(), newStaffEmail.getText(), newStaffRole.getSelectedItem(), urlmsCont.getStaffMember(newStaffEmail.getText()).getLastLogin(),"Remove"};
 			  ((DefaultTableModel) staffTable.getModel()).addRow(o);
 			  staffQuantity.setText(String.valueOf(urlmsCont.getActiveLaboratory().numberOfStaffs()));
 		}
