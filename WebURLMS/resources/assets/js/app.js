@@ -22,5 +22,6 @@ const app = new Vue({
 });
 */
 
+require('./bootstrap');
 // Include CoreUI JS
 require('../../coreui/src/main.js');

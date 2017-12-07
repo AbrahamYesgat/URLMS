@@ -1,33 +1,45 @@
 <?php
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
+/*This code was generated using the UMPLE 1.26.0-b05b57321 modeling language!*/
+namespace App\Http\Controllers\URLMS\Model;
+use Exception;
 
-class Equipment
+class ExpenseReport
 {
+
+  //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static $nextId = 1;
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
-  //Equipment Attributes
-  private $name;
-  private $quantity;
+  //ExpenseReport Attributes
+  private $expense;
+  private $amount;
 
-  //Equipment Associations
+  //Autounique Attributes
+  private $id;
+
+  //ExpenseReport Associations
   private $laboratory;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public function __construct($aName, $aQuantity, $aLaboratory)
+  public function __construct($aExpense, $aLaboratory)
   {
-    $this->name = $aName;
-    $this->quantity = $aQuantity;
+    $this->expense = $aExpense;
+    $this->amount = 0;
+    $this->id = self::$nextId++;
     $didAddLaboratory = $this->setLaboratory($aLaboratory);
     if (!$didAddLaboratory)
     {
-      throw new Exception("Unable to create equipment due to laboratory");
+      throw new Exception("Unable to create expenseReport due to laboratory");
     }
   }
 
@@ -35,30 +47,35 @@ class Equipment
   // INTERFACE
   //------------------------
 
-  public function setName($aName)
+  public function setExpense($aExpense)
   {
     $wasSet = false;
-    $this->name = $aName;
+    $this->expense = $aExpense;
     $wasSet = true;
     return $wasSet;
   }
 
-  public function setQuantity($aQuantity)
+  public function setAmount($aAmount)
   {
     $wasSet = false;
-    $this->quantity = $aQuantity;
+    $this->amount = $aAmount;
     $wasSet = true;
     return $wasSet;
   }
 
-  public function getName()
+  public function getExpense()
   {
-    return $this->name;
+    return $this->expense;
   }
 
-  public function getQuantity()
+  public function getAmount()
   {
-    return $this->quantity;
+    return $this->amount;
+  }
+
+  public function getId()
+  {
+    return $this->id;
   }
 
   public function getLaboratory()
@@ -78,9 +95,9 @@ class Equipment
     $this->laboratory = $aLaboratory;
     if ($existingLaboratory != null && $existingLaboratory != $aLaboratory)
     {
-      $existingLaboratory->removeEquipment($this);
+      $existingLaboratory->removeExpenseReport($this);
     }
-    $this->laboratory->addEquipment($this);
+    $this->laboratory->addExpenseReport($this);
     $wasSet = true;
     return $wasSet;
   }
@@ -94,7 +111,7 @@ class Equipment
   {
     $placeholderLaboratory = $this->laboratory;
     $this->laboratory = null;
-    $placeholderLaboratory->removeEquipment($this);
+    $placeholderLaboratory->removeExpenseReport($this);
   }
 
 }

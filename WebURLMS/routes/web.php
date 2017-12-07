@@ -27,6 +27,13 @@ Route::get('/', function () {
  * outputting your Vue code.
  *
  */
+/*
+ * Autentification
+ */
+Route::post('/login', 'URLMS\MainController@login');
+Route::get('/logout', 'URLMS\MainController@logout');
+Route::post('/register', 'URLMS\MainController@register');
+
 Route::get('/{vue_capture?}', function () {
     return view('coreui');
 })->where('vue_capture', '[\/\w\.-]*');

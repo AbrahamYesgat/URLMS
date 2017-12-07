@@ -1,6 +1,14 @@
 <?php
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
+/*This code was generated using the UMPLE 1.26.0-b05b57321 modeling language!*/
+namespace App\Http\Controllers\URLMS\Model;
+use Exception;
+use RuntimeException;
+use Supplies;
+use App\Http\Controllers\URLMS\Model\Equipment as Equipment;
+use ProgressUpdate;
+use App\Http\Controllers\URLMS\Model\ExpenseReport as ExpenseReport;
+use App\Http\Controllers\URLMS\Model\FundingAccount as FundingAccount;
 
 class Laboratory
 {
@@ -496,9 +504,9 @@ class Laboratory
     return 0;
   }
 
-  public function addExpenseReportVia($aExpensePeriod)
+  public function addExpenseReportVia($aExpense)
   {
-    return new ExpenseReport($aExpensePeriod, $this);
+    return new ExpenseReport($aExpense, $this);
   }
 
   public function addExpenseReport($aExpenseReport)

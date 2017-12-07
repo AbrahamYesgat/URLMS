@@ -1,33 +1,35 @@
 <?php
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
+/*This code was generated using the UMPLE 1.26.0-b05b57321 modeling language!*/
+namespace App\Http\Controllers\URLMS\Model;
+use Exception;
 
-class Supplies
+class FundingAccount
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
-  //Supplies Attributes
-  private $name;
-  private $quantity;
+  //FundingAccount Attributes
+  private $currentBalance;
+  private $accountNumber;
 
-  //Supplies Associations
+  //FundingAccount Associations
   private $laboratory;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public function __construct($aName, $aQuantity, $aLaboratory)
+  public function __construct($aCurrentBalance, $aAccountNumber, $aLaboratory)
   {
-    $this->name = $aName;
-    $this->quantity = $aQuantity;
+    $this->currentBalance = $aCurrentBalance;
+    $this->accountNumber = $aAccountNumber;
     $didAddLaboratory = $this->setLaboratory($aLaboratory);
     if (!$didAddLaboratory)
     {
-      throw new Exception("Unable to create supply due to laboratory");
+      throw new Exception("Unable to create fundingAccount due to laboratory");
     }
   }
 
@@ -35,30 +37,30 @@ class Supplies
   // INTERFACE
   //------------------------
 
-  public function setName($aName)
+  public function setCurrentBalance($aCurrentBalance)
   {
     $wasSet = false;
-    $this->name = $aName;
+    $this->currentBalance = $aCurrentBalance;
     $wasSet = true;
     return $wasSet;
   }
 
-  public function setQuantity($aQuantity)
+  public function setAccountNumber($aAccountNumber)
   {
     $wasSet = false;
-    $this->quantity = $aQuantity;
+    $this->accountNumber = $aAccountNumber;
     $wasSet = true;
     return $wasSet;
   }
 
-  public function getName()
+  public function getCurrentBalance()
   {
-    return $this->name;
+    return $this->currentBalance;
   }
 
-  public function getQuantity()
+  public function getAccountNumber()
   {
-    return $this->quantity;
+    return $this->accountNumber;
   }
 
   public function getLaboratory()
@@ -78,9 +80,9 @@ class Supplies
     $this->laboratory = $aLaboratory;
     if ($existingLaboratory != null && $existingLaboratory != $aLaboratory)
     {
-      $existingLaboratory->removeSupply($this);
+      $existingLaboratory->removeFundingAccount($this);
     }
-    $this->laboratory->addSupply($this);
+    $this->laboratory->addFundingAccount($this);
     $wasSet = true;
     return $wasSet;
   }
@@ -94,7 +96,7 @@ class Supplies
   {
     $placeholderLaboratory = $this->laboratory;
     $this->laboratory = null;
-    $placeholderLaboratory->removeSupply($this);
+    $placeholderLaboratory->removeFundingAccount($this);
   }
 
 }

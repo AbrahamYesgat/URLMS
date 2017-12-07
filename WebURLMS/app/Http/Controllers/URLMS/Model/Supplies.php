@@ -1,6 +1,8 @@
 <?php
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
+/*This code was generated using the UMPLE 1.26.0-b05b57321 modeling language!*/
+namespace App\Http\Controllers\URLMS\Model;
+use Exception;
 
 class Supplies
 {

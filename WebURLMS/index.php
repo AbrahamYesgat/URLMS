@@ -5,6 +5,7 @@
  * @package  Laravel
  * @author   Taylor Otwell <taylor@laravel.com>
  */
+require_once("app/Http/Controllers/URLMS/Model/Autoloader.php");
 
 $uri = urldecode(
     parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)

@@ -163,14 +163,20 @@ export default {
 		  }
 	  },
 	  verifyAddLabInput() {
-		  if(this.form.name == '')
+		  if(this.form.name == '') {
+			  this.errors.add('name');
 			  return false;
+		  }
 		  
-		  if(this.form.field == '')
+		  if(this.form.field == '') {
+			  this.errors.add('field');
 			  return false;
+		  }
 		  
-		  if(this.form.date == null)
+		  if(this.form.date == null) {
+			  this.errors.add('date');
 			  return false;
+		  }
 		  
 		  if(this.activeOptions.indexOf(this.form.active) <= -1)
 			  return false;

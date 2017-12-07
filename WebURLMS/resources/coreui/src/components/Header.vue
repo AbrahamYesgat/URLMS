@@ -66,6 +66,12 @@ export default {
       e.preventDefault()
       document.body.classList.toggle('sidebar-mobile-show')
     },
+    logoutClicked() {
+	    axios.get('/logout')
+			.then(response => {
+				this.$router.push('/login')
+			});
+    },
     seeLabs (e) {
       this.$router.push('/choose_lab')
     },
