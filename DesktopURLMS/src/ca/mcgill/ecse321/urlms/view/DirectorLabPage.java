@@ -273,7 +273,7 @@ public class DirectorLabPage extends JFrame{
 	    });
 	    btnViewExpRep.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent e) {
-				new SelectExpReportPage(urlms, currentLab, urlmsCont).setVisible(true);
+				new ExpenseReportPage(urlms, currentLab, urlmsCont).setVisible(true);
 				setVisible(false);
 	    	}
 	    });

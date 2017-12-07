@@ -66,7 +66,7 @@ public class TestCreateDirector {
 		assertEquals(true, sysC.createDirector(testEmail, testPassword, testName));
 		assertEquals(false, sysC.createDirector(testEmail, testPassword, testName));
 		assertEquals(true, urlms.hasDirectors());
-		urlms.delete();
+		//urlms.delete();
 	}
 	
 	

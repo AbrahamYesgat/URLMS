@@ -221,11 +221,16 @@ public class CreateProgReportPage extends JFrame {
 	
 		if(titleField.getText().equals("") || reportTxtArea.getText().equals(""))
 			JOptionPane.showMessageDialog(this, "Please fill out all feilds, or else report cannot be saved", "Error", JOptionPane.ERROR_MESSAGE);
-		else if(urlmsCont.createWeeklyProgressReport(titleField.getText(), reportTxtArea.getText(), sqlDate))
+		else if(urlmsCont.createWeeklyProgressReport(titleField.getText(), reportTxtArea.getText(), sqlDate)) {
 			JOptionPane.showMessageDialog(this, "Your progress report was sucesfully saved");
+			titleField.setText("");
+			reportTxtArea.setText("");
+		}
 		else
 			JOptionPane.showMessageDialog(this, "User is not a staff", "Error", JOptionPane.ERROR_MESSAGE);
 	}
+	
+
 	
 	
 	
