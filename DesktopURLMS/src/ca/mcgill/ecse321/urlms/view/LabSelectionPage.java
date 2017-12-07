@@ -110,7 +110,7 @@ public class LabSelectionPage extends JFrame {
 			currentUser = dir;
 		else
 			currentUser = urlmsCont.getStaffMember(email);
-		if( !(currentUser instanceof Director)) {
+		if( !(urlmsCont.getActiveUser() instanceof Director)) {
 			Calendar cal = Calendar.getInstance();
 	        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	        String strDate = sdf.format(cal.getTime());
