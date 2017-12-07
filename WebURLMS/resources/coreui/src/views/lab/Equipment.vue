@@ -8,13 +8,13 @@
         		<div class="card-body">
 	        		<div v-if="editable" class="row">
 	        			<div class="col">
-	        				<b-button type="button" variant="success" @click="addEquipmentModal = !addEquipmentModal">Add Equipment</b-button>
-	        				<b-button type="button" variant="danger" @click="clearEquipmentModal = !clearEquipmentModal">Clear Equipment</b-button>
+	        				<b-button type="button" variant="success" @click="openAddEquipmentModal">Add Equipment</b-button>
+	        				<b-button type="button" variant="danger" @click="openClearEquipmentModal">Clear Equipment</b-button>
 	        			</div>
 	        		</div>
         		<div class="row">
         			<div class="col">
-		        		<table class="table">
+		        		<table class="table table-striped table-hover">
 		        			<thead>
 		        				<tr>
 		        					<td>#</td>
@@ -108,7 +108,7 @@ export default {
 	      },
 	      equipment: [
 	    	   {
-	    		   name: 'Pen',
+	    		   name: 'Microscope',
 	    		   qty: 10
 	    	   }
 	      ]
@@ -134,12 +134,20 @@ export default {
 	  }
   },
   methods: {
+	  openAddEquipmentModal() {
+		 this.errors.clear();
+		 this.addEquipmentModal = true;
+	  },
+	  openClearEquipmentModal() {
+		 this.errors.clear();
+		 this.clearEquipmentModal = true;
+	  },
 	  resetAddEquipmentModal() {
 		  this.form.name = '';
 		  this.form.selectableName = null;
 		  this.form.qty = 0;
 		  this.errors.clear();
-		  activeOtherBox = false;
+		  this.activeOtherBox = false;
 	  },
 	  resetModifyEquipmentModal() {
 		  this.modify.name = '';
