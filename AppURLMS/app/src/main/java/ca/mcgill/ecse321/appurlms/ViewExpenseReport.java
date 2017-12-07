@@ -61,7 +61,7 @@ public class ViewExpenseReport extends AppCompatActivity {
                     ExpenseReport viewReport = cont.getActiveLaboratory().getExpenseReport(position);
                     setContentView(R.layout.view_report);
                     TextView actualReport = (TextView) findViewById(R.id.actual_report);
-                    actualReport.setText(viewReport.getExpense() + " amount spent: " + Double.toString(viewReport.getAmount()) + "$");
+                    actualReport.setText(viewReport.getExpense() + " amount spent: " + String.format("%.2f", viewReport.getAmount()) + "$");
                 }
             }
         });

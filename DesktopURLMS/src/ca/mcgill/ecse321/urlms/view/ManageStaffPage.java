@@ -84,7 +84,7 @@ public class ManageStaffPage extends JFrame{
 	/**
 	 *  List containing all staff members of active lab
 	 */
-	List<Staff> labStaff;
+	private List<Staff> labStaff;
 	/**
 	 * Constructor of ManageStaffPage frame
 	 * @param urlms current URLMS system

@@ -166,7 +166,10 @@ public class LabSelectionPage extends JFrame {
 		logoutBtn.setBackground(Color.RED);
 		
 	    getContentPane().setBackground(new Color(216, 247, 255));
-
+	    
+	    if(urlmsCont.getActiveUser() instanceof Staff){ // disable create lab button if user is a staff member
+	    	createLabBtn.setEnabled(false);
+	    }
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -246,6 +249,13 @@ public class LabSelectionPage extends JFrame {
 				new LoginPage(urlms).setVisible(true);
 			}
 		});
+		
+		createLabBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				new CreateLabPage(urlms, urlmsCont).setVisible(true);
+				setVisible(false);
+			}
+		});
 		// lab selection table mouse listener used to redirect to selected lab's home page
 		labSelectionTable.addMouseListener(new MouseAdapter() {
 			  public void mouseClicked(MouseEvent e) {
@@ -261,9 +271,14 @@ public class LabSelectionPage extends JFrame {
 				    	  setVisible(false);
 			    	  }
 			    	  else{
-			    		  StaffLabPage labHomePage = new StaffLabPage(urlms, labs.get(row), urlmsCont);
-			    		  labHomePage.setVisible(true);
-			    		  setVisible(false);
+			    		  if(labs.get(row).getActive() == true){
+			    			  StaffLabPage labHomePage = new StaffLabPage(urlms, labs.get(row), urlmsCont);
+			    			  labHomePage.setVisible(true);
+			    			  setVisible(false);
+			    		  }
+			    		  else{
+			    			  inactiveError(labs.get(row).getName());
+			    		  }
 			    	  }
 			      }
 			     }
@@ -274,6 +289,11 @@ public class LabSelectionPage extends JFrame {
 		pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
+		
+	}
+	
+	private void inactiveError(String labName) {
+		JOptionPane.showMessageDialog(this, labName + " is inactive!", "Error", JOptionPane.ERROR_MESSAGE);
 		
 	}
 }
