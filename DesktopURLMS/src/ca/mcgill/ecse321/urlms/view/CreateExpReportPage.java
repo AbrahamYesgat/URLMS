@@ -210,6 +210,7 @@ public class CreateExpReportPage extends JFrame{
 			int month = cal.get(Calendar.MONTH);
 			int day = cal.get(Calendar.DAY_OF_MONTH);
 			urlmsCont.createExpenseReport(expField.getText(), Double.parseDouble(fieldTotal.getText()), day, month, year);
+			JOptionPane.showMessageDialog(this, "Expense added!");
 		}
 	}
 }
