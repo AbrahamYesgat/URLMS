@@ -203,6 +203,7 @@ public class RegisterPage extends JFrame {
 		btnSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			if(registerUser()) {
+				urlmsCont.setActiveUser(urlmsCont.getDirector(fieldEmail.getText()));
 				new LabSelectionPage(urlms,fieldEmail.getText(), urlmsCont).setVisible(true);
 				dispose();
 			}

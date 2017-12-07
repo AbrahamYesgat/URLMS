@@ -6,7 +6,7 @@
  		<div class="card">
         		<div class="card-header"> Staff members </div>
         		<div class="card-body">
-	        		<div class="row">
+	        		<div v-if="editable" class="row">
 	        			<div class="col">
 	        				<b-button type="button" variant="success" @click="addStaffModal = !addStaffModal">Add Staff</b-button>
 	        				<b-button type="button" variant="danger" @click="clearStaffModal = !clearStaffModal">Clear Staff</b-button>
@@ -30,7 +30,7 @@
 		        					<td>{{ member.name }}</td>
 		        					<td>{{ member.email }}</td>
 		        					<td>{{ member.role }}</td>
-		        					<td><a v-on:click="removeClick(index)" v-bind:id="index" href="#">Remove</a></td>
+		        					<td><a v-if="editable" v-on:click="removeClick(index)" v-bind:id="index" href="#">Remove</a></td>
 		        				</tr>
 		        			</tbody>
 		        		</table>
@@ -92,7 +92,7 @@ export default {
 	    	  	password: ''
 	      },
 	      roles: [
-	    	     { text: 'Select One', value: null }, 'Research Assistant', 'Research Associate'
+	    	     { text: 'Select One', value: null, disabled: true }, 'Research Assistant', 'Research Associate'
 	      ],
 	      staff: [
 	    	   {
@@ -103,6 +103,12 @@ export default {
 	      ]
 	    }
 	  },
+  props: {
+	  editable: {
+		type: Boolean,
+		default: true
+	  }
+  },
   methods: {
 	  resetAddStaffModal() {
 		  this.form.name = '';
