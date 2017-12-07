@@ -111,7 +111,7 @@ public class DirectorLabPage extends JFrame{
 		updateProfileBtn.setBackground(new Color(0, 191, 255));
 		updateProfileBtn.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		
-		JButton btnExpReport = new JButton("Generate Expense Report");
+		JButton btnExpReport = new JButton("Add Expense");
 		btnExpReport.setBackground(new Color(0, 191, 255));
 		btnExpReport.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 	    
@@ -129,7 +129,7 @@ public class DirectorLabPage extends JFrame{
 		
 	    getContentPane().setBackground(new Color(216, 247, 255));
 	    
-	    JButton btnViewExpRep = new JButton("View Expense Reports");
+	    JButton btnViewExpRep = new JButton("View Expense Report");
 	    btnViewExpRep.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 	    btnViewExpRep.setBackground(new Color(0, 191, 255));
 	    
