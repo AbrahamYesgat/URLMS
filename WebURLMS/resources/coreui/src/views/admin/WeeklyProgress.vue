@@ -13,7 +13,7 @@
 	        		</div>
         		<div class="row">
         			<div class="col">
-		        		<table class="table">
+		        		<table class="table table-striped table-hover">
 		        			<thead>
 		        				<tr>
 		        					<td>#</td>
@@ -114,17 +114,14 @@ export default {
 		  this.viewReportModal = true;
 	  },
 	  addReport() {
-		  this.$validator.validateAll();
-		  
 		  if(this.form.title == '')
 			  this.errors.add('title');
 		  if(this.form.report == '')
 			  this.errors.add('report');
 		  
 		  if (!this.errors.any()) {
-			  this.reports.push({name: this.form.title, report: this.form.report, preview: this.returnPreview(this.form.report)});
-			  this.addReportModal = false;
-			  this.resetAddReportModal();
+			  this.reports.push({title: this.form.title, report: this.form.report, preview: this.returnPreview(this.form.report)});
+			  this.closeAddReport();
 		  }
 	  }
   }

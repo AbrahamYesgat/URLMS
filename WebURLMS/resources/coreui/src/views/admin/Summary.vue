@@ -4,21 +4,21 @@
     <div class="row">
       <div class="col">
         <Expenses :editable=false></Expenses>
-      </div><!--/.col-->
-    </div><!--/.row-->
-  </div>
+      </div>
+    </div>
   
   <div class="row">
       <div class="col">
         <FundingAccounts :editable=false></FundingAccounts>
-      </div><!--/.col-->
-    </div><!--/.row-->
+      </div>
+    </div>
   
   <div class="row">
       <div class="col">
         <WeeklyProgress :editable=false></WeeklyProgress>
-      </div><!--/.col-->
-    </div><!--/.row-->
+      </div>
+    </div>
+  </div>
 </div>
 </template>
 
