@@ -204,7 +204,8 @@ public class SelectProgressRepPage extends JFrame{
 	 */
 	private void viewProgReport() {
 		String reportContent = urlmsCont.viewWeeklyProgressReport(comboBoxID.getSelectedIndex());
-		new WeeklyProgressReportPage(urlms, currentLab, urlmsCont, comboBoxID.getSelectedIndex(), reportContent).setVisible(true);
+		
+		new WeeklyProgressReportPage(urlms, currentLab, urlmsCont, (String)comboBoxID.getSelectedItem(), reportContent).setVisible(true);
 		this.setVisible(false);
 		/*if(idField.getText().isEmpty()){
 			JOptionPane.showMessageDialog(this, "ID number cannot be left empty!", "Error", JOptionPane.ERROR_MESSAGE);
