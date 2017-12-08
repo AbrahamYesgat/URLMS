@@ -361,25 +361,32 @@ class MainController extends Controller
         
         $name = $request->input('name');
         $email = $request->input('email');
-        $role = $request->input('role');
+        $role = ($request->input('role') == 0) ? StaffRole::ResearchAssociate : StaffRole::ResearchAssistant;
         $password = $request->input('password');
         
         if($this->currentLab != null) {
             foreach($this->urlms->getLaboratories() as $lab) {
                 foreach($lab->getStaffs() as $staff) {
                     if($staff->getEmail() == $email) {
-                        return response()->json(['status' => false, 'message' => 'User already exists']);
+                        if($staff->getName() == $name && $staff->getStaffRole() == $role && $staff->getPassword() == $password) {
+                            $staff->addLaboratory($lab);
+                            
+                            PersistenceController::saveModel($this->urlms);
+                            return response()->json(['status' => true]);
+                        } else {
+                            return response()->json(['status' => false, 'message' => 'Staff exists but incorrect information']);
+                        }
                     }
                 }
             }
             
             foreach($this->urlms->getDirectors() as $dir) {
                 if($dir->getEmail() == $email) {
-                    return response()->json(['status' => false, 'message' => 'User already exists']);
+                    return response()->json(['status' => false, 'message' => 'Director already has this email']);
                 }
             }
             
-            new Staff($email, $password, $name, ($role == 0) ? StaffRole::ResearchAssociate : StaffRole::ResearchAssistant, [$this->currentLab]);
+            new Staff($email, $password, $name, $role, [$this->currentLab]);
             PersistenceController::saveModel($this->urlms);
             return response()->json(['status' => true]);
         } else {

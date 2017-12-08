@@ -54,6 +54,20 @@ Route::get('/user/info', 'URLMS\MainController@getCurrentUser');
 Route::post('/user/updatePassword', 'URLMS\MainController@updatePassword');
 Route::post('/user/updateProfile', 'URLMS\MainController@updateProfile');
 
+//Equipment
+Route::get('/equipment/get', 'URLMS\MainController@getEquipment');
+Route::get('/equipment/clear', 'URLMS\MainController@clearEquipment');
+Route::post('/equipment/add', 'URLMS\MainController@addEquipment');
+Route::post('/equipment/modify', 'URLMS\MainController@modiyEquipment');
+Route::post('/equipment/delete', 'URLMS\MainController@removeEquipment');
+
+//Supplies
+Route::get('/supplies/get', 'URLMS\MainController@getSupplies');
+Route::get('/supplies/clear', 'URLMS\MainController@clearSupplies');
+Route::post('/supplies/add', 'URLMS\MainController@addSupplies');
+Route::post('/supplies/modify', 'URLMS\MainController@modiySupplies');
+Route::post('/supplies/delete', 'URLMS\MainController@removeSupplies');
+
 Route::get('/{vue_capture?}', function () {
     
     return view('coreui');
