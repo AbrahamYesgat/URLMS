@@ -61,7 +61,7 @@
       	<b-form-input id="field" type="text" name="field" v-model="form.field" placeholder="Enter field"></b-form-input>
       	<span class="text-danger" v-if="errors.has('field')">Please enter a valid field</span>
       </b-form-group>
-      <b-form-group id="dateGroup" label="Date">
+      <b-form-group id="dateGroup" label="Start date">
       	<date-picker v-model="form.date" :config="dateConfig"></date-picker>
       </b-form-group>
       <b-form-radio-group id="activeGroup" v-model="form.active" :options="activeOptions" name="activeGroup"></b-form-radio-group>	

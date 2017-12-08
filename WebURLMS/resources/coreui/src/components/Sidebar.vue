@@ -63,6 +63,7 @@
     </b-form-radio-group>	
     <b-button type="button" variant="primary" @click="updateLabSettings">Save Changes</b-button>
      <b-button type="button" variant="secondary" @click="settingsModal = false">Close</b-button>
+     <span class="text-danger"> {{ unknownError }} </span>
     </b-form>
   </b-modal>
 </div>
@@ -80,11 +81,12 @@ export default {
   data() {
 	  return {
 		settingsModal: false,
+		unknownError: '',
 		labSettings: {
 			name: '',
 			field: '',
-			startDate: '12/01/2017',    
-			active: 'Active'
+			startDate: '',    
+			active: ''
 		},
 		activeOptions: [
 			'Active', 'Unactive'
@@ -113,11 +115,23 @@ export default {
     },
     isSettingsPressed(name) {
     		if(name == "Settings") {
+    			this.unknownError = '';
     			this.showLabSettingsModal();
     		}
     },
     populateLabSettingsModal() {
-    		//Fill items
+	    	axios.get('/labs/info')
+			.then(response => {
+				if(response.data['status']) {
+					this.labSettings.name = response.data['name'];
+					this.labSettings.field = response.data['field'];
+					this.labSettings.startDate = response.data['date'];
+					this.labSettings.active = response.data['active'];
+				    this.unknownError = '';
+				} else {
+					this.$router.replace('/login');
+				}
+			});
     },
     showLabSettingsModal() {
     		this.populateLabSettingsModal();
@@ -126,20 +140,32 @@ export default {
     isValidInput() {
    	 	this.$validator.validateAll();
    		
-   	 	if(labSettings.name == '') {
-   	 		errors.add('name');
+   	 	if(this.labSettings.name == '') {
    	 		return false;
    	 	}
-   	 	if(labSettings.field == '') {
-   	 		errors.add('field');
+   	 	if(this.labSettings.field == '') {
    	 		return false;
    	 	}
+   	 	
+   	 	return true;
     },
     updateLabSettings() {
-    		if (isValidInput() && !this.errors.any()) {
-			  //Update lab
-			  this.settingsModal = false;
-		 }
+    		if (this.isValidInput() && !this.errors.any()) {
+    			axios.post('/labs/updateLab', {
+    				newName: this.labSettings.name,
+    				field: this.labSettings.field,
+    				active: this.labSettings.active
+    			})
+    			.then(response => {
+    				if(response.data['status']) {
+    					this.settingsModal = false;
+    				} else {
+    					this.$router.replace('/login');
+    				}
+    			});
+		 } else {
+  			this.unknownError = 'Error';
+  		 }
     }
   }
 }

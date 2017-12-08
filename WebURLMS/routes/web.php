@@ -39,10 +39,21 @@ Route::post('/labs/add', 'URLMS\MainController@addLab');
 Route::post('/labs/enter', 'URLMS\MainController@enterLab');
 Route::get('/labs/clear', 'URLMS\MainController@clearLabs');
 Route::post('/labs/delete', 'URLMS\MainController@removeLab');
+Route::get('/labs/info', 'URLMS\MainController@getCurrentLab');
+Route::post('/labs/updateLab', 'URLMS\MainController@updateLab');
+
+//Staff
+Route::get('/staff/get', 'URLMS\MainController@getStaff');
+Route::post('/staff/add', 'URLMS\MainController@addStaff');
+Route::get('/staff/clear', 'URLMS\MainController@clearStaff');
+Route::post('/staff/delete', 'URLMS\MainController@removeStaff');
 
 //User info
 Route::get('/user/info', 'URLMS\MainController@getCurrentUser');
+Route::post('/user/updatePassword', 'URLMS\MainController@updatePassword');
+Route::post('/user/updateProfile', 'URLMS\MainController@updateProfile');
 
 Route::get('/{vue_capture?}', function () {
+    
     return view('coreui');
 })->where('vue_capture', '[\/\w\.-]*');

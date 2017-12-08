@@ -13,6 +13,7 @@
 	        			</div>
 	        		</div>
         		<div class="row">
+        		    <span class="text-danger"> {{ listError }} </span>
         			<div class="col">
 		        		<table class="table table-striped table-hover">
 		        			<thead>
@@ -62,6 +63,7 @@
       </b-form-group>
      <b-button type="button" variant="primary" @click="addStaff">Save changes</b-button>
      <b-button type="button" variant="secondary" @click="closeAddStaff">Close</b-button>
+     <span class="text-danger">{{ addModalError }}</span>
 	</b-form>
   </b-modal>
   <b-modal v-model="clearStaffModal" hide-footer title="Clear Staff">
@@ -71,6 +73,7 @@
       </b-form-group>
      <b-button type="button" variant="success" @click="clearStaff">Yes</b-button>
      <b-button type="button" variant="danger" @click="clearStaffModal = false">No</b-button>
+     <span class="text-danger">{{ clearModalError }}</span>
 	</b-form>	
   </b-modal>
 	<!--   -->
@@ -84,7 +87,10 @@ export default {
 	    return {
 	      addStaffModal: false,
 	      clearStaffModal: false,
+	      clearModalError: '',
 	      roleError: false,
+	      listError: '',
+	      addModalError: '',
 	      form: {
 	    	  	name: '',
 	    	  	email: '',
@@ -95,11 +101,6 @@ export default {
 	    	     { text: 'Select One', value: null, disabled: true }, 'Research Assistant', 'Research Associate'
 	      ],
 	      staff: [
-	    	   {
-	    		   name: 'John Smith',
-			   email: 'john_smith@urlms.ca',
-			   role: 'Research Associate'
-	    	   }
 	      ]
 	    }
 	  },
@@ -109,6 +110,9 @@ export default {
 		default: true
 	  }
   },
+  mounted : function(){
+		this.populateStaff();
+	},
   methods: {
 	  showAddStaffModal() {
 		  this.resetAddStaffModal();
@@ -116,6 +120,7 @@ export default {
 		  this.addStaffModal = true;
 	  },
 	  showClearStaffModal() {
+		  this.clearModalError = '';
 		  this.clearStaffModal = true;
 	  },
 	  resetAddStaffModal() {
@@ -130,7 +135,25 @@ export default {
 		  this.resetAddStaffModal();
 	  },
 	  removeClick(index) {
-		  this.staff.splice(index, 1);
+		  axios.post('/staff/delete', {
+			  email: this.staff[index].email
+		  })
+			.then(response => {
+				if(response.data['status']) {
+					  this.populateStaff();
+				} else {
+					this.listError = response.data['message'];
+				}
+			});
+	  },
+	  populateStaff() {
+		  this.listError = '';
+		  axios.get('/staff/get')
+			.then(response => {
+				if(response.data['status']) {
+					this.staff = response.data['staff'];
+				} 
+			});
 	  },
 	  onChangeRole(evt) {
 		  if(evt.target.value == '') {
@@ -147,14 +170,33 @@ export default {
 		  }
 		  
 		  if (!this.errors.any() && !this.roleError) {
-			  this.staff.push({name: this.form.name, role: this.form.role, email: this.form.email});
-			  this.addStaffModal = false;
-			  this.resetAddStaffModal();
+			  axios.post('/staff/add', {
+				  name: this.form.name,
+			    	  email: this.form.email,
+			    	  role: (this.form.role == 'Research Associate') ? 0 : 1,
+			    	  password: this.form.password
+			  })
+				.then(response => {
+					if(response.data['status']) {
+						  this.populateStaff();
+						  this.addStaffModal = false;
+						  this.resetAddStaffModal();
+					} else {
+						this.addModalError = response.data['message'];
+					}
+				});
 		  }
 	  },
 	  clearStaff() {
-		  this.staff = [];
-		  this.clearStaffModal = false;
+		  axios.get('/staff/clear')
+			.then(response => {
+				if(response.data['status']) {
+					this.populateStaff();
+					this.clearStaffModal = false;
+				} else {
+					this.clearModalError = response.data['message'];
+				}
+			});
 	  }
   }
 }

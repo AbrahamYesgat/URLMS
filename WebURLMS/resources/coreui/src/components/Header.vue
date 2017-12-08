@@ -7,12 +7,12 @@
     <b-nav is-nav-bar class="ml-auto top-right-name">
       <b-nav-item-dropdown right>
         <template slot="button-content">
-          <span class="d-md-down-none">{{ profile.name }}</span>
+          <span class="d-md-down-none">{{ displayName }}</span>
         </template>
         <b-dropdown-item @click="seeLabs"><i class="fa fa-flask"></i> See labs</b-dropdown-item> 
         <b-dropdown-divider></b-dropdown-divider> 
         <b-dropdown-item @click="showUpdateProfileModal"><i class="fa fa-user"></i> Profile</b-dropdown-item>
-        <b-dropdown-item><i class="fa fa-lock"></i> Logout</b-dropdown-item>
+        <b-dropdown-item @click="logoutClicked"><i class="fa fa-lock"></i> Logout</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-nav>
   </header>
@@ -23,16 +23,16 @@
       	<span class="text-danger" v-if="errors.has('name')">Please enter a valid name</span>
       </b-form-group>
       <b-form-group id="roleGroup" label="Role" v-if="profile.role != null">
-      	<b-form-input id="role" name="role" :options="roles" v-model="profile.role" readonly></b-form-input>
+      	<b-form-input id="role" name="role" v-model="profile.role" readonly></b-form-input>
       </b-form-group>
       <b-form-group id="emailGroup" label="Email">
       	<b-form-input id="email" type="email" name="email" v-model="profile.email" v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('email') }" placeholder="Enter email"></b-form-input>
       	<span class="text-danger" v-if="errors.has('email')">Please enter a valid email</span>
       </b-form-group>
       <b-form-group id="passwordGroup" label="Password">
-        <b-form-input id="password" name="password" type="password" v-model="profile.previousPassword" v-validate="'alpha_num'" :class="{'input': true, 'is-danger': errors.has('password') }" placeholder="Enter previous password"></b-form-input>
-      	<b-form-input id="password2" name="password2" type="password" v-model="profile.password" v-validate="'alpha_num'" :class="{'input': true, 'is-danger': errors.has('password') }" placeholder="Enter new password"></b-form-input>
-      	<span class="text-danger" v-if="errors.has('password')">Password can only contain letters and numbers and make sure previous password is good</span>
+        <b-form-input id="password" name="password" type="password" v-model="profile.previousPassword" placeholder="Enter previous password"></b-form-input>
+      	<b-form-input id="password2" name="password2" type="password" v-model="profile.password" placeholder="Enter new password"></b-form-input>
+      	<span class="text-danger"> {{ updateError }}</span>
       </b-form-group>
      <b-button type="button" variant="primary" @click="updateProfile">Save Changes</b-button>
      <b-button type="button" variant="secondary" @click="updateProfileModal = false">Close</b-button>
@@ -46,6 +46,8 @@ export default {
   data() {
 	  return {
 		  updateProfileModal: false,
+		  updateError: '',
+		  displayName: '',
 		  profile: {
 			  name: '',
 			  role: null,
@@ -74,48 +76,85 @@ export default {
     logoutClicked() {
 	    axios.get('/logout')
 			.then(response => {
-				this.$router.push('/login');
+				this.$router.replace('/login');
 			});
     },
     seeLabs (e) {
-      this.$router.push('/choose_lab')
+      this.$router.push('/choose_lab');
     },
     populateProfile() {
     	     axios.get('/user/info')
 			.then(response => {
 				if(response.data['status']) {
-					this.profile.name = response.data['name'],
-					this.profile.role = response.data['role'],
-					this.profile.email = response.data['email']
+					this.displayName = response.data['name'];
+					this.profile.name = response.data['name'];
+					this.profile.role = response.data['role'];
+					this.profile.email = response.data['email'];
+					this.profile.previousPassword = '';
+					this.profile.password = '';
+					this.updateError = '';
 				} else {
-					this.$router.push('/login');
+					this.$router.replace('/login');
 				}
 			});
     },
     showUpdateProfileModal() {
+      	this.updateError = '';
     		this.updateProfileModal = true;
     },
     isValidInput() {
    	 	this.$validator.validateAll();
-   		
-   	 	if(profile.name == '') {
-   	 		errors.add('name');
+   	 	
+   	 	if(this.profile.name == '') {
    	 		return false;
    	 	}
-   	 	if(profile.email == '') {
-   	 		errors.add('email');
+   	 	if(this.profile.email == '') {
    	 		return false;
    	 	}
-   	 	if((profile.password == '' && profile.previousPassword != '') || (profile.password != '' && profile.previousPassword == '')) {
-   	 		errors.add('password');
+   	 	
+   	 	if((this.profile.password == '' && this.profile.previousPassword != '') || (this.profile.password != '' && this.profile.previousPassword == '')) {
+   	 		this.updateError = 'Please enter valid passwords';
    	 		return false;
    	 	}
+   	 	
+   	 	return true;
     },
     updateProfile() {
-    		if (isValidInput() && !this.errors.any()) {
-  			  //Update profile
-  			  this.updateProfileModal = false;
-  			  this.populateProfile();
+    		if (this.isValidInput() && !this.errors.any()) {
+    				//Update profile
+      			axios.post('/user/updateProfile', {
+    		  				    name: this.profile.name,
+    		  			 	    role: (this.profile.role == 'Research Associate') ? 0 : 1,
+    		  			  		email: this.profile.email
+    				})
+    				.then(response => {
+    					if(response.data['status']) {
+    						//Update password
+    			  			  if(this.profile.password != '' && this.profile.previousPassword != '') {
+    			  				axios.post('/user/updatePassword', {
+    			  					previousPassword: this.profile.previousPassword,
+    			  					newPassword: this.profile.password
+    			  				})
+    			  				.then(response => {
+    			  					if(response.data['status']) {
+    			  						this.updateProfileModal = false;
+    	    			  					this.populateProfile();
+    			  					} else {
+    			  						this.updateError = response.data['message'];
+    			  						this.populateProfile();
+    			  					}
+    			  				});
+    			  			  } else {
+    			  				 this.updateProfileModal = false;
+    			  				this.populateProfile();
+    			  			  }
+    					} else {
+    						this.updateError = response.data['message'];
+    					}
+    				});
+    			  
+  		 } else {
+  			this.updateError = 'Error';
   		 }
     }
   }

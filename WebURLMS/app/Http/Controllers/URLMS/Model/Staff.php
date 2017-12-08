@@ -3,6 +3,7 @@
 /*This code was generated using the UMPLE 1.26.0-b05b57321 modeling language!*/
 namespace App\Http\Controllers\URLMS\Model;
 use App\Http\Controllers\URLMS\Model\UserRole as UserRole;
+use App\Http\Controllers\URLMS\Model\StaffRole;
 use Exception;
 use App\Http\Controllers\URLMS\Model\ProgressUpdate as ProgressUpdate;
 

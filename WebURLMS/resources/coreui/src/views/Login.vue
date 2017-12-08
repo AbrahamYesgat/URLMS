@@ -73,7 +73,6 @@ export default {
     				{email: this.form.email,
     			    password: this.form.password})
     			.then(response => {
-    				console.log(response);
     				if(!response.data['status']) {
     					this.loginError = true;
     					this.form.email = '';
