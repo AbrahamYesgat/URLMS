@@ -373,7 +373,7 @@ class MainController extends Controller
                             
                             PersistenceController::saveModel($this->urlms);
                             return response()->json(['status' => true]);
-                        } else {
+                        } else { 
                             return response()->json(['status' => false, 'message' => 'Staff exists but incorrect information']);
                         }
                     }
