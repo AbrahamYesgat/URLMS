@@ -47,6 +47,7 @@ Route::get('/staff/get', 'URLMS\MainController@getStaff');
 Route::post('/staff/add', 'URLMS\MainController@addStaff');
 Route::get('/staff/clear', 'URLMS\MainController@clearStaff');
 Route::post('/staff/delete', 'URLMS\MainController@removeStaff');
+Route::post('/staff/modify', 'URLMS\MainController@modifyStaff');
 
 //User info
 Route::get('/user/info', 'URLMS\MainController@getCurrentUser');

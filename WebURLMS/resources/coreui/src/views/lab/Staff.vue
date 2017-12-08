@@ -22,6 +22,8 @@
 		        					<td>Name</td>
 		        					<td>Email</td>
 		        					<td>Role</td>
+		        					<td>Last login</td>
+		        					<td></td>
 		        					<td></td>
 		        				</tr>
 		        			</thead>
@@ -31,6 +33,8 @@
 		        					<td>{{ member.name }}</td>
 		        					<td>{{ member.email }}</td>
 		        					<td>{{ member.role }}</td>
+		        					<td>{{ member.lastLogIn }}</td>
+		        					<td><a v-if="editable" v-on:click="modifyClick(index)" v-bind:id="index" href="#">Modify</a></td>
 		        					<td><a v-if="editable" v-on:click="removeClick(index)" v-bind:id="index" href="#">Remove</a></td>
 		        				</tr>
 		        			</tbody>
@@ -66,6 +70,31 @@
      <span class="text-danger">{{ addModalError }}</span>
 	</b-form>
   </b-modal>
+  
+  <b-modal v-model="modifyStaffModal" hide-footer title="Modify Staff">
+      <b-form>
+      <b-form-group id="nameGroup" label="Name" description="Full name">
+      	<b-form-input id="name_2" name="name_2" type="text" v-model="modify.name" v-validate="'required|alpha_spaces'" :class="{'input': true, 'is-danger': errors.has('name_m') }" placeholder="Enter name"></b-form-input>
+      	<span class="text-danger" v-if="errors.has('name_m')">Please enter a valid name</span>
+      </b-form-group>
+      <b-form-group id="roleGroup" label="Role">
+      	<b-form-select id="role_2" @change.native="onChangeRole" name="role_2" :options="roles" v-model="modify.role" ></b-form-select>
+      	<span class="text-danger" v-if="roleError" >Please enter a valid role</span>
+      </b-form-group>
+      <b-form-group id="emailGroup" label="Email">
+      	<b-form-input id="email_2" type="email" name="email"_2 v-model="modify.email" v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('email_m') }" placeholder="Enter email"></b-form-input>
+      	<span class="text-danger" v-if="errors.has('email_m')">Please enter a valid email</span>
+      </b-form-group>
+      <b-form-group id="passwordGroup" label="Password" description="Enter nothing to leave as is">
+      	<b-form-input id="password_2" name="password_2" type="password" v-model="modify.password" v-validate="'alpha_num'" :class="{'input': true, 'is-danger': errors.has('password_m') }" placeholder="Enter password"></b-form-input>
+      	<span class="text-danger" v-if="errors.has('password_m')">Password can only contain letters and numbers</span>
+      </b-form-group>
+     <b-button type="button" variant="primary" @click="modifyStaff">Save changes</b-button>
+     <b-button type="button" variant="secondary" @click="modifyStaffModal = false">Close</b-button>
+     <span class="text-danger">{{ modifyModalError }}</span>
+	</b-form>
+  </b-modal>
+  
   <b-modal v-model="clearStaffModal" hide-footer title="Clear Staff">
   <b-form>
       <b-form-group id="clearStaffGroup">
@@ -87,12 +116,21 @@ export default {
 	    return {
 	      addStaffModal: false,
 	      clearStaffModal: false,
+	      modifyStaffModal: false,
 	      clearModalError: '',
 	      roleError: false,
 	      listError: '',
 	      addModalError: '',
+	      modifyModalError: '',
 	      form: {
 	    	  	name: '',
+	    	  	email: '',
+	    	  	role: null,
+	    	  	password: ''
+	      },
+	      modify: {
+	    	    prevEmail: '',
+	    	    name: '',
 	    	  	email: '',
 	    	  	role: null,
 	    	  	password: ''
@@ -124,6 +162,7 @@ export default {
 		  this.clearStaffModal = true;
 	  },
 	  resetAddStaffModal() {
+		  this.errors.clear();
 		  this.form.name = '';
 		  this.form.role = null;
 		  this.form.email = '';
@@ -133,6 +172,38 @@ export default {
 	  closeAddStaff() {
 		  this.addStaffModal = false;
 		  this.resetAddStaffModal();
+	  },
+	  modifyClick(index) {
+		  this.modify.prevEmail = this.staff[index].email;
+		  this.modify.name = this.staff[index].name;
+		  this.modify.role = this.staff[index].role;
+		  this.modify.email = this.staff[index].email
+		  this.errors.clear();
+		  this.modifyStaffModal = true;
+	  },
+	  modifyStaff() {
+		  if(this.modify.role == null) {
+			  this.roleError = true;
+		  }
+		  
+		  if (!this.errors.any() && !this.roleError) {
+			  axios.post('/staff/modify', {
+				  name: this.modify.name,
+				  prevEmail: this.modify.prevEmail,
+			    	  email: this.modify.email,
+			    	  role: (this.modify.role == 'Research Associate') ? 0 : 1,
+			    	  password: this.modify.password
+			  })
+				.then(response => {
+					if(response.data['status']) {
+						  this.populateStaff();
+						  this.roleError = false;
+						  this.modifyStaffModal = false;
+					} else {
+						this.modifyModalError = response.data['message'];
+					}
+				});
+		  }
 	  },
 	  removeClick(index) {
 		  axios.post('/staff/delete', {
@@ -163,8 +234,6 @@ export default {
 		  }
 	  },
 	  addStaff() {
-		  this.$validator.validateAll();
-		  
 		  if(this.form.role == null) {
 			  this.roleError = true;
 		  }

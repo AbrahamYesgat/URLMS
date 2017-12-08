@@ -8,28 +8,26 @@
               <div class="card-body">
                 <h1>Login</h1>
                 <p class="text-muted">Sign In to your account</p>
-                <b-form>
-                <b-form-group>
-                <div class="input-group mb-3">
+                <div class="row input-group mb-3">
                   <span class="input-group-addon"><i class="icon-user"></i></span>
                   <b-form-input name="email" id="email" type="text" class="form-control" v-model="form.email" v-validate="'email'" :class="{'input': true, 'is-danger': errors.has('email') }" placeholder="Email"></b-form-input>
-                  </div>
-                  <span class="text-danger" v-if="errors.has('email')">Please enter a valid email</span>
-                </b-form-group>
+                </div>
                 
-                <b-form-group>
-                <div class="input-group mb-4">
+                <div class="row input-group mb-4">
                   <span class="input-group-addon"><i class="icon-lock"></i></span>
                   <input type="password" class="form-control" v-model="form.password" placeholder="Password">
                   </div>
-                </b-form-group>
+                
+                <div class="row">
+                		<span class="text-danger" v-if="errors.has('email')">Please enter a valid email</span>
+                    <span v-if="loginError" class="text-danger">Bad email/password combination</span>
+                </div>
+                
                 <div class="row">
                   <div class="col-6">
                     <button type="button" @click="loginClicked" class="btn btn-primary px-4">Login</button>
                   </div>
                 </div>
-                <span v-if="loginError" class="text-danger">Bad email/password combination</span>
-                </b-form>
               </div>
             </div>
             <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">

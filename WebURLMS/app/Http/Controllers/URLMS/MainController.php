@@ -48,6 +48,9 @@ class MainController extends Controller
                     if($staff->getEmail() == $email && $staff->getPassword() == $password) {
                         $this->currentUser = $staff;
                         
+                        $staff->setLastLogin(date('m/d/Y - h:ia'));
+                        PersistenceController::saveModel($this->urlms);
+                        
                         $request->session()->put('logged-in', true);
                         $request->session()->put('email', $email);
                         
@@ -342,7 +345,8 @@ class MainController extends Controller
             foreach($modelStaff as $staff) {
                 $resStaff[] = ['name' => $staff->getName(),
                     'email' => $staff->getEmail(),
-                    'role' => ($staff->getStaffRole() == StaffRole::ResearchAssistant) ? 'Research Assistant' : 'Research Associate'
+                    'role' => ($staff->getStaffRole() == StaffRole::ResearchAssistant) ? 'Research Assistant' : 'Research Associate',
+                    'lastLogIn' => ($staff->getLastLogin() == null) ? 'Never' : $staff->getLastLogin()
                 ];
             }
             
@@ -412,6 +416,35 @@ class MainController extends Controller
             
             PersistenceController::saveModel($this->urlms);
             return response()->json(['status' => true]);
+        } else {
+            return response()->json(['status' => false, 'message' => 'No lab could be found']);
+        }
+    }
+    
+    public function modifyStaff(Request $request) {
+        $this->updateCurrent($request);
+        
+        $prevEmail = $request->input('prevEmail');
+        $email = $request->input('email');
+        $name = $request->input('name');
+        $role = ($request->input('role') == 0) ? StaffRole::ResearchAssociate : StaffRole::ResearchAssistant;
+        $password = $request->input('password');
+        
+        if($this->currentLab != null) {
+            foreach($this->currentLab->getStaffs() as $staff) {
+                if($staff->getEmail() == $prevEmail) {
+                    $staff->setEmail($email);
+                    $staff->setStaffRole($role);
+                    $staff->setName($name);
+                    
+                    if($password != '') {
+                        $staff->setPassword($password);
+                    }
+                    
+                    PersistenceController::saveModel($this->urlms);
+                    return response()->json(['status' => true]);
+                }
+            }
         } else {
             return response()->json(['status' => false, 'message' => 'No lab could be found']);
         }

@@ -129,7 +129,7 @@ export default {
 					this.labSettings.active = response.data['active'];
 				    this.unknownError = '';
 				} else {
-					this.$router.replace('/login');
+					this.$router.go('/login');
 				}
 			});
     },
