@@ -45,6 +45,7 @@ class MainController extends Controller
                     if($staff->getEmail() == $email && $staff->getPassword() == $password) {
                         $this->currentUser = $staff;
                         
+                        date_default_timezone_set('America/New_York');
                         $staff->setLastLogin(date('m/d/Y - h:ia'));
                         PersistenceController::saveModel($this->urlms);
                         
@@ -712,7 +713,7 @@ class MainController extends Controller
     			$resExpenses = [];
     			
     			foreach($modelExpenses as $expense) {
-    				$resExpenses[] = ['id' => $expense->getId(),
+    				$resExpenses[] = [
     						'description' => $expense->getExpense(),
     						'amount' => $expense->getAmount(),
     						'date' => $expense->getDate()
@@ -741,4 +742,89 @@ class MainController extends Controller
     			return response()->json(['status' => false, 'message' => 'No lab could be found']);
     		}
     }
+    
+    /*
+     * Funding accounts
+     */
+    public function getFundingAccounts(Request $request) {
+    		$this->updateCurrent($request);
+    		
+    		if($this->currentLab != null) {
+    			$modelFundingAccounts = $this->currentLab->getFundingAccounts();
+    			$resFundingAccounts = [];
+    			
+    			foreach($modelFundingAccounts as $funding) {
+    				$resFundingAccounts[] = [
+    						'number' => $funding->getAccountNumber(),
+    						'funds' => $funding->getCurrentBalance()
+    				];
+    			}
+    			
+    			return response()->json(['status' => true, 'fundings' => $resFundingAccounts]);
+    		} else {
+    			return response()->json(['status' => false, 'message' => 'No lab could be found']);
+    		}
+    }
+    
+    public function addFundingAccount(Request $request) {
+   	 	$this->updateCurrent($request);
+   	 	
+   	 	$accountNumber = $request->input('number');
+   	 	$funds = $request->input('funds');
+   	 	
+   	 	if($this->currentLab != null) {
+   	 		foreach($this->currentLab->getFundingAccounts() as $funding) {
+   	 			if($funding->getAccountNumber() == $accountNumber) {
+   	 				return response()->json(['status' => false, 'message' => 'Account number already exists']);
+   	 			}
+   	 		}
+   	 		
+   	 		$this->currentLab->addFundingAccountVia($funds, $accountNumber);
+   	 		PersistenceController::saveModel($this->urlms);
+   	 		
+   	 		return response()->json(['status' => true]);
+   	 	} else {
+   	 		return response()->json(['status' => false, 'message' => 'No lab could be found']);
+   	 	}
+    }
+    
+    public function modifyFundingAccount(Request $request) {
+   	 	$this->updateCurrent($request);
+   	 	
+   	 	$accountNumber = $request->input('number');
+   	 	$funds = $request->input('funds');
+   	 	
+   	 	if($this->currentLab != null) {
+   	 		foreach($this->currentLab->getFundingAccounts() as $funding) {
+   	 			if($funding->getAccountNumber() == $accountNumber) {
+   	 				$funding->setCurrentBalance($funds);
+   	 				PersistenceController::saveModel($this->urlms);
+   	 				return response()->json(['status' => true]);
+   	 			}
+   	 		}
+   	 		return response()->json(['status' => false, 'message' => 'Account number could not be found']);
+   	 	} else {
+   	 		return response()->json(['status' => false, 'message' => 'No lab could be found']);
+   	 	}
+    }
+    
+    public function removeFundingAccount(Request $request) {
+    		$this->updateCurrent($request);
+    		
+    		$accountNumber = $request->input('number');
+    		
+    		if($this->currentLab != null) {
+    			foreach($this->currentLab->getFundingAccounts() as $funding) {
+    				if($funding->getAccountNumber() == $accountNumber) {
+    					$funding->delete();
+    					PersistenceController::saveModel($this->urlms);
+    					return response()->json(['status' => true]);
+    				}
+    			}
+    			return response()->json(['status' => false, 'message' => 'Account number could not be found']);
+    		} else {
+    			return response()->json(['status' => false, 'message' => 'No lab could be found']);
+    		}
+    }
+    
 }

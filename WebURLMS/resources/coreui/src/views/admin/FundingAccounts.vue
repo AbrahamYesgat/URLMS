@@ -8,7 +8,7 @@
         		<div class="card-body">
 	        		<div v-if="editable" class="row">
 	        			<div class="col">
-	        				<b-button type="button" variant="success" @click="addFundingAccountModal = !addFundingAccountModal">Add Funding Account</b-button>
+	        				<b-button type="button" variant="success" @click="showAddFundingAccountModal">Add Funding Account</b-button>
 	        			</div>
 	        		</div>
         		<div class="row">
@@ -50,6 +50,7 @@
       <b-form-group id="fundsGroup" label="Funds">
       	<vue-numeric currency="$" separator="," :empty-value="0.00"  v-bind:minus="true" v-bind:precision="2" id="funds" name="funds" v-model="form.funds"></vue-numeric>
       </b-form-group>
+      <div class="text-danger">{{ addFundingAccountModalError }}</div>
      <b-button type="button" variant="primary" @click="addFundingAccount">Save changes</b-button>
      <b-button type="button" variant="secondary" @click="closeAddFundingAccount">Close</b-button>
 	</b-form>
@@ -63,6 +64,7 @@
       <b-form-group id="fundsGroup_2" label="Funds">
       	<vue-numeric currency="$" separator="," :empty-value="0.00"  v-bind:minus="true" v-bind:precision="2" id="funds_2" name="funds" v-model="view.funds"></vue-numeric>
       </b-form-group>
+      <div class="text-danger">{{ modifyFundingAccountModalError }}</div>
      <b-button type="button" variant="primary" @click="modifyFundingAccount">Save changes</b-button>
      <b-button type="button" variant="secondary" @click="modifyFundingAccountModal = false">Close</b-button>
 	</b-form>
@@ -81,12 +83,10 @@ export default {
   data() {
 	  return {
 		  addFundingAccountModal: false,
+		  addFundingAccountModalError: '',
+		  modifyFundingAccountModalError: '',
 		  modifyFundingAccountModal: false,
 		  fundingAccounts: [
-			  {
-				  number: '120912',
-				  funds: 10.21
-			  }
 		  ],
 		  form: {
 			  number: '',
@@ -95,7 +95,6 @@ export default {
 		  view: {
 			  number: '',
 			  funds: 0.0,
-			  index: 0
 		  }
 	  }
   },
@@ -105,9 +104,20 @@ export default {
 		  default: true
 	  }
   },
+  mounted: function() {
+	  this.populateFundingAccounts();
+  },
   methods: {
+	  populateFundingAccounts() {
+		  axios.get('/fundings/get').then(response => {
+			  if(response.data['status']) {
+				  this.fundingAccounts = response.data['fundings'];
+			  }
+		  });
+	  },
 	  resetAddFundingAccountModal() {
 		  this.form.number = '';
+		  this.addFundingAccountModalError = '';
 		  this.form.funds = 0.0;
 		  this.errors.clear();
 	  },
@@ -115,30 +125,53 @@ export default {
 		  this.addFundingAccountModal = false;
 		  this.resetAddFundingAccountModal();
 	  },
+	  showAddFundingAccountModal() {
+		  this.resetAddFundingAccountModal();
+		  this.addFundingAccountModal = true;
+	  },
 	  modifyFundingAccount() {
-		  this.fundingAccounts[this.view.index].funds = this.view.funds;
-		  this.modifyFundingAccountModal = false;
+		  if (!this.errors.any()) {
+			  axios.post('/fundings/modify', {
+				  number: this.view.number,
+				  funds: this.view.funds
+			  }).then(response => {
+				 if(response.data['status']) {
+					 this.populateFundingAccounts();
+					 this.modifyFundingAccountModal = false;
+				 } else {
+					 this.modifyFundingAccountModalError = response.data['message'];
+				 }
+			  });
+		  }
 	  },
 	  modifyClick(index) {
 		  this.view.number = this.fundingAccounts[index].number;
 		  this.view.funds = this.fundingAccounts[index].funds;
-		  this.view.index = index;
 		  this.modifyFundingAccountModal = true;
 	  },
 	  deleteClick(index) {
-		  this.fundingAccounts.splice(index, 1);
+		  axios.post('/fundings/delete', {
+			  number: this.fundingAccounts[index].number
+		  }).then(response => {
+			  if(response.data['status']) {
+					 this.populateFundingAccounts();
+					 this.closeAddFundingAccount();
+				 }
+		  });
 	  },
 	  addFundingAccount() {
-		  this.$validator.validateAll();
-		  
-		  if(this.form.number == '')
-			  this.errors.add('number');
-		  if(this.form.funds == '')
-			  this.form.funds = 0.0;
-		  
 		  if (!this.errors.any()) {
-			  this.fundingAccounts.push({number: this.form.number, funds: this.form.funds});
-			  this.closeAddFundingAccount();
+			  axios.post('/fundings/add', {
+				  number: this.form.number,
+				  funds: this.form.funds
+			  }).then(response => {
+				 if(response.data['status']) {
+					 this.populateFundingAccounts();
+					 this.closeAddFundingAccount();
+				 } else {
+					 this.addFundingAccountModalError = response.data['message'];
+				 }
+			  });
 		  }
 	  }
   }

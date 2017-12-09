@@ -76,6 +76,12 @@ Route::post('/progress/add', 'URLMS\MainController@addWeeklyProgress');
 Route::get('/expenses/get', 'URLMS\MainController@getExpenses');
 Route::post('/expenses/add', 'URLMS\MainController@addExpenses');
 
+//Funding accounts
+Route::get('/fundings/get', 'URLMS\MainController@getFundingAccounts');
+Route::post('/fundings/add', 'URLMS\MainController@addFundingAccount');
+Route::post('/fundings/modify', 'URLMS\MainController@modifyFundingAccount');
+Route::post('/fundings/delete', 'URLMS\MainController@removeFundingAccount');
+
 Route::get('/{vue_capture?}', function () {
     
     return view('coreui');
