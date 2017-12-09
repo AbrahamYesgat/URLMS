@@ -16,14 +16,11 @@ class MainController extends Controller
     
     private $currentUser = null;
     private $currentLab = null;
-    
+
     public function __construct() {
         $this->urlms = PersistenceController::loadModel();
     }
     
-    /*
-     * Authentification
-     */
     public function login(Request $request) {
         $this->updateCurrent($request);
         $email = $request->input('email');
@@ -455,5 +452,197 @@ class MainController extends Controller
         } else {
             return response()->json(['status' => false, 'message' => 'No lab could be found']);
         }
+    }
+    
+    /*
+     * Supplies
+     */
+    public function getSupplies(Request $request) {
+	    	$this->updateCurrent($request);
+	    	if($this->currentLab != null) {
+	    		$modelSupplies = $this->currentLab->getSupplies();
+	    		$resSupplies = [];
+	    		
+	    		foreach($modelSupplies as $supply) {
+	    			$resSupplies[] = ['name' => $supply->getName(),
+	    					'qty' => $supply->getQuantity()
+	    			];
+	    		}
+	    		
+	    		return response()->json(['status' => true, 'supplies' => $resSupplies]);
+	    	} else {
+	    		return response()->json(['status' => false, 'message' => 'No lab could be found']);
+	    	}
+    }
+    
+    public function clearSupplies(Request $request) {
+    		$this->updateCurrent($request);
+    		if($this->currentLab != null) {
+    			foreach($this->currentLab->getSupplies() as $supply) {
+    				$supply->delete();
+    			}
+    			
+    			return response()->json(['status' => true]);
+    		} else {
+    			return response()->json(['status' => false, 'message' => 'No lab could be found']);
+    		}
+    }
+    
+    public function addSupplies(Request $request) {
+    		$this->updateCurrent($request);
+    		
+    		$name = $request->input('name');
+    		$qty = $request->input('qty');
+    		
+    		if($this->currentLab != null) {
+    			foreach($this->currentLab->getSupplies() as $supply) {
+    				if($supply->getName() == $name) {
+    					$supply->setQuantity($supply->getQuantity() + $qty);
+    					return response()->json(['status' => true]);
+    				}
+    			}
+    			
+    			$this->currentLab->addSupplyVia($name, $qty);
+    			
+    			return response()->json(['status' => true]);
+    		} else {
+    			return response()->json(['status' => false, 'message' => 'No lab could be found']);
+    		}
+    }
+    
+    public function modifySupplies(Request $request) {
+	    	$this->updateCurrent($request);
+	    	
+	    	$name = $request->input('name');
+	    	$qty = $request->input('qty');
+	    	
+	    	if($this->currentLab != null) {
+	    		foreach($this->currentLab->getSupplies() as $supply) {
+	    			if($supply->getName() == $name) {
+	    				$supply->setQuantity($qty);
+	    				return response()->json(['status' => true]);
+	    			}
+	    		}
+	    		
+	    		return response()->json(['status' => false, 'message' => 'Supply could not be found']);
+	    	} else {
+	    		return response()->json(['status' => false, 'message' => 'No lab could be found']);
+	    	}
+    }
+    
+    public function removeSupplies(Request $request) {
+	    	$this->updateCurrent($request);
+	    	
+	    	$name = $request->input('name');
+	    	$qty = $request->input('qty');
+	    	
+	    	if($this->currentLab != null) {
+	    		foreach($this->currentLab->getSupplies() as $supply) {
+	    			if($supply->getName() == $name) {
+	    				$supply->delete();
+	    				return response()->json(['status' => true]);
+	    			}
+	    		}
+	    		
+	    		return response()->json(['status' => false, 'message' => 'Supply could not be found']);
+	    	} else {
+	    		return response()->json(['status' => false, 'message' => 'No lab could be found']);
+	    	}
+    }
+    
+    /*
+     * Equipment
+     */
+    public function getEquipment(Request $request) {
+	    	$this->updateCurrent($request);
+	    	if($this->currentLab != null) {
+	    		$modelEquipment = $this->currentLab->getEquipment();
+	    		$resEquipment = [];
+	    		
+	    		foreach($modelEquipment as $equipment) {
+	    			$resEquipment[] = ['name' => $equipment->getName(),
+	    					'qty' => $equipment->getQuantity()
+	    			];
+	    		}
+	    		
+	    		return response()->json(['status' => true, 'equipment' => $resEquipment]);
+	    	} else {
+	    		return response()->json(['status' => false, 'message' => 'No lab could be found']);
+	    	}
+    }
+    
+    public function clearEquipment(Request $request) {
+	    	$this->updateCurrent($request);
+	    	if($this->currentLab != null) {
+	    		foreach($this->currentLab->getEquipment() as $equipment) {
+	    			$equipment->delete();
+	    		}
+	    		
+	    		return response()->json(['status' => true]);
+	    	} else {
+	    		return response()->json(['status' => false, 'message' => 'No lab could be found']);
+	    	}
+    }
+    
+    public function addEquipment(Request $request) {
+	    	$this->updateCurrent($request);
+	    	
+	    	$name = $request->input('name');
+	    	$qty = $request->input('qty');
+	    	
+	    	if($this->currentLab != null) {
+	    		foreach($this->currentLab->getEquipment() as $equipment) {
+	    			if($equipment->getName() == $name) {
+	    				$equipment->setQuantity($equipment->getQuantity() + $qty);
+	    				return response()->json(['status' => true]);
+	    			}
+	    		}
+	    		
+	    		$this->currentLab->addEquipmentVia($name, $qty);
+	    		
+	    		return response()->json(['status' => true]);
+	    	} else {
+	    		return response()->json(['status' => false, 'message' => 'No lab could be found']);
+	    	}
+    }
+    
+    public function modifyEquipment(Request $request) {
+	    	$this->updateCurrent($request);
+	    	
+	    	$name = $request->input('name');
+	    	$qty = $request->input('qty');
+	    	
+	    	if($this->currentLab != null) {
+	    		foreach($this->currentLab->getEquipment() as $equipment) {
+	    			if($equipment->getName() == $name) {
+	    				$equipment->setQuantity($qty);
+	    				return response()->json(['status' => true]);
+	    			}
+	    		}
+	    		
+	    		return response()->json(['status' => false, 'message' => 'Equipment could not be found']);
+	    	} else {
+	    		return response()->json(['status' => false, 'message' => 'No lab could be found']);
+	    	}
+    }
+    
+    public function removeEquipment(Request $request) {
+	    	$this->updateCurrent($request);
+	    	
+	    	$name = $request->input('name');
+	    	$qty = $request->input('qty');
+	    	
+	    	if($this->currentLab != null) {
+	    		foreach($this->currentLab->getEquipment() as $equipment) {
+	    			if($equipment->getName() == $name) {
+	    				$equipment->delete();
+	    				return response()->json(['status' => true]);
+	    			}
+	    		}
+	    		
+	    		return response()->json(['status' => false, 'message' => 'Equipment could not be found']);
+	    	} else {
+	    		return response()->json(['status' => false, 'message' => 'No lab could be found']);
+	    	}
     }
 }
