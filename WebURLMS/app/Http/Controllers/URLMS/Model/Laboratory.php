@@ -504,9 +504,9 @@ class Laboratory
     return 0;
   }
 
-  public function addExpenseReportVia($aExpense)
+  public function addExpenseReportVia($aExpense, $aAmount, $aDate)
   {
-    return new ExpenseReport($aExpense, $this);
+    return new ExpenseReport($aExpense, $aAmount, $aDate, $this);
   }
 
   public function addExpenseReport($aExpenseReport)

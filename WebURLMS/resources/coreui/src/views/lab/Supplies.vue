@@ -47,12 +47,13 @@
       <b-form-group id="nameGroup" label="Name">
         <b-form-select id="nameSelectable" @change.native="onChangeNameSelectable" name="nameSelectable" :options="names" v-model="form.selectableName"></b-form-select>
       	<b-form-input id="name" name="name" type="text" v-model="form.name" v-validate="'required'" :disabled="!activeOtherBox" :class="{'input': true, 'is-danger': errors.has('name') }" :placeholder="addSuppliesPlaceHolder"></b-form-input>
-      	<span class="text-danger" v-if="errors.has('name')">Please enter an supplies name</span>
+      	<span class="text-danger" v-if="errors.has('name') || nameError">Please enter an supplies name</span>
       </b-form-group>
       <b-form-group id="qtyGroup" label="Quantity">
       	<b-form-input id="qty" type="number" name="qty" v-validate="'required|numeric'" :class="{'input': true, 'is-danger': errors.has('qty') }" v-model="form.qty" ></b-form-input>
       	<span class="text-danger" v-if="errors.has('qty')">Please enter a valid quantity</span>
       </b-form-group>
+      <span class="text-danger">{{ addError }}</span>
      <b-button type="button" variant="primary" @click="addSupplies">Save changes</b-button>
      <b-button type="button" variant="secondary" @click="closeAddSupplies">Close</b-button>
 	</b-form>
@@ -67,6 +68,7 @@
       	<b-form-input id="qty_2" type="number" name="qty" v-validate="'required|numeric'" :class="{'input': true, 'is-danger': errors.has('qty') }" v-model="modify.qty" ></b-form-input>
         <span class="text-danger" v-if="errors.has('qty')">Please enter a valid quantity</span>
       </b-form-group>
+      <span class="text-danger">{{ modifyUnknownError }}</span>
      <b-button type="button" variant="primary" @click="modifySupplies">Save changes</b-button>
      <b-button type="button" variant="secondary" @click="closeModifySupplies">Close</b-button>
 	</b-form>
@@ -95,6 +97,10 @@ export default {
 	      clearSuppliesModal: false,
 	      activeOtherBox: false,
 	      addSuppliesPlaceHolder: '',
+	      nameError: false,
+	      modifyUnknownError: '',
+	      clearModalError: '',
+	      addError: '',
 	      form: {
 	    	  	name: '',
 	    	  	selectableName: null,
@@ -107,10 +113,6 @@ export default {
 	    	  	index: 0
 	      },
 	      supplies: [
-	    	   {
-	    		   name: 'Pen',
-	    		   qty: 10
-	    	   }
 	      ]
 	    }
 	  },
@@ -133,13 +135,19 @@ export default {
 		default: true
 	  }
   },
+  mounted : function(){
+		this.populateSupplies();
+	},
   methods: {
 	  openAddSuppliesModal() {
 		 this.errors.clear();
+		 this.nameError = false;
+		 this.addError = '';
 		 this.addSuppliesModal = true;
 	  },
 	  openClearSuppliesModal() {
 		 this.errors.clear();
+		 this.clearModalError = '';
 		 this.clearSuppliesModal = true;
 	  },
 	  resetAddSuppliesModal() {
@@ -151,6 +159,8 @@ export default {
 	  },
 	  resetModifySuppliesModal() {
 		  this.modify.name = '';
+		  this.modifyUnknownError = '';
+		  this.nameError = false;
 		  this.modify.qty = 0;
 		  this.errors.clear();
 	  },
@@ -163,7 +173,13 @@ export default {
 		  this.resetModifySuppliesModal();
 	  },
 	  removeClick(index) {
-		  this.supplies.splice(index, 1);
+		  axios.post('/supplies/delete', {
+			  name: this.supplies[index].name
+		  }).then(response => {
+			 if(response.data['status']) {
+				 this.populateSupplies();
+			 }
+		  });
 	  },
 	  modifyClick(index) {
 		  this.modify.name = this.supplies[index].name;
@@ -182,50 +198,64 @@ export default {
 		  }
 	  },
 	  addSupplies() {
-		  this.$validator.validateAll();
-		  
 		  if((this.activeOtherBox && this.form.name == '') || (!this.activeOtherBox && (this.form.selectableName == '' || this.form.selectableName == null))) {
-			  this.errors.add('name');
+			  this.nameError = true;
 		  }
 		  
-		  if (!this.errors.any()) {
+		  if (!this.errors.any() && !this.nameError) {
 			  if(!this.activeOtherBox) {
 				  this.form.name = this.form.selectableName;
 			  }
 			  
-			  var elHasBeenModified = false;
-			  var formName = this.form.name;
-			  var formQty = this.form.qty;
-			  
-			  this.supplies.map(function(eq) {
-				  if(eq.name == formName) {
-					  eq.qty = +eq.qty + +formQty;
-					  elHasBeenModified = true;
-				  }
+			  axios.post('/supplies/add', {
+				  name: this.form.name,
+				  qty: this.form.qty
+			  }).then(response => {
+				 if(response.data['status']) {
+					 this.populateSupplies();
+					 this.closeAddSupplies();
+				 } else {
+					 this.addError = response.data['message'];
+				 }
 			  });
-	
-			  if(!elHasBeenModified) {
-			  	this.supplies.push({name: this.form.name, qty: this.form.qty});
-		  	  }
-			  
-			  this.closeAddSupplies();
 		  }
 	  },
+	  populateSupplies() {
+		  this.listError = '';
+		  axios.get('/supplies/get')
+			.then(response => {
+				if(response.data['status']) {
+					this.supplies = response.data['supplies'];
+				} 
+			});
+	  },
 	  modifySupplies() {
-		  this.$validator.validateAll();
-		  
-		  if(this.errors.has('name')) {
-			  this.errors.remove('name');
-		  }
-		  
 		  if(!this.errors.any() && this.modify.qty >= 0) {
-			  this.supplies[this.modify.index].qty = this.modify.qty;
-			  this.closeModifySupplies();
+			  axios.post('/supplies/modify', {
+				  name: this.modify.name,
+				  qty: this.modify.qty
+			  }).then(response => {
+				  if(response.data['status']) {
+					  this.closeModifySupplies();
+					  this.populateSupplies();
+				  } else {
+					  this.modifyUnknownError = response.data['message'];
+				  }
+			  });
+		  } else {
+			  this.modifyUnknownError = 'Bad input';
 		  }
 	  },
 	  clearSupplies() {
-		  this.supplies = [];
-		  this.clearSuppliesModal = false
+		  axios.get('/supplies/clear')
+			.then(response => {
+				if(response.data['status']) {
+					this.populateSupplies();
+					this.clearSuppliesModal = false
+				} else {
+					this.clearModalError = response.data['message'];
+				}
+			});
 	  }
   }
 }

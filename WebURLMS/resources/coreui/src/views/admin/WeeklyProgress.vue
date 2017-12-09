@@ -8,7 +8,7 @@
         		<div class="card-body">
 	        		<div v-if="editable" class="row">
 	        			<div class="col">
-	        				<b-button type="button" variant="success" @click="addReportModal = !addReportModal">Add Report</b-button>
+	        				<b-button type="button" variant="success" @click="showAddReportModal">Add Report</b-button>
 	        			</div>
 	        		</div>
         		<div class="row">
@@ -27,9 +27,9 @@
 		        				<tr v-for="(report, index) in reports">
 		        					<td>{{ index+1 }}</td>
 		        					<td>{{ report.title }}</td>
-		        					<td>{{ report.preview }}</td>
+		        					<td style="text-overflow: ellipsis; white-space: nowrap; max-width: 250px; overflow: hidden;">{{ report.report }}</td>
 		        					<td>{{ report.author }}</td>
-		        					<td v-if="editable" ><a v-on:click="viewClick(index)" v-bind:id="index" href="#">View</a></td>
+		        					<td><a v-on:click="viewClick(index)" v-bind:id="index" href="#">View</a></td>
 		        				</tr>
 		        			</tbody>
 		        		</table>
@@ -51,11 +51,15 @@
       	<b-form-textarea style="min-height:250px;" id="report" name="report" v-model="form.report" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('report') }" placeholder="Enter report"></b-form-textarea>
       	<span class="text-danger" v-if="errors.has('report')" >Please enter the report</span>
       </b-form-group>
+      <div class="text-danger"> {{ addReportError }} </div>
      <b-button type="button" variant="primary" @click="addReport">Save changes</b-button>
      <b-button type="button" variant="secondary" @click="closeAddReport">Close</b-button>
 	</b-form>
     </b-modal>
    <b-modal v-model="viewReportModal" hide-footer :title="view.title">
+   <p>
+   By <b>{{ view.author }}</b>
+   </p>
    <p>
    {{ view.report }}
    </p>
@@ -70,21 +74,17 @@ export default {
 	  return {
 		  addReportModal: false,
 		  viewReportModal: false,
+		  addReportError: '',
 		  form: {
 			  title: '',
 			  report: ''
 		  },
 		  view: {
 			  title: '',
-			  report: ''  
+			  report: '',
+			  author: ''
 		  },
 		  reports: [
-			  {
-				  title: 'Sample report',
-				  report: 'This is a report on the effectiveness of our methodology. Let\'s begin by the first days, when we were still kids in the lab. I remember, one day, the director said that blabla',
-				  preview: this.returnPreview('This is a report on the effectiveness of our methodology. Let\'s begin by the first days, when we were still kids in the lab. I remember, one day, the director said that blabla'),
-				  author: 'Alex'
-			  }
 		  ],
 		  
 	  }
@@ -95,13 +95,25 @@ export default {
 		  default: true
 	  }
   },
+  mounted : function(){
+		this.populateReports();
+	},
   methods: {
-	  returnPreview(string) {
-		  return string.substring(0, 100) + '...';
+	  populateReports() {
+		axios.get('/progress/get').then(response => {
+			if(response.data['status']) {
+				this.reports = response.data['reports'];
+			}
+		});  
+	  },
+	  showAddReportModal() {
+		  this.resetAddReportModal();
+		  this.addReportModal = true;
 	  },
 	  resetAddReportModal() {
 		  this.form.title = '';
 		  this.form.report = '';
+		  this.addReportError = '';
 		  this.errors.clear();
 	  },
 	  closeAddReport() {
@@ -110,18 +122,23 @@ export default {
 	  },
 	  viewClick(index) {
 		  this.view.title = this.reports[index].title;
+		  this.view.author = this.reports[index].author;
 		  this.view.report = this.reports[index].report;
 		  this.viewReportModal = true;
 	  },
 	  addReport() {
-		  if(this.form.title == '')
-			  this.errors.add('title');
-		  if(this.form.report == '')
-			  this.errors.add('report');
-		  
 		  if (!this.errors.any()) {
-			  this.reports.push({title: this.form.title, report: this.form.report, preview: this.returnPreview(this.form.report)});
-			  this.closeAddReport();
+			  axios.post('/progress/add', {
+				  title: this.form.title,
+			  	  report: this.form.report
+			  }).then(response => {
+				  if(response.data['status']) {
+					  this.populateReports();
+					  this.closeAddReport();
+				  } else {
+					  this.addReportError = response.data['message'];
+				  }
+			  }); 
 		  }
 	  }
   }

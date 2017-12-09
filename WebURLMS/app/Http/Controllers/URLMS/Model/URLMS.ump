@@ -18,6 +18,7 @@ class ExpenseReport
 {
   autounique id;
   expense;
+  Date date;
   lazy Double amount;
   * -- 1 Laboratory;
 }

@@ -8,7 +8,7 @@
         		<div class="card-body">
 	        		<div v-if="editable" class="row">
 	        			<div class="col">
-	        				<b-button type="button" variant="success" @click="addExpenseModal = !addExpenseModal">Add Expense</b-button>
+	        				<b-button type="button" variant="success" @click="showAddExpenseModal">Add Expense</b-button>
 	        			</div>
 	        		</div>
         		<div class="row">
@@ -51,6 +51,7 @@
       <b-form-group id="dateGroup" label="Date">
       	<date-picker v-model="form.date" :config="dateConfig"></date-picker>
       </b-form-group>
+      <div class="text-danger">{{ addError }}</div>
      <b-button type="button" variant="primary" @click="addExpense">Save changes</b-button>
      <b-button type="button" variant="secondary" @click="closeAddExpense">Close</b-button>
 	</b-form>
@@ -73,12 +74,8 @@ export default {
   data() {
 	  return {
 		  addExpenseModal: false,
+		  addError: '',
 		  expenses: [
-			  {
-				  description: 'This is a small description',
-				  amount: 10.00,
-				  date: Date.now()
-			  }
 		  ],
 		  dateConfig: {
 			  format: 'MM/DD/YYYY',
@@ -97,28 +94,46 @@ export default {
 		  default: true
 	  }
   },
+  mounted : function(){
+		this.populateExpenses();
+	},
   methods: {
+	  populateExpenses() {
+		  axios.get('/expenses/get').then(response => {
+			  if(response.data['status']) {
+				  this.expenses = response.data['expenses'];
+			  }
+		  });  
+	  },
+	  showAddExpenseModal() {
+		  this.resetAddExpenseModal();
+		  this.addExpenseModal = true;
+	  },
 	  resetAddExpenseModal() {
 		  this.form.description = '';
+		  this.addError = '';
 		  this.form.amount = 0.0;
 		  this.form.date = '';
 		  this.errors.clear();
 	  },
 	  closeAddExpense() {
 		  this.addExpenseModal = false;
-		  this.resetAddExpenseModalModal();
+		  this.resetAddExpenseModal();
 	  },
 	  addExpense() {
-		  this.$validator.validateAll();
-		  
-		  if(this.form.description == '')
-			  this.errors.add('description');
-		  if(this.form.amount == '')
-			  this.form.amount = 0.0;
-		  
 		  if (!this.errors.any()) {
-			  this.expenses.push({description: this.form.description, amount: this.form.amount, date: this.form.date});
-			  this.closeAddExpense();
+			  axios.post('/expenses/add', {
+				  description: this.form.description,
+				  amount: this.form.amount,
+				  date: this.form.date
+			  }).then(response => {
+				  if(response.data['status']) {
+					  this.populateExpenses();
+					  this.closeAddExpense();
+				  } else {
+					  this.addError = response.data['message'];
+				  }
+			  });
 		  }
 	  }
   }

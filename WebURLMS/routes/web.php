@@ -58,15 +58,23 @@ Route::post('/user/updateProfile', 'URLMS\MainController@updateProfile');
 Route::get('/equipment/get', 'URLMS\MainController@getEquipment');
 Route::get('/equipment/clear', 'URLMS\MainController@clearEquipment');
 Route::post('/equipment/add', 'URLMS\MainController@addEquipment');
-Route::post('/equipment/modify', 'URLMS\MainController@modiyEquipment');
+Route::post('/equipment/modify', 'URLMS\MainController@modifyEquipment');
 Route::post('/equipment/delete', 'URLMS\MainController@removeEquipment');
 
 //Supplies
 Route::get('/supplies/get', 'URLMS\MainController@getSupplies');
 Route::get('/supplies/clear', 'URLMS\MainController@clearSupplies');
 Route::post('/supplies/add', 'URLMS\MainController@addSupplies');
-Route::post('/supplies/modify', 'URLMS\MainController@modiySupplies');
+Route::post('/supplies/modify', 'URLMS\MainController@modifySupplies');
 Route::post('/supplies/delete', 'URLMS\MainController@removeSupplies');
+
+//Weekly progress
+Route::get('/progress/get', 'URLMS\MainController@getWeeklyProgress');
+Route::post('/progress/add', 'URLMS\MainController@addWeeklyProgress');
+
+//Expenses
+Route::get('/expenses/get', 'URLMS\MainController@getExpenses');
+Route::post('/expenses/add', 'URLMS\MainController@addExpenses');
 
 Route::get('/{vue_capture?}', function () {
     

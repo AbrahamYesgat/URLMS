@@ -482,6 +482,7 @@ class MainController extends Controller
     				$supply->delete();
     			}
     			
+    			PersistenceController::saveModel($this->urlms);
     			return response()->json(['status' => true]);
     		} else {
     			return response()->json(['status' => false, 'message' => 'No lab could be found']);
@@ -498,12 +499,13 @@ class MainController extends Controller
     			foreach($this->currentLab->getSupplies() as $supply) {
     				if($supply->getName() == $name) {
     					$supply->setQuantity($supply->getQuantity() + $qty);
+    					PersistenceController::saveModel($this->urlms);
     					return response()->json(['status' => true]);
     				}
     			}
     			
     			$this->currentLab->addSupplyVia($name, $qty);
-    			
+    			PersistenceController::saveModel($this->urlms);
     			return response()->json(['status' => true]);
     		} else {
     			return response()->json(['status' => false, 'message' => 'No lab could be found']);
@@ -520,6 +522,7 @@ class MainController extends Controller
 	    		foreach($this->currentLab->getSupplies() as $supply) {
 	    			if($supply->getName() == $name) {
 	    				$supply->setQuantity($qty);
+	    				PersistenceController::saveModel($this->urlms);
 	    				return response()->json(['status' => true]);
 	    			}
 	    		}
@@ -540,6 +543,7 @@ class MainController extends Controller
 	    		foreach($this->currentLab->getSupplies() as $supply) {
 	    			if($supply->getName() == $name) {
 	    				$supply->delete();
+	    				PersistenceController::saveModel($this->urlms);
 	    				return response()->json(['status' => true]);
 	    			}
 	    		}
@@ -578,6 +582,7 @@ class MainController extends Controller
 	    			$equipment->delete();
 	    		}
 	    		
+	    		PersistenceController::saveModel($this->urlms);
 	    		return response()->json(['status' => true]);
 	    	} else {
 	    		return response()->json(['status' => false, 'message' => 'No lab could be found']);
@@ -594,12 +599,13 @@ class MainController extends Controller
 	    		foreach($this->currentLab->getEquipment() as $equipment) {
 	    			if($equipment->getName() == $name) {
 	    				$equipment->setQuantity($equipment->getQuantity() + $qty);
+	    				PersistenceController::saveModel($this->urlms);
 	    				return response()->json(['status' => true]);
 	    			}
 	    		}
 	    		
 	    		$this->currentLab->addEquipmentVia($name, $qty);
-	    		
+	    		PersistenceController::saveModel($this->urlms);
 	    		return response()->json(['status' => true]);
 	    	} else {
 	    		return response()->json(['status' => false, 'message' => 'No lab could be found']);
@@ -616,6 +622,7 @@ class MainController extends Controller
 	    		foreach($this->currentLab->getEquipment() as $equipment) {
 	    			if($equipment->getName() == $name) {
 	    				$equipment->setQuantity($qty);
+	    				PersistenceController::saveModel($this->urlms);
 	    				return response()->json(['status' => true]);
 	    			}
 	    		}
@@ -636,6 +643,7 @@ class MainController extends Controller
 	    		foreach($this->currentLab->getEquipment() as $equipment) {
 	    			if($equipment->getName() == $name) {
 	    				$equipment->delete();
+	    				PersistenceController::saveModel($this->urlms);
 	    				return response()->json(['status' => true]);
 	    			}
 	    		}
@@ -644,5 +652,93 @@ class MainController extends Controller
 	    	} else {
 	    		return response()->json(['status' => false, 'message' => 'No lab could be found']);
 	    	}
+    }
+    
+    /*
+     * Weekly progress reports
+     */
+    public function getWeeklyProgress(Request $request) {
+	    	$this->updateCurrent($request);
+	    	if($this->currentLab != null) {
+	    		$modelWeeklyProgress = $this->currentLab->getProgressUpdates();
+	    		$resWeeklyProgress = [];
+	    		
+	    		foreach($modelWeeklyProgress as $weeklyProgress) {
+	    			$resWeeklyProgress[] = ['title' => $weeklyProgress->getTitle(),
+	    					'report' => $weeklyProgress->getReport(),
+	    					'author' => $weeklyProgress->getStaff()->getName()
+	    			];
+	    		}
+	    		
+	    		return response()->json(['status' => true, 'reports' => $resWeeklyProgress]);
+	    	} else {
+	    		return response()->json(['status' => false, 'message' => 'No lab could be found']);
+	    	}
+    }
+    
+    public function addWeeklyProgress(Request $request) {
+    		$this->updateCurrent($request);
+    		
+    		$title = $request->input('title');
+    		$report = $request->input('report');
+    		
+    		if($this->currentLab != null && $this->currentUser != null) {
+    			if($this->currentUser instanceof Staff) {
+    				foreach($this->currentLab->getProgressUpdates() as $weeklyProgress) {
+    					if($weeklyProgress->getTitle() == $title) {
+    						return response()->json(['status' => false, 'message' => 'Title already exists']);
+    					}
+    				}
+    				
+    				$this->currentLab->addProgressUpdateVia($title, $report, $this->currentUser);
+    				PersistenceController::saveModel($this->urlms);
+    				return response()->json(['status' => true]);
+    			}
+    			
+    			return response()->json(['status' => false, 'message' => 'Director can\'t create progress reports']);
+    		} else {
+    			return response()->json(['status' => false, 'message' => 'No user or lab could be found']);
+    		}
+    }
+    
+    /*
+     * Expenses
+     */
+    public function getExpenses(Request $request) {
+    		$this->updateCurrent($request);
+    		
+    		if($this->currentLab != null) {
+    			$modelExpenses = $this->currentLab->getExpenseReports();
+    			$resExpenses = [];
+    			
+    			foreach($modelExpenses as $expense) {
+    				$resExpenses[] = ['id' => $expense->getId(),
+    						'description' => $expense->getExpense(),
+    						'amount' => $expense->getAmount(),
+    						'date' => $expense->getDate()
+    				];
+    			}
+    			
+    			return response()->json(['status' => true, 'expenses' => $resExpenses]);
+    		} else {
+    			return response()->json(['status' => false, 'message' => 'No lab could be found']);
+    		}
+    }
+    
+    public function addExpenses(Request $request) {
+    		$this->updateCurrent($request);
+    		
+    		$description = $request->input('description');
+    		$amount = $request->input('amount');
+    		$date = $request->input('date');
+    		
+    		if($this->currentLab != null) {
+    			$this->currentLab->addExpenseReportVia($description, $amount, $date);
+    			PersistenceController::saveModel($this->urlms);
+    			
+    			return response()->json(['status' => true]);
+    		} else {
+    			return response()->json(['status' => false, 'message' => 'No lab could be found']);
+    		}
     }
 }

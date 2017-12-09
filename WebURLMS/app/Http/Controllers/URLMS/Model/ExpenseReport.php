@@ -20,6 +20,7 @@ class ExpenseReport
   //ExpenseReport Attributes
   private $expense;
   private $amount;
+  private $date;
 
   //Autounique Attributes
   private $id;
@@ -31,10 +32,11 @@ class ExpenseReport
   // CONSTRUCTOR
   //------------------------
 
-  public function __construct($aExpense, $aLaboratory)
+  public function __construct($aExpense, $aAmount, $aDate, $aLaboratory)
   {
     $this->expense = $aExpense;
-    $this->amount = 0;
+    $this->date = $aDate;
+    $this->amount = $aAmount;
     $this->id = self::$nextId++;
     $didAddLaboratory = $this->setLaboratory($aLaboratory);
     if (!$didAddLaboratory)
@@ -62,6 +64,14 @@ class ExpenseReport
     $wasSet = true;
     return $wasSet;
   }
+  
+  public function setDate($aDate)
+  {
+  	$wasSet = false;
+  	$this->date = $aDate;
+  	$wasSet = true;
+  	return $wasSet;
+  }
 
   public function getExpense()
   {
@@ -71,6 +81,11 @@ class ExpenseReport
   public function getAmount()
   {
     return $this->amount;
+  }
+  
+  public function getDate()
+  {
+  	return $this->date;
   }
 
   public function getId()
