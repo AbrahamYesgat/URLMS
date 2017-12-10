@@ -14,6 +14,7 @@
 	        		</div>
         		<div class="row top5">
         			<div class="col">
+        				<div class="alert alert-success text-center" v-if="successMessage != ''"> {{ successMessage }} </div>
 		        		<table class="table table-striped table-hover" v-if="equipment.length > 0">
 		        			<thead>
 		        				<tr>
@@ -34,7 +35,7 @@
 		        				</tr>
 		        			</tbody>
 		        		</table>
-		        		<div class="alert alert-primary text-center" v-else> None :( </div>
+		        		<div class="alert alert-info text-center" v-else> None :( </div>
 		        	</div>
 	        		</div>
 	        	</div>
@@ -113,6 +114,7 @@ export default {
 	      nameError: false,
 	      modifyUnknownError: '',
 	      clearModalError: '',
+	      successMessage: '',
 	      addError: '',
 	      form: {
 	    	  	name: '',
@@ -191,6 +193,11 @@ export default {
 		  }).then(response => {
 			 if(response.data['status']) {
 				 this.populateEquipment();
+				 this.successMessage = '';
+				 var self = this;
+ 				  setTimeout(function() {
+ 						self.successMessage = '';
+					}, 5000); 
 			 }
 		  });
 	  },
@@ -227,8 +234,17 @@ export default {
 				 if(response.data['status']) {
 					 this.populateEquipment();
 					 this.closeAddEquipment();
+					 this.successMessage = response.data['message'];
+					 var self = this;
+	  				  setTimeout(function() {
+	  						self.successMessage = '';
+						}, 5000); 
 				 } else {
 					 this.addError = response.data['message'];
+					 var self = this;
+						setTimeout(function() {
+							self.addError = '';
+						}, 2000);
 				 }
 			  });
 		  }
@@ -251,12 +267,25 @@ export default {
 				  if(response.data['status']) {
 					  this.closeModifyEquipment();
 					  this.populateEquipment();
+					  this.successMessage = response.data['message'];
+					  var self = this;
+	  				  setTimeout(function() {
+	  						self.successMessage = '';
+						}, 5000); 
 				  } else {
 					  this.modifyUnknownError = response.data['message'];
+					  var self = this;
+						setTimeout(function() {
+							self.modifyUnknownError = '';
+						}, 2000);
 				  }
 			  });
 		  } else {
 			  this.modifyUnknownError = 'Bad input';
+			  var self = this;
+				setTimeout(function() {
+					self.modifyUnknownError = '';
+				}, 2000);
 		  }
 	  },
 	  clearEquipment() {
@@ -264,9 +293,18 @@ export default {
 			.then(response => {
 				if(response.data['status']) {
 					this.populateEquipment();
-					this.clearEquipmentModal = false
+					this.clearEquipmentModal = false;
+					this.successMessage = response.data['message'];
+					var self = this;
+	  				  setTimeout(function() {
+	  						self.successMessage = '';
+						}, 5000); 
 				} else {
 					this.clearModalError = response.data['message'];
+					var self = this;
+					setTimeout(function() {
+						self.clearModalError = '';
+					}, 2000);
 				}
 			});
 	  }

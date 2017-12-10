@@ -20,7 +20,8 @@
 	        			</div>
 	        		</div>
 	        		<div v-if="topError != ''" class="row alert alert-danger">{{ topError }}</div>
-                <div class="row" style="min-height: 350px;">
+	        		<div class="alert alert-info text-center" v-if="labs.length == 0"> None :( </div>
+                <div class="row" style="min-height: 350px;" v-else>
 	                <table class="table table-striped table-hover">
 	                		<thead>
 	                			<tr>
@@ -123,6 +124,7 @@ export default {
 		  topError: '',
 		  staff: false,
 		  director: false,
+		  successMessage: '',
 		  form: {
 			  name: '',
 			  field: '',
@@ -191,6 +193,17 @@ export default {
 	  			.then(response => {
 	  				if(response.data['status']) {
 	  					this.populateLabs();
+	  					this.successMessage = response.data['message'];
+	  					var self = this;
+		  				  setTimeout(function() {
+		  						self.successMessage = '';
+							}, 5000); 
+	  				} else {
+	  					this.topError = response.data['message'];
+	  					var self = this;
+	  					setTimeout(function() {
+	  						self.topError = '';
+	  					}, 2000);
 	  				} 
 	  			});
 			  this.closeAddLabModal();
@@ -206,6 +219,17 @@ export default {
   				if(response.data['status']) {
   					this.populateLabs();
   					this.clearLabsModal = false;
+  					this.successMessage = response.data['message'];
+  					var self = this;
+	  				  setTimeout(function() {
+	  						self.successMessage = '';
+						}, 5000); 
+  				} else {
+  					this.topError = response.data['message'];
+  					var self = this;
+  					setTimeout(function() {
+  						self.topError = '';
+  					}, 2000);
   				} 
   			});
 	  },
@@ -217,7 +241,18 @@ export default {
   				if(response.data['status']) {
   					this.populateLabs();
   					this.deleteLabModal = false;
-  				} 
+  					this.successMessage = response.data['message'];
+  					var self = this;
+	  				  setTimeout(function() {
+	  						self.successMessage = '';
+						}, 5000); 
+  				} else {
+  					this.topError = response.data['message'];
+  					var self = this;
+  					setTimeout(function() {
+  						self.topError = '';
+  					}, 2000);
+  				}
   			});
 	  },
 	  enterClick(index) {
@@ -233,6 +268,10 @@ export default {
 		  			});
 				} else {
 					this.topError = 'Can\'t enter unactive lab'
+					var self = this;
+  					setTimeout(function() {
+  						self.topError = '';
+  					}, 2000);
 				}
 		  } else {
 			  axios.post('/labs/enter', {
@@ -241,6 +280,12 @@ export default {
 	  			.then(response => {
 	  				if(response.data['status']) {
 	  					this.$router.push('/');
+	  				} else {
+	  					this.topError = response.data['message'];
+	  					var self = this;
+	  					setTimeout(function() {
+	  						self.topError = '';
+	  					}, 2000);
 	  				} 
 	  			});
 		  }

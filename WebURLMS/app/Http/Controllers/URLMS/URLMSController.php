@@ -71,4 +71,7 @@ class URLMSController extends Controller {
             }
         }
     }
+    protected function cleanString($s) {
+    		return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
+    }
 }

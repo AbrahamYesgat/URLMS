@@ -14,6 +14,7 @@
 	        		</div>
         		<div class="row top5">
         			<div class="col">
+        				<div class="alert alert-success text-center" v-if="successMessage != ''"> {{ successMessage }} </div>
 		        		<table class="table table-striped table-hover" v-if="supplies.length > 0">
 		        			<thead>
 		        				<tr>
@@ -34,7 +35,7 @@
 		        				</tr>
 		        			</tbody>
 		        		</table>
-		        		<div class="alert alert-primary text-center" v-else> None :( </div>
+		        		<div class="alert alert-info text-center" v-else> None :( </div>
 		        	</div>
 	        		</div>
 	        	</div>
@@ -109,10 +110,12 @@ export default {
 	      modifySuppliesModal: false,
 	      clearSuppliesModal: false,
 	      activeOtherBox: false,
+	      successMessage: '',
 	      addSuppliesPlaceHolder: '',
 	      nameError: false,
 	      modifyUnknownError: '',
 	      clearModalError: '',
+	      successMessage: '',
 	      addError: '',
 	      form: {
 	    	  	name: '',
@@ -190,7 +193,12 @@ export default {
 			  name: this.supplies[index].name
 		  }).then(response => {
 			 if(response.data['status']) {
+				 this.successMessage = response.data['message'];
 				 this.populateSupplies();
+				 var self = this;
+ 				  setTimeout(function() {
+ 						self.successMessage = '';
+					}, 5000); 
 			 }
 		  });
 	  },
@@ -225,10 +233,19 @@ export default {
 				  qty: parseInt(this.form.qty)
 			  }).then(response => {
 				 if(response.data['status']) {
+					 this.successMessage = response.data['message'];
 					 this.populateSupplies();
 					 this.closeAddSupplies();
+					 var self = this;
+	  				  setTimeout(function() {
+	  						self.successMessage = '';
+						}, 5000); 
 				 } else {
 					 this.addError = response.data['message'];
+					 var self = this;
+						setTimeout(function() {
+							self.addError = '';
+						}, 2000);
 				 }
 			  });
 		  }
@@ -249,14 +266,27 @@ export default {
 				  qty: parseInt(this.modify.qty)
 			  }).then(response => {
 				  if(response.data['status']) {
+					  this.successMessage = response.data['message'];
 					  this.closeModifySupplies();
 					  this.populateSupplies();
+					  var self = this;
+	  				  setTimeout(function() {
+	  						self.successMessage = '';
+						}, 5000); 
 				  } else {
 					  this.modifyUnknownError = response.data['message'];
+					  var self = this;
+						setTimeout(function() {
+							self.modifyUnknownError = '';
+						}, 2000);
 				  }
 			  });
 		  } else {
 			  this.modifyUnknownError = 'Bad input';
+			  var self = this;
+				setTimeout(function() {
+					self.modifyUnknownError = '';
+				}, 2000);
 		  }
 	  },
 	  clearSupplies() {
@@ -264,9 +294,18 @@ export default {
 			.then(response => {
 				if(response.data['status']) {
 					this.populateSupplies();
-					this.clearSuppliesModal = false
+					this.successMessage = response.data['message'];
+					this.clearSuppliesModal = false;
+					var self = this;
+	  				  setTimeout(function() {
+	  						self.successMessage = '';
+						}, 5000); 
 				} else {
 					this.clearModalError = response.data['message'];
+					var self = this;
+					setTimeout(function() {
+						self.clearModalError = '';
+					}, 2000);
 				}
 			});
 	  }

@@ -15,6 +15,7 @@
         		<div class="row top5">
         		    <span class="text-danger"> {{ listError }} </span>
         			<div class="col">
+        				<div class="alert alert-success text-center" v-if="successMessage != ''"> {{ successMessage }} </div>
 		        		<table class="table table-striped table-hover" v-if="staff.length > 0">
 		        			<thead>
 		        				<tr>
@@ -39,7 +40,7 @@
 		        				</tr>
 		        			</tbody>
 		        		</table>
-		        		<div class="alert alert-primary text-center" v-else> None :( </div>
+		        		<div class="alert alert-info text-center" v-else> None :( </div>
 		        	</div>
 	        		</div>
 	        	</div>
@@ -147,6 +148,7 @@ export default {
 	      listError: '',
 	      addModalError: '',
 	      modifyModalError: '',
+	      successMessage: '',
 	      form: {
 	    	  	name: '',
 	    	  	email: '',
@@ -225,8 +227,17 @@ export default {
 						  this.populateStaff();
 						  this.roleError = false;
 						  this.modifyStaffModal = false;
+						  this.successMessage = response.data['message'];
+						  var self = this;
+		  				  setTimeout(function() {
+		  						self.successMessage = '';
+							}, 5000); 
 					} else {
 						this.modifyModalError = response.data['message'];
+						var self = this;
+						setTimeout(function() {
+							self.modifyModalError = '';
+						}, 2000);
 					}
 				});
 		  }
@@ -238,8 +249,17 @@ export default {
 			.then(response => {
 				if(response.data['status']) {
 					  this.populateStaff();
+					  var self = this;
+					  this.successMessage = response.data['message'];
+	  				  setTimeout(function() {
+	  						self.successMessage = '';
+						}, 5000); 
 				} else {
 					this.listError = response.data['message'];
+					var self = this;
+					setTimeout(function() {
+						self.listError = '';
+					}, 2000);
 				}
 			});
 	  },
@@ -276,8 +296,17 @@ export default {
 						  this.populateStaff();
 						  this.addStaffModal = false;
 						  this.resetAddStaffModal();
+						  this.successMessage = response.data['message'];
+						  var self = this;
+		  				  setTimeout(function() {
+		  						self.successMessage = '';
+							}, 5000); 
 					} else {
 						this.addModalError = response.data['message'];
+						var self = this;
+						setTimeout(function() {
+							self.addModalError = '';
+						}, 2000);
 					}
 				});
 		  }
@@ -288,8 +317,17 @@ export default {
 				if(response.data['status']) {
 					this.populateStaff();
 					this.clearStaffModal = false;
+					this.successMessage = response.data['message'];
+					var self = this;
+	  				  setTimeout(function() {
+	  						self.successMessage = '';
+						}, 5000); 
 				} else {
 					this.clearModalError = response.data['message'];
+					var self = this;
+					setTimeout(function() {
+						self.clearModalError = '';
+					}, 2000);
 				}
 			});
 	  }

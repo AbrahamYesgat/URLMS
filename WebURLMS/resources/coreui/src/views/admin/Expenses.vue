@@ -13,6 +13,7 @@
 	        		</div>
         		<div class="row top5">
         			<div class="col">
+        				<div class="alert alert-success text-center" v-if="successMessage != ''"> {{ successMessage }} </div>
 		        		<table class="table table-striped table-hover" v-if="expenses.length > 0">
 		        			<thead>
 		        				<tr>
@@ -31,7 +32,7 @@
 		        				</tr>
 		        			</tbody>
 		        		</table>
-		        		<div class="alert alert-primary text-center" v-else> None :( </div>
+		        		<div class="alert alert-info text-center" v-else> None :( </div>
 		        	</div>
 	        		</div>
 	        	</div>
@@ -85,6 +86,7 @@ export default {
 	  return {
 		  addExpenseModal: false,
 		  addError: '',
+		  successMessage: '',
 		  expenses: [
 		  ],
 		  dateConfig: {
@@ -140,8 +142,17 @@ export default {
 				  if(response.data['status']) {
 					  this.populateExpenses();
 					  this.closeAddExpense();
+					  this.successMessage = response.data['message'];
+	  				  var self = this;
+	  				  setTimeout(function() {
+	  						self.successMessage = '';
+						}, 5000); 
 				  } else {
 					  this.addError = response.data['message'];
+					  var self = this;
+						setTimeout(function() {
+							self.addError = '';
+						}, 2000);
 				  }
 			  });
 		  }

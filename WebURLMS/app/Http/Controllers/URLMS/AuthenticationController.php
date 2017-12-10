@@ -8,7 +8,7 @@ use Exception;
 class AuthenticationController extends URLMSController {
 	public function login(Request $request) {
 		$this->updateCurrent ( $request );
-		$email = $request->input ( 'email' );
+		$email = $this->cleanString($request->input ( 'email' ));
 		$password = $request->input ( 'password' );
 		
 		$labs = $this->urlms->getLaboratories ();
@@ -19,6 +19,7 @@ class AuthenticationController extends URLMSController {
 				
 				$request->session ()->put ( 'logged-in', true );
 				$request->session ()->put ( 'email', $email );
+				$request->session ()->put ( 'director', true );
 				
 				return response ()->json ( [ 
 						'status' => true 
@@ -38,6 +39,7 @@ class AuthenticationController extends URLMSController {
 						
 						$request->session ()->put ( 'logged-in', true );
 						$request->session ()->put ( 'email', $email );
+						$request->session ()->put ( 'director', false );
 						
 						return response ()->json ( [ 
 								'status' => true 
@@ -53,8 +55,8 @@ class AuthenticationController extends URLMSController {
 	}
 	public function register(Request $request) {
 		$this->updateCurrent ( $request );
-		$name = $request->input ( 'name' );
-		$email = $request->input ( 'email' );
+		$name = $this->cleanString($request->input ( 'name' ));
+		$email = $this->cleanString($request->input ( 'email' ));
 		$password = $request->input ( 'password' );
 		
 		if ($name == null || $name == '' || $email == null || $email == '' || $password == null || $password == '') {
@@ -85,6 +87,8 @@ class AuthenticationController extends URLMSController {
 		
 		$request->session ()->put ( 'logged-in', true );
 		$request->session ()->put ( 'email', $email );
+		$request->session ()->put ( 'director', true );
+		
 		return response ()->json ( [ 
 				'status' => true,
 				'name' => $name 
@@ -93,7 +97,7 @@ class AuthenticationController extends URLMSController {
 	public function logout(Request $request) {
 		$this->updateCurrent ( $request );
 		PersistenceController::saveModel($this->urlms);
-        $request->session()->forget(['logged-in', 'email', 'labName']);
+        $request->session()->forget(['logged-in', 'email', 'labName', 'director']);
         
         return response()->json(['status' => true]);
     }

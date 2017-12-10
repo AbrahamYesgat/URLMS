@@ -26,10 +26,17 @@ class MainController extends URLMSController {
 					'message' => 'User is not director' 
 			] );
 		
-		$name = $request->input ( 'name' );
-		$field = $request->input ( 'field' );
-		$date = $request->input ( 'date' );
+		$name = $this->cleanString ( $request->input ( 'name' ) );
+		$field = $this->cleanString ( $request->input ( 'field' ) );
+		$date = $this->cleanString ( $request->input ( 'date' ) );
 		$active = $request->input ( 'active' );
+		
+		if ($active != 'Active' && $active != 'Unactive') {
+			return response ()->json ( [ 
+					'status' => false,
+					'message' => 'Invalid active input' 
+			] );
+		}
 		
 		foreach ( $this->currentUser->getLaboratories () as $lab ) {
 			if ($name == $lab->getName ()) {
@@ -70,7 +77,7 @@ class MainController extends URLMSController {
 					'message' => 'User is not director' 
 			] );
 		
-		$name = $request->input ( 'name' );
+		$name = $this->cleanString ( $request->input ( 'name' ) );
 		
 		try {
 			foreach ( $this->currentUser->getLaboratories () as $lab ) {
@@ -135,7 +142,7 @@ class MainController extends URLMSController {
 					'message' => 'No user could be found' 
 			] );
 		
-		$name = $request->input ( 'name' );
+		$name = $this->cleanString ( $request->input ( 'name' ) );
 		
 		if ($this->currentUser != null) {
 			foreach ( $this->currentUser->getLaboratories () as $lab ) {
@@ -169,8 +176,8 @@ class MainController extends URLMSController {
 					'message' => 'User is not director' 
 			] );
 		
-		$newName = $request->input ( 'newName' );
-		$field = $request->input ( 'field' );
+		$newName = $this->cleanString ( $request->input ( 'newName' ) );
+		$field = $this->cleanString ( $request->input ( 'field' ) );
 		$active = $request->input ( "active" );
 		
 		$this->currentLab->setName ( $newName );
@@ -259,8 +266,8 @@ class MainController extends URLMSController {
 					'message' => 'User is not director' 
 			] );
 		
-		$name = $request->input ( 'name' );
-		$email = $request->input ( 'email' );
+		$name = $this->cleanString ( $request->input ( 'name' ) );
+		$email = $this->cleanString ( $request->input ( 'email' ) );
 		$role = ($request->input ( 'role' ) == 0) ? StaffRole::ResearchAssociate : StaffRole::ResearchAssistant;
 		$password = $request->input ( 'password' );
 		
@@ -278,7 +285,7 @@ class MainController extends URLMSController {
 					} else {
 						return response ()->json ( [ 
 								'status' => false,
-								'message' => 'Staff exists but incorrect information' 
+								'message' => 'Staff already exists but incorrect information' 
 						] );
 					}
 				}
@@ -344,7 +351,7 @@ class MainController extends URLMSController {
 			] );
 		
 		$name = '';
-		$email = $request->input ( 'email' );
+		$email = $this->cleanString ( $request->input ( 'email' ) );
 		
 		foreach ( $this->currentLab->getStaffs () as $staff ) {
 			if ($staff->getEmail () == $email) {
@@ -375,9 +382,9 @@ class MainController extends URLMSController {
 					'message' => 'User is not director' 
 			] );
 		
-		$prevEmail = $request->input ( 'prevEmail' );
-		$email = $request->input ( 'email' );
-		$name = $request->input ( 'name' );
+		$prevEmail = $this->cleanString ( $request->input ( 'prevEmail' ) );
+		$email = $this->cleanString ( $request->input ( 'email' ) );
+		$name = $this->cleanString ( $request->input ( 'name' ) );
 		$role = ($request->input ( 'role' ) == 0) ? StaffRole::ResearchAssociate : StaffRole::ResearchAssistant;
 		$password = $request->input ( 'password' );
 		
@@ -455,8 +462,8 @@ class MainController extends URLMSController {
 					'message' => 'No user or lab could be found' 
 			] );
 		
-		$name = $request->input ( 'name' );
-		$qty = $request->input ( 'qty' );
+		$name = $this->cleanString ( $request->input ( 'name' ) );
+		$qty = ( int ) $request->input ( 'qty' );
 		
 		foreach ( $this->currentLab->getSupplies () as $supply ) {
 			if ($supply->getName () == $name) {
@@ -485,8 +492,8 @@ class MainController extends URLMSController {
 					'message' => 'No user or lab could be found' 
 			] );
 		
-		$name = $request->input ( 'name' );
-		$qty = $request->input ( 'qty' );
+		$name = $this->cleanString ( $request->input ( 'name' ) );
+		$qty = ( int ) $request->input ( 'qty' );
 		
 		foreach ( $this->currentLab->getSupplies () as $supply ) {
 			if ($supply->getName () == $name) {
@@ -513,8 +520,7 @@ class MainController extends URLMSController {
 					'message' => 'No user or lab could be found' 
 			] );
 		
-		$name = $request->input ( 'name' );
-		$qty = $request->input ( 'qty' );
+		$name = $this->cleanString ( $request->input ( 'name' ) );
 		
 		foreach ( $this->currentLab->getSupplies () as $supply ) {
 			if ($supply->getName () == $name) {
@@ -588,8 +594,8 @@ class MainController extends URLMSController {
 					'message' => 'No user or lab could be found' 
 			] );
 		
-		$name = $request->input ( 'name' );
-		$qty = $request->input ( 'qty' );
+		$name = $this->cleanString ( $request->input ( 'name' ) );
+		$qty = ( int ) $request->input ( 'qty' );
 		
 		foreach ( $this->currentLab->getEquipment () as $equipment ) {
 			if ($equipment->getName () == $name) {
@@ -618,8 +624,8 @@ class MainController extends URLMSController {
 					'message' => 'No user or lab could be found' 
 			] );
 		
-		$name = $request->input ( 'name' );
-		$qty = $request->input ( 'qty' );
+		$name = $this->cleanString ( $request->input ( 'name' ) );
+		$qty = ( int ) $request->input ( 'qty' );
 		
 		foreach ( $this->currentLab->getEquipment () as $equipment ) {
 			if ($equipment->getName () == $name) {
@@ -646,8 +652,7 @@ class MainController extends URLMSController {
 					'message' => 'No user or lab could be found' 
 			] );
 		
-		$name = $request->input ( 'name' );
-		$qty = $request->input ( 'qty' );
+		$name = $this->cleanString ( $request->input ( 'name' ) );
 		
 		foreach ( $this->currentLab->getEquipment () as $equipment ) {
 			if ($equipment->getName () == $name) {
@@ -709,8 +714,8 @@ class MainController extends URLMSController {
 					'message' => 'User is not staff member' 
 			] );
 		
-		$title = $request->input ( 'title' );
-		$report = $request->input ( 'report' );
+		$title = $this->cleanString ( $request->input ( 'title' ) );
+		$report = $this->cleanString ( $request->input ( 'report' ) );
 		
 		$this->currentLab->addProgressUpdateVia ( $title, $report, $this->currentUser );
 		PersistenceController::saveModel ( $this->urlms );
@@ -763,9 +768,9 @@ class MainController extends URLMSController {
 					'message' => 'No user or lab could be found' 
 			] );
 		
-		$description = $request->input ( 'description' );
-		$amount = $request->input ( 'amount' );
-		$date = $request->input ( 'date' );
+		$description = $this->cleanString ( $request->input ( 'description' ) );
+		$amount = ( float ) $request->input ( 'amount' );
+		$date = $this->cleanString ( $request->input ( 'date' ) );
 		
 		$this->currentLab->addExpenseReportVia ( $description, $amount, $date );
 		PersistenceController::saveModel ( $this->urlms );
@@ -824,8 +829,8 @@ class MainController extends URLMSController {
 					'message' => 'User is not director' 
 			] );
 		
-		$accountNumber = $request->input ( 'number' );
-		$funds = $request->input ( 'funds' );
+		$accountNumber = $this->cleanString ( $request->input ( 'number' ) );
+		$funds = ( float ) $request->input ( 'funds' );
 		
 		foreach ( $this->currentLab->getFundingAccounts () as $funding ) {
 			if ($funding->getAccountNumber () == $accountNumber) {
@@ -859,8 +864,8 @@ class MainController extends URLMSController {
 					'message' => 'User is not director' 
 			] );
 		
-		$accountNumber = $request->input ( 'number' );
-		$funds = $request->input ( 'funds' );
+		$accountNumber = $this->cleanString ( $request->input ( 'number' ) );
+		$funds = ( float ) $request->input ( 'funds' );
 		
 		foreach ( $this->currentLab->getFundingAccounts () as $funding ) {
 			if ($funding->getAccountNumber () == $accountNumber) {
@@ -892,7 +897,7 @@ class MainController extends URLMSController {
 					'message' => 'User is not director' 
 			] );
 		
-		$accountNumber = $request->input ( 'number' );
+		$accountNumber = $this->cleanString ( $request->input ( 'number' ) );
 		
 		foreach ( $this->currentLab->getFundingAccounts () as $funding ) {
 			if ($funding->getAccountNumber () == $accountNumber) {
