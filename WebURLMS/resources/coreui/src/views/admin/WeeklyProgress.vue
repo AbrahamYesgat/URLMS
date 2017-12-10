@@ -13,6 +13,7 @@
 	        		</div>
         		<div class="row top5">
         			<div class="col">
+        				<div class="alert alert-success text-center" v-if="successMessage != ''"> {{ successMessage }} </div>
 		        		<table class="table table-striped table-hover" v-if="reports.length > 0">
 		        			<thead>
 		        				<tr>
@@ -33,7 +34,7 @@
 		        				</tr>
 		        			</tbody>
 		        		</table>
-		        		<div class="alert alert-primary text-center" v-else> None :( </div>
+		        		<div class="alert alert-info text-center" v-else> None :( </div>
 		        	</div>
 	        		</div>
 	        	</div>
@@ -80,6 +81,7 @@ export default {
 		  viewReportModal: false,
 		  director: false,
 		  staff: false,
+		  successMessage: '',
 		  addReportError: '',
 		  form: {
 			  title: '',
@@ -156,8 +158,17 @@ export default {
 				  if(response.data['status']) {
 					  this.populateReports();
 					  this.closeAddReport();
+					  this.successMessage = '';
+					  var self = this;
+	  				  setTimeout(function() {
+	  						self.successMessage = '';
+						}, 5000); 
 				  } else {
 					  this.addReportError = response.data['message'];
+					  var self = this;
+						setTimeout(function() {
+							self.addReportError = '';
+						}, 2000);
 				  }
 			  }); 
 		  }

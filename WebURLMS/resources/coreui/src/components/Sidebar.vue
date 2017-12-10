@@ -1,107 +1,112 @@
 <template>
 <div>
-<div class="sidebar">
-    <SidebarHeader/>
-    <SidebarForm/>
-    <nav class="sidebar-nav">
-      <div slot="header"></div>
-      <ul class="nav">
-        <template v-for="(item, index) in navItems">
-          <template v-if="item.title">
-            <SidebarNavTitle :name="item.name" :classes="item.class" :wrapper="item.wrapper"/>
-          </template>
-          <template v-else-if="item.divider">
-            <li class="divider"></li>
-          </template>
-          <template v-else>
-            <template v-if="item.children">
-              <!-- First level dropdown -->
-              <SidebarNavDropdown :name="item.name" :url="item.url" :icon="item.icon">
-                <template v-for="(childL1, index) in item.children">
-                  <template v-if="childL1.children">
-                    <!-- Second level dropdown -->
-                    <SidebarNavDropdown :name="childL1.name" :url="childL1.url" :icon="childL1.icon">
-                      <li v-if="isLinkAllowed(childL2.url, childL2.name)" class="nav-item" v-for="(childL2, index) in childL1.children">
-                        <SidebarNavLink @click.native="sidebarLinkPressed(childL2.name)" :name="childL2.name" :url="childL2.url" :icon="childL2.icon" :badge="childL2.badge"/>
-                      </li>
-                    </SidebarNavDropdown>
-                  </template>
-                  <template v-else>
-                    <li v-if="isLinkAllowed(childL1.url, childL1.name)" class="nav-item">
-                      <SidebarNavLink @click.native="sidebarLinkPressed(childL1.name)" :name="childL1.name" :url="childL1.url" :icon="childL1.icon" :badge="childL1.badge"/>
-                    </li>
-                  </template>
-                </template>
-              </SidebarNavDropdown>
-            </template>
-            <template v-else>
-              <li v-if="isLinkAllowed(item.url, item.name)" class="nav-item">
-                <SidebarNavLink @click.native="sidebarLinkPressed(item.name)" :name="item.name" :url="item.url" :icon="item.icon" :badge="item.badge"/>
-              </li>
-            </template>
-          </template>
-        </template>
-      </ul>
-      <slot></slot>
-    </nav>
-    <SidebarFooter/>
-  </div>
-  <b-modal v-model="addExpenseModal" hide-footer title="Add Expense">
-      <b-form @reset="resetAddExpenseModal">
-      <b-form-group id="descriptionGroup" label="Description">
-        <div class="input-group">
-         <span class="input-group-addon"><i class="icon-calculator"></i></span>
-      	<b-form-input id="description" name="description" v-model="form.description" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('description') }" placeholder="Enter short description"></b-form-input>
-      	</div>
-      	<span class="text-danger" v-if="errors.has('description')" >Please enter a short description</span>
-      </b-form-group>
-      <b-form-group id="amountGroup" label="Amount">
-      	<div class="input-group">
-         <span class="input-group-addon"><i class="fa fa-usd"></i></span>
-      	<vue-numeric style="padding: 6px 10px;" separator="," :empty-value="0.00"  v-bind:precision="2" id="amount" name="amount" v-model="form.amount"></vue-numeric>
-        </div>
-      </b-form-group>
-      <b-form-group id="dateGroup" label="Date">
-      <div class="input-group">
-         <span class="input-group-addon"><i class="icon-calendar"></i></span>
-      	<date-picker v-model="form.date" :config="dateConfig"></date-picker>
-      	</div>
-      </b-form-group>
-      <div v-if="addError != ''" class="row alert alert-danger">{{ addError }}</div>
-     <b-button type="button" variant="primary" @click="addExpense">Save changes</b-button>
-     <b-button type="button" variant="secondary" @click="closeAddExpense">Close</b-button>
-	</b-form>
-    </b-modal>
-  
-  <b-modal v-model="settingsModal" hide-footer title="Update Lab Settings">
-      <b-form @reset="populateLabSettingsModal">
-      <b-form-group id="nameGroup" label="Name">
-        <div class="input-group">
-         <span class="input-group-addon"><i class="icon-chemistry"></i></span>
-      	<b-form-input id="name" name="name" type="text" v-model="labSettings.name"  placeholder="Enter name"></b-form-input>
-      	</div>
-      	<span class="text-danger" v-if="errors.has('name')">Please enter a valid name</span>
-      </b-form-group>
-      <b-form-group id="fieldGroup" label="Field">
-      <div class="input-group">
-         <span class="input-group-addon"><i class="icon-globe"></i></span>
-      	<b-form-input id="field" type="text" name="field" v-model="labSettings.field" placeholder="Enter field"></b-form-input>
-      	<span class="text-danger" v-if="errors.has('field')">Please enter a valid field</span>
-      	</div>
-      </b-form-group>
-      <b-form-group id="dateGroup" label="Start Date">
-        <div class="input-group">
-         <span class="input-group-addon"><i class="icon-calendar"></i></span>
-        <b-form-input id="startDate" type="text" v-model="labSettings.startDate" readonly></b-form-input>
-        </div>
-      </b-form-group>
-      <b-form-radio-group id="activeGroup" v-model="labSettings.active" :options="activeOptions" name="activeGroup">
-    </b-form-radio-group>	
-    <div v-if="unknownLabSettingsError != ''" class="row alert alert-error"> {{ unknownLabSettingsError }} </div>
-    <b-button type="button" variant="primary" @click="updateLabSettings">Save Changes</b-button>
-     <b-button type="button" variant="secondary" @click="settingsModal = false">Close</b-button>
-    </b-form>
-  </b-modal>
+	<div class="sidebar">
+		<SidebarHeader />
+		<SidebarForm />
+		<nav class="sidebar-nav">
+			<div slot="header"></div>
+			<ul class="nav">
+				<template v-for="(item, index) in navItems"> <template
+					v-if="item.title"> <SidebarNavTitle :name="item.name"
+					:classes="item.class" :wrapper="item.wrapper" /> </template> <template
+					v-else-if="item.divider">
+				<li class="divider"></li>
+				</template> <template v-else> <template v-if="item.children">
+				<!-- First level dropdown --> <SidebarNavDropdown :name="item.name"
+					:url="item.url" :icon="item.icon"> <template
+					v-for="(childL1, index) in item.children"> <template
+					v-if="childL1.children"> <!-- Second level dropdown -->
+				<SidebarNavDropdown :name="childL1.name" :url="childL1.url"
+					:icon="childL1.icon">
+				<li v-if="isLinkAllowed(childL2.url, childL2.name)" class="nav-item"
+					v-for="(childL2, index) in childL1.children"><SidebarNavLink
+						@click.native="sidebarLinkPressed(childL2.name)"
+						:name="childL2.name" :url="childL2.url" :icon="childL2.icon"
+						:badge="childL2.badge" /></li>
+				</SidebarNavDropdown> </template> <template v-else>
+				<li v-if="isLinkAllowed(childL1.url, childL1.name)" class="nav-item">
+					<SidebarNavLink @click.native="sidebarLinkPressed(childL1.name)"
+						:name="childL1.name" :url="childL1.url" :icon="childL1.icon"
+						:badge="childL1.badge" />
+				</li>
+				</template> </template> </SidebarNavDropdown> </template> <template v-else>
+				<li v-if="isLinkAllowed(item.url, item.name)" class="nav-item">
+					<SidebarNavLink @click.native="sidebarLinkPressed(item.name)"
+						:name="item.name" :url="item.url" :icon="item.icon"
+						:badge="item.badge" />
+				</li>
+				</template> </template> </template>
+			</ul>
+			<slot></slot>
+		</nav>
+		<SidebarFooter />
+	</div>
+	<b-modal v-model="addExpenseModal" hide-footer title="Add Expense">
+	<div class="alert alert-success text-center"
+		v-if="successMessage != ''">{{ successMessage }}</div>
+	<b-form @reset="resetAddExpenseModal"> <b-form-group
+		id="descriptionGroup" label="Description">
+	<div class="input-group">
+		<span class="input-group-addon"><i class="icon-calculator"></i></span>
+		<b-form-input id="description" name="description"
+			v-model="form.description" v-validate="'required'"
+			:class="{'input': true, 'is-danger': errors.has('description') }"
+			placeholder="Enter short description"></b-form-input>
+	</div>
+	<span class="text-danger" v-if="errors.has('description')">Please
+		enter a short description</span> </b-form-group> <b-form-group id="amountGroup"
+		label="Amount">
+	<div class="input-group">
+		<span class="input-group-addon"><i class="fa fa-usd"></i></span>
+		<vue-numeric style="padding: 6px 10px;" separator=","
+			:empty-value="0.00" v-bind:precision="2" id="amount" name="amount"
+			v-model="form.amount"></vue-numeric>
+	</div>
+	</b-form-group> <b-form-group id="dateGroup" label="Date">
+	<div class="input-group">
+		<span class="input-group-addon"><i class="icon-calendar"></i></span>
+		<date-picker v-model="form.date" :config="dateConfig"></date-picker>
+	</div>
+	</b-form-group>
+	<div v-if="addError != ''" class="row alert alert-danger">{{
+		addError }}</div>
+	<b-button type="button" variant="primary" @click="addExpense">Save
+	changes</b-button> <b-button type="button" variant="secondary"
+		@click="closeAddExpense">Close</b-button> </b-form> </b-modal>
+
+	<b-modal v-model="settingsModal" hide-footer
+		title="Update Lab Settings">
+	<div class="alert alert-success text-center"
+		v-if="successMessage != ''">{{ successMessage }}</div>
+	<b-form @reset="populateLabSettingsModal"> <b-form-group
+		id="nameGroup" label="Name">
+	<div class="input-group">
+		<span class="input-group-addon"><i class="icon-chemistry"></i></span>
+		<b-form-input id="name" name="name" type="text"
+			v-model="labSettings.name" placeholder="Enter name"></b-form-input>
+	</div>
+	<span class="text-danger" v-if="errors.has('name')">Please enter
+		a valid name</span> </b-form-group> <b-form-group id="fieldGroup" label="Field">
+	<div class="input-group">
+		<span class="input-group-addon"><i class="icon-globe"></i></span>
+		<b-form-input id="field" type="text" name="field"
+			v-model="labSettings.field" placeholder="Enter field"></b-form-input>
+		<span class="text-danger" v-if="errors.has('field')">Please
+			enter a valid field</span>
+	</div>
+	</b-form-group> <b-form-group id="dateGroup" label="Start Date">
+	<div class="input-group">
+		<span class="input-group-addon"><i class="icon-calendar"></i></span>
+		<b-form-input id="startDate" type="text"
+			v-model="labSettings.startDate" readonly></b-form-input>
+	</div>
+	</b-form-group> <b-form-radio-group id="activeGroup" v-model="labSettings.active"
+		:options="activeOptions" name="activeGroup"> </b-form-radio-group>
+	<div v-if="unknownLabSettingsError != ''" class="row alert alert-error">
+		{{ unknownLabSettingsError }}</div>
+	<b-button type="button" variant="primary" @click="updateLabSettings">Save
+	Changes</b-button> <b-button type="button" variant="secondary"
+		@click="settingsModal = false">Close</b-button> </b-form> </b-modal>
 </div>
 </template>
 <script>
@@ -124,6 +129,7 @@ export default {
 		unknownLabSettingsError: '',
 		addExpenseModal: false,
 		addError: '',
+		successMessage: '',
 		director: false,
 		  staff: false,
 		labSettings: {
@@ -235,9 +241,18 @@ export default {
 				  date: this.form.date
 			  }).then(response => {
 				  if(response.data['status']) {
-					  this.closeAddExpense();
+					  this.successMessage = response.data['message'];
+					  var self = this;
+		  				setTimeout(function() {
+		  					self.closeAddExpense();
+		  					self.successMessage = '';
+						}, 2000);
 				  } else {
 					  this.addError = response.data['message'];
+					  var self = this;
+						setTimeout(function() {
+							self.addError = '';
+						}, 2000);
 				  }
 			  });
 		  }
@@ -283,13 +298,22 @@ export default {
     			})
     			.then(response => {
     				if(response.data['status']) {
-    					this.settingsModal = false;
+    					this.successMessage = response.data['message'];
+  	  				  var self = this;
+		  				setTimeout(function() {
+		  					self.settingsModal = false;
+		  					self.successMessage = '';
+						}, 2000);
     				} else {
     					this.$router.push('/login');
     				}
     			});
 		 } else {
   			this.unknownLabSettingsError = 'Error';
+  			var self = this;
+			setTimeout(function() {
+				self.unknownLabSettingsError = '';
+			}, 2000);
   		 }
     }
   }
@@ -297,7 +321,7 @@ export default {
 </script>
 
 <style lang="css">
-  .nav-link {
-    cursor:pointer;
-  }
+.nav-link {
+	cursor: pointer;
+}
 </style>

@@ -33,56 +33,71 @@ Route::post('/login', 'URLMS\AuthenticationController@login');
 Route::get('/logout', 'URLMS\AuthenticationController@logout');
 Route::post('/register', 'URLMS\AuthenticationController@register');
 
-//Labs
-Route::get('/labs/get', 'URLMS\MainController@getLabs');
-Route::post('/labs/add', 'URLMS\MainController@addLab');
-Route::post('/labs/enter', 'URLMS\MainController@enterLab');
-Route::get('/labs/clear', 'URLMS\MainController@clearLabs');
-Route::post('/labs/delete', 'URLMS\MainController@removeLab');
-Route::get('/labs/info', 'URLMS\ProfileInfoController@getCurrentLab');
-Route::post('/labs/updateLab', 'URLMS\MainController@updateLab');
+Route::group(['middleware' => 'auth:api'], function() {
+	//Director only pages
+	Route::group(['middleware' => 'role:Director'], function() {
+		//Labs
+		Route::post('/labs/add', 'URLMS\MainController@addLab');
+		Route::get('/labs/clear', 'URLMS\MainController@clearLabs');
+		Route::post('/labs/delete', 'URLMS\MainController@removeLab');
+		Route::post('/labs/updateLab', 'URLMS\MainController@updateLab');
+		
+		//Staff
+		Route::get('/staff/get', 'URLMS\MainController@getStaff');
+		Route::post('/staff/add', 'URLMS\MainController@addStaff');
+		Route::get('/staff/clear', 'URLMS\MainController@clearStaff');
+		Route::post('/staff/delete', 'URLMS\MainController@removeStaff');
+		Route::post('/staff/modify', 'URLMS\MainController@modifyStaff');
+		
+		//Expenses
+		Route::get('/expenses/get', 'URLMS\MainController@getExpenses');
+		
+		//Funding accounts
+		Route::get('/fundings/get', 'URLMS\MainController@getFundingAccounts');
+		Route::post('/fundings/add', 'URLMS\MainController@addFundingAccount');
+		Route::post('/fundings/modify', 'URLMS\MainController@modifyFundingAccount');
+		Route::post('/fundings/delete', 'URLMS\MainController@removeFundingAccount');
+	});
+	
+	//Staff only pages
+	Route::group(['middleware' => 'role:Staff'], function() {
+		//Weekly progress
+		Route::post('/progress/add', 'URLMS\MainController@addWeeklyProgress');
+	});
+	
+	//Labs
+	Route::get('/labs/get', 'URLMS\MainController@getLabs');
+	Route::post('/labs/enter', 'URLMS\MainController@enterLab');
+	Route::get('/labs/info', 'URLMS\ProfileInfoController@getCurrentLab');
 
-//Staff
-Route::get('/staff/get', 'URLMS\MainController@getStaff');
-Route::post('/staff/add', 'URLMS\MainController@addStaff');
-Route::get('/staff/clear', 'URLMS\MainController@clearStaff');
-Route::post('/staff/delete', 'URLMS\MainController@removeStaff');
-Route::post('/staff/modify', 'URLMS\MainController@modifyStaff');
+	//User info
+	Route::get('/user/info', 'URLMS\ProfileInfoController@getCurrentUser');
+	Route::post('/user/updatePassword', 'URLMS\ProfileInfoController@updatePassword');
+	Route::post('/user/updateProfile', 'URLMS\ProfileInfoController@updateProfile');
+	
+	//Expenses
+	Route::post('/expenses/add', 'URLMS\MainController@addExpenses');
+	
+	//Equipment
+	Route::get('/equipment/get', 'URLMS\MainController@getEquipment');
+	Route::get('/equipment/clear', 'URLMS\MainController@clearEquipment');
+	Route::post('/equipment/add', 'URLMS\MainController@addEquipment');
+	Route::post('/equipment/modify', 'URLMS\MainController@modifyEquipment');
+	Route::post('/equipment/delete', 'URLMS\MainController@removeEquipment');
+	
+	//Supplies
+	Route::get('/supplies/get', 'URLMS\MainController@getSupplies');
+	Route::get('/supplies/clear', 'URLMS\MainController@clearSupplies');
+	Route::post('/supplies/add', 'URLMS\MainController@addSupplies');
+	Route::post('/supplies/modify', 'URLMS\MainController@modifySupplies');
+	Route::post('/supplies/delete', 'URLMS\MainController@removeSupplies');
+	
+	//Weekly progress
+	Route::get('/progress/get', 'URLMS\MainController@getWeeklyProgress');
+});
 
-//User info
-Route::get('/user/info', 'URLMS\ProfileInfoController@getCurrentUser');
-Route::post('/user/updatePassword', 'URLMS\ProfileInfoController@updatePassword');
-Route::post('/user/updateProfile', 'URLMS\ProfileInfoController@updateProfile');
-
-//Equipment
-Route::get('/equipment/get', 'URLMS\MainController@getEquipment');
-Route::get('/equipment/clear', 'URLMS\MainController@clearEquipment');
-Route::post('/equipment/add', 'URLMS\MainController@addEquipment');
-Route::post('/equipment/modify', 'URLMS\MainController@modifyEquipment');
-Route::post('/equipment/delete', 'URLMS\MainController@removeEquipment');
-
-//Supplies
-Route::get('/supplies/get', 'URLMS\MainController@getSupplies');
-Route::get('/supplies/clear', 'URLMS\MainController@clearSupplies');
-Route::post('/supplies/add', 'URLMS\MainController@addSupplies');
-Route::post('/supplies/modify', 'URLMS\MainController@modifySupplies');
-Route::post('/supplies/delete', 'URLMS\MainController@removeSupplies');
-
-//Weekly progress
-Route::get('/progress/get', 'URLMS\MainController@getWeeklyProgress');
-Route::post('/progress/add', 'URLMS\MainController@addWeeklyProgress');
-
-//Expenses
-Route::get('/expenses/get', 'URLMS\MainController@getExpenses');
-Route::post('/expenses/add', 'URLMS\MainController@addExpenses');
-
-//Funding accounts
-Route::get('/fundings/get', 'URLMS\MainController@getFundingAccounts');
-Route::post('/fundings/add', 'URLMS\MainController@addFundingAccount');
-Route::post('/fundings/modify', 'URLMS\MainController@modifyFundingAccount');
-Route::post('/fundings/delete', 'URLMS\MainController@removeFundingAccount');
-
-Route::get('/{vue_capture?}', function () {
-    
-    return view('coreui');
-})->where('vue_capture', '[\/\w\.-]*');
+Route::group(['middleware' => 'auth:coreui'], function() {
+	Route::get('/{vue_capture?}', function () {
+	    return view('coreui');
+	})->where('vue_capture', '[\/\w\.-]*');
+});

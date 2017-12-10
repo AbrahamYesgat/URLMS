@@ -13,6 +13,7 @@
 	        		</div>
         		<div class="row top5">
         			<div class="col">
+        				<div class="alert alert-success text-center" v-if="successMessage != ''"> {{ successMessage }} </div>
 		        		<table class="table table-striped table-hover" v-if="fundingAccounts > 0">
 		        			<thead>
 		        				<tr>
@@ -33,7 +34,7 @@
 		        				</tr>
 		        			</tbody>
 		        		</table>
-		        		<div class="alert alert-primary text-center" v-else> None :( </div>
+		        		<div class="alert alert-info text-center" v-else> None :( </div>
 		        	</div>
 	        		</div>
 	        	</div>
@@ -98,6 +99,7 @@ export default {
 		  addFundingAccountModal: false,
 		  addFundingAccountModalError: '',
 		  modifyFundingAccountModalError: '',
+		  successMessage: '',
 		  modifyFundingAccountModal: false,
 		  fundingAccounts: [
 		  ],
@@ -151,8 +153,17 @@ export default {
 				 if(response.data['status']) {
 					 this.populateFundingAccounts();
 					 this.modifyFundingAccountModal = false;
+					 this.successMessage = response.data['message'];
+					 var self = this;
+	  				  setTimeout(function() {
+	  						self.successMessage = '';
+						}, 5000); 
 				 } else {
 					 this.modifyFundingAccountModalError = response.data['message'];
+					 var self = this;
+						setTimeout(function() {
+							self.modifyFundingAccountModalError = '';
+						}, 2000);
 				 }
 			  });
 		  }
@@ -170,6 +181,11 @@ export default {
 			  if(response.data['status']) {
 					 this.populateFundingAccounts();
 					 this.closeAddFundingAccount();
+					 this.successMessage = response.data['message'];
+					 var self = this;
+	  				  setTimeout(function() {
+	  						self.successMessage = '';
+						}, 5000); 
 				 }
 		  });
 	  },
@@ -182,8 +198,17 @@ export default {
 				 if(response.data['status']) {
 					 this.populateFundingAccounts();
 					 this.closeAddFundingAccount();
+					 this.successMessage = response.data['message'];
+					 var self = this;
+	  				  setTimeout(function() {
+	  						self.successMessage = '';
+						}, 5000); 
 				 } else {
 					 this.addFundingAccountModalError = response.data['message'];
+					 var self = this;
+						setTimeout(function() {
+							self.addFundingAccountModalError = '';
+						}, 2000);
 				 }
 			  });
 		  }

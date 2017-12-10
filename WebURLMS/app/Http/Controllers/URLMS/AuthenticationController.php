@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers\URLMS;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Exception;
-use App\Http\Controllers\URLMS\Model\Director;
-use App\Http\Controllers\URLMS\Model\Staff;
-use App\Http\Controllers\URLMS\Model\StaffRole;
 
-class MainController extends URLMSController {
+class AuthenticationController extends URLMSController {
 	public function login(Request $request) {
 		$this->updateCurrent ( $request );
-		$email = $request->input ( 'email' );
+		$email = $this->cleanString($request->input ( 'email' ));
 		$password = $request->input ( 'password' );
 		
 		$labs = $this->urlms->getLaboratories ();
@@ -23,6 +19,7 @@ class MainController extends URLMSController {
 				
 				$request->session ()->put ( 'logged-in', true );
 				$request->session ()->put ( 'email', $email );
+				$request->session ()->put ( 'director', true );
 				
 				return response ()->json ( [ 
 						'status' => true 
@@ -42,6 +39,7 @@ class MainController extends URLMSController {
 						
 						$request->session ()->put ( 'logged-in', true );
 						$request->session ()->put ( 'email', $email );
+						$request->session ()->put ( 'director', false );
 						
 						return response ()->json ( [ 
 								'status' => true 
@@ -57,8 +55,8 @@ class MainController extends URLMSController {
 	}
 	public function register(Request $request) {
 		$this->updateCurrent ( $request );
-		$name = $request->input ( 'name' );
-		$email = $request->input ( 'email' );
+		$name = $this->cleanString($request->input ( 'name' ));
+		$email = $this->cleanString($request->input ( 'email' ));
 		$password = $request->input ( 'password' );
 		
 		if ($name == null || $name == '' || $email == null || $email == '' || $password == null || $password == '') {
@@ -89,6 +87,8 @@ class MainController extends URLMSController {
 		
 		$request->session ()->put ( 'logged-in', true );
 		$request->session ()->put ( 'email', $email );
+		$request->session ()->put ( 'director', true );
+		
 		return response ()->json ( [ 
 				'status' => true,
 				'name' => $name 
@@ -97,7 +97,7 @@ class MainController extends URLMSController {
 	public function logout(Request $request) {
 		$this->updateCurrent ( $request );
 		PersistenceController::saveModel($this->urlms);
-        $request->session()->forget(['logged-in', 'email', 'labName']);
+        $request->session()->forget(['logged-in', 'email', 'labName', 'director']);
         
         return response()->json(['status' => true]);
     }

@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\URLMS;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Exception;
+use Illuminate\Http\Request;;
 use App\Http\Controllers\URLMS\Model\Director;
 use App\Http\Controllers\URLMS\Model\Staff;
 use App\Http\Controllers\URLMS\Model\StaffRole;
@@ -85,6 +83,27 @@ class ProfileInfoController extends URLMSController {
 		$role = $request->input ( 'role' );
 		
 		$this->currentUser->setName ( $name );
+		
+		foreach ( $this->urlms->getLaboratories () as $lab ) {
+			foreach ( $lab->getStaffs () as $staff ) {
+				if ($staff->getEmail () == $email) {
+					return response ()->json ( [
+							'status' => false,
+							'message' => 'Another user already has this email'
+					] );
+				}
+			}
+		}
+		
+		foreach ( $this->urlms->getDirectors () as $dir ) {
+			if ($dir->getEmail () == $email) {
+				return response ()->json ( [
+						'status' => false,
+						'message' => 'Another user already has this email'
+				] );
+			}
+		}
+		
 		$this->currentUser->setEmail ( $email );
 		
 		if ($this->isUserStaff ()) {
