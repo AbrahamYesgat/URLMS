@@ -108,7 +108,7 @@ export default {
 					this.profile.previousPassword = '';
 					this.profile.password = '';
 				} else {
-					this.$router.replace('/login');
+					this.$router.push('/login');
 				}
 			});
     },
