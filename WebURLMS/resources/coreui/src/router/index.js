@@ -40,7 +40,7 @@ export default new Router({
 					component: Overview
 				},
 				{
-					path: '/lab',
+					path: 'lab',
 					redirect: '/',
 					name: 'Laboratory',
 					component: {
@@ -65,7 +65,7 @@ export default new Router({
 					]
 				},
 				{
-					path: '/admin',
+					path: 'admin',
 					redirect: '/admin/summary',
 					name: 'Administration',
 					component: {

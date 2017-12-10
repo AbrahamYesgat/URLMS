@@ -15,6 +15,11 @@ export default {
       default: () => []
     }
   },
+  created: function() {
+	if(this.list.length > 0) {
+	  	this.list[0].path = '/';  
+	}
+  },
   methods: {
     isLast (index) {
       return index === this.list.length - 1

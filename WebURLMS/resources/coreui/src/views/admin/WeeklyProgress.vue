@@ -4,16 +4,16 @@
     <div class="row">
       <div class="col">
  		<div class="card">
-        		<div class="card-header"> Reports </div>
+        		<div class="card-header"><a href="/admin/weekly_progress">Reports</a></div>
         		<div class="card-body">
-	        		<div v-if="editable" class="row">
+	        		<div v-if="editable && staff" class="row">
 	        			<div class="col">
 	        				<b-button type="button" variant="success" @click="showAddReportModal">Add Report</b-button>
 	        			</div>
 	        		</div>
-        		<div class="row">
+        		<div class="row top5">
         			<div class="col">
-		        		<table class="table table-striped table-hover">
+		        		<table class="table table-striped table-hover" v-if="reports.length > 0">
 		        			<thead>
 		        				<tr>
 		        					<td>#</td>
@@ -33,6 +33,7 @@
 		        				</tr>
 		        			</tbody>
 		        		</table>
+		        		<div class="alert alert-primary text-center" v-else> None :( </div>
 		        	</div>
 	        		</div>
 	        	</div>
@@ -44,14 +45,17 @@
 <b-modal v-model="addReportModal" hide-footer title="Add Report">
       <b-form @reset="resetAddReportModal">
       <b-form-group id="titleGroup" label="Title">
+      <div class="input-group">
+         <span class="input-group-addon"><i class="icon-chart"></i></span>
       	<b-form-input id="title" name="title" type="text" v-model="form.title" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('title') }" placeholder="Enter title"></b-form-input>
+      	</div>
       	<span class="text-danger" v-if="errors.has('title')">Please enter a title</span>
       </b-form-group>
       <b-form-group id="reportGroup" label="Report">
       	<b-form-textarea style="min-height:250px;" id="report" name="report" v-model="form.report" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('report') }" placeholder="Enter report"></b-form-textarea>
       	<span class="text-danger" v-if="errors.has('report')" >Please enter the report</span>
       </b-form-group>
-      <div class="text-danger"> {{ addReportError }} </div>
+      <div v-if="addReportError != ''" class="row alert alert-danger"> {{ addReportError }} </div>
      <b-button type="button" variant="primary" @click="addReport">Save changes</b-button>
      <b-button type="button" variant="secondary" @click="closeAddReport">Close</b-button>
 	</b-form>
@@ -74,6 +78,8 @@ export default {
 	  return {
 		  addReportModal: false,
 		  viewReportModal: false,
+		  director: false,
+		  staff: false,
 		  addReportError: '',
 		  form: {
 			  title: '',
@@ -97,8 +103,23 @@ export default {
   },
   mounted : function(){
 		this.populateReports();
+		this.updateLabStatus();
 	},
   methods: {
+	  updateLabStatus() {
+		  axios.get('/user/info')
+			.then(response => {
+				if(response.data['status']) {
+					if(response.data['director']) {
+						this.director = true;
+						this.staff = false;
+					} else {
+						this.director = false;
+						this.staff = true;
+					}
+				}
+			});
+	  },
 	  populateReports() {
 		axios.get('/progress/get').then(response => {
 			if(response.data['status']) {

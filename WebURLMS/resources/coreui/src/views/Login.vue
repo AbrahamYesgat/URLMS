@@ -8,25 +8,29 @@
               <div class="card-body">
                 <h1>Login</h1>
                 <p class="text-muted">Sign In to your account</p>
-                <div class="row input-group mb-3">
+                <div class="row mb-3">
+                  <div class="input-group">
                   <span class="input-group-addon"><i class="icon-user"></i></span>
                   <b-form-input name="email" id="email" type="text" class="form-control" v-model="form.email" v-validate="'email'" :class="{'input': true, 'is-danger': errors.has('email') }" placeholder="Email"></b-form-input>
+                	  </div>
+                	  <span class="text-danger" v-if="errors.has('email')">Please enter a valid email</span>
                 </div>
                 
-                <div class="row input-group mb-4">
+                <div class="row mb-3">
+                <div class="input-group">
                   <span class="input-group-addon"><i class="icon-lock"></i></span>
                   <input type="password" class="form-control" v-model="form.password" placeholder="Password">
                   </div>
-                
-                <div class="row">
-                		<span class="text-danger" v-if="errors.has('email')">Please enter a valid email</span>
-                    <span v-if="loginError" class="text-danger">Bad email/password combination</span>
-                </div>
-                
+                  </div>
+                  
                 <div class="row">
                   <div class="col-6">
                     <button type="button" @click="loginClicked" class="btn btn-primary px-4">Login</button>
                   </div>
+                </div>
+                
+                <div v-if="loginError" class="alert alert-danger top5">
+                    <span v-if="loginError">Bad email/password combination</span>
                 </div>
               </div>
             </div>
@@ -34,7 +38,7 @@
               <div class="card-body text-center">
                 <div>
                   <h2>Sign up</h2>
-                  <p>If you are a laboratory director and don't have an account yet, please click the button below. Otherwise, ask your directory to give you your login info to enter your laboratory system.</p>
+                  <p>If you are a laboratory director and don't have an account yet, please click the button below. Otherwise, ask your directory to give you your login information to enter the laboratory management system.</p>
                   <button type="button" class="btn btn-primary active mt-3" @click="register">Register Now!</button>
                 </div>
               </div>

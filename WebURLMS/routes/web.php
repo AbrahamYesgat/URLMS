@@ -29,9 +29,9 @@ Route::get('/', function () {
  */
 
 //Autentification
-Route::post('/login', 'URLMS\MainController@login');
-Route::get('/logout', 'URLMS\MainController@logout');
-Route::post('/register', 'URLMS\MainController@register');
+Route::post('/login', 'URLMS\AuthenticationController@login');
+Route::get('/logout', 'URLMS\AuthenticationController@logout');
+Route::post('/register', 'URLMS\AuthenticationController@register');
 
 //Labs
 Route::get('/labs/get', 'URLMS\MainController@getLabs');
@@ -39,7 +39,7 @@ Route::post('/labs/add', 'URLMS\MainController@addLab');
 Route::post('/labs/enter', 'URLMS\MainController@enterLab');
 Route::get('/labs/clear', 'URLMS\MainController@clearLabs');
 Route::post('/labs/delete', 'URLMS\MainController@removeLab');
-Route::get('/labs/info', 'URLMS\MainController@getCurrentLab');
+Route::get('/labs/info', 'URLMS\ProfileInfoController@getCurrentLab');
 Route::post('/labs/updateLab', 'URLMS\MainController@updateLab');
 
 //Staff
@@ -50,9 +50,9 @@ Route::post('/staff/delete', 'URLMS\MainController@removeStaff');
 Route::post('/staff/modify', 'URLMS\MainController@modifyStaff');
 
 //User info
-Route::get('/user/info', 'URLMS\MainController@getCurrentUser');
-Route::post('/user/updatePassword', 'URLMS\MainController@updatePassword');
-Route::post('/user/updateProfile', 'URLMS\MainController@updateProfile');
+Route::get('/user/info', 'URLMS\ProfileInfoController@getCurrentUser');
+Route::post('/user/updatePassword', 'URLMS\ProfileInfoController@updatePassword');
+Route::post('/user/updateProfile', 'URLMS\ProfileInfoController@updateProfile');
 
 //Equipment
 Route::get('/equipment/get', 'URLMS\MainController@getEquipment');

@@ -50,7 +50,7 @@ export default {
 	    },
 	    {
 	        name: 'Expenses',
-	        url: '/admin/expenses',
+	        url: '#',
 	        icon: 'icon-calculator'
 	    },
 	    {

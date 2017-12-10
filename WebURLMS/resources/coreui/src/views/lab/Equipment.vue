@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col">
  		<div class="card">
-        		<div class="card-header"> Equipment </div>
+        		<div class="card-header"><a href="/lab/equipment">Equipment</a></div>
         		<div class="card-body">
 	        		<div v-if="editable" class="row">
 	        			<div class="col">
@@ -12,9 +12,9 @@
 	        				<b-button type="button" variant="danger" @click="openClearEquipmentModal">Clear Equipment</b-button>
 	        			</div>
 	        		</div>
-        		<div class="row">
+        		<div class="row top5">
         			<div class="col">
-		        		<table class="table table-striped table-hover">
+		        		<table class="table table-striped table-hover" v-if="equipment.length > 0">
 		        			<thead>
 		        				<tr>
 		        					<td>#</td>
@@ -34,6 +34,7 @@
 		        				</tr>
 		        			</tbody>
 		        		</table>
+		        		<div class="alert alert-primary text-center" v-else> None :( </div>
 		        	</div>
 	        		</div>
 	        	</div>
@@ -45,15 +46,21 @@
  <b-modal v-model="addEquipmentModal" hide-footer title="Add Equipment">
       <b-form @reset="resetAddEquipmentModal">
       <b-form-group id="nameGroup" label="Name">
+        <div class="input-group">
+         <span class="input-group-addon"><i class="icon-wrench"></i></span>
         <b-form-select id="nameSelectable" @change.native="onChangeNameSelectable" name="nameSelectable" :options="names" v-model="form.selectableName"></b-form-select>
       	<b-form-input id="name" name="name" type="text" v-model="form.name" v-validate="'required'" :disabled="!activeOtherBox" :class="{'input': true, 'is-danger': errors.has('name') }" :placeholder="addEquipmentPlaceHolder"></b-form-input>
+      	</div>
       	<span class="text-danger" v-if="errors.has('name') || nameError">Please enter an equipment name</span>
       </b-form-group>
       <b-form-group id="qtyGroup" label="Quantity">
+        <div class="input-group">
+         <span class="input-group-addon"><i class="icon-layers"></i></span>
       	<b-form-input id="qty" type="number" name="qty" v-validate="'required|numeric'" :class="{'input': true, 'is-danger': errors.has('qty') }" v-model="form.qty" ></b-form-input>
+      	</div>
       	<span class="text-danger" v-if="errors.has('qty')">Please enter a valid quantity</span>
       </b-form-group>
-      <span class="text-danger">{{ addError }}</span>
+      <div v-if="addError != ''" class="row alert alert-danger">{{ addError }}</div>
      <b-button type="button" variant="primary" @click="addEquipment">Save changes</b-button>
      <b-button type="button" variant="secondary" @click="closeAddEquipment">Close</b-button>
 	</b-form>
@@ -62,13 +69,19 @@
   <b-modal v-model="modifyEquipmentModal" hide-footer title="Modify Equipment">
       <b-form @reset="resetModifyEquipmentModal">
       <b-form-group id="nameGroup_2" label="Name">
+      	<div class="input-group">
+         <span class="input-group-addon"><i class="icon-wrench"></i></span>
       	<b-form-input id="name_2" name="name" type="text" v-model="modify.name" readOnly></b-form-input>
+      	</div>
       </b-form-group>
       <b-form-group id="qtyGroup_2" label="Quantity">
+      	<div class="input-group">
+         <span class="input-group-addon"><i class="icon-layers"></i></span>
       	<b-form-input id="qty_2" type="number" name="qty" v-validate="'required|numeric'" :class="{'input': true, 'is-danger': errors.has('qty') }" v-model="modify.qty" ></b-form-input>
+        </div>
         <span class="text-danger" v-if="errors.has('qty')">Please enter a valid quantity</span>
       </b-form-group>
-      <span class="text-danger">{{ modifyUnknownError }}</span>
+      <div v-if="modifyUnknownError != ''" class="row alert alert-danger">{{ modifyUnknownError }}</div>
      <b-button type="button" variant="primary" @click="modifyEquipment">Save changes</b-button>
      <b-button type="button" variant="secondary" @click="closeModifyEquipment">Close</b-button>
 	</b-form>
@@ -209,7 +222,7 @@ export default {
 			  
 			  axios.post('/equipment/add', {
 				  name: this.form.name,
-				  qty: this.form.qty
+				  qty: parseInt(this.form.qty)
 			  }).then(response => {
 				 if(response.data['status']) {
 					 this.populateEquipment();

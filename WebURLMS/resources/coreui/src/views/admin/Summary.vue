@@ -1,13 +1,13 @@
 <template>
 <div>
   <div class="animated fadeIn">
-    <div class="row">
+    <div v-if="director"  class="row">
       <div class="col">
         <Expenses :editable=false></Expenses>
       </div>
     </div>
   
-  <div class="row">
+  <div v-if="director"  class="row">
       <div class="col">
         <FundingAccounts :editable=false></FundingAccounts>
       </div>
@@ -29,10 +29,35 @@ import WeeklyProgress from './WeeklyProgress';
 
 export default {
   name: 'summary',
+  data() {
+	  return {
+		  director: false,
+		  staff: false
+	  }
+  },
   components: {
 	  Expenses,
 	  FundingAccounts,
 	  WeeklyProgress
+  },
+  mounted: function() {
+	  this.updateLabStatus();
+  },
+  methods: {
+	  updateLabStatus() {
+		  axios.get('/user/info')
+			.then(response => {
+				if(response.data['status']) {
+					if(response.data['director']) {
+						this.director = true;
+						this.staff = false;
+					} else {
+						this.director = false;
+						this.staff = true;
+					}
+				}
+			});
+	  }
   }
 }
 </script>

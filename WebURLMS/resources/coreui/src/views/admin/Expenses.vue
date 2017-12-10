@@ -4,16 +4,16 @@
     <div class="row">
       <div class="col">
  		<div class="card">
-        		<div class="card-header"> Expenses </div>
+        		<div class="card-header"><a href="/admin/expenses">Expenses</a></div>
         		<div class="card-body">
 	        		<div v-if="editable" class="row">
 	        			<div class="col">
 	        				<b-button type="button" variant="success" @click="showAddExpenseModal">Add Expense</b-button>
 	        			</div>
 	        		</div>
-        		<div class="row">
+        		<div class="row top5">
         			<div class="col">
-		        		<table class="table table-striped table-hover">
+		        		<table class="table table-striped table-hover" v-if="expenses.length > 0">
 		        			<thead>
 		        				<tr>
 		        					<td>#</td>
@@ -31,6 +31,7 @@
 		        				</tr>
 		        			</tbody>
 		        		</table>
+		        		<div class="alert alert-primary text-center" v-else> None :( </div>
 		        	</div>
 	        		</div>
 	        	</div>
@@ -42,16 +43,25 @@
 	<b-modal v-model="addExpenseModal" hide-footer title="Add Expense">
       <b-form @reset="resetAddExpenseModal">
       <b-form-group id="descriptionGroup" label="Description">
+        <div class="input-group">
+         <span class="input-group-addon"><i class="icon-calculator"></i></span>
       	<b-form-input id="description" name="description" v-model="form.description" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('description') }" placeholder="Enter short description"></b-form-input>
+      	</div>
       	<span class="text-danger" v-if="errors.has('description')" >Please enter a short description</span>
       </b-form-group>
       <b-form-group id="amountGroup" label="Amount">
-      	<vue-numeric currency="$" separator="," :empty-value="0.00"  v-bind:precision="2" id="amount" name="amount" v-model="form.amount"></vue-numeric>
+      	<div class="input-group">
+         <span class="input-group-addon"><i class="fa fa-usd"></i></span>
+      	<vue-numeric style="padding: 6px 10px;" separator="," :empty-value="0.00"  v-bind:precision="2" id="amount" name="amount" v-model="form.amount"></vue-numeric>
+        </div>
       </b-form-group>
       <b-form-group id="dateGroup" label="Date">
+      <div class="input-group">
+         <span class="input-group-addon"><i class="icon-calendar"></i></span>
       	<date-picker v-model="form.date" :config="dateConfig"></date-picker>
+      	</div>
       </b-form-group>
-      <div class="text-danger">{{ addError }}</div>
+      <div v-if="addError != ''" class="row alert alert-danger">{{ addError }}</div>
      <b-button type="button" variant="primary" @click="addExpense">Save changes</b-button>
      <b-button type="button" variant="secondary" @click="closeAddExpense">Close</b-button>
 	</b-form>
@@ -124,7 +134,7 @@ export default {
 		  if (!this.errors.any()) {
 			  axios.post('/expenses/add', {
 				  description: this.form.description,
-				  amount: this.form.amount,
+				  amount: parseFloat(this.form.amount),
 				  date: this.form.date
 			  }).then(response => {
 				  if(response.data['status']) {
