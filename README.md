@@ -12,31 +12,48 @@ NOTE TO GRADER: If you can't manage to run the application, please send an email
 
 Note: This is not an exhaustive tutorial in any sense to show how to run the php application, it is there to help the grader have an overview how to run it.
 
-* Step 1: 
-Make sure you have installed: npm, composer, php
-These tools have to be available in command line for the next steps to succeed
+1. Make sure you have installed: npm, composer, php.
+These tools have to be available in command line for the next steps to succeed.
 
-* Step 2: 
-In the WebURLMS folder, run
+2. In the WebURLMS folder, run
 ```$ composer install```.
-This will install any dependencies
+This will install any dependencies.
 
-* Step 3: 
-Again, in the same folder, run
+3. Again, in the same folder, run
 ```$ npm install```.
-This will install node modules
+This will install node modules.
 
-* Step 4:
-Now, everything should be install, but we need to generate an API key
+4. Now, everything should be install, but we need to generate an API key
 ``` 
 $ cp .env.example .env
 $ php artisan key:generate 
 ```
  
-* Step 5:
-Finally, build the application with
+5. Finally, build the application with
 ```$ npm run dev```
 and launch the server with
 ```$ php artisan serve```.
 
 The web application will be available at http://127.0.0.1:8000/
+
+----------------------------------
+HOW TO RUN ANDROID APPLICATION
+----------------------------------
+
+* Use build-tool version 26.0.2 or later
+* Use android SDK version 25 or later
+* Have java version 1.8 or later
+
+### Alternate method to run the application (using the apk)
+
+1. Run the emulator and wait until it has fully started. 
+
+2. Locate the URLMS.apk in the /appURLMS folder
+
+3. Place the apk file in the skd/platform-tools sub-folder of where the emulator was installed (ex: ~/Library/Android/sdk/platform-tools/ was where mine was located).
+
+4.a. Open command line and enter the following command ```$ ./adb install "URLMS.apk" ```. (success message should appear on completion)
+
+4.b. On windows simply use ```adb install "URLMS.apk"``` to install the app.
+
+5. The app shouldl appear the application menu of the emulator. 
