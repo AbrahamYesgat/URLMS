@@ -1,7 +1,9 @@
 # Group 1 - University Research Lab Management System
 
 Status:
-[![Build Status](https://travis-ci.com/ECSE321-Fall2017/P1.svg?token=t5kUxHm2St2Da9kDdoZM&branch=master)](https://travis-ci.com/ECSE321-Fall2017/P1)
+[![Build Status](https://travis-ci.com/ECSE321-Fall2017/P1.svg?token=t5kUxHm2St2Da9kDdoZM&branch=master)](https://travis-ci.com/ECSE321-Fall2017/P1) </br>
+Each application is seperated in the corresponding folder. 
+AppURLMS contains the android app, WebURLMS contains the web app and DesktopURLMS contains the desktop app. 
 
 ----------------------------------
 HOW TO RUN WEB APPLICATION
