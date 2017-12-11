@@ -13,14 +13,14 @@ use App\Http\Controllers\URLMS\Model\StaffRole;
 class MainController extends URLMSController {
 	/**
 	 * Add laboratory
-	 * @param Request $request 
-	 * ['name': lab name,
-	 * 'field', lab field name,
-	 * 'data': start date of lab,
-	 * 'active': if lab is 'Active' or 'Unactive']
-	 * @return
-	 * ['status': true if lab was created,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 *        	['name': lab name,
+	 *        	'field', lab field name,
+	 *        	'data': start date of lab,
+	 *        	'active': if lab is 'Active' or 'Unactive']
+	 * @return ['status': true if lab was created,
+	 *         'message': response message]
 	 */
 	public function addLab(Request $request) {
 		$this->updateCurrent ( $request );
@@ -75,11 +75,11 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Remove laboratory
-	 * @param Request $request 
-	 * ['name': name of lab to remove]
-	 * @return
-	 * ['status': true if lab was removed,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 *        	['name': name of lab to remove]
+	 * @return ['status': true if lab was removed,
+	 *         'message': response message]
 	 */
 	public function removeLab(Request $request) {
 		$this->updateCurrent ( $request );
@@ -123,10 +123,10 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Clear labs
-	 * @param Request $request 
-	 * @return type
-	 * ['status': true if labs were cleared,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 * @return type ['status': true if labs were cleared,
+	 *         'message': response message]
 	 */
 	public function clearLabs(Request $request) {
 		$this->updateCurrent ( $request );
@@ -161,11 +161,11 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Enter lab
-	 * @param Request $request 
-	 * ['name': name of lab to enter]
-	 * @return
-	 * ['status': true if lab was entered,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 *        	['name': name of lab to enter]
+	 * @return ['status': true if lab was entered,
+	 *         'message': response message]
 	 */
 	public function enterLab(Request $request) {
 		$this->updateCurrent ( $request );
@@ -197,13 +197,13 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Update laboratory information
+	 * 
 	 * @param Request $request
-	 * ['newName': new name of current lab,
-	 * 'field': new field of current lab.
-	 * 'active': 'Active' or 'Unactive']
-	 * @return
-	 * ['status': whether lab info was updated or not,
-	 * 'message': response message]
+	 *        	['newName': new name of current lab,
+	 *        	'field': new field of current lab.
+	 *        	'active': 'Active' or 'Unactive']
+	 * @return ['status': whether lab info was updated or not,
+	 *         'message': response message]
 	 */
 	public function updateLab(Request $request) {
 		$this->updateCurrent ( $request );
@@ -235,11 +235,11 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Get laboratories of current user
-	 * @param Request $request 
-	 * @return
-	 * ['status': true if labs were found,
-	 * 'message': error message,
-	 * 'labs': (success) labs]
+	 * 
+	 * @param Request $request
+	 * @return ['status': true if labs were found,
+	 *         'message': error message,
+	 *         'labs': (success) labs]
 	 */
 	public function getLabs(Request $request) {
 		$this->updateCurrent ( $request );
@@ -270,11 +270,11 @@ class MainController extends URLMSController {
 	
 	/**
 	 * Get staff members of lab
-	 * @param Request $request 
-	 * @return
-	 * ['status': true if members were found,
-	 * 'message': response message,
-	 * 'staff': (success) staff members]
+	 * 
+	 * @param Request $request
+	 * @return ['status': true if members were found,
+	 *         'message': response message,
+	 *         'staff': (success) staff members]
 	 */
 	public function getStaff(Request $request) {
 		$this->updateCurrent ( $request );
@@ -310,14 +310,14 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Add staff members
-	 * @param Request $request 
-	 * ['name': name,
-	 * 'email': email,
-	 * 'role': 0 (ResearchAssociate) or 1 (ResearchAssistant),
-	 * 'password': password]
-	 * @return type
-	 * ['status': true if staff member was added,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 *        	['name': name,
+	 *        	'email': email,
+	 *        	'role': 0 (ResearchAssociate) or 1 (ResearchAssistant),
+	 *        	'password': password]
+	 * @return type ['status': true if staff member was added,
+	 *         'message': response message]
 	 */
 	public function addStaff(Request $request) {
 		$this->updateCurrent ( $request );
@@ -380,10 +380,10 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Clear all staff members of current lab
-	 * @param Request $request 
-	 * @return
-	 * ['status': true if staff members were cleared,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 * @return ['status': true if staff members were cleared,
+	 *         'message': response message]
 	 */
 	public function clearStaff(Request $request) {
 		$this->updateCurrent ( $request );
@@ -412,11 +412,11 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Remove staff member from lab
-	 * @param Request $request 
-	 * ['email': email of staff member to remove from lab]
-	 * @return 
-	 * ['status': true if staff member was removed from lab,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 *        	['email': email of staff member to remove from lab]
+	 * @return ['status': true if staff member was removed from lab,
+	 *         'message': response message]
 	 */
 	public function removeStaff(Request $request) {
 		$this->updateCurrent ( $request );
@@ -452,15 +452,15 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Modify staff information
-	 * @param Request $request 
-	 * ['prevEmail': previous email,
-	 * 'email': new email,
-	 * 'name': new name,
-	 * 'role': new role,
-	 * 'password': new password]
-	 * @return
-	 * ['status': true if staff was modified,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 *        	['prevEmail': previous email,
+	 *        	'email': new email,
+	 *        	'name': new name,
+	 *        	'role': new role,
+	 *        	'password': new password]
+	 * @return ['status': true if staff was modified,
+	 *         'message': response message]
 	 */
 	public function modifyStaff(Request $request) {
 		$this->updateCurrent ( $request );
@@ -504,11 +504,11 @@ class MainController extends URLMSController {
 	
 	/**
 	 * Get supplies
-	 * @param Request $request 
-	 * @return
-	 * ['status': true if lab found,
-	 * 'message': response message,
-	 * 'supplies': (success) lab supplies]
+	 * 
+	 * @param Request $request
+	 * @return ['status': true if lab found,
+	 *         'message': response message,
+	 *         'supplies': (success) lab supplies]
 	 */
 	public function getSupplies(Request $request) {
 		$this->updateCurrent ( $request );
@@ -536,10 +536,10 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Clear supplies of lab
-	 * @param Request $request 
-	 * @return
-	 * ['status': true if supplies were cleared,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 * @return ['status': true if supplies were cleared,
+	 *         'message': response message]
 	 */
 	public function clearSupplies(Request $request) {
 		$this->updateCurrent ( $request );
@@ -562,12 +562,12 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Add supplies to lab
-	 * @param Request $request 
-	 * ['name': Name of supply,
-	 * 'qty': Quantity of supply to add]
-	 * @return
-	 * ['status': true if supply was added,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 *        	['name': Name of supply,
+	 *        	'qty': Quantity of supply to add]
+	 * @return ['status': true if supply was added,
+	 *         'message': response message]
 	 */
 	public function addSupplies(Request $request) {
 		$this->updateCurrent ( $request );
@@ -601,12 +601,12 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Modify supply quantity
+	 * 
 	 * @param Request $request
-	 * ['name': name of supply to modify,
-	 * 'qty': new quantity] 
-	 * @return
-	 * ['status': true if supply was modified,
-	 * 'message': response message]
+	 *        	['name': name of supply to modify,
+	 *        	'qty': new quantity]
+	 * @return ['status': true if supply was modified,
+	 *         'message': response message]
 	 */
 	public function modifySupplies(Request $request) {
 		$this->updateCurrent ( $request );
@@ -638,11 +638,11 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Remove supply from lab
-	 * @param Request $request 
-	 * ['name': name of supply to remove]
-	 * @return
-	 * ['status': true if supply was removed,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 *        	['name': name of supply to remove]
+	 * @return ['status': true if supply was removed,
+	 *         'message': response message]
 	 */
 	public function removeSupplies(Request $request) {
 		$this->updateCurrent ( $request );
@@ -674,11 +674,11 @@ class MainController extends URLMSController {
 	
 	/**
 	 * Get all equipments
-	 * @param Request $request 
-	 * @return
-	 * ['status': true if equipments were retrieved,
-	 * 'message': response message,
-	 * 'equipment': (success) equipments]
+	 * 
+	 * @param Request $request
+	 * @return ['status': true if equipments were retrieved,
+	 *         'message': response message,
+	 *         'equipment': (success) equipments]
 	 */
 	public function getEquipment(Request $request) {
 		$this->updateCurrent ( $request );
@@ -706,10 +706,10 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Clear all equipments
-	 * @param Request $request 
-	 * @return
-	 * ['status': true if all equipments were cleared,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 * @return ['status': true if all equipments were cleared,
+	 *         'message': response message]
 	 */
 	public function clearEquipment(Request $request) {
 		$this->updateCurrent ( $request );
@@ -732,12 +732,12 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Add equipment to lab
+	 * 
 	 * @param Request $request
-	 * ['name': name of equipment,
-	 * 'qty': quantity to add] 
-	 * @return
-	 * ['status': true if equipment was added,
-	 * 'message': response message]
+	 *        	['name': name of equipment,
+	 *        	'qty': quantity to add]
+	 * @return ['status': true if equipment was added,
+	 *         'message': response message]
 	 */
 	public function addEquipment(Request $request) {
 		$this->updateCurrent ( $request );
@@ -771,12 +771,12 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Modify equipment quantity
-	 * @param Request $request 
-	 * ['name': name of equipment to modify,
-	 * 'qty': new quantity]
-	 * @return
-	 * ['status': true if equipment was modified,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 *        	['name': name of equipment to modify,
+	 *        	'qty': new quantity]
+	 * @return ['status': true if equipment was modified,
+	 *         'message': response message]
 	 */
 	public function modifyEquipment(Request $request) {
 		$this->updateCurrent ( $request );
@@ -808,11 +808,11 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Remove equipment from lab
-	 * @param Request $request 
-	 * ['name': name of equipment to remove]
-	 * @return
-	 * ['status': true if equipment was removed,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 *        	['name': name of equipment to remove]
+	 * @return ['status': true if equipment was removed,
+	 *         'message': response message]
 	 */
 	public function removeEquipment(Request $request) {
 		$this->updateCurrent ( $request );
@@ -844,11 +844,11 @@ class MainController extends URLMSController {
 	
 	/**
 	 * Get all weekly progress reports
-	 * @param Request $request 
-	 * @return
-	 * ['status': true if reports were retrieved,
-	 * 'message': response message,
-	 * 'reports': (success) reports]
+	 * 
+	 * @param Request $request
+	 * @return ['status': true if reports were retrieved,
+	 *         'message': response message,
+	 *         'reports': (success) reports]
 	 */
 	public function getWeeklyProgress(Request $request) {
 		$this->updateCurrent ( $request );
@@ -877,12 +877,12 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Add weekly progress report
-	 * @param Request $request 
-	 * ['title': title of report,
-	 * 'report': actual content of the report]
-	 * @return
-	 * ['status': true if report was added,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 *        	['title': title of report,
+	 *        	'report': actual content of the report]
+	 * @return ['status': true if report was added,
+	 *         'message': response message]
 	 */
 	public function addWeeklyProgress(Request $request) {
 		$this->updateCurrent ( $request );
@@ -912,10 +912,10 @@ class MainController extends URLMSController {
 	
 	/**
 	 * Get lab expenses
-	 * @param Request $request 
-	 * @return
-	 * ['status': true if lab expenses were retrieved,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 * @return ['status': true if lab expenses were retrieved,
+	 *         'message': response message]
 	 */
 	public function getExpenses(Request $request) {
 		$this->updateCurrent ( $request );
@@ -950,13 +950,13 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Add lab expense
-	 * @param Request $request 
-	 * ['description': description of expense,
-	 * 'amount': amount of expense,
-	 * 'date': date of expense]
-	 * @return
-	 * ['status': true if expense was added,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 *        	['description': description of expense,
+	 *        	'amount': amount of expense,
+	 *        	'date': date of expense]
+	 * @return ['status': true if expense was added,
+	 *         'message': response message]
 	 */
 	public function addExpenses(Request $request) {
 		$this->updateCurrent ( $request );
@@ -982,11 +982,11 @@ class MainController extends URLMSController {
 	
 	/**
 	 * Get lab funding accounts
-	 * @param Request $request 
-	 * @return
-	 * ['status': true if funding accounts were retrieved,
-	 * 'message': response message,
-	 * 'fundings': (success) funding accounts]
+	 * 
+	 * @param Request $request
+	 * @return ['status': true if funding accounts were retrieved,
+	 *         'message': response message,
+	 *         'fundings': (success) funding accounts]
 	 */
 	public function getFundingAccounts(Request $request) {
 		$this->updateCurrent ( $request );
@@ -1020,12 +1020,12 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Add funding account
-	 * @param Request $request 
-	 * ['accountNumber': account number,
-	 * 'funds': funds of funding account]
-	 * @return
-	 * ['status': true if funding account was added,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 *        	['accountNumber': account number,
+	 *        	'funds': funds of funding account]
+	 * @return ['status': true if funding account was added,
+	 *         'message': response message]
 	 */
 	public function addFundingAccount(Request $request) {
 		$this->updateCurrent ( $request );
@@ -1064,12 +1064,12 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Modify funding account
-	 * @param Request $request 
-	 * ['accountNumber': account number of funding account to modify,
-	 * 'funds': new funds]
-	 * @return
-	 * ['status': true if funding account was modified,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 *        	['accountNumber': account number of funding account to modify,
+	 *        	'funds': new funds]
+	 * @return ['status': true if funding account was modified,
+	 *         'message': response message]
 	 */
 	public function modifyFundingAccount(Request $request) {
 		$this->updateCurrent ( $request );
@@ -1106,11 +1106,11 @@ class MainController extends URLMSController {
 	}
 	/**
 	 * Remove funding account
+	 * 
 	 * @param Request $request
-	 * ['accountNumber': account number of funding account to remove] 
-	 * @return
-	 * ['status': true if funding account was removed,
-	 * 'message': response message]
+	 *        	['accountNumber': account number of funding account to remove]
+	 * @return ['status': true if funding account was removed,
+	 *         'message': response message]
 	 */
 	public function removeFundingAccount(Request $request) {
 		$this->updateCurrent ( $request );

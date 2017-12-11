@@ -11,20 +11,20 @@ use Exception;
 class AuthenticationController extends URLMSController {
 	/**
 	 * Login as staff or director
-	 * @param Request $request 
-	 * ['email': login email, 
-	 * 'password': password]
-	 * @return
-	 * ['status': either login succeeded or not]
+	 * 
+	 * @param Request $request
+	 *        	['email': login email,
+	 *        	'password': password]
+	 * @return ['status': either login succeeded or not]
 	 */
 	public function login(Request $request) {
 		$this->updateCurrent ( $request );
-		$email = $this->cleanString($request->input ( 'email' ));
+		$email = $this->cleanString ( $request->input ( 'email' ) );
 		$password = $request->input ( 'password' );
 		
 		$labs = $this->urlms->getLaboratories ();
 		
-		//Check all directors
+		// Check all directors
 		foreach ( $this->urlms->getDirectors () as $dir ) {
 			if ($dir->getEmail () == $email && $dir->getPassword () == $password) {
 				$this->currentUser = $dir;
@@ -39,15 +39,15 @@ class AuthenticationController extends URLMSController {
 			}
 		}
 		
-		//Check in all labs
+		// Check in all labs
 		if ($this->urlms->numberOfLaboratories () != 0) {
 			foreach ( $labs as $lab ) {
-				//and each staff
+				// and each staff
 				foreach ( $lab->getStaffs () as $staff ) {
 					if ($staff->getEmail () == $email && $staff->getPassword () == $password) {
 						$this->currentUser = $staff;
 						
-						//Set last login for staff
+						// Set last login for staff
 						date_default_timezone_set ( 'America/New_York' );
 						$staff->setLastLogin ( date ( 'm/d/Y - h:ia' ) );
 						PersistenceController::saveModel ( $this->urlms );
@@ -70,19 +70,19 @@ class AuthenticationController extends URLMSController {
 	}
 	/**
 	 * Register a director account
-	 * @param Request $request 
-	 * ['name': name of the director
-	 * 'email': email of registration]
-	 * 'password': password
-	 * @return
-	 * ['status': either registration succeeded or not,
-	 * 'message': response message (for error),
-	 * 'name': (success) name of registered user]
+	 * 
+	 * @param Request $request
+	 *        	['name': name of the director
+	 *        	'email': email of registration]
+	 *        	'password': password
+	 * @return ['status': either registration succeeded or not,
+	 *         'message': response message (for error),
+	 *         'name': (success) name of registered user]
 	 */
 	public function register(Request $request) {
 		$this->updateCurrent ( $request );
-		$name = $this->cleanString($request->input ( 'name' ));
-		$email = $this->cleanString($request->input ( 'email' ));
+		$name = $this->cleanString ( $request->input ( 'name' ) );
+		$email = $this->cleanString ( $request->input ( 'email' ) );
 		$password = $request->input ( 'password' );
 		
 		if ($name == null || $name == '' || $email == null || $email == '' || $password == null || $password == '') {
@@ -122,14 +122,21 @@ class AuthenticationController extends URLMSController {
 	}
 	/**
 	 * Logout from system
-	 * @param Request $request 
+	 * 
+	 * @param Request $request
 	 * @return ['status': true if logout succeeded]
 	 */
 	public function logout(Request $request) {
 		$this->updateCurrent ( $request );
-		PersistenceController::saveModel($this->urlms);
-        $request->session()->forget(['logged-in', 'email', 'labName', 'director']);
-        
-        return response()->json(['status' => true]);
+		PersistenceController::saveModel ( $this->urlms );
+		$request->session ()->forget ( [ 
+				'logged-in',
+				'email',
+				'labName',
+				'director' 
+		] );
+		
+		return response ()->json ( [ 
+				'status' => true]);
     }
 }

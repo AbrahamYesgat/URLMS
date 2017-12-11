@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\URLMS;
 
-use Illuminate\Http\Request;;
+use Illuminate\Http\Request;
+
+;
 use App\Http\Controllers\URLMS\Model\Director;
 use App\Http\Controllers\URLMS\Model\Staff;
 use App\Http\Controllers\URLMS\Model\StaffRole;
@@ -13,14 +15,14 @@ use App\Http\Controllers\URLMS\Model\StaffRole;
 class ProfileInfoController extends URLMSController {
 	/**
 	 * Get current connected user
-	 * @param Request $request 
-	 * @return
-	 * ['status': either response is valid,
-	 * 'message': response message,
-	 * 'director': (success) if logged in user is director,
-	 * 'name' : (success) name of logged in user,
-	 * 'email' : (success) email of logged in user,
-	 * 'role' : (success) role of Staff (null for director)]
+	 * 
+	 * @param Request $request
+	 * @return ['status': either response is valid,
+	 *         'message': response message,
+	 *         'director': (success) if logged in user is director,
+	 *         'name' : (success) name of logged in user,
+	 *         'email' : (success) email of logged in user,
+	 *         'role' : (success) role of Staff (null for director)]
 	 */
 	public function getCurrentUser(Request $request) {
 		$this->updateCurrent ( $request );
@@ -58,12 +60,12 @@ class ProfileInfoController extends URLMSController {
 	}
 	/**
 	 * Update profile password (checks if previous password is good)
-	 * @param Request $request 
-	 * ['previousPassword': previous password,
-	 * 'newPassword': password to update to]
-	 * @return
-	 * ['status': if password was successfully updated or not,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 *        	['previousPassword': previous password,
+	 *        	'newPassword': password to update to]
+	 * @return ['status': if password was successfully updated or not,
+	 *         'message': response message]
 	 */
 	public function updatePassword(Request $request) {
 		$this->updateCurrent ( $request );
@@ -94,12 +96,12 @@ class ProfileInfoController extends URLMSController {
 	}
 	/**
 	 * Update profile with given info
-	 * @param Request $request 
-	 * ['name': new name,
-	 * 'email': new email]
-	 * @return 
-	 * ['status': either profile was successfully updated or not,
-	 * 'message': response message]
+	 * 
+	 * @param Request $request
+	 *        	['name': new name,
+	 *        	'email': new email]
+	 * @return ['status': either profile was successfully updated or not,
+	 *         'message': response message]
 	 */
 	public function updateProfile(Request $request) {
 		$this->updateCurrent ( $request );
@@ -118,9 +120,9 @@ class ProfileInfoController extends URLMSController {
 		foreach ( $this->urlms->getLaboratories () as $lab ) {
 			foreach ( $lab->getStaffs () as $staff ) {
 				if ($staff->getEmail () == $email) {
-					return response ()->json ( [
+					return response ()->json ( [ 
 							'status' => false,
-							'message' => 'Another user already has this email'
+							'message' => 'Another user already has this email' 
 					] );
 				}
 			}
@@ -128,9 +130,9 @@ class ProfileInfoController extends URLMSController {
 		
 		foreach ( $this->urlms->getDirectors () as $dir ) {
 			if ($dir->getEmail () == $email) {
-				return response ()->json ( [
+				return response ()->json ( [ 
 						'status' => false,
-						'message' => 'Another user already has this email'
+						'message' => 'Another user already has this email' 
 				] );
 			}
 		}
@@ -150,14 +152,14 @@ class ProfileInfoController extends URLMSController {
 	}
 	/**
 	 * Get current lab
-	 * @param Request $request 
-	 * @return
-	 * ['status': if theres a lab or not,
-	 * 'message': response message,
-	 * 'name': (success) name of the lab,
-	 * 'field': (success) field of the lab,
-	 * 'date': (success) start date of the lab,
-	 * 'active': (success) if lab is 'Active' or 'Unactive']
+	 * 
+	 * @param Request $request
+	 * @return ['status': if theres a lab or not,
+	 *         'message': response message,
+	 *         'name': (success) name of the lab,
+	 *         'field': (success) field of the lab,
+	 *         'date': (success) start date of the lab,
+	 *         'active': (success) if lab is 'Active' or 'Unactive']
 	 */
 	public function getCurrentLab(Request $request) {
 		$this->updateCurrent ( $request );
@@ -170,6 +172,7 @@ class ProfileInfoController extends URLMSController {
 		
 		return response ()->json ( [ 
 				'status' => true,
-				'name' => $this->currentLab->getName(), 'field' => $this->currentLab->getFieldOfStudy(), 'date' => $this->currentLab->getStartDate(), 'active' => $this->currentLab->getActive()]);
+				'name' => $this->currentLab->getName (),
+				'field' => $this->currentLab->getFieldOfStudy(), 'date' => $this->currentLab->getStartDate(), 'active' => $this->currentLab->getActive()]);
     }
 }
