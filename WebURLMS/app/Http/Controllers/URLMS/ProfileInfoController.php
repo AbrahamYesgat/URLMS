@@ -7,7 +7,21 @@ use App\Http\Controllers\URLMS\Model\Director;
 use App\Http\Controllers\URLMS\Model\Staff;
 use App\Http\Controllers\URLMS\Model\StaffRole;
 
+/**
+ * Manages user interaction and current session status
+ */
 class ProfileInfoController extends URLMSController {
+	/**
+	 * Get current connected user
+	 * @param Request $request 
+	 * @return
+	 * ['status': either response is valid,
+	 * 'message': response message,
+	 * 'director': (success) if logged in user is director,
+	 * 'name' : (success) name of logged in user,
+	 * 'email' : (success) email of logged in user,
+	 * 'role' : (success) role of Staff (null for director)]
+	 */
 	public function getCurrentUser(Request $request) {
 		$this->updateCurrent ( $request );
 		
@@ -42,6 +56,15 @@ class ProfileInfoController extends URLMSController {
 				'message' => 'Unknown error' 
 		] );
 	}
+	/**
+	 * Update profile password (checks if previous password is good)
+	 * @param Request $request 
+	 * ['previousPassword': previous password,
+	 * 'newPassword': password to update to]
+	 * @return
+	 * ['status': if password was successfully updated or not,
+	 * 'message': response message]
+	 */
 	public function updatePassword(Request $request) {
 		$this->updateCurrent ( $request );
 		
@@ -69,6 +92,15 @@ class ProfileInfoController extends URLMSController {
 				'message' => 'Bad previous password' 
 		] );
 	}
+	/**
+	 * Update profile with given info
+	 * @param Request $request 
+	 * ['name': new name,
+	 * 'email': new email]
+	 * @return 
+	 * ['status': either profile was successfully updated or not,
+	 * 'message': response message]
+	 */
 	public function updateProfile(Request $request) {
 		$this->updateCurrent ( $request );
 		
@@ -80,7 +112,6 @@ class ProfileInfoController extends URLMSController {
 		
 		$name = $request->input ( 'name' );
 		$email = $request->input ( 'email' );
-		$role = $request->input ( 'role' );
 		
 		$this->currentUser->setName ( $name );
 		
@@ -106,10 +137,6 @@ class ProfileInfoController extends URLMSController {
 		
 		$this->currentUser->setEmail ( $email );
 		
-		if ($this->isUserStaff ()) {
-			$this->currentUser->setStaffRole ( ($role == 0) ? StaffRole::ResearchAssistant : StaffRole::ResearchAssociate );
-		}
-		
 		PersistenceController::saveModel ( $this->urlms );
 		return response ()->json ( [ 
 				'status' => true,
@@ -121,6 +148,17 @@ class ProfileInfoController extends URLMSController {
 				'message' => 'Could not update profile' 
 		] );
 	}
+	/**
+	 * Get current lab
+	 * @param Request $request 
+	 * @return
+	 * ['status': if theres a lab or not,
+	 * 'message': response message,
+	 * 'name': (success) name of the lab,
+	 * 'field': (success) field of the lab,
+	 * 'date': (success) start date of the lab,
+	 * 'active': (success) if lab is 'Active' or 'Unactive']
+	 */
 	public function getCurrentLab(Request $request) {
 		$this->updateCurrent ( $request );
 		
