@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\URLMS\Model\Director;
 use App\Http\Controllers\URLMS\Model\Staff;
 
+/**
+ * Base class for App Controller
+ */
 class URLMSController extends Controller {
 	protected $urlms = null;
 	protected $currentUser = null;
@@ -14,6 +17,10 @@ class URLMSController extends Controller {
 	public function __construct() {
 		$this->urlms = PersistenceController::loadModel ();
 	}
+	/**
+	 * Returns if current user is director or not
+	 * @return boolean true if director, false otherwise
+	 */
 	protected function isUserDirector() {
 		if ($this->currentUser != null) {
 			if ($this->currentUser instanceof Director)
@@ -22,6 +29,10 @@ class URLMSController extends Controller {
 		
 		return false;
 	}
+	/**
+	 * Returns if current user is staff or not
+	 * @return boolean true if staff, false otherwise
+	 */
 	protected function isUserStaff() {
 		if ($this->currentUser != null) {
 			if ($this->currentUser instanceof Staff)
@@ -30,12 +41,20 @@ class URLMSController extends Controller {
 		
 		return false;
 	}
+	/**
+	 * Returns if current user is null (i.e., no current user)
+	 * @return boolean true if current user is null, false otherwise
+	 */
 	protected function isUserNull() {
 		if ($this->currentUser == null)
 			return true;
 		
 		return false;
 	}
+	/**
+	 * Returns if current lab is null (i.e., no current lab)
+	 * @return boolean true if current lab is null, false otherwise
+	 */
 	protected function isLabNull() {
 		if ($this->currentLab == null) {
 			return true;
@@ -43,6 +62,10 @@ class URLMSController extends Controller {
 		
 		return false;
 	}
+	/**
+	 * Loads values from session variables and update variables accordingly
+	 * @param Request $request 
+	 */
 	protected function updateCurrent(Request $request) {
 		if ($request->session ()->get ( 'logged-in' )) {
 			foreach ( $this->urlms->getDirectors () as $dir ) {
@@ -71,6 +94,11 @@ class URLMSController extends Controller {
             }
         }
     }
+    /**
+     * "Clean" strings to protect from potential XSS attacks by escaping html characters with quotes
+     * @param String $s Input string
+     * @return String Sanitized string
+     */
     protected function cleanString($s) {
     		return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
     }
