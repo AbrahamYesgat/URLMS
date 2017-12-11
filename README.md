@@ -55,6 +55,6 @@ HOW TO RUN ANDROID APPLICATION
 
 3. Place the apk file in the skd/platform-tools sub-folder of where the emulator was installed (ex: ~/Library/Android/sdk/platform-tools/ was where mine was located).
 
-4. Open command line and enter the following command ```$ ./adb install "URLMS.apk" ``` on MAC or ```$ adb install "URLMS.apk"``` on Windows. (success message should appear on completion)
+4. Open command line and enter the following command ```$ ./adb install "URLMS.apk" ``` on Mac or ```$ adb install "URLMS.apk"``` on Windows. (success message should appear on completion)
 
-5. The app should appear the application menu of the emulator. 
+The app should appear the application menu of the emulator. 
