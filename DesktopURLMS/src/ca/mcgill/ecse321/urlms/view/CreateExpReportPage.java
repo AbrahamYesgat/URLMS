@@ -174,8 +174,12 @@ public class CreateExpReportPage extends JFrame{
 	    setLocationRelativeTo(null);
 	    
 	    btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+	    	public void actionPerformed(ActionEvent e) {
+				if(urlmsCont.getActiveUser() instanceof Director){
+					new DirectorLabPage(urlms, currentLab, urlmsCont).setVisible(true);
+				}
+				else
+					new StaffLabPage(urlms, currentLab, urlmsCont).setVisible(true);
 				setVisible(false);
 			}
 		});

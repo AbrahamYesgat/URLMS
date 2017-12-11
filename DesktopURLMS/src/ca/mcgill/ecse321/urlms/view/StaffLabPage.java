@@ -119,6 +119,10 @@ public class StaffLabPage extends JFrame{
 	    JButton btnCreateReport = new JButton("Create Progress Report");
 	    btnCreateReport.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 	    btnCreateReport.setBackground(new Color(0, 191, 255));
+	    
+	    JButton btnAddExp = new JButton("Add Expense");
+	    btnAddExp.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+	    btnAddExp.setBackground(new Color(0, 191, 255));
 
 		// Layout
 	    GroupLayout layout = new GroupLayout(getContentPane());
@@ -127,28 +131,32 @@ public class StaffLabPage extends JFrame{
 	    		.addGroup(layout.createSequentialGroup()
 	    			.addContainerGap()
 	    			.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
-	    			.addPreferredGap(ComponentPlacement.RELATED, 427, Short.MAX_VALUE)
+	    			.addPreferredGap(ComponentPlacement.RELATED, 444, Short.MAX_VALUE)
 	    			.addComponent(lgtButn, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
 	    			.addContainerGap())
 	    		.addGroup(layout.createSequentialGroup()
 	    			.addComponent(headerPanel, GroupLayout.PREFERRED_SIZE, 822, GroupLayout.PREFERRED_SIZE)
-	    			.addContainerGap(28, Short.MAX_VALUE))
-	    		.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+	    			.addContainerGap(45, Short.MAX_VALUE))
+	    		.addGroup(layout.createSequentialGroup()
 	    			.addContainerGap()
 	    			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-	    				.addComponent(btnEquipment, GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
 	    				.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
-	    					.addComponent(btnSupplies)
-	    					.addGap(41)))
-	    			.addGap(53)
+	    					.addGap(49)
+	    					.addComponent(btnCreateReport, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE))
+	    				.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+	    					.addGap(49)
+	    					.addComponent(btnSupplies))
+	    				.addComponent(btnEquipment, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
 	    			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-	    				.addComponent(btnUpdateProf)
-	    				.addComponent(btnProgReport))
-	    			.addGap(93))
-	    		.addGroup(layout.createSequentialGroup()
-	    			.addGap(266)
-	    			.addComponent(btnCreateReport, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE)
-	    			.addContainerGap(300, Short.MAX_VALUE))
+	    				.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+	    					.addPreferredGap(ComponentPlacement.RELATED)
+	    					.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+	    						.addComponent(btnUpdateProf)
+	    						.addComponent(btnProgReport)))
+	    				.addGroup(layout.createSequentialGroup()
+	    					.addGap(107)
+	    					.addComponent(btnAddExp, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE)))
+	    			.addGap(109))
 	    );
 	    layout.setVerticalGroup(
 	    	layout.createParallelGroup(Alignment.TRAILING)
@@ -156,15 +164,17 @@ public class StaffLabPage extends JFrame{
 	    			.addComponent(headerPanel, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
 	    			.addGap(51)
 	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-	    				.addComponent(btnSupplies, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-	    				.addComponent(btnProgReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
+	    				.addComponent(btnProgReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    				.addComponent(btnSupplies, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
 	    			.addGap(65)
 	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-	    				.addComponent(btnEquipment, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-	    				.addComponent(btnUpdateProf, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
-	    			.addGap(65)
-	    			.addComponent(btnCreateReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-	    			.addPreferredGap(ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+	    				.addComponent(btnUpdateProf, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    				.addComponent(btnEquipment, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
+	    			.addGap(58)
+	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+	    				.addComponent(btnAddExp, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+	    				.addComponent(btnCreateReport, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
+	    			.addPreferredGap(ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
 	    			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
 	    				.addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
 	    				.addComponent(lgtButn, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
@@ -185,37 +195,30 @@ public class StaffLabPage extends JFrame{
 	
 	    btnEquipment.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		dispose();
 	    		new ManageEquipmentPage(urlms, currentLab, urlmsCont).setVisible(true);
-	    		//setVisible(false);
+	    		dispose();
 	    	}
 	    });
 	
 	    btnSupplies.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		dispose();
 	    		new ManageSupplyPage(urlms, currentLab, urlmsCont).setVisible(true);
-	    		//setVisible(false);
+	    		dispose();
 	    	}
 	    });
 	    
 	    backBtn.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		dispose();
 	    		new LabSelectionPage(urlms,urlmsCont.getActiveUser().getEmail(), urlmsCont).setVisible(true);
+	    		dispose();
 	    	}
 	    });
 	
 	    lgtButn.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    	urlmsCont.logout();
-				dispose();
 				new LoginPage(urlms).setVisible(true);
-				//java.util.Calendar sqlDate = java.util.Calendar.getInstance();
-		      //  java.util.Date utilDate = sqlDate.getTime();
-		       // System.out.println(getDateTime());
-		      //  urlmsCont.getActiveUser().setName(getDateTime());
-		       // System.out.println(urlmsCont.getActiveUser().getName());
+				dispose();
 	    	}
 	    });
 	    
@@ -240,10 +243,15 @@ public class StaffLabPage extends JFrame{
 	    	}
 	    });
 	   
+	   btnAddExp.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent e) {
+				new CreateExpReportPage(urlms, currentLab, urlmsCont).setVisible(true);
+				setVisible(false);
+	    	}
+	    });
+	   
 	    pack();
 		// makes window appear in center of screen
 		this.setLocationRelativeTo(null);
 	}
-	
-
 }
