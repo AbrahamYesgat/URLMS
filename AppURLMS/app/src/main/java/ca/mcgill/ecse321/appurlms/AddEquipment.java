@@ -38,11 +38,11 @@ public class AddEquipment extends AppCompatActivity {
         EditText tv2 = (EditText) findViewById(R.id.equipment_quantity);
 
         //Checks for empty name field.
-        if(TextUtils.isEmpty(tv1.getText().toString())) {
+        if(TextUtils.isEmpty(tv1.getText().toString().trim())) {
             addEquipMessage.setText("Missing info to add the equipment!");
         }
         //If the quantity is not specified then it sets it to 0.
-        else if(TextUtils.isEmpty(tv2.getText().toString())){
+        else if(TextUtils.isEmpty(tv2.getText().toString().trim())){
             String name = tv1.getText().toString();
             boolean isValid = cont.createEquipment(name, 0);
             if(isValid) {

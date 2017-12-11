@@ -32,6 +32,9 @@ public class EditLab extends AppCompatActivity {
         //Sets the name field to the current name of the lab.
         labName = (EditText) findViewById(R.id.lab_name);
         labName.setText(cont.getActiveLaboratory().getName());
+
+        CheckBox active = (CheckBox) findViewById(R.id.active_checkbox);
+        active.setChecked(cont.getActiveLaboratory().getActive());
     }
 
     /**
@@ -74,7 +77,7 @@ public class EditLab extends AppCompatActivity {
         TextView labMessage = (TextView) findViewById(R.id.modifyLabMessage);
         CheckBox isActive = (CheckBox)findViewById(R.id.active_checkbox);
 
-        if(TextUtils.isEmpty(labName.getText().toString())) {
+        if(TextUtils.isEmpty(labName.getText().toString().trim())) {
             labMessage.setText("Cannot change lab name to specified name!");
         }
         else {

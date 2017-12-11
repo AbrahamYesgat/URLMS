@@ -38,21 +38,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <CheckBox
-                android:id="@+id/role1_box"
+            <RadioGroup
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Research Associate" />
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-            <CheckBox
-                android:id="@+id/role2_box"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Research Assistant" />
+                <RadioButton
+                    android:id="@+id/role2_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Research Assistant" />
+
+                <RadioButton
+                    android:id="@+id/role1_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Research Associate" />
+            </RadioGroup>
+
         </LinearLayout>
 
         <LinearLayout

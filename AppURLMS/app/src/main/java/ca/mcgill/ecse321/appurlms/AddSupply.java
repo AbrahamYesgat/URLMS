@@ -65,11 +65,11 @@ public class AddSupply extends AppCompatActivity {
         EditText tv2 = (EditText) findViewById(R.id.supply_quantity);
 
         //Check for empty name
-        if(TextUtils.isEmpty(tv1.getText().toString())) {
+        if(TextUtils.isEmpty(tv1.getText().toString().trim())) {
             addSupplyMessage.setText("Missing info to add the supplies!");
         }
         //If quantity is unspecified, set it to 0.
-        else if(TextUtils.isEmpty(tv2.getText().toString())){
+        else if(TextUtils.isEmpty(tv2.getText().toString().trim())){
             String name = tv1.getText().toString();
             boolean isValid = cont.createSupplies(name, 0);
             if(isValid) {

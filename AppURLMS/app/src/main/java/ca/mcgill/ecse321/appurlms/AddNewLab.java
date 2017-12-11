@@ -52,6 +52,7 @@ public class AddNewLab extends AppCompatActivity {
 
         boolean isValid = cont.addLaboratory(labName.getText().toString(), fieldOfStudy.getText().toString(), new Date(year, month,day));
         if(isValid) {
+            cont.getActiveLaboratory().setActive(state);
             Intent intent = new Intent(AddNewLab.this, LabPage.class);
             startActivity(intent);
             finish();
@@ -95,6 +96,7 @@ public class AddNewLab extends AppCompatActivity {
         }
     }
 
+    boolean state;
     /**
      * Action listener for the add date button.
      * Once the fields of the first page are set up, it changes the page ot the calender picker
@@ -105,9 +107,11 @@ public class AddNewLab extends AppCompatActivity {
         TextView addLabMessage = (TextView) findViewById(R.id.addLabMessage);
         labName = (EditText) findViewById(R.id.lab_name);
         fieldOfStudy = (EditText) findViewById(R.id.field_of_study);
+        CheckBox status = (CheckBox) findViewById(R.id.active_box);
+        state = status.isChecked();
 
         //Checks for empty fields.
-        if(TextUtils.isEmpty(labName.getText().toString()) || TextUtils.isEmpty(fieldOfStudy.getText().toString())) {
+        if(TextUtils.isEmpty(labName.getText().toString().trim()) || TextUtils.isEmpty(fieldOfStudy.getText().toString().trim())) {
             addLabMessage.setText("Missing info to create laboratory!");
         }
         else {

@@ -76,10 +76,13 @@ public class MainActivity extends AppCompatActivity {
         EditText tv4 = (EditText) findViewById(R.id.dir_password);
         EditText tv5 = (EditText) findViewById(R.id.user_name);
 
-        if(TextUtils.isEmpty(tv3.getText().toString()) || TextUtils.isEmpty(tv4.getText().toString())
-                || TextUtils.isEmpty(tv5.getText().toString()))
+        if(TextUtils.isEmpty(tv3.getText().toString().trim()) || TextUtils.isEmpty(tv4.getText().toString().trim())
+                || TextUtils.isEmpty(tv5.getText().toString().trim()))
         {
             signUpMessage.setText("Missing info to create user!");
+        }
+        else if (!(android.util.Patterns.EMAIL_ADDRESS.matcher(tv3.getText().toString()).matches())) {
+            signUpMessage.setText("Must enter a valid email to sign up!");
         }
         else {
             boolean valid = cont.createDirector(tv3.getText().toString(), tv4.getText().toString(), tv5.getText().toString());
