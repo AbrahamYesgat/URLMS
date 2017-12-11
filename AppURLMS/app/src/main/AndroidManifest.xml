@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -20,8 +20,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddNewLab" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".AddStaffActivity" />
         <activity android:name=".HomePage" />
         <activity android:name=".AddStaff" />
         <activity android:name=".LabPage" />
