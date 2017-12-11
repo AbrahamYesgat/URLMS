@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import ca.mcgill.ecse321.urlms.model.Staff;
@@ -51,8 +52,8 @@ public class AddStaff extends AppCompatActivity {
         tv1 = (EditText) findViewById(R.id.staff_email);
         EditText tv2 = (EditText) findViewById(R.id.staff_password);
         EditText tv3 = (EditText) findViewById(R.id.staff_name);
-        CheckBox researchAssistant = (CheckBox)findViewById(R.id.role2_box);
-        CheckBox researchAssociate = (CheckBox)findViewById(R.id.role1_box);
+        RadioButton researchAssistant = (RadioButton)findViewById(R.id.role2_box);
+        RadioButton researchAssociate = (RadioButton)findViewById(R.id.role1_box);
         boolean isValid;
 
         //Check for empty strings.
@@ -61,6 +62,9 @@ public class AddStaff extends AppCompatActivity {
                 && !(researchAssociate.isChecked())))
         {
             addStaffMessage.setText("Missing info to create user!");
+        }
+        else if (!(android.util.Patterns.EMAIL_ADDRESS.matcher(tv1.getText().toString()).matches())) {
+            addStaffMessage.setText("Must enter a valid email to sign up!");
         }
         else {
             //Research assistant is checked.
@@ -134,8 +138,8 @@ public class AddStaff extends AppCompatActivity {
         tv1 = (EditText) findViewById(R.id.staff_email);
         EditText tv2 = (EditText) findViewById(R.id.staff_password);
         EditText tv3 = (EditText) findViewById(R.id.staff_name);
-        CheckBox researchAssistant = (CheckBox) findViewById(R.id.role2_box);
-        CheckBox researchAssociate = (CheckBox) findViewById(R.id.role1_box);
+        RadioButton researchAssistant = (RadioButton) findViewById(R.id.role2_box);
+        RadioButton researchAssociate = (RadioButton) findViewById(R.id.role1_box);
         tv1.setText("");
         tv2.setText("");
         tv3.setText("");

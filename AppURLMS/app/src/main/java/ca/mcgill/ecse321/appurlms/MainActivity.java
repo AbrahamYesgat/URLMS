@@ -81,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
         {
             signUpMessage.setText("Missing info to create user!");
         }
+        else if (!(android.util.Patterns.EMAIL_ADDRESS.matcher(tv3.getText().toString()).matches())) {
+            signUpMessage.setText("Must enter a valid email to sign up!");
+        }
         else {
             boolean valid = cont.createDirector(tv3.getText().toString(), tv4.getText().toString(), tv5.getText().toString());
             if(valid) {

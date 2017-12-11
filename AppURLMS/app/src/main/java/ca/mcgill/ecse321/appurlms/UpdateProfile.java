@@ -60,6 +60,9 @@ public class UpdateProfile extends AppCompatActivity {
         {
             updateProfileMessage.setText("Missing info to update user!");
         }
+        else if (!(android.util.Patterns.EMAIL_ADDRESS.matcher(tv1.getText().toString()).matches())) {
+            updateProfileMessage.setText("Must enter a valid email to sign up!");
+        }
         else{
             boolean isValid = cont.updateProfile(tv1.getText().toString(), tv2.getText().toString(), tv3.getText().toString());
             if(isValid) {

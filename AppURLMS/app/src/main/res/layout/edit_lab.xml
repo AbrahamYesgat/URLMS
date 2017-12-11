@@ -25,7 +25,6 @@
             android:id="@+id/active_checkbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
             android:text="Active Lab" />
 
         <LinearLayout
