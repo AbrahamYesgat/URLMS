@@ -38,11 +38,11 @@ public class AddFundingAccount extends AppCompatActivity {
         EditText tv2 = (EditText) findViewById(R.id.account_balance);
 
         //Checks if the account number field is empty.
-        if(TextUtils.isEmpty(tv1.getText().toString())) {
+        if(TextUtils.isEmpty(tv1.getText().toString().trim())) {
             addAccountMessage.setText("Missing info to add the account!");
         }
         //If funds are not specified then it sets it to 0.
-        else if(TextUtils.isEmpty(tv2.getText().toString())){
+        else if(TextUtils.isEmpty(tv2.getText().toString().trim())){
             String id = tv1.getText().toString();
             boolean isValid = cont.createFundingAccount(0,Integer.parseInt(id));
             if(isValid) {

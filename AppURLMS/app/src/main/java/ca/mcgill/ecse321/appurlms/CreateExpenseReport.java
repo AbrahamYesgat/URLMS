@@ -45,7 +45,7 @@ public class CreateExpenseReport extends AppCompatActivity {
         String value = amount.getText().toString();
 
         //Checks if the fields are empty.
-        if(!(TextUtils.isEmpty(expenseReport.getText().toString()) || TextUtils.isEmpty(amount.getText().toString()))) {
+        if(!(TextUtils.isEmpty(expenseReport.getText().toString().trim()) || TextUtils.isEmpty(amount.getText().toString().trim()))) {
             boolean isValid = cont.createExpenseReport(report, Double.parseDouble(value), day, month, year);
             if(isValid) {
                 Intent intent = new Intent(CreateExpenseReport.this, ViewExpenseReport.class);

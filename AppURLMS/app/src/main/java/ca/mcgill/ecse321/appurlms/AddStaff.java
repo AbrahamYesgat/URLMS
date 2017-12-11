@@ -57,8 +57,8 @@ public class AddStaff extends AppCompatActivity {
         boolean isValid;
 
         //Check for empty strings.
-        if(TextUtils.isEmpty(tv1.getText().toString()) || TextUtils.isEmpty(tv2.getText().toString())
-                || TextUtils.isEmpty(tv3.getText().toString()) || (!(researchAssistant.isChecked())
+        if(TextUtils.isEmpty(tv1.getText().toString().trim()) || TextUtils.isEmpty(tv2.getText().toString().trim())
+                || TextUtils.isEmpty(tv3.getText().toString().trim()) || (!(researchAssistant.isChecked())
                 && !(researchAssociate.isChecked())))
         {
             addStaffMessage.setText("Missing info to create user!");

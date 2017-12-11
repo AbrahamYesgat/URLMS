@@ -111,7 +111,7 @@ public class AddNewLab extends AppCompatActivity {
         state = status.isChecked();
 
         //Checks for empty fields.
-        if(TextUtils.isEmpty(labName.getText().toString()) || TextUtils.isEmpty(fieldOfStudy.getText().toString())) {
+        if(TextUtils.isEmpty(labName.getText().toString().trim()) || TextUtils.isEmpty(fieldOfStudy.getText().toString().trim())) {
             addLabMessage.setText("Missing info to create laboratory!");
         }
         else {

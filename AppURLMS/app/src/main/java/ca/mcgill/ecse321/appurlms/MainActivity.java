@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
         EditText tv4 = (EditText) findViewById(R.id.dir_password);
         EditText tv5 = (EditText) findViewById(R.id.user_name);
 
-        if(TextUtils.isEmpty(tv3.getText().toString()) || TextUtils.isEmpty(tv4.getText().toString())
-                || TextUtils.isEmpty(tv5.getText().toString()))
+        if(TextUtils.isEmpty(tv3.getText().toString().trim()) || TextUtils.isEmpty(tv4.getText().toString().trim())
+                || TextUtils.isEmpty(tv5.getText().toString().trim()))
         {
             signUpMessage.setText("Missing info to create user!");
         }

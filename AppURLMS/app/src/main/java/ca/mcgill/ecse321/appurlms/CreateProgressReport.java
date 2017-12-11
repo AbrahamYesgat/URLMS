@@ -43,7 +43,7 @@ public class CreateProgressReport extends AppCompatActivity {
         TextView reportMessage = (TextView) findViewById(R.id.createReportMessage);
 
         //Checks for empty fields.
-        if(TextUtils.isEmpty(reportTitle.getText().toString()) || TextUtils.isEmpty(reportText.getText().toString())) {
+        if(TextUtils.isEmpty(reportTitle.getText().toString().trim()) || TextUtils.isEmpty(reportText.getText().toString().trim())) {
             reportMessage.setText("Missing info to create the progress report!");
         }
         else {

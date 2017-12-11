@@ -55,8 +55,8 @@ public class UpdateProfile extends AppCompatActivity {
         TextView updateProfileMessage = (TextView) findViewById(R.id.updateProfileMessage);
 
         //Checks for empty fields
-        if(TextUtils.isEmpty(tv1.getText().toString()) || TextUtils.isEmpty(tv2.getText().toString())
-                || TextUtils.isEmpty(tv3.getText().toString()))
+        if(TextUtils.isEmpty(tv1.getText().toString().trim()) || TextUtils.isEmpty(tv2.getText().toString().trim())
+                || TextUtils.isEmpty(tv3.getText().toString().trim()))
         {
             updateProfileMessage.setText("Missing info to update user!");
         }
