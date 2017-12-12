@@ -49,7 +49,7 @@
           <name>Alex</name>
           <currentlyAssigned>true</currentlyAssigned>
           <staffRole>ResearchAssociate</staffRole>
-          <lastLogin>11/12/2017 17:36</lastLogin>
+          <lastLogin>11/12/2017 22:52</lastLogin>
           <laboratories id="15">
             <lab reference="3"/>
           </laboratories>
@@ -68,17 +68,33 @@
               <laboratory reference="3"/>
               <staff reference="14"/>
             </progress>
+            <progress id="19">
+              <title>LabCool 2017-12-11</title>
+              <report>This is the progress report from day 17: all is well.</report>
+              <id>1</id>
+              <laboratory reference="3"/>
+              <staff reference="14"/>
+            </progress>
+            <progress id="20">
+              <title>Hello50 2017-12-11</title>
+              <report>suuuuup</report>
+              <id>2</id>
+              <laboratory reference="3"/>
+              <staff reference="14"/>
+            </progress>
           </progressUpdates>
         </staff>
       </staffs>
-      <progressUpdates id="19">
+      <progressUpdates id="21">
         <progress reference="17"/>
         <progress reference="18"/>
+        <progress reference="19"/>
+        <progress reference="20"/>
       </progressUpdates>
-      <fundingAccounts id="20"/>
+      <fundingAccounts id="22"/>
     </lab>
   </laboratories>
-  <directors id="21">
+  <directors id="23">
     <director reference="10"/>
   </directors>
 </ca.mcgill.ecse321.urlms.model.URLMS>

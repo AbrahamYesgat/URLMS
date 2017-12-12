@@ -267,7 +267,7 @@ public class DirectorLabPage extends JFrame{
 	    
 	    btnProgReport.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent e) {
-				new SelectProgressRepPage(urlms, currentLab, urlmsCont).setVisible(true);
+				new ProgressReportPage(urlms, currentLab, urlmsCont).setVisible(true);
 				setVisible(false);
 	    	}
 	    });
