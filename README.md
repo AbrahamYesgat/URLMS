@@ -65,7 +65,9 @@ HOW TO RUN DESKTOP APPLICATION
 
 * Have java version 1.8 or later
 
-1. Ensure the "DesktopAppURLMS.jar" file is in the same directory as the "output" folder for it to be runnable.
-(By default, we have set up the repo this way. Thus, please leave it as is if possible)
+1. Create a directory called "output" within the directory "~/P1/DesktoURLMS" (this is where xml files will be saved for persistence).
 
-2. Simply double click on the executable jar file and application should pop up.
+2. Ensure the "DesktopAppURLMS.jar" file is in the same directory as this "output" folder for it to be runnable.
+(By default, we have placed the jar file in correct directory. So long as output folder added to correct path, jar shall be execteable. Thus, please leave it as is if possible)
+
+3. Simply double click on the executable jar file and application should pop up.
