@@ -58,3 +58,11 @@ HOW TO RUN ANDROID APPLICATION
 4. Open command line and enter the following command ```$ ./adb install "URLMS.apk" ``` on Mac or ```$ adb install "URLMS.apk"``` on Windows. (success message should appear on completion)
 
 The app should appear the application menu of the emulator. 
+
+----------------------------------
+HOW TO RUN DESKTOP APPLICATION
+----------------------------------
+
+* Have java version 1.8 or later
+
+1. Simply double click on the executable jar file and application should pop up.
